@@ -1,0 +1,88 @@
+% preambolo per doppia compilazione HTML/PDF
+\ifx\pdfoutput\undefined      % compilazione htlatex
+\documentclass{article}
+\DeclareGraphicsExtensions{.png, .gif, .jpg}
+\newcommand{\href}[2]{\Link[#1]{}{} #2 \EndLink}
+\newcommand{\hypertarget}[2]{\Link[]{}{#1} #2 \EndLink}
+\newcommand{\hyperlink}[2]{\Link[]{#1}{} #2 \EndLink}
+\else                         % compilazione pdflatex
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{lscape}
+\usepackage{slashed}
+\usepackage{color}
+\usepackage{amssymb,amsmath}
+\pdfpagewidth 8.5in
+\pdfpageheight 11in
+\setlength\textwidth{5.7in}
+\setlength\textheight{8.1in}
+\setlength\oddsidemargin{0in}
+\setlength\evensidemargin{0in}
+\setlength\topmargin{-0.6in}
+\setlength\footskip{0.6in}
+\setlength\headsep{0.6in}
+\usepackage[hyperindex]{hyperref}
+\newcommand{\percent}{\,^0\!/_0}
+ \hypersetup{
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=true,      % page fit to window when opened
+    pdfauthor={Maurizio},   % author
+    pdfsubject={Ungaro},    % subject of the document
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=black,        % color of internal links
+    citecolor=blue,         % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue           % color of external links
+}
+\fi
+
+
+\begin{document}
+
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{\slshape \thesection\ #1}{}}
+\fancyhead[R]{\bf\rightmark}
+\fancyhead[L]{Radiative Corrections}
+\fancyfoot[R]{ \sl M. Ungaro, K. Joo}
+\fancyfoot[L]{ \sl UCONN/JLAB}
+
+\begin{flushright}
+CLAS-NOTE 2010-06\\
+{\small svn: https://clas12svn.jlab.org/repos/trunk/user/ungaro/analysis/radiative\_correction/models/docs }\\
+Version: 1.0
+\end{flushright}
+
+\vspace{0.6cm}
+
+\begin{center}
+{\Large \bf Meson electro-production Radiative Corrections based on Exclurad} \hfill \\
+\vspace{0.6cm}
+{  M. Ungaro, K. Joo} \hfill
+\end{center}
+\vspace{0.6cm}
+
+\abstract{Meson production calculations of radiative corrections using {\it exclurad},
+a theoretical framework developed at Jefferson Lab, are described. The missing mass cut
+used in the calculations is discussed. }
+
+\tableofcontents
+
+\include{clas_note_radcorr}
+\include{e16_radcorr_bib}
+
+\end{document}
+
+
+
+
+
+
+
+

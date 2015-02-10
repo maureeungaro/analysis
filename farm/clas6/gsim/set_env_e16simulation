@@ -1,0 +1,12 @@
+#!/bin/csh -f
+# enviroment variables for e16
+# to use with source
+
+source /site/common_environment/set_environment /home/ungaro/mysettings.dat /site/common_environment/jlab_default_settings.dat clas
+setenv CLAS_CALDB_RUNINDEX calib_user.RunIndexe1_6 
+setenv CLAS_PARMS /home/ungaro/CLAS_PARMS
+setenv CLAS_PACK ~markov/analysis/e1e_2GeV/release4-9
+setenv CLAS_LIB ~markov/lib/LinuxRH8/
+setenv CLAS_CMS $CLAS_PACK/cms
+setenv OS_NAME LinuxRH8
+setenv OS_CLAS LinuxRH8

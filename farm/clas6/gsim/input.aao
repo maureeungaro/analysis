@@ -1,0 +1,19 @@
+5                ! Physics Model (1=AO,4=MAID98,5=MAID2000)
+0                ! 1 for polarized electron, 0 for unpolarized electron
+.20 .12 .20 .20  ! the sizes of the integration regions
+4                ! 2 for two charged particles in the bos bank 4 to get the neutral hadron and photon as well
+1                ! 1: pi0 , 3:pi+
+.2               ! a limit on the error in (mm)**2
+5.0              ! target cell length (cm)
+0.775            ! radius of target cyclinder
+0.090            ! x-coord of beam position
+-0.345           ! y-coord of beam position
+-4.0             ! z-coord of beam position
+5.7542           ! beam energy
+2.0 7.0          ! Q2_min, Q2_max
+.5 5             ! scattered electron momentum min and max
+.0008            ! minimum photon energy for integration
+20000            ! number of events
+0.0              ! a multiplication factor for sigr_max
+0.005            ! sigr_max
+

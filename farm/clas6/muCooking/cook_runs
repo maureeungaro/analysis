@@ -1,0 +1,46 @@
+#!/bin/csh -f
+
+# User Information --------------------------
+
+set NMAX    = 450 # Max runs to be submitted
+
+set DATA    = e1-6a
+set PASS    = pass1
+set VERS    = v1
+set RUNI    = calib_user.RunIndexe1_6
+
+set PROJECT = e1-6a
+set MAIL    = ungaro@jlab.org
+set BOS2MU  = /home/ungaro/projects/CLAS_Event/bos2mu
+set COOK    = /home/ungaro/projects/analysis/mu_cooking_scripts/go_COOK
+
+set DIR     = /work/clas/disk3/ungaro/$DATA
+
+set LISTF =  lists/list_$DATA".txt"             # List ofruns
+set LASTF =  lists/last_launched_$DATA          # Contains the last job launched
+
+
+# End of User Information --------------------
+
+if($1 == "restart" ) then
+        rm  $LASTF ; 
+        head -1 $LISTF > $LASTF 
+endif
+
+
+# Start Processing --------------------
+
+set LAST    = (`cat $LASTF`)
+
+@ NMAX -= 1
+foreach r (`grep -A$NMAX $LAST $LISTF`)
+	echo Launching $r
+	./go_run $r $DATA $PASS $VERS $RUNI $PROJECT $MAIL $BOS2MU $COOK $DIR
+	/site/bin/jsub jsub.$DATA
+	#cat jsub.$DATA
+ 
+	set NEW_LAST = (`grep -A1 $r  lists/list_$DATA".txt" | tail -1`)
+	rm  lists/last_launched_$DATA ; echo $NEW_LAST > lists/last_launched_$DATA 
+	echo New last run is $NEW_LAST
+end
+

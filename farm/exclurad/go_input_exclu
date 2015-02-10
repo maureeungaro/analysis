@@ -1,0 +1,54 @@
+#!/bin/csh -f
+
+
+set Q2    = (2.15 2.4 3.0 3.5 4.2 5.00 6.00)
+set WMIN  = 11
+set WMAX  = 99
+set DW    = 2
+@ NW      = $WMAX - $WMIN
+@ NW      = $NW / 2
+@ NW     += 1
+@ NPOINTS = $NW * $#Q2
+
+echo $NPOINTS
+
+set CT  = ($1)
+set PH  = ($2)
+
+set W = $WMIN
+printf "\n"
+while ($W <= $WMAX)
+	foreach q ($Q2)
+		printf "1.%d0 " $W
+	end
+	@ W += 2
+end
+
+set W = $WMIN
+printf "\n"
+while ($W <= $WMAX)
+	foreach q ($Q2)
+		printf "%5.3f " $q
+	end
+	@ W += 2
+end
+
+set W = $WMIN
+printf "\n"
+while ($W <= $WMAX)
+	foreach q ($Q2)
+		printf "%5.3f " $CT
+	end
+	@ W += 2
+end
+
+set W = $WMIN
+printf "\n"
+while ($W <= $WMAX)
+	foreach q ($Q2)
+		printf "%5.2f " $PH
+	end
+	@ W += 2
+end
+
+echo " "

@@ -1,0 +1,44 @@
+#!/bin/csh -f
+
+set DATA = $1
+set PASS = $2
+set VERS = $3
+set RUNI = $4
+
+set PROJECT = $5
+set MAIL    = $6
+set BOS2MU  = $7
+set COOK    = $8
+set DIR     = $9
+
+
+rm -rf list_files ; touch list_files
+foreach f (`cat lists/missing_files_$DATA`)
+	set r    = (`grep $f lists/missing_files_$DATA | awk -F. '{print $1}'`)
+	set exte = (`grep $f lists/missing_files_$DATA | awk -F. '{print $2}'`)
+	echo $r $exte
+	if(`filetest -e /mss/clas/$DATA/production/$PASS/$VERS/data/run_$r"_"$PASS"."$exte".1"` == 1) then
+		echo "INPUT_FILES:"                                                         >> list_files
+		echo /mss/clas/$DATA/production/$PASS/$VERS/data/run_$r"_"$PASS"."$exte".1" >> list_files
+	endif
+end
+
+
+# Creating jsub file
+rm -f jsub.$DATA
+echo JOBNAME:" "$DATA reduction                   > jsub.$DATA
+echo PROJECT:" "$PROJECT                         >> jsub.$DATA
+echo MAIL:"    "$MAIL                            >> jsub.$DATA
+echo OS:"      "linux                            >> jsub.$DATA
+echo TRACK:"   "reconstruction                   >> jsub.$DATA
+echo " "                                         >> jsub.$DATA
+echo OTHER_FILES: $BOS2MU                        >> jsub.$DATA
+echo OTHER_FILES: $COOK                          >> jsub.$DATA
+echo " "                                         >> jsub.$DATA
+echo "COMMAND: ./go_COOK "$DATA $RUNI $PASS $DIR >> jsub.$DATA
+echo " "                                         >> jsub.$DATA
+cat list_files                                   >> jsub.$DATA
+
+# Cleaning up
+rm list_files
+

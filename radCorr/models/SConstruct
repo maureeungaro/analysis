@@ -1,0 +1,14 @@
+from init_env import init_environment
+
+env = init_environment("mu root")
+
+sources1 = Split("""make_histos.cc
+                    rad_histos.cc""")
+
+sources2 = Split("""calc_rad_corr.cc
+                    rad_histos.cc""")
+
+
+env.Program(source = sources1, target = 'make_histos')
+env.Program(source = sources2, target = 'calc_rad_corr')
+

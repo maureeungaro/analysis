@@ -1,0 +1,61 @@
+#!/bin/csh -f
+
+set vcut = $1
+set dir    = (/work/clas/disk1/ungaro/exclurad/)
+set models = (dmt2001 maid2002 maid2003 maid2003woroper maid2007)
+#set models = (said2008)
+
+set cot    = (-0.9 -0.7 -0.5 -0.3 -0.1 0.1 0.3 0.5 0.7 0.9)
+set phi    = ( 7.5 22.5 37.5 52.5 67.5 82.5 97.5 112.5 127.5 142.5 157.5 172.5 187.5 202.5 217.5 232.5 247.5 262.5 277.5 292.5 307.5 322.5 337.5 352.5)
+set phi    = ( 10 30 50 70 90 110 130 150 170 190 210 230 250 270 290 310 330 350)
+
+
+foreach m ($models)
+
+	cd $dir/$vcut/$m
+ 
+	echo 
+	echo 
+	echo $m $m $m $m
+	echo $m $m $m $m
+	echo $m $m $m $m
+	echo 
+	echo 
+ 
+ 	foreach CT ($cot)
+		foreach PH ($phi)
+			set size = 0
+			set size = (`\ls -lrt costh_$CT"_phi_"$PH | grep radcor.dat | awk '{print $5}'`)
+			if( $size == "40950") then
+				if($2 != "quite") then
+					echo cos\(theta\) = $CT "     " phi = $PH "     Size=" $size  "- Good"
+					if($2 == "copy") then
+						# removing everything except radcor.dat and input.dat
+						# the actualy copy will be done with go_sum
+						rm costh_$CT"_phi_"$PH/allu.dat 
+						rm costh_$CT"_phi_"$PH/radasm.dat
+						rm costh_$CT"_phi_"$PH/radsigmi.dat
+						rm costh_$CT"_phi_"$PH/radsigpl.dat
+						rm costh_$CT"_phi_"$PH/radtot.dat
+						rm costh_$CT"_phi_"$PH/maid2000-PPpi.tbl
+						rm costh_$CT"_phi_"$PH/exclurad
+						rm costh_$CT"_phi_"$PH/go_input_exclu
+						rm costh_$CT"_phi_"$PH/go_run_exclurad
+						rm costh_$CT"_phi_"$PH/job.err
+						rm costh_$CT"_phi_"$PH/job.out
+						rm costh_$CT"_phi_"$PH/input.h
+					endif
+				endif
+			else
+				echo cos\(theta\) = $CT "     " phi = $PH "     "- Bad - size = $size
+				if($2 == "remove") then
+					echo removing costh_$CT"_phi_"$PH
+					rm -rf costh_$CT"_phi_"$PH
+				endif
+			endif 
+		end
+	end
+end
+ 
+ 
+ 

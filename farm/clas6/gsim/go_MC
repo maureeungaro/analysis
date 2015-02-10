@@ -1,0 +1,162 @@
+#!/bin/csh
+
+# usage:
+# go_MC workdir type
+# type = "aao_rad" or "elast_gen"
+
+if($1 == "-h" || $1 == ""  || $#argv != 2) then
+	echo " "
+	echo "Usage:   "
+	echo  "  >> go_MC workdir type"
+	echo " "
+	echo  "  example: go_MC disk2 elast_gen"
+	echo " "
+	exit 0
+endif
+
+
+set dir   = $1
+set type  = $2
+set origd = `pwd`
+
+source /u/home/ungaro/projects/analysis/acceptance/gsim/farm/set_env_e16simulation
+
+set NEXIST = `ls $dir/ | wc | awk '{print $1}'`
+@ NMAX = $NEXIST + 10                          
+
+
+# Look for first non existing dir
+set SIMU    = 1                  
+while ($SIMU < $NMAX)            
+
+	if(`filetest -e $dir/simu_$SIMU` == 0) then
+		echo
+		echo Starting Simulation $SIMU
+		echo
+		mkdir -p $dir/simu_$SIMU
+		ls -alp
+
+		#######
+		# AAO #
+		#######
+		if($type == "aao_rad") then
+	
+			cd $origd 
+			mkdir generator
+			cd generator
+			echo
+			echo Starting aao
+			echo
+			mv $origd/input.aao .
+			mv $origd/aao_rad   .
+			./aao_rad < input.aao >& log
+			ls -alp
+			echo aao done.
+			mv aao_rad.evt generated.evt
+		endif
+
+		#############
+		# ELAST_GEN #
+		#############
+		if($type == "elast_gen") then
+
+			cd $origd
+			mkdir generator
+			cd generator
+			echo
+			echo Starting elast_gen
+			echo
+			mv $origd/elas_5.7.inp .
+			mv $origd/elast_gen   .
+			./elast_gen < elas_5.7.inp >& log
+			ls -alp
+			echo elast_gen done.
+			mv elast_gen.evt generated.evt
+		endif
+		
+	
+		########
+		# GSIM #
+		########
+	
+		cd $origd 
+		mkdir gsim
+		cd gsim
+		echo
+		echo Starting gsim
+		echo
+		mv $origd/gsim_simue16.ffread .
+		mv $origd/gsim_bat            .
+		ln -s ../generator/generated.evt .
+		./gsim_bat -R 1 -ffread gsim_simue16.ffread -mcin generated.evt -bosout gsim.bos >& log
+		ls -alp
+		echo gsim done.
+
+	
+		#######
+		# GPP #
+		#######
+		
+		cd $origd 
+		mkdir GPP
+		cd GPP
+		echo
+		echo Starting gpp
+		echo
+		mv $origd/gpp .
+		ln -s ../gsim/gsim.bos.A00 .
+		./gpp -P0x1f -ogpp.bos -R1 -a1.5 -b1.5 -c1.5 -f1.35 -Y gsim.bos.A00 >& log
+		ls -alp
+		echo gpp done.
+  
+  
+		############
+		# USER_ANA #
+		############
+  
+		cd $origd 
+		mkdir recsis
+		cd recsis
+		echo
+		echo Starting user_ana
+		echo
+		mv $origd/user_ana            .
+		mv $origd/recsis_simue16.tcl  .
+		ln -s ../GPP/gpp.bos          .
+		./user_ana -t recsis_simue16.tcl >& log
+		ls -alp
+		echo user_ana done.
+ 	
+	
+		##########
+		# BOS2MU #
+		##########
+		
+		cd $origd 
+		mkdir mu
+		cd mu
+		echo
+		echo Starting bos2mu
+		echo
+		mv $origd/bos2mu              .
+		ln -s ../recsis/recsis.A00  .
+		./bos2mu -RUN_INDEX=$CLAS_CALDB_RUNINDEX -DC_PLANES=1 -INFOS="e16 MonteCarlo Simulation" -OUTPUT=e16mc.mu recsis.A00 >& log
+		ls -alp
+		echo bos2mu done.
+  	
+	
+	
+	
+		# Copying everything to disk
+		
+		cd  $origd
+		cp -r *  $dir/simu_$SIMU
+
+		exit    # exit here to stop at the first non-existin dir
+	endif
+
+	@ SIMU += 1
+
+end
+ 	
+ 

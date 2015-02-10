@@ -1,0 +1,14 @@
+import os
+from util import scanFiles
+env = Environment(ENV=os.environ)
+
+#pdf = env.PDF(target  = 'radcorr.pdf',  source = 'radcorr.tex')
+pdf = env.PDF(target  = 'radcorr_clasnote.pdf',  source = 'radcorr_clasnote.tex')
+#html = env.Command('radcorr.html', 'radcorr.tex', "go_htlatex $SOURCE");
+
+#Depends(html, pdf)
+
+cleans = scanFiles('.', accept=["radcorr*", "*.aux"], reject=[".tex"])
+##rint "to remove: ", cleans;
+
+Clean('radcorr.html', cleans)

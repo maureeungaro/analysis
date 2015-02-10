@@ -1,0 +1,20 @@
+#!/bin/csh -f
+
+echo
+echo This will remove everything... second argument \"yes\" to continue
+echo
+
+set vcut = $1
+if($2 != "yes") then
+	exit
+endif
+
+set dir    = (/work/clas/disk1/ungaro/exclurad/)
+set models = (dmt2001 maid2002 maid2003 maid2003woroper maid2007 said2008)
+
+foreach m ($models)
+	mkdir -p $dir/$vcut/$m
+	cd $dir/$vcut/$m
+	ls -alp
+	rm -rf *
+end

@@ -1,0 +1,61 @@
+#!/bin/csh -f
+
+#./inquire_simulation VERBOSE
+#./inquire_simulation copy
+
+
+set OPT  = $1
+
+set dir  = /work/clas/disk5/ungaro/acceptance/gsim_elastic
+set mdir = /enkil/gsim_e1-6/q2_2.0-7.0/raw
+set mdir = /enkil/gsim_e1-6/elastic/raw
+
+set Nevents = 20000
+
+set N = `ssh mauri "ls $mdir"  | wc | awk '{print $1}'`
+@ N += 1
+
+set SIMU = 1
+ 
+while ($SIMU < 1700)
+	if(`filetest -e  $dir/simu_$SIMU` == "1") then
+		set CORE    = (`ls $dir/simu_$SIMU | grep core | wc | awk '{print $1}'`)
+  
+		if($OPT == "VERBOSE") then 
+                        echo  $dir/simu_$SIMU `tail -1 $dir/simu_$SIMU/job.out`
+		endif
+
+		if($CORE == "1") then
+			echo Core found! Removing dir $dir/simu_$SIMU 
+			rm -rf $dir/simu_$SIMU   
+		endif
+
+   
+		if($OPT == "copy") then 
+			set EXIST = `filetest -e $dir/simu_$SIMU/job.out`
+			if($EXIST == "1") then
+				
+                                set DONE1 = `tail -1 $dir/simu_$SIMU/job.out | grep bos2mu | grep done | wc | awk '{print $1}'`
+				set DONE2 = `grep Total $dir/simu_$SIMU/mu/log | awk -F: '{print $2}'`
+								
+				if( $DONE1 == "1") then
+					if( $DONE2 == "20000") then 
+						echo directory $SIMU is done, copying to mauri to $N and removing it
+						scp $dir/simu_$SIMU/mu/e16mc.mu mauri:$mdir/e16mc_$N.mu
+						@ N += 1
+						rm -rf $dir/simu_$SIMU
+					else
+						echo directory $SIMU is done but has only $DONE2 events. Removing it.
+						rm -rf $dir/simu_$SIMU
+					endif
+				endif
+			endif	 
+		 endif
+    
+ 
+	endif
+	@ SIMU += 1
+end
+ 
+ 
+ 

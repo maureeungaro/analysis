@@ -1,0 +1,38 @@
+c ---------- threshold in detectors ---------
+CUTS   5.e-3 5.e-3 5.e-3 5.e-3 5.e-3
+CCCUTS 1.e-3 1.e-3 1.e-3 1.e-3 1.e-3
+DCCUTS 1.e-4 1.e-4 1.e-4 1.e-4 1.e-4
+ECCUTS 1.e-4 1.e-4 1.e-4 1.e-4 1.e-4
+SCCUTS 1.e-4 1.e-4 1.e-4 1.e-4 1.e-4
+
+c ---------------- geometry ------------------
+RUNG   1
+GEOM   'ALL '
+NOGEOM 'PTG' 'ST  '
+UPSTPOS 0.0 0.0 0.0
+
+c -------------- magnetic field --------------
+MAGTYPE  3
+MAGSCALE 0.874352 0.75
+FIELD    2
+
+c ------------------ target ------------------
+CHAMBER 2
+TARGET  'e1-6'
+TGMATE  'HYDR' 
+TGPOS   0.0 0.0 -4.0
+
+c ------------------- beam -------------------
+c POSBEAM 0.090 -0.345  
+c SIGBEAM 0.00
+
+
+c ---------- don't save geant banks ----------
+NOMCDATA 'ALL'
+
+
+KINE 1
+AUTO 1
+
+STOP
+

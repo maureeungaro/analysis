@@ -1,0 +1,41 @@
+#!/bin/csh -f
+
+source /site/common_environment/set_environment /site/common_environment/jlab_default_settings.dat clas clas12
+
+set model = $1
+set vcut  = $2
+
+set dir  = /work/clas/disk1/ungaro/exclurad/$vcut/$model
+
+set cot = (-0.9 -0.7 -0.5 -0.3 -0.1 0.1 0.3 0.5 0.7 0.9)
+# for 24 bins
+set phi = ( 7.5 22.5 37.5 52.5 67.5 82.5 97.5 112.5 127.5 142.5 157.5 172.5 187.5 202.5 217.5 232.5 247.5 262.5 277.5 292.5 307.5 322.5 337.5 352.5)
+# for 18 bins
+set phi = ( 10 30 50 70 90 110 130 150 170 190 210 230 250 270 290 310 330 350)
+
+foreach CT ($cot)
+	foreach PH ($phi)
+		if(`filetest -e $dir/costh_$CT"_phi_"$PH` == 0) then
+			echo Model $model    costheta $CT        phi $PH
+			ls -alp
+			mkdir -p $dir/costh_$CT"_phi_"$PH
+			cat input.h                                                      > input.dat
+                        echo $vcut  "!  vcut - cut on v. (0.) if no cut, negative -- v" >> input.dat
+                        echo                                                            >> input.dat
+			go_input_exclu $CT $PH                                          >> input.dat
+                        cp *  $dir/costh_$CT"_phi_"$PH
+			ln -s /home/ungaro/spp_tbl/$model-PPpi.tbl maid2000-PPpi.tbl
+
+			echo Running exclurad for $model - vcut = $vcut > log
+			./exclurad >> log
+			
+			cp *.dat $dir/costh_$CT"_phi_"$PH
+			cp log   $dir/costh_$CT"_phi_"$PH
+			
+			cat input.dat
+			exit
+		endif
+	end
+end
+
+

@@ -1,0 +1,32 @@
+#!/bin/csh -f
+
+set DATA  = $1
+set RUNI  = $2
+set PASS  = $3
+set INFOS = (\""$DATA" "$PASS" Production Data\")
+set DIR   = $4
+
+
+ls -alp
+
+source /site/common_environment/set_environment /site/common_environment/jlab_default_settings.dat clas clas12
+
+setenv LD_LIBRARY_PATH /site/clhep/2.0.4.5/Linux_RHEL5-i686-gcc4.1.2/lib:/group/clas/builds/PRODUCTION/lib/LinuxRHFC8/:
+
+
+set run   = (`ls run* | awk -F_ '{print $2}'`) 
+set ext   = (`ls run* | awk -F_ '{print $3}' | awk -F. '{print $2}'`) 
+set file  = (`ls run*`)
+
+echo
+echo File: $file
+echo
+
+./bos2mu -DC_PLANES=1 -INFOS="$INFOS" -RUN_INDEX=$RUNI -OUTPUT=$run"."$ext".mu" $file
+echo Copying Files into $DIR
+echo
+mkdir -p $DIR
+cp  *.mu $DIR
+
+ls -alp
+

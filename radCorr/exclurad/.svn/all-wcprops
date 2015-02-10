@@ -1,0 +1,57 @@
+K 26
+svn:wc:ra_dav:activity-url
+V 23
+/svnroot/clas/!svn/act/
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/clas/!svn/ver/958/trunk/analysis/exclurad
+END
+mpintp.inc
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/clas/!svn/ver/1149/trunk/analysis/exclurad/mpintp.inc
+END
+eta_input.dat
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/clas/!svn/ver/1148/trunk/analysis/exclurad/eta_input.dat
+END
+pi0eta.par
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/clas/!svn/ver/1148/trunk/analysis/exclurad/pi0eta.par
+END
+SConstruct
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/clas/!svn/ver/1154/trunk/analysis/exclurad/SConstruct
+END
+spp.inc
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/clas/!svn/ver/1148/trunk/analysis/exclurad/spp.inc
+END
+exclurad.f
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/clas/!svn/ver/1148/trunk/analysis/exclurad/exclurad.f
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/clas/!svn/ver/1148/trunk/analysis/exclurad/README
+END
+multipole_amps.F
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/clas/!svn/ver/1148/trunk/analysis/exclurad/multipole_amps.F
+END

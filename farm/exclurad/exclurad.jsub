@@ -1,0 +1,16 @@
+JOBNAME: exclurad radiative correction
+PROJECT: e1-6a
+MAIL:    ungaro@jlab.org
+TRACK:   reconstruction
+OS:      linux64
+TIME:    240
+MEMORY:  700 MB
+
+
+
+OTHER_FILES: /home/ungaro/projects/analysis/radiative_correction/farm_exclurad/input.h
+OTHER_FILES: /home/ungaro/projects/analysis/radiative_correction/farm_exclurad/go_input_exclu
+OTHER_FILES: /home/ungaro/projects/analysis/radiative_correction/farm_exclurad/go_run_exclurad
+OTHER_FILES: /home/ungaro/projects/analysis/radiative_correction/exclurad/exclurad
+
+

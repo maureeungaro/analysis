@@ -1,0 +1,16 @@
+ elast_gen input parameters
+ 
+ 
+1.0                 !fraction of events in elas peak
+0.001               !egam < delta considered elastic 
+3                   !Number of particles to detect / event
+5.0 0.775           !target length, radius (cm)
+0.090 -0.345 -4.0   !target vertex coordinates
+5.7542              !beam energy
+0.8                 !minimum scattered e- energy
+10. 55.             !min,max e- scattering angle
+0                   !0=include elastic 1=exclude
+20000               !Process M events
+0.02                !Maximum cross section
+1,0                 !Straggling of scattered e- (1=on,0=off) and fiducial cut options
+1                   !random number offset

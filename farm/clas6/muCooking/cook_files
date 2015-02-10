@@ -1,0 +1,25 @@
+#!/bin/csh -f
+
+# User Information --------------------------
+
+
+set DATA    = e1-6a
+set PASS    = pass2
+set VERS    = v1
+set RUNI    = calib_user.RunIndexe1_6
+
+set PROJECT = e1-6a
+set MAIL    = ungaro@jlab.org
+set BOS2MU  = /home/ungaro/projects/CLAS_Event/bos2mu
+set COOK    = /home/ungaro/projects/mu_cooking_scripts/go_COOK
+
+set DIR     = /work/clas/disk1/ungaro/$DATA
+
+# End of User Information --------------------
+
+
+./go_files $DATA $PASS $VERS $RUNI $PROJECT $MAIL $BOS2MU $COOK $DIR
+/site/bin/jsub jsub.$DATA
+#cat jsub.$DATA
+
+

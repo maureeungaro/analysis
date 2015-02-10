@@ -1,0 +1,16 @@
+#!/bin/csh -f
+
+set DATA    = exclurad
+
+
+set a = (`/site/bin/jobstat -u ungaro | grep -v JOB | grep $DATA | awk '{print $1}'`)
+echo $a
+/site/bin/jkill $a
+
+
+
+
+
+
+
+

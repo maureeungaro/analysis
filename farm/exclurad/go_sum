@@ -1,0 +1,40 @@
+#!/bin/csh -f
+
+if($1 == "-h" || $1 == ""  || $2 == ""  || $#argv != 2) then
+	echo " "
+	echo "Usage:   "
+	echo  "  >> go_sum vcut model"
+	echo " "
+	exit 0
+endif
+
+set  vcut = $1
+set model = $2
+
+set cot    = (-0.9 -0.7 -0.5 -0.3 -0.1 0.1 0.3 0.5 0.7 0.9)
+set phi    = ( 7.5 22.5 37.5 52.5 67.5 82.5 97.5 112.5 127.5 142.5 157.5 172.5 187.5 202.5 217.5 232.5 247.5 262.5 277.5 292.5 307.5 322.5 337.5 352.5)
+
+
+if(`hostname| grep ifarm | wc | awk '{print $1}'` == "1") then
+	set dir = /work/clas/disk1/ungaro/exclurad/$vcut/$model
+endif
+if(`hostname| grep mauri | wc | awk '{print $1}'` == "1") then
+	set dir = /arena11/exclurad_tables/$vcut/$model
+endif
+
+echo " "
+echo Directory: $dir
+echo " "
+
+
+cd $dir
+echo Summing $model
+foreach CT ($cot)
+	echo costheta $CT
+	foreach PH ($phi)
+		cat costh_$CT"_phi_"$PH/radcor.dat >> aaa
+	end
+end
+#sed s/4.950/5.000/  aaa > $model"_rad_cor_"$vcut".sum"
+mv aaa  $model"_rad_cor_"$vcut".sum"
+mv $model"_rad_cor_"$vcut".sum"  $dir/..

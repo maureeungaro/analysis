@@ -1,0 +1,47 @@
+#!/bin/csh -f
+
+# TO DO: Add TIME in the jsub if vcut is zero
+
+if($1 == ""  || $#argv != 1) then
+ echo  " "
+ echo  " Usage:   "
+ echo  "  >> Master <vcut>"
+ echo " "
+ exit 0
+endif
+
+
+set i = 0
+
+set models = (dmt2001 maid2002 maid2003 maid2003woroper maid2007)
+#set models = (said2008)
+
+set vcut   = $1
+
+# 24 bins in phi, 10 in ct ==> 240 runs - run a few more to be sure
+# 18 bins in phi, 10 in ct ==> 240 runs - run a few more to be sure
+
+while ($i < 210)
+
+	foreach m ($models)
+		rm -f ex.jsub
+		cat exclurad.jsub                       > ex.jsub
+		echo COMMAND: go_run_exclurad $m $vcut >> ex.jsub
+#		cat ex.jsub
+ 		/site/bin/jsub ex.jsub
+		rm -f ex.jsub
+	echo
+	echo Simulation $i for $m launched
+	echo
+	end
+	@ i += 1
+end
+
+
+
+
+ 
+ 
+ 
+ 
+ 
