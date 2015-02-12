@@ -12,7 +12,7 @@ set RUNI    = calib_user.RunIndexe1_6
 set PROJECT = e1-6a
 set MAIL    = ungaro@jlab.org
 set BOS2MU  = /home/ungaro/projects/muEvent/bin/bos2mu
-set COOK    = /home/ungaro/analysis/farm/clas6/muCookings/go_COOK
+set COOK    = /home/ungaro/analysis/farm/clas6/muCooking/go_COOK
 
 set DIR     = /work/clas/clas12/ungaro/$DATA
 
