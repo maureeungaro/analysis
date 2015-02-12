@@ -1,11 +1,13 @@
 // MU includes
 #include "common_info.h"
+#include "utilities.h"
 
 // C++ includes
 #include <fstream>
 #include <cstdlib>
 #include <cmath>
 #include <sstream>
+
 
 // Histograms
 chistos::chistos(string filename, int READ)

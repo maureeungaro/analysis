@@ -1,8 +1,14 @@
 {
-	string pars_file = "proton_id_par_gsim.txt";
-	string root_file = "protons_gsim2.root";
-	int GSIM         = 1;
+//	string pars_file = "proton_id_par_gsim.txt";
+//	string root_file = "protons_gsim2.root";
+//	int GSIM         = 1;
+	string pars_file = "proton_id_par.txt";
+	string root_file = "ppid.root";
+	int GSIM         = 0;
 	
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
+	#include "utilities.h"
+
 	gROOT->LoadMacro("src/common_info.cc");
 	gROOT->LoadMacro("ana/calc_2d.C");
 	gROOT->LoadMacro("ana/utils.C");
@@ -35,7 +41,6 @@
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("Proton Particle ID", "");
 	bar->AddButton("","");
-	bar->AddButton("Show mass versus momentum",     "show_mass_vs_mom()");
 	bar->AddButton("","");
 	bar->AddButton("Calculate new DT cuts",         "calc_2d(H.dt_momz[SECTOR-1], H.dt_mom[SECTOR-1])");
 	bar->AddButton("Show DT vs mom",                "show_dt_vs_mom()");

@@ -1,17 +1,13 @@
 #ifndef PROTON_PID_SELECTION_H
 #define PROTON_PID_SELECTION_H
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 #include "common_info.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 using namespace std;
 

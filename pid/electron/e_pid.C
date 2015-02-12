@@ -6,6 +6,9 @@
 	string root_file = "epid.root";
 	int GSIM         = 0;
 	
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
+	#include "utilities.h"
+
 	gROOT->LoadMacro("src/common_info.cc");
 	gROOT->LoadMacro("ana/init.C");
 	gROOT->LoadMacro("ana/show_npe.C");

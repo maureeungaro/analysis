@@ -59,11 +59,11 @@ void calc_2d(TH2F *h, TH2F *h2)
 		xb[b]  = h->GetXaxis()->GetXmin() + (b+0.5)*dp;
 		xbe[b] = 0;
 		
-		MySignal[s][b] = new TF1(Form("MySignal_sect%d_slice%d", s+1, b+1), Gauss, -4.0, 4.0, 3);
+		MySignal[s][b] = new TF1(Form("MySignal_sect%d_slice%d", s+1, b+1), gaussian, -4.0, 4.0, 3);
 		MySignal[s][b]->SetLineColor(kBlue+2);
 		MySignal[s][b]->SetLineWidth(2);
 	
-		MyBackground[s][b] = new TF1(Form("MyBackground_sect%d_slice%d", s+1, b+1), Gauss_Para, -4.0, 4.0, 6);
+		MyBackground[s][b] = new TF1(Form("MyBackground_sect%d_slice%d", s+1, b+1), gauss_para, -4.0, 4.0, 6);
 		MyBackground[s][b]->SetLineColor(kRed+2);
 		MyBackground[s][b]->SetLineWidth(2);
 	}

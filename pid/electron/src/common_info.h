@@ -94,29 +94,29 @@ class cpars
 #endif
 
 
-// these have to be added here to avoid loading all kind
-// of crap (CLHEP, etc).
-// we may want to separate the stuff depending on other libraries
-// in common libraries
-#ifndef UTILS_H
-#define UTILS_H
+//// these have to be added here to avoid loading all kind
+//// of crap (CLHEP, etc).
+//// we may want to separate the stuff depending on other libraries
+//// in common libraries
+//#ifndef UTILS_H
+//#define UTILS_H
+//
+//#include <sstream>
+//inline string stringify(double x)
+//{
+//	ostringstream o;
+//	o << x;
+//	return o.str();
+//}
+//
+//inline string stringify(int x)
+//{
+//	ostringstream o;
+//	o << x;
+//	return o.str();
+//}
 
-#include <sstream>
-inline string stringify(double x)
-{
-	ostringstream o;
-	o << x;
-	return o.str();
-}
-
-inline string stringify(int x)
-{
-	ostringstream o;
-	o << x;
-	return o.str();
-}
-
-#endif
+//#endif
 
 
 
