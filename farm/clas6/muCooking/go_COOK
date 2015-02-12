@@ -6,23 +6,24 @@ set PASS  = $3
 set INFOS = (\""$DATA" "$PASS" Production Data\")
 set DIR   = $4
 
-
 ls -alp
 
-source /site/common_environment/set_environment /site/common_environment/jlab_default_settings.dat clas clas12
+setenv JLAB_VERSION  1.2
+setenv OSRELEASE Linux_CentOS6.5-i686-gcc4.4.7
+source $JLAB_ROOT/$JLAB_VERSION/ce/jlab.csh
 
-setenv LD_LIBRARY_PATH /site/clhep/2.0.4.5/Linux_RHEL5-i686-gcc4.1.2/lib:/group/clas/builds/PRODUCTION/lib/LinuxRHFC8/:
 
-
-set run   = (`ls run* | awk -F_ '{print $2}'`) 
-set ext   = (`ls run* | awk -F_ '{print $3}' | awk -F. '{print $2}'`) 
-set file  = (`ls run*`)
+set file   = (`ls run*`)
+set run    = (`ls run* | awk -F_ '{print $2}'`)
+set ext    = (`ls run* | awk -F_ '{print $3}' | awk -F. '{print $2}'`)
+set output = $run"."$ext".mu"
 
 echo
 echo File: $file
 echo
 
-./bos2mu -DC_PLANES=1 -INFOS="$INFOS" -RUN_INDEX=$RUNI -OUTPUT=$run"."$ext".mu" $file
+#./bos2mu -DC_PLANES=1 -INFOS="$INFOS" -RUN_INDEX=$RUNI -OUTPUT=$run"."$ext".mu" $file
+./bos2mu -DC_PLANES=0 -INFOS="$INFOS" -RUN_INDEX=$RUNI -OUTPUT=$output $file
 echo Copying Files into $DIR
 echo
 mkdir -p $DIR

@@ -1,24 +1,24 @@
 #!/bin/csh -f
 
-set RUN  = $1
-set DATA = $2
-set PASS = $3
-set VERS = $4
-set RUNI = $5
+set RUN  = $1   # run number
+set DATA = $2   # data set (e.g. e1-6a)
+set PASS = $3   # pass (directory on mss)
+set VERS = $4   # version of pass (directory on mss)
+set RUNI = $5   # run index
 
-set PROJECT = $6
-set MAIL    = $7
-set BOS2MU  = $8
-set COOK    = $9
-set DIR     = $10
+set PROJECT = $6  # auger project
+set MAIL    = $7  # email
+set BOS2MU  = $8  # executable
+set COOK    = $9  # cooking scripts directory
+set DIR     = $10 # output directory
 
 # Creating list of files
 set list  = (`\ls /mss/clas/$DATA/production/$PASS/$VERS/data/run_$RUN"_"*`)
 rm -rf list_files ; touch list_files
 
 foreach x ($list)
- echo "INPUT_FILES:" >> list_files
- echo $x             >> list_files
+	echo "INPUT_FILES:" >> list_files
+	echo $x             >> list_files
 end
 
 # Creating jsub file
@@ -26,7 +26,7 @@ rm -f jsub.$DATA
 echo JOBNAME:" "$DATA reduction                   > jsub.$DATA
 echo PROJECT:" "$PROJECT                         >> jsub.$DATA
 echo MAIL:"    "$MAIL                            >> jsub.$DATA
-echo OS:"      "linux64                          >> jsub.$DATA
+echo OS:"      "centos65                         >> jsub.$DATA
 echo TRACK:"   "reconstruction                   >> jsub.$DATA
 echo " "                                         >> jsub.$DATA
 echo OTHER_FILES: $BOS2MU                        >> jsub.$DATA

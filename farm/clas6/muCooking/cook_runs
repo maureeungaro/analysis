@@ -2,7 +2,7 @@
 
 # User Information --------------------------
 
-set NMAX    = 450 # Max runs to be submitted
+set NMAX    = 2 # Max runs to be submitted
 
 set DATA    = e1-6a
 set PASS    = pass1
@@ -11,20 +11,19 @@ set RUNI    = calib_user.RunIndexe1_6
 
 set PROJECT = e1-6a
 set MAIL    = ungaro@jlab.org
-set BOS2MU  = /home/ungaro/projects/CLAS_Event/bos2mu
-set COOK    = /home/ungaro/projects/analysis/mu_cooking_scripts/go_COOK
+set BOS2MU  = /home/ungaro/projects/muEvent/bin/bos2mu
+set COOK    = /home/ungaro/analysis/farm/clas6/muCookings/go_COOK
 
-set DIR     = /work/clas/disk3/ungaro/$DATA
+set DIR     = /work/clas/clas12/ungaro/$DATA
 
 set LISTF =  lists/list_$DATA".txt"             # List ofruns
 set LASTF =  lists/last_launched_$DATA          # Contains the last job launched
 
-
 # End of User Information --------------------
 
 if($1 == "restart" ) then
-        rm  $LASTF ; 
-        head -1 $LISTF > $LASTF 
+	rm  $LASTF ;
+	head -1 $LISTF > $LASTF
 endif
 
 

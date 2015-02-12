@@ -41,18 +41,18 @@
 
  gROOT->SetStyle("mystyle");
 
-// gROOT->LoadMacro("/opt/work/root_utils/palette.C");
- gROOT->LoadMacro("/opt/work/root_utils/asym.C");
- gROOT->LoadMacro("/opt/work/root_utils/definitions.C");
- gROOT->LoadMacro("/opt/work/root_utils/slices2by5.C");
- gROOT->LoadMacro("/opt/work/root_utils/slices2by3.C");
- gROOT->LoadMacro("/opt/work/root_utils/slices2by4.C");
- gROOT->LoadMacro("/opt/work/root_utils/slices3by5.C"); 
- gROOT->LoadMacro("/opt/work/root_utils/slices3by3.C");
- gROOT->LoadMacro("/opt/work/root_utils/slices3by4.C"); 
- gROOT->LoadMacro("/opt/work/root_utils/slices3by7.C");
- gROOT->LoadMacro("/opt/work/root_utils/slices5by2.C");
- gROOT->LoadMacro("/opt/work/root_utils/slices6by2.C");
+// gROOT->LoadMacro("/opt/projects/analysis/rootUtils/palette.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/asym.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/definitions.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices2by5.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices2by3.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices2by4.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by5.C"); 
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by3.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by4.C"); 
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by7.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices5by2.C");
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices6by2.C");
 
 
 // palette();

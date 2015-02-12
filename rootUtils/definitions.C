@@ -11,151 +11,124 @@ int PRINTING  = 0x800;   // Printing enabled
 int ZEROLINE  = 0x100;  // zero line printing
 int GRIDS     = 0x200;  // grids
 
-// Signal + background functions     -----------------------------------------------------
+
+// basic functions
 
 //  exponential
-double Expo(double *x, double *par)       { return par[0]*exp(par[1]*x[0]); }
-
-//  first order
-double Firs(double *x, double *par)       { return par[0] + par[1]*x[0] ; }
-
-//  parabole
-double Para(double *x, double *par)       { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
-
-
-
-//  third order
-double Thir(double *x, double *par)       { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] + par[3]*x[0]*x[0]*x[0] ; }
-
-// gaussian
-double Gauss(double *x, double *par)      { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
+double exponential(double *x, double *par)  { return par[0]*exp(par[1]*x[0]); }
+double line(double *x, double *par)         { return par[0] + par[1]*x[0] ; }
+double parabole(double *x, double *par)     { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
+double thirdOrder(double *x, double *par)   { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] + par[3]*x[0]*x[0]*x[0] ; }
+double gaussian(double *x, double *par)     { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
 
 
 
 // gaussian + exponential
-double Gauss_Expo(double *x, double *par) { return Expo(x, par) + Gauss(x, &par[2]); }
+double gauss_expo(double *x, double *par)  { return exponential(x, par) + gaussian(x, &par[2]); }
 
 // gaussian + first
-double Gauss_Firs(double *x, double *par) { return Firs(x, par) + Gauss(x, &par[2]); }
+double gauss_line(double *x, double *par)  { return line(x, par) + gaussian(x, &par[2]); }
 
 // gaussian + parabole
-double Gauss_Para(double *x, double *par) { return Para(x, par) + Gauss(x, &par[3]); }
+double gauss_para(double *x, double *par)  { return parabole(x, par) + gaussian(x, &par[3]); }
+
+// 2 gaussians + parabole
+double gauss2_para(double *x, double *par) { return parabole(x, par) + gaussian(x, &par[3]) + gaussian(x, &par[6]); }
 
 // gaussian + third
-double Gauss_Thir(double *x, double *par) { return Thir(x, par) + Gauss(x, &par[4]); }
+double gauss_third(double *x, double *par) { return thirdOrder(x, par) + gaussian(x, &par[4]); }
 
 
-
-void FitGpE(TH1F *histo, double min, double max)
-{
- TF1 MyFit("MyFit", Gauss_Expo, min, max, 5);
- MyFit->SetLineWidth(1);
- MyFit->SetParameter(4, 0.01);
-  
- TF1 *MySign = new TF1("MySign", Gauss, min, max, 3);
- TF1 *MyBack = new TF1("MyBack", Expo,  min, max, 2);
-  
- histo->Fit("MyFit","REM"); 
- 
- MyBack->SetParameter(0, MyFit->GetParameter(0));
- MyBack->SetParameter(1, MyFit->GetParameter(1));
- MyBack->SetLineWidth(1);
- MyBack->SetLineColor(2);
- MyBack->Draw("same");
- 
-
- MySign->SetParameter(0, MyFit->GetParameter(2));
- MySign->SetParameter(1, MyFit->GetParameter(3));
- MySign->SetParameter(2, MyFit->GetParameter(4));  
- MySign->SetLineWidth(1);
- MySign->SetLineColor(4);
- MySign->Draw("same");
- 
-}
-
-TF1* FitGpT(TH1F *histo, double min, double max)
-{
- TF1 *MyFit = new TF1("MyFit", Gauss_Thir, min, max, 7);
- MyFit->SetLineWidth(1);
- MyFit->SetParameter(6, 0.01);
-  
- TF1 *MySign = new TF1("MySign", Gauss, min, max, 3);
- TF1 *MyBack = new TF1("MyBack", Thir,  min, max, 4);
-  
-
- 
- histo->Fit("MyFit","REM"); 
- 
- MyBack->SetParameter(0, MyFit->GetParameter(0));
- MyBack->SetParameter(1, MyFit->GetParameter(1));
- MyBack->SetParameter(2, MyFit->GetParameter(2)); 
- MyBack->SetParameter(3, MyFit->GetParameter(3)); 
- MyBack->SetLineWidth(1);
- MyBack->SetLineColor(2);
- MyBack->Draw("same");
- 
-
- MySign->SetParameter(0, MyFit->GetParameter(4));
- MySign->SetParameter(1, MyFit->GetParameter(5));
- MySign->SetParameter(2, MyFit->GetParameter(6));  
- MySign->SetLineWidth(1);
- MySign->SetLineColor(4);
- MySign->Draw("same");
-
- return MySign; 
-}
-
-
-void FitGpS(TH1F *histo, double min, double max)
-{
- TF1 MyFit("MyFit", Gauss_Para, min, max, 6);
- MyFit->SetLineWidth(1);
- MyFit->SetParameter(5, 0.01);
-  
- TF1 *MySign = new TF1("MySign", Gauss, min, max, 3);
- TF1 *MyBack = new TF1("MyBack", Para,  min, max, 3);
-  
-
- 
- histo->Fit("MyFit","REM"); 
- 
- MyBack->SetParameter(0, MyFit->GetParameter(0));
- MyBack->SetParameter(1, MyFit->GetParameter(1));
- MyBack->SetParameter(2, MyFit->GetParameter(2)); 
- MyBack->SetLineWidth(1);
- MyBack->SetLineColor(2);
- MyBack->Draw("same");
- 
-
- MySign->SetParameter(0, MyFit->GetParameter(3));
- MySign->SetParameter(1, MyFit->GetParameter(4));
- MySign->SetParameter(2, MyFit->GetParameter(5));  
- MySign->SetLineWidth(1);
- MySign->SetLineColor(4);
- MySign->Draw("same");
- 
-}
-
-
-
- void MU()
-{
- f=new TFile("muana.root");
- f.ls();
- t->Print();
-}
+//// gaussian + exponential fit
+//void FitGpE(TH1F *histo, double min, double max)
+//{
+//	TF1 MyFit("MyFit", Gauss_Expo, min, max, 5);
+//	MyFit->SetLineWidth(1);
+//	MyFit->SetParameter(4, 0.01);
+//	
+//	TF1 *MySign = new TF1("MySign", Gauss, min, max, 3);
+//	TF1 *MyBack = new TF1("MyBack", Expo,  min, max, 2);
+//	
+//	histo->Fit("MyFit","REM");
+// 
+//	MyBack->SetParameter(0, MyFit->GetParameter(0));
+//	MyBack->SetParameter(1, MyFit->GetParameter(1));
+//	MyBack->SetLineWidth(1);
+//	MyBack->SetLineColor(2);
+//	MyBack->Draw("same");
+// 
+//	MySign->SetParameter(0, MyFit->GetParameter(2));
+//	MySign->SetParameter(1, MyFit->GetParameter(3));
+//	MySign->SetParameter(2, MyFit->GetParameter(4));
+//	MySign->SetLineWidth(1);
+//	MySign->SetLineColor(4);
+//	MySign->Draw("same");
+//}
+//
+//TF1* FitGpT(TH1F *histo, double min, double max)
+//{
+// TF1 *MyFit = new TF1("MyFit", Gauss_Thir, min, max, 7);
+// MyFit->SetLineWidth(1);
+// MyFit->SetParameter(6, 0.01);
+//	
+// TF1 *MySign = new TF1("MySign", Gauss, min, max, 3);
+// TF1 *MyBack = new TF1("MyBack", Thir,  min, max, 4);
+//	
+//	
+// 
+// histo->Fit("MyFit","REM");
+// 
+// MyBack->SetParameter(0, MyFit->GetParameter(0));
+// MyBack->SetParameter(1, MyFit->GetParameter(1));
+// MyBack->SetParameter(2, MyFit->GetParameter(2));
+// MyBack->SetParameter(3, MyFit->GetParameter(3));
+// MyBack->SetLineWidth(1);
+// MyBack->SetLineColor(2);
+// MyBack->Draw("same");
+// 
+//	
+// MySign->SetParameter(0, MyFit->GetParameter(4));
+// MySign->SetParameter(1, MyFit->GetParameter(5));
+// MySign->SetParameter(2, MyFit->GetParameter(6));
+// MySign->SetLineWidth(1);
+// MySign->SetLineColor(4);
+// MySign->Draw("same");
+//	
+// return MySign;
+//}
+//
+//
+//void FitGpS(TH1F *histo, double min, double max)
+//{
+// TF1 MyFit("MyFit", Gauss_Para, min, max, 6);
+// MyFit->SetLineWidth(1);
+// MyFit->SetParameter(5, 0.01);
+//	
+// TF1 *MySign = new TF1("MySign", Gauss, min, max, 3);
+// TF1 *MyBack = new TF1("MyBack", Para,  min, max, 3);
+//	
+//	
+// 
+// histo->Fit("MyFit","REM");
+// 
+// MyBack->SetParameter(0, MyFit->GetParameter(0));
+// MyBack->SetParameter(1, MyFit->GetParameter(1));
+// MyBack->SetParameter(2, MyFit->GetParameter(2));
+// MyBack->SetLineWidth(1);
+// MyBack->SetLineColor(2);
+// MyBack->Draw("same");
+// 
+//	
+// MySign->SetParameter(0, MyFit->GetParameter(3));
+// MySign->SetParameter(1, MyFit->GetParameter(4));
+// MySign->SetParameter(2, MyFit->GetParameter(5));
+// MySign->SetLineWidth(1);
+// MySign->SetLineColor(4);
+// MySign->Draw("same");
+// 
+//}
+//
+//
 
 
-
-
-
-
-
-
-
-
-
-
-
-// ---------------------------------------------------------------------------------------
 
