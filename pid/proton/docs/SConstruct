@@ -1,0 +1,13 @@
+import os
+from util import scanFiles
+env = Environment(ENV=os.environ)
+
+pdf = env.PDF(target  = 'proton_pid.pdf',  source = 'proton_pid.tex')
+html = env.Command('proton_pid.html', 'proton_pid.tex', "go_htlatex $SOURCE");
+
+Depends(html, pdf)
+
+cleans = scanFiles('.', accept=["proton_pid*", "*.aux"], reject=[".tex"])
+#rint "to remove: ", cleans;
+
+Clean('proton_pid.html', cleans)

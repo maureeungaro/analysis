@@ -1,0 +1,13 @@
+DTMA:      -0.9113    -0.655048    -0.904261    -0.709094    -0.724329    -0.418643   # Delta T mean A: a + bx + cx2 + dx3 + ex4 + fx5
+DTMB:      2.98931      1.38425      1.76954     0.591925      4.06097     0.781139   # Delta T mean B: a + bx + cx2 + dx3 + ex4 + fx5
+DTMC:     -4.09545     -2.10418      -1.9409     0.272274      -5.8547    -0.943656   # Delta T mean C: a + bx + cx2 + dx3 + ex4 + fx5
+DTMD:      2.19893       1.2356     0.948967    -0.454383      3.18819     0.501819   # Delta T mean D: a + bx + cx2 + dx3 + ex4 + fx5
+DTME:    -0.495131    -0.290715    -0.194741     0.158209    -0.720678    -0.117491   # Delta T mean E: a + bx + cx2 + dx3 + ex4 + fx5
+DTMF:    0.0389196    0.0232255    0.0136907   -0.0165409    0.0568144   0.00959472   # Delta T mean F: a + bx + cx2 + dx3 + ex4 + fx5
+DTSA:      6.16714      6.60215      5.87269      5.90242      5.96331      5.99657   # Delta T sigma A: a + bx + cx2 + dx3 + ex4 + fx5
+DTSB:     -12.1628     -14.4183     -10.6575     -11.7175     -12.2304     -12.4064   # Delta T sigma B: a + bx + cx2 + dx3 + ex4 + fx5
+DTSC:      9.86015      12.6391      8.00035      9.75136       10.391        10.69   # Delta T sigma C: a + bx + cx2 + dx3 + ex4 + fx5
+DTSD:     -3.74511     -5.02972     -2.86622     -3.90726     -4.04935     -4.35567   # Delta T sigma D: a + bx + cx2 + dx3 + ex4 + fx5
+DTSE:     0.679294     0.926557     0.497855     0.750446     0.737621     0.835659   # Delta T sigma E: a + bx + cx2 + dx3 + ex4 + fx5
+DTSF:   -0.0470408   -0.0639353    -0.033369   -0.0545215   -0.0505353   -0.0600134   # Delta T sigma F: a + bx + cx2 + dx3 + ex4 + fx5
+DTNS: 3 3                                                                             # Delta T number of sigmas for upper/lower curve

@@ -1,0 +1,135 @@
+double Mean(double *x, double *par)
+{ 
+	// par[0] is sector
+	int s = (int) par[0] - 1;
+	
+	return Pars.ecp_mean_a[s] +
+			Pars.ecp_mean_b[s]*x[0] +
+			Pars.ecp_mean_c[s]*x[0]*x[0] +
+			Pars.ecp_mean_d[s]*x[0]*x[0]*x[0];
+}
+
+double Sigma(double *x, double *par)
+{ 
+	// par[0] is sector
+	int s = (int) par[0] - 1;
+		
+	return Pars.ecp_sigm_a[s] +
+			Pars.ecp_sigm_b[s]*x[0] +
+			Pars.ecp_sigm_c[s]*x[0]*x[0] +
+			Pars.ecp_sigm_d[s]*x[0]*x[0]*x[0];
+}
+
+double ecp_limit(double *x, double *par)
+{ 
+	// par[0] is sector
+	int s = (int) par[0] - 1;
+	
+	// par[1] is # of sigmas
+	double nsigmas = par[1];
+	
+	// par[2] is which limit (upper or lower)
+	if(par[2] >= 0) return Mean(x, par) + nsigmas*Sigma(x, par);
+	else            return Mean(x, par) - nsigmas*Sigma(x, par);
+}
+
+
+void calc_ecp()
+{
+	gStyle->SetPadLeftMargin(0.1);
+	gStyle->SetPadRightMargin(0.12);
+	gStyle->SetPadTopMargin(0.12);
+	gStyle->SetPadBottomMargin(0.14);
+	
+	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 700, 700);
+	
+	TF1 *MyFit = new TF1("MyFit", Gauss_Para, 0.15, 0.45, 6);
+	MyFit->SetLineColor(kRed+2);
+	MyFit->SetLineWidth(1);
+	
+	int NBINS = H.ecp[1][0]->GetNbinsX();
+	int db = NBINS/NDIV;
+	int s = SECTOR - 1;
+	double xb[NDIV], xbe[NDIV];
+	double dp = ( H.ecp[1][0]->GetXaxis()->GetXmax() - H.ecp[1][0]->GetXaxis()->GetXmin() ) / NDIV;
+	for(int b=0; b<NDIV; b++)
+	{
+		xb[b]  = H.ecp[1][0]->GetXaxis()->GetXmin() + (b+0.5)*dp;
+		xbe[b] = 0;
+	}
+	
+	// Slicing + fitting
+	cout << " Fitting sector " << s+1 << endl;
+	for(int b=0; b<NDIV; b++)
+	{
+		H.ecp[1][s]->ProjectionY(Form("ecp1d_s%d_b%d", s+1, b+1), b*db, (b+1)*db);
+		ecp1d[s][b] = (TH1F*)gROOT->Get(Form("ecp1d_s%d_b%d", s+1, b+1));
+		cout << " Fitting slice " << b+1 << " that has " << ecp1d[s][b]->GetEntries() << " entries." << endl;
+		if(ecp1d[s][b]->GetEntries() > 10)
+		{
+			ecp1d[s][b]->Fit("gaus", "Q");
+			MyFit->SetParameter(3, ecp1d[s][b]->GetFunction("gaus")->GetParameter(0));
+			MyFit->SetParameter(4, ecp1d[s][b]->GetFunction("gaus")->GetParameter(1));
+			MyFit->SetParameter(5, ecp1d[s][b]->GetFunction("gaus")->GetParameter(2));
+			ecp1d[s][b]->Fit("MyFit", "QREM");
+			ecpmean[s][b]  = MyFit->GetParameter(4);
+			ecpsigm[s][b]  = MyFit->GetParameter(5);
+			ecpmeane[s][b] = MyFit->GetParError(4);
+			ecpsigme[s][b] = MyFit->GetParError(5);
+		}
+		else
+		{
+			ecpmean[s][b]  = 0.27;
+			ecpsigm[s][b]  = 0.0;
+			ecpmeane[s][b] = 1.0;
+			ecpsigme[s][b] = 1.0;
+		}
+	}
+	
+	// Now creating / fitting the graphs
+	sf_mean[s] = new TGraphErrors(NDIV, xb, ecpmean[s], xbe, ecpmeane[s]);
+	sf_sigm[s] = new TGraphErrors(NDIV, xb, ecpsigm[s], xbe, ecpsigme[s]);
+		
+	sf_mean[s]->Fit("pol3", "REM", "", min_limit_sf, max_limit_sf);
+	sf_sigm[s]->Fit("pol3", "REM", "", min_limit_sf, max_limit_sf);
+		
+	Pars.ecp_mean_a[s] = sf_mean[s]->GetFunction("pol3")->GetParameter(0);
+	Pars.ecp_mean_b[s] = sf_mean[s]->GetFunction("pol3")->GetParameter(1);
+	Pars.ecp_mean_c[s] = sf_mean[s]->GetFunction("pol3")->GetParameter(2);
+	Pars.ecp_mean_d[s] = sf_mean[s]->GetFunction("pol3")->GetParameter(3);
+		
+	Pars.ecp_sigm_a[s] = sf_sigm[s]->GetFunction("pol3")->GetParameter(0);
+	Pars.ecp_sigm_b[s] = sf_sigm[s]->GetFunction("pol3")->GetParameter(1);
+	Pars.ecp_sigm_c[s] = sf_sigm[s]->GetFunction("pol3")->GetParameter(2);
+	Pars.ecp_sigm_d[s] = sf_sigm[s]->GetFunction("pol3")->GetParameter(3);
+
+}
+
+
+void calc_all_ecp()
+{
+	for(int s=0; s<6; s++)
+	{
+		SECTOR = s+1;
+		calc_ecp();
+	}
+	SECTOR = 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+from init_env import init_environment
+
+env = init_environment("clhep mu root")
+
+
+# Include Path
+incpath = ['src']
+env.Append(CPPPATH = incpath)
+
+e_pid_sources = Split("""src/e_pid.cc
+                         src/common_info.cc
+                         src/histos.cc
+                         src/e_pid_selection.cc""")
+
+e_pid = env.Program(source = e_pid_sources, target = 'e_pid')
