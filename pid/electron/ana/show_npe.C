@@ -118,7 +118,8 @@ void show_npe()
 		Cnpe->Print(  Form("npe_each_sector.%s", PRINT.c_str()) );
 		CAnpe->Print( Form("npe_all_sectors.%s", PRINT.c_str()) );
 	}
-	
+
+	cout << " Done showing NPE." << endl;
 }
 
 

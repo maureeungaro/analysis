@@ -60,7 +60,7 @@ void calc_cc_match()
 	
 	TCanvas *Ccc_match  = new TCanvas("Ccc_match", "Ccc_match", 700, 700);
 	
-	TF1 *MyFit = new TF1("MyFit", Gauss_Para, -100, 800, 6);
+	TF1 *MyFit = new TF1("MyFit", gauss2_para, -100, 800, 6);
 	MyFit->SetLineColor(kRed+2);
 	MyFit->SetLineWidth(1);
 	

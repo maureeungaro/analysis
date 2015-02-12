@@ -24,20 +24,24 @@ void calc_cc_timing()
 	cout << " Fitting sector " << s+1 << endl;
 	for(int b=0; b<36; b++)
 	{
-		cout << " Fitting pmt " << b+1 << endl;
+		cerr << " Fitting pmt " << b+1 << endl;
 		H.cc_timing[1][s]->ProjectionY(Form("cc_timing1d_s%d_pmt%d", s+1, b+1), b+2, b+3);
 		cc_timing1d[s][b] = (TH1F*)gROOT->Get(Form("cc_timing1d_s%d_pmt%d", s+1, b+1));
 		
 		// Gaussian fit
 		cc_timing1d[s][b]->Fit("gaus", "QEM");
-		
-		double mean  = cc_timing1d[s][b]->GetFunction("gaus")->GetParameter(1);
-		double sigma = cc_timing1d[s][b]->GetFunction("gaus")->GetParameter(2);
-		cc_timing1d[s][b]->GetFunction("gaus")->SetLineWidth(2);
-		cc_timing1d[s][b]->GetFunction("gaus")->SetLineColor(kRed+3);
-				
-		Pars.cc_timing_low[s][b] = mean - Pars.CC_T_NSIGMAS*sigma;
-		if(fabs(mean - Pars.CC_T_NSIGMAS*sigma) > 20 )Pars.cc_timing_low[s][b] = -100.0;
+		cout << "  N. events: " << cc_timing1d[s][b]->Integral() << endl;
+		if(cc_timing1d[s][b]->Integral() > 0)
+		{
+			double mean  = cc_timing1d[s][b]->GetFunction("gaus")->GetParameter(1);
+			double sigma = cc_timing1d[s][b]->GetFunction("gaus")->GetParameter(2);
+			cc_timing1d[s][b]->GetFunction("gaus")->SetLineWidth(2);
+			cc_timing1d[s][b]->GetFunction("gaus")->SetLineColor(kRed+3);
+			
+			Pars.cc_timing_low[s][b] = mean - Pars.CC_T_NSIGMAS*sigma;
+			if(fabs(mean - Pars.CC_T_NSIGMAS*sigma) > 20 )Pars.cc_timing_low[s][b] = -100.0;
+			
+		}
 	}
 	cc_timing_low[s] = new TGraphErrors(36, xb, Pars.cc_timing_low[s], xbe, ybe);
 	cc_timing_low[s]->SetMarkerSize(0.2);

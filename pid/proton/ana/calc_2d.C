@@ -44,7 +44,7 @@ void calc_2d(TH2F *h, TH2F *h2)
 	
 	TCanvas *C2D  = new TCanvas("C2D", "C2D", 600, 600);
 	
-	TF1 *MyFit = new TF1("MyFit", Gauss2_Para, -10.0, 30.0, 9);
+	TF1 *MyFit = new TF1("MyFit", gauss2_para, -10.0, 30.0, 9);
 	MyFit->SetLineColor(kGreen+3);
 	MyFit->SetLineWidth(2);
 	

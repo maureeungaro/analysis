@@ -43,7 +43,7 @@ void calc_ecp()
 	
 	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 700, 700);
 	
-	TF1 *MyFit = new TF1("MyFit", Gauss_Para, 0.15, 0.45, 6);
+	TF1 *MyFit = new TF1("MyFit", gauss_para, 0.15, 0.45, 6);
 	MyFit->SetLineColor(kRed+2);
 	MyFit->SetLineWidth(1);
 	

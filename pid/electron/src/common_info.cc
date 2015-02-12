@@ -472,8 +472,8 @@ cpars::cpars(string filename)
 		addInfos.push_back(addinfo);
 	}
 
-	for(unsigned int si=0; si<addInfos.size(); si++)
-		cout << addInfos[si] << endl;
+//	for(unsigned int si=0; si<addInfos.size(); si++)
+//		cout << addInfos[si] << endl;
 }
 
 void cpars::write_vars(string filename)
