@@ -1,20 +1,14 @@
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 using namespace std;
 
 
-// %%%%%%%%%%%
-// MU includes
-// %%%%%%%%%%%
+// my includes
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%%
 // epid includes
-// %%%%%%%%%%%%%
 #include "histos.h"
 #include "e_pid_selection.h"
 

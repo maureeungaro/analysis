@@ -3,7 +3,7 @@
 	string root_file = "electrons_gsim.root";
 	int GSIM         = 1;*/
 	string pars_file = "electron_id_par.txt";
-	string root_file = "efid.root";
+	string root_file = "epid.root";
 	int GSIM         = 0;
 	
 	gROOT->LoadMacro("src/common_info.cc");

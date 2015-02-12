@@ -1,22 +1,18 @@
 #ifndef INFO_H
 #define INFO_H
  
-// %%%%%%%%%%%%%
 // ROOT includes
-// %%%%%%%%%%%%%
 #include "TFile.h"
 #include "TH1.h"
 #include "TH2.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 #include <iostream>
 using namespace std;
 
-// Common Classes with ROOT analysis macro
 
+// Common Classes with ROOT analysis macro
 class chistos
 {
 	public:
@@ -47,9 +43,7 @@ class chistos
 		void write_and_close();    // Write out histos and close ROOT file
 };
 
-// %%%%%%%%%%%%%%%%%%%%%%%%
 // Parameters and functions
-// %%%%%%%%%%%%%%%%%%%%%%%%
 class cpars
 {
 	public:
@@ -99,6 +93,11 @@ class cpars
 
 #endif
 
+
+// these have to be added here to avoid loading all kind
+// of crap (CLHEP, etc).
+// we may want to separate the stuff depending on other libraries
+// in common libraries
 #ifndef UTILS_H
 #define UTILS_H
 

@@ -1,18 +1,13 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 #include <cmath>
+#include <sstream>
 
-// %%%%%%%%%%
 // Histograms
-// %%%%%%%%%%
 chistos::chistos(string filename, int READ)
 {
 	string cut[4]     = {"no_cuts_on", "all_other_cuts_on", "all_other_cuts_neg", "all_cuts_on"};
@@ -214,9 +209,7 @@ void chistos::write_and_close()
 	}
 }
 
-// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // Reads Parameters and functions
-// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cpars::cpars(string filename)
 {
 	ifstream parfile(filename.c_str(), ios::in);
