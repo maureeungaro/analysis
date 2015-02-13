@@ -1,0 +1,47 @@
+#!/bin/csh
+
+if($1 == "-h" || $1 == ""  || $#argv != 3) then
+	echo " "
+	echo "Usage:   "
+	echo "  >> go_concatenate ORIG_DIR DEST_DIR NFILES"
+	echo "  "
+	echo " ORIG_DIR: Input files directory"
+	echo " DEST_DIR: Output files directory"
+	echo " NFILES:   number of files to group together"
+	echo " "
+	echo "Example:"
+	echo " go_concatenate_gsim /enkil/gsim_e1-6/q2_2.0-7.0/raw /enkil/gsim_e1-6/q2_2.0-7.0/full 50"
+	echo " go_concatenate_gsim /akasha/gsim_e1-6/elastic/raw /akasha/gsim_e1-6/elastic/full 50"
+	exit 0
+endif
+
+
+set ORIG_DIR = $1
+set DEST_DIR = $2
+set NFILES   = $3
+set COMMAND  = "/opt/work/projects/analysis/concatenate/concatenate"
+mkdir -p $DEST_DIR
+
+if(`filetest -e $COMMAND` == 0) then
+	echo $COMMAND not found. Exiting
+	exit 0
+endif
+
+echo " "
+echo " Input files directory:   "  $ORIG_DIR
+echo " Output files directory:  "  $DEST_DIR
+echo " Number of files:         "  $NFILES
+echo " Command line:            "  $COMMAND
+echo " "
+
+set nfiles = (`\ls $ORIG_DIR/*.mu  | head -$NFILES`)
+
+while ($#nfiles == $NFILES)
+	set next_sim = (`\ls $DEST_DIR | grep mu | wc | awk '{print $1}'`)
+	@ next_sim += 1
+	echo Concatenating $nfiles into e16mc_$next_sim.mu
+	$COMMAND $nfiles -OUTPUT=$DEST_DIR/e16mc_$next_sim.mu
+	rm $nfiles
+	set nfiles   = (`\ls $ORIG_DIR/*.mu      | head -$NFILES`)
+end
+

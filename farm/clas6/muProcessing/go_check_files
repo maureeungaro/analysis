@@ -1,0 +1,95 @@
+#!/bin/csh -f
+
+if($1 == "-h" || $1 == ""  || $#argv != 4) then
+ echo " "
+ echo "Usage:   "
+ echo "  >> go_check_files ORIG_DIR DEST_DIR RUNS_LIST"
+ echo "  "
+ echo "   ORIG_DIR:   Input files directory"
+ echo "   DEST_DIR:   Output files directory"
+ echo "   FULL_DIR:   Full runs directory"
+ echo "   RUNS_LIST:  File containing run list and number of files for each run"
+ echo " "
+ echo "Example: "
+ echo " go_check_files /akasha/e1-6/mu_files /akasha/e1-6/all_files /akasha/e1-6/full_runs /opt/work/projects/analysis/run_infos/e1-6a/acceptable_size_runs_e1-6a"
+ exit 0
+endif
+
+set ORIG_DIR  = $1
+set DEST_DIR  = $2
+set FULL_DIR  = $3
+set RUNS_LIST = $4
+
+
+echo " "
+echo " Input files directory:  "  $ORIG_DIR
+echo " Output files directory: "  $DEST_DIR
+echo " Full runs directory: "     $DEST_DIR
+echo " Runs list file:         "  $RUNS_LIST
+echo " "
+
+rm -rf missing_files ; touch missing_files
+
+foreach r (`awk '{print $1}' $RUNS_LIST`)
+	if(`filetest -e $FULL_DIR/$r.mu` == 1) then
+		goto done
+	endif
+	set BAD_RUN = 0
+	set nfiles = (`grep $r $RUNS_LIST | awk '{print $2}'`)
+	set files_presents = (`\ls $ORIG_DIR/$r*`)
+	set nfiles_presents = (`\ls $ORIG_DIR/$r* | wc | awk '{print $1}' `)
+	echo Checking $r, it should have $nfiles files, it has $nfiles_presents
+	if($nfiles == $nfiles_presents) then
+		foreach f(`\ls $ORIG_DIR/$r*`)
+			set size = (`ls -s $f | awk '{print $1}'`)
+			if($size < 1000) then
+				set fnumber = (`echo $f | awk -F. '{print $2}' | awk -Fa '{print $2}'`)
+				echo Checking size of $f
+				@ fnumber += 1
+				if($fnumber != $nfiles_presents) then
+					echo $f is not last file and its size $size is too small. Adding $f to missing files list
+					echo $f | awk -F\/ '{print $NF}' >> missing_files
+					set BAD_RUN = 1
+				else
+					echo $f is the last file, it\'s supposed to be small
+				endif
+			endif
+		end
+	else
+		set BAD_RUN = 1
+		echo Finding missing file
+		set findex = 0
+		while ($findex < $nfiles)
+			set fext = a$findex
+			if($findex < 10 ) then
+				set fext = a0$findex
+			endif
+			if(`filetest -e $ORIG_DIR/$r.$fext".mu"` == 0) then
+				echo $ORIG_DIR/$r.$fext".mu" is missing. Adding it to missing file list
+				echo $r.$fext".mu" >> missing_files
+			endif
+			@ findex += 1
+		end
+	endif
+	if($BAD_RUN == 0) then
+		echo $r is good, moving it to $DEST_DIR
+		mv $ORIG_DIR/$r* $DEST_DIR
+	endif
+	done:
+		echo $r is already processed
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

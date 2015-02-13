@@ -1,0 +1,114 @@
+#!/bin/csh
+
+if($1 == "-h" || $1 == ""  || $#argv < 3) then
+ echo " "
+ echo "Usage:   "
+ echo "  >> go_SEL ORIG_DIR DEST_DIR COMMAND [PAR_FILE]"
+ echo "  "
+ echo "   ORIG_DIR: Input files directory"
+ echo "   DEST_DIR: Output files directory"
+ echo "    COMMAND: Command Line"
+ echo " [PAR_FILE]: Parameter File "
+ echo " "
+ echo "Example: "
+ echo " go_SEL /akasha/e1-6/full_runs /enkil/e1-6/e_pid   /opt/work/projects/analysis/pid/electron/e_pid              /opt/work/projects/analysis/pid/electron/electron_id_par.txt"
+ echo " go_SEL /enkil/e1-6/e_pid      /enkil/e1-6/p_pid   /opt/work/projects/analysis/pid/proton/proton_pid           /opt/work/projects/analysis/pid/proton/proton_id_par.txt"
+ echo " go_SEL /enkil/e1-6/p_pid      /enkil/e1-6/vertex  /opt/work/projects/analysis/vertex/vertex_corr_sel          /opt/work/projects/analysis/vertex/vertex_par.txt"
+ echo " go_SEL /enkil/e1-6/vertex     /enkil/e1-6/e_fid   /opt/work/projects/analysis/fiducial/electron/e_fiducial    /opt/work/projects/analysis/fiducial/electron/fiducial_par.txt"
+ echo " go_SEL /enkil/e1-6/e_fid      /enkil/e1-6/p_fid   /opt/work/projects/analysis/fiducial/proton/p_fiducial      /opt/work/projects/analysis/fiducial/proton/fiducial_par.txt"
+ echo " go_SEL /enkil/e1-6/p_fid      /enkil/e1-6/e_corr  /opt/work/projects/analysis//e_kin_cor/momentum/e_mom_corr  /opt/work/projects/analysis//e_kin_cor/momentum/emom_corr_pars.txt"
+ echo " go_SEL /enkil/e1-6/e_corr     /enkil/e1-6/pi0s    /opt/work/projects/analysis/pi0_selection/pi0_selection     /opt/work/projects/analysis/pi0_selection/pi0_selection_pars.txt"
+ echo " "
+ echo " GSIM"
+ echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/full  /enkil/gsim_e1-6/q2_2.0-7.0/e_pid /opt/work/projects/analysis/pid/electron/e_pid           /opt/work/projects/analysis/pid/electron/electron_id_par_gsim.txt"
+ echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/e_pid /enkil/gsim_e1-6/q2_2.0-7.0/p_pid /opt/work/projects/analysis/pid/proton/proton_pid        /opt/work/projects/analysis/pid/proton/proton_id_par_gsim.txt"
+ echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/p_pid /enkil/gsim_e1-6/q2_2.0-7.0/verte /opt/work/projects/analysis/vertex/vertex_corr_sel       /opt/work/projects/analysis/vertex/vertex_par.txt"
+ echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/verte /enkil/gsim_e1-6/q2_2.0-7.0/e_fid /opt/work/projects/analysis/fiducial/electron/e_fiducial /opt/work/projects/analysis/fiducial/electron/fiducial_par.txt"
+ echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/e_fid /enkil/gsim_e1-6/q2_2.0-7.0/p_fid /opt/work/projects/analysis/fiducial/proton/p_fiducial   /opt/work/projects/analysis/fiducial/proton/fiducial_par.txt"
+ echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/p_fid /enkil/gsim_e1-6/q2_2.0-7.0/pi0   /opt/work/projects/analysis/pi0_selection/pi0_selection  /opt/work/projects/analysis/pi0_selection/pi0_selection_pars.txt"
+ echo " "
+ echo " GSIM elastic"
+ echo " go_SEL /akasha/gsim_e1-6/elastic/full  /akasha/gsim_e1-6/elastic/e_pid /opt/work/projects/analysis/pid/electron/e_pid           /opt/work/projects/analysis/pid/electron/electron_id_par_gsim.txt"
+ echo " go_SEL /akasha/gsim_e1-6/elastic/e_pid /akasha/gsim_e1-6/elastic/p_pid /opt/work/projects/analysis/pid/proton/proton_pid        /opt/work/projects/analysis/pid/proton/proton_id_par_gsim.txt"
+ echo " go_SEL /akasha/gsim_e1-6/elastic/p_pid /akasha/gsim_e1-6/elastic/verte /opt/work/projects/analysis/vertex/vertex_corr_sel       /opt/work/projects/analysis/vertex/vertex_par.txt"
+ echo " go_SEL /akasha/gsim_e1-6/elastic/verte /akasha/gsim_e1-6/elastic/e_fid /opt/work/projects/analysis/fiducial/electron/e_fiducial /opt/work/projects/analysis/fiducial/electron/fiducial_par.txt"
+ echo " go_SEL /akasha/gsim_e1-6/elastic/e_fid /akasha/gsim_e1-6/elastic/p_fid /opt/work/projects/analysis/fiducial/proton/p_fiducial   /opt/work/projects/analysis/fiducial/proton/fiducial_par.txt"
+ echo " go_SEL /akasha/gsim_e1-6/elastic/p_fid /akasha/gsim_e1-6/elastic/pi0   /opt/work/projects/analysis/pi0_selection/pi0_selection  /opt/work/projects/analysis/pi0_selection/pi0_selection_pars_GSIM.txt"
+ echo " "
+ echo " acceptance calculation:"
+ echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/pi0   /enkil/gsim_e1-6/q2_2.0-7.0/pi0_acceptance   /opt/work/projects/analysis/acceptance/acc_histos/acc_histos"
+ echo " "
+ exit 0
+endif
+
+set ORIG_DIR = $1
+set DEST_DIR = $2
+set ROOT_DIR = $DEST_DIR/root
+set LOG_DIR  = $DEST_DIR/log
+set COMMAND  = $3
+set PAR_FILE = "aaa"
+
+if($#argv == 4) then
+	set PAR_FILE = $4
+endif
+if(`filetest -e $COMMAND` == 0) then
+	echo $COMMAND not found. Exiting
+	exit 0
+endif
+
+mkdir -p $ROOT_DIR
+mkdir -p $LOG_DIR
+mkdir -p $DEST_DIR
+
+echo " "
+echo " Input files directory:  "  $ORIG_DIR
+echo " Output files directory: "  $DEST_DIR
+echo " ROOT files directory:   "  $ROOT_DIR
+echo " Command line:           "  $COMMAND
+if($PAR_FILE != "aaa") then
+	echo " PAR FILE:               "   $PAR_FILE
+endif
+echo " "
+
+rm -rf DONE_SEL ; touch DONE_SEL
+rm -rf TOTA_SEL ; touch TOTA_SEL
+rm -rf TODO_SEL ; touch TODO_SEL
+
+# Making sure no 1/2 job left: deleting last run done
+set last_file = (`\ls -rt $DEST_DIR  | grep ".mu" | tail -1`)
+if(`filetest -e $DEST_DIR/$last_file` != 0) then
+	echo " "Removing $DEST_DIR/$last_file
+	rm $DEST_DIR/$last_file
+endif
+
+\ls  $ORIG_DIR  | grep ".mu"   | awk -F. '{print $1}' |  sort -u  >> TOTA_SEL
+# \ls  $ROOT_DIR  | grep ".root" | awk -F. '{print $1}' |  sort -u  >> DONE_SEL
+\ls  $DEST_DIR  | grep ".mu" | awk -F. '{print $1}' |  sort -u  >> DONE_SEL
+comm DONE_SEL TOTA_SEL  -1 -3                        >> TODO_SEL
+
+echo " "
+echo " Number of files already processed: " `wc DONE_SEL | awk '{print $1}'`
+echo " Number of files to process:        " `wc TODO_SEL | awk '{print $1}'`
+echo " Total number of files              " `wc TOTA_SEL | awk '{print $1}'`
+echo " "
+
+foreach r (`cat TODO_SEL`)
+	echo "$COMMAND"  $ORIG_DIR/$r.mu
+	if($PAR_FILE != "") then
+		rm -rf $LOG_DIR/$r.log
+		$COMMAND  $ORIG_DIR/$r.mu -BEAM_E=5.754 -TARGET=proton -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root -PARS_FILE=$PAR_FILE > $LOG_DIR/$r.log
+	endif
+end
+
+
+
+
+
+
+
+
+
+
+
+
+

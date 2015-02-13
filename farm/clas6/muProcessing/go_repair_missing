@@ -1,0 +1,28 @@
+#!/bin/csh
+
+# Will look in the directory pointed by $1 and mv the last files
+# to filenames to maintain the numbering sequence
+# Attention: it won't do the root files
+
+set dir = $1
+
+
+
+set nmax = (`\ls $dir | grep mu | wc | awk '{print $1}'`)
+
+echo $nmax files to check in $dir
+
+
+set i = 0
+while ($i < $nmax)
+	@ i += 1
+	set file_isthere = (`ls $dir/e16mc_$i.mu | wc | awk '{print $1}'`)
+	echo checking $dir/e16mc_$i.mu 
+	if($file_isthere == "0") then
+		set last_file =  (`ls $dir | awk -F\_ '{print $2}'  |  awk -F. '{print $1}' | sort -n | tail -1  `)
+		echo file $i is not available - moving $last_file to $dir/e16mc_$i.mu
+		mv $dir/e16mc_$last_file.mu $dir/e16mc_$i.mu
+	endif
+end
+
+

@@ -1,0 +1,48 @@
+#!/bin/csh -f
+
+# This script makes a list called "acceptable_runs_DATASET" (DATASET = user selectable)
+# with a list of all runs with number of files greater than the user choice.
+
+
+if($1 == "-h" || $1 == ""  || $#argv != 2) then
+ echo " "
+ echo "Usage:   "
+ echo "  >> make_acceptable_size_run_list DATASET MIN_N_FILES"
+ echo "  "
+ echo "Example:  "
+ echo "  >> make_acceptable_size_run_list e1_6a 4"
+ echo " "
+ echo " "
+ exit 0
+endif
+
+set DATASET  = $1   # dataset. Must be a valid directory in /mss 
+set MINFILES = $2   # Recommended: 4 files
+
+echo Dataset: $DATASET
+echo Minimum number of files: $MINFILES
+
+
+rm -rf all_runs_$DATASET
+\ls /mss/clas/$DATASET/data/*00* | grep clas\_0 | awk -F\/ '{print $6}' | awk -F\_ '{print $2}' | awk -F. '{printf "%d\n", $1}' | sort -u > all_runs_$DATASET
+
+
+# Checks if more than 4 files available per run
+# If yes, put the run in acceptable_runs
+rm -f acceptable_size_runs_$DATASET ; touch acceptable_size_runs_$DATASET
+rm -f too_small_runs_$DATASET ; touch too_small_runs_$DATASET
+
+
+foreach r (`cat all_runs_$DATASET`)
+  set NFILES = (`\ls /mss/clas/$DATASET/data/clas_0$r* | wc | awk '{print $1}'`)
+  if($NFILES >= $MINFILES) then
+    echo $r has $NFILES files, adding it to acceptable_size_runs_$DATASET
+    echo $r $NFILES >> acceptable_size_runs_$DATASET
+  endif  
+  if($NFILES < $MINFILES) then
+    echo $r has $NFILES files, adding it to too_small_runs_$DATASET
+    echo $r >> too_small_runs_$DATASET
+  endif  
+end
+
+
