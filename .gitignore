@@ -1,0 +1,6 @@
+*.o
+*.mu
+.sconsign.dblite
+*.root
+pid/proton/proton_pid
+pid/electron/e_pid
