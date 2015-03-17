@@ -12,10 +12,10 @@
 #include <vector>
 using namespace std;
 
-class histos : public acc_chistos
+class histos : public reso_chistos
 {
 	public:
-		histos(string filename, int READ = 0) : acc_chistos(filename, READ){;}
+		histos(string filename, int READ = 0) : reso_chistos(filename, READ){;}
 		~histos(){;}
 		
 		void fill(CLAS_Event Ev, CLAS_Event_opts Opts);  // Fills histos according to cuts

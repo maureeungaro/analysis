@@ -5,7 +5,6 @@ using namespace std;
 // MU includes
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "utilities.h"
 
 // kinematics includes
 #include "histos.h"

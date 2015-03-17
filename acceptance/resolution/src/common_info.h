@@ -23,14 +23,16 @@ class reso_chistos
 		
 		TFile *output;
 
-		// momentum, phi, theta per sector
-		// phi vs momentum
-		TH1D *mom[7];
-		TH1D *phi[7];
-		TH1D *the[7];
+		// momentum, phi, theta per sector / particle
+		// phi,theta vs momentum
+		TH1D *mom[7][2];
+		TH1D *phi[7][2];
+		TH1D *the[7][2];
 
-		// phi vs momentum
-		TH2D *phiMom[7];
+		// momentum vs phi
+		TH2D *momPhi[7][2];
+		TH2D *thePhi[7][2];
+		TH2D *phiPhi[7][2];
 	
 		void write_and_close();                 // Write out histos and close ROOT file
 };
