@@ -1,33 +1,21 @@
 #!/bin/csh -f
 
-set DIRS    = (/work/clas/disk1 /work/clas/disk2 /work/clas/disk3 /work/clas/disk4 /work/clas/disk5 /work/clas/disk6 /work/clas/disk7)
-
-set WHAT    = (ntuple root)
-set SK      = ()
+set DIRS = ($DOUTPUT)
+set WHAT = (data ntuple/main root/main histos/monitoring histos/pdu log)
 
 foreach D ($DIRS)
 
- if($1 == "DEL") then
-   echo deleting $D/$DATASET/$PASS ...
-   rm -rf $D/$DATASET/$PASS
- endif
+	set thisDir = $D/$DATASET/$PASS
 
- mkdir -p $D/$DATASET/$PASS/data
- mkdir -p $D/$DATASET/$PASS/ntuple/main
- mkdir -p $D/$DATASET/$PASS/root/main
- mkdir -p $D/$DATASET/$PASS/histos/monitoring 
- mkdir -p $D/$DATASET/$PASS/histos/pdu 
- mkdir -p $D/$DATASET/$PASS/log
+	if($1 == "DEL") then
+		echo deleting $thisDir ...
+		rm -rf $thisDir
+	endif
 
- foreach w ($WHAT)
-   if($1 == "DEL") then
-      rm -rf $D/$DATASET/$PASS/$w    
-   endif
-   foreach s ($SK)
-     echo making $D/$DATASET/$PASS/$w/$s ...
-     mkdir -p $D/$DATASET/$PASS/$w/$s
-   end
- end
+	foreach SD ($WHAT)
+		echo creating $thisDir/$SD
+		mkdir -p $thisDir/$SD
+	end
 
 end
 

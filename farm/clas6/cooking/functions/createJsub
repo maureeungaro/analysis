@@ -8,10 +8,10 @@ echo Run: $run   --   Extensions: $exts    --   Location: $3
 
 if($loc == "SILO") then
 	set LOC = $SILO_IN
-end
+endif
 if($loc == "CACHE") then
 	set LOC = /cache/$SILO_IN
-end
+endif
 
 # temporary list
 rm -f tmp_list ; touch tmp_list
@@ -40,9 +40,9 @@ end
 # creating jsub
 rm -f jsub.$DATASET
 
-cat jsub.model           > jsub.$DATASET
-source lists/executables > jsub.$DATASET
-cat list_files           > jsub.$DATASET
+cat jsub.model            > jsub.$DATASET
+source lists/executables >> jsub.$DATASET
+cat list_files           >> jsub.$DATASET
 
 # clearning up
 rm -f list_files tmp_list

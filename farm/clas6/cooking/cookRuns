@@ -1,42 +1,50 @@
 #!/bin/csh -f
 
+source cookEnvironment
 
 # chef setup
 # ----------
 
-set NMAX     = 2          # n. runs to be submitted
-set FILES    = ALL        # Extensions to be cooked. Can be multiple files: A01-A03-A05
-set LOC      = SILO	     # Will pick files from: SILO=silo. CACHE=cache
-set DEBUG    = no         # if "yes" it won't jsub
-set AVG_N    = 15         # average number of files / run. Used to estimate how many jobs to run (cronjob)
-set NMAXFARM = 1000       # Max runs running on the farm (for batch mode)
+set NMAX     = 1     # Max runs to be submitted - interactive mode
+set FILES    = ALL   # Extensions to be cooked. Can be multiple files: A01-A03-A05
+set LOC      = SILO	# Will pick files from: SILO=silo. CACHE=cache
+set DEBUG    = no    # if "yes" it won't jsub
+set AVG_N    = 15    # average number of files / run. Used to estimate how many jobs to run (cronjob)
+set NMAXFARM = 2     # Max runs running on the farm (for batch mode)
 
 # end of chef setup
 
 cd $CSCRIPTS
 
 if($1 == "DEBUG") then
-	set DEBUG = 1
+	set DEBUG = yes
 endif
 
-set LAST    = (`cat $LASTLAUNCHED`)
 
 # Checking if there are enough jobs on the farm
 if($1 == "BATCH") then
 	set NMAX = (`functions/checkFarm $NMAXFARM $AVG_N`)
 endif
 
+echo
+echo $NMAX jobs to be launched
+echo
+
+set LAST    = (`cat $LASTLAUNCHED`)
+
 # Subtracting 1 for the loop
 @ NMAX -= 1
 
 
 foreach run (`grep -A$NMAX $LAST $GOODRUNS`)
-	./createJsub $run $FILES $LOC
+	functions/createJsub $run $FILES $LOC
 
 	# if jsub is created, launch it or display it
 	if(`filetest -e jsub.$DATASET | awk '{print $1}'` != "0") then
 		if($DEBUG == "yes") then
+			echo -- JSUB --
 			cat jsub.$DATASET
+			echo -- end of JSUB --
 		else
 			echo Launching $run
 			/site/bin/jsub jsub.$DATASET

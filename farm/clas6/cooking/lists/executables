@@ -1,8 +1,10 @@
 #!/bin/csh -f
 
-echo $CSCRIPTS/recsis_$DATASET".tcl"
-echo $CSCRIPTS/user_ana
-echo $CSCRIPTS/bos2mu
-echo $CSCRIPTS/pdu
-echo $CSCRIPTS/verifyConditions
-
+echo
+echo OTHER_FILES: $CSCRIPTS/recsis_$DATASET".tcl"
+echo OTHER_FILES: $CSCRIPTS/executables/user_ana
+echo OTHER_FILES: $CSCRIPTS/executables/bos2mu
+echo OTHER_FILES: $CSCRIPTS/executables/pdu
+echo OTHER_FILES: $CSCRIPTS/functions/verifyConditions
+echo OTHER_FILES: $CSCRIPTS/go_COOK
+echo

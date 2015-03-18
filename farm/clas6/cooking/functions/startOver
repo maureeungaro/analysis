@@ -1,0 +1,15 @@
+#!/bin/csh -f
+
+# set up $LASTLAUNCHED to the first file, and create the directory structure
+
+source cookEnvironment
+
+cd $CSCRIPTS/lists
+rm $LASTLAUNCHED ; head -1 $GOODRUNS > $LASTLAUNCHED
+
+cd $CSCRIPTS/functions
+./createDirs DEL
+
+
+
+
