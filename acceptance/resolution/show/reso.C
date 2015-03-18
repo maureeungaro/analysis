@@ -1,15 +1,10 @@
 {
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/binning");
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/acceptance/acc_histos/src");
-	#include "bin.cc"
+	gInterpreter->AddIncludePath("src");
 	#include "common_info.cc"
 
-	gStyle->SetPadGridX(1);
-	gStyle->SetPadGridY(1);
 	
-	string  what[2] = {"Acceptance Correction", "Gen / Rec Events" };
-	string swhat[2] = {       "acc"           ,      "genrec"      };
-	int WHAT        = 0;  // 0 = acceptance; 1 = gen and rec
+	string  what[2] = {"electrons", "protons" };
+	int WHAT        = 0;  // 0 = electrons; 1 = protons
 
 	string bindex[3] = {"b24", "b48", "b96"};
 	int BIN          = 0;  

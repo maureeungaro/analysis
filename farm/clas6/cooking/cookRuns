@@ -1,0 +1,57 @@
+#!/bin/csh -f
+
+
+# chef setup
+# ----------
+
+set NMAX     = 2          # n. runs to be submitted
+set FILES    = ALL        # Extensions to be cooked. Can be multiple files: A01-A03-A05
+set LOC      = SILO	     # Will pick files from: SILO=silo. CACHE=cache
+set DEBUG    = no         # if "yes" it won't jsub
+set AVG_N    = 15         # average number of files / run. Used to estimate how many jobs to run (cronjob)
+set NMAXFARM = 1000       # Max runs running on the farm (for batch mode)
+
+# end of chef setup
+
+cd $CSCRIPTS
+
+if($1 == "DEBUG") then
+	set DEBUG = 1
+endif
+
+set LAST    = (`cat $LASTLAUNCHED`)
+
+# Checking if there are enough jobs on the farm
+if($1 == "BATCH") then
+	set NMAX = (`functions/checkFarm $NMAXFARM $AVG_N`)
+endif
+
+# Subtracting 1 for the loop
+@ NMAX -= 1
+
+
+foreach run (`grep -A$NMAX $LAST $GOODRUNS`)
+	./createJsub $run $FILES $LOC
+
+	# if jsub is created, launch it or display it
+	if(`filetest -e jsub.$DATASET | awk '{print $1}'` != "0") then
+		if($DEBUG == "yes") then
+			cat jsub.$DATASET
+		else
+			echo Launching $run
+			/site/bin/jsub jsub.$DATASET
+		endif
+	endif
+
+	# updating last launched
+	set NEW_LAST = (`grep -A1 $run $GOODRUNS | tail -1`)
+	echo Setting new last run to: $NEW_LAST
+	rm  $LASTLAUNCHED ; echo $NEW_LAST > $LASTLAUNCHED
+
+	if($NEW_LAST == `tail -1 $GOODRUNS`) then
+		echo LAST RUN REACHED!
+	endif
+
+end
+
+

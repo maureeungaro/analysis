@@ -1,0 +1,49 @@
+#!/bin/csh -f
+
+set run  = $1
+set exts = (`echo $2 |  sed "s/-/ /g"`)
+set loc  = $3
+
+echo Run: $run   --   Extensions: $exts    --   Location: $3
+
+if($loc == "SILO") then
+	set LOC = $SILO_IN
+end
+if($loc == "CACHE") then
+	set LOC = /cache/$SILO_IN
+end
+
+# temporary list
+rm -f tmp_list ; touch tmp_list
+
+# all files for that run
+if($exts[1] == "ALL") then
+	\ls $LOC/clas_0$run.A* >> tmp_list
+else
+	# selected files
+	set i = 1
+	while($i <= $#exts)
+		\ls $LOC/clas_0$run.$exts[$i] >> tmp_list
+		@ i += 1
+	end
+endif
+
+
+# part of jsub with file list
+rm -f list_files ; touch list_files
+
+foreach x (`cat tmp_list`)
+	echo "INPUT_FILES:" >> list_files
+	echo $x             >> list_files
+end
+
+# creating jsub
+rm -f jsub.$DATASET
+
+cat jsub.model           > jsub.$DATASET
+source lists/executables > jsub.$DATASET
+cat list_files           > jsub.$DATASET
+
+# clearning up
+rm -f list_files tmp_list
+

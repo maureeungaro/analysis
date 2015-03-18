@@ -1,0 +1,48 @@
+#!/bin/csh -f
+
+set size_of_hist   = (`ls -s anamonhist | awk '{print $1}'`)
+set size_of_data   = (`ls -s outfile1   | awk '{print $1}'`)
+set size_of_ntp    = (`ls -s histfile   | awk '{print $1}'`)
+
+echo
+# Histo size
+if($size_of_hist == $HIST_SIZE) then
+	echo Size of histogram: "    "     $size_of_hist    PASSED
+	set TEST_H = (1)
+else
+	set TEST_H = (0)
+	echo Size of histogram: "    "     $size_of_hist    FAILED
+endif
+
+
+echo
+# Data size
+if($size_of_data > $DATA_MIN_SIZE) then
+	echo Size of data: "          "     $size_of_data   PASSED
+	set TEST_D = (1)
+else
+	set TEST_D = (0)
+	echo Size of data:"          "      $size_of_data   FAILED
+endif
+
+
+echo
+# Ntuple size
+if($size_of_ntp > $NTP_MIN_SIZE) then
+	echo Size of ntuple : "        "     $size_of_ntp   PASSED
+	set TEST_N = (1)
+else
+	set TEST_N = (0)
+	echo Size of ntuple:"        "       $size_of_ntp   FAILED
+endif
+
+
+set TEST = (Failed)
+if($TEST_H == "1" && $TEST_D == "1" && $TEST_N == "1") then
+	set TEST = (Passed)
+endif
+
+echo
+echo Result: $TEST
+echo
+

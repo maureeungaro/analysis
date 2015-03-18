@@ -1,0 +1,8 @@
+#!/bin/csh -f
+
+echo $CSCRIPTS/recsis_$DATASET".tcl"
+echo $CSCRIPTS/user_ana
+echo $CSCRIPTS/bos2mu
+echo $CSCRIPTS/pdu
+echo $CSCRIPTS/verifyConditions
+

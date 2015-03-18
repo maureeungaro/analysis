@@ -1,0 +1,13 @@
+#!/bin/csh -f
+
+set NMAXFARM = $1
+set AVG_N    = $2
+
+set NTODO    = 0
+
+set NTOT = (`/site/bin/jobstat -u $CHEF | grep -v JOB | wc | awk '{print $1}'`)
+if($NTOT < $NMAXFARM) then
+	@ NTODO =  $NMAXFARM - $NTOT
+	@ NTODO = $NTODO / $AVG_N
+endif
+echo $NTODO

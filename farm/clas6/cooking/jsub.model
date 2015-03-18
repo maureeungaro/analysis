@@ -1,0 +1,6 @@
+JOBNAME: e1-6 pass3
+PROJECT: clase1-6
+MAIL:    ungaro@jlab.org
+TRACK:   reconstruction
+COMMAND: go_COOK
+OS:      centos65

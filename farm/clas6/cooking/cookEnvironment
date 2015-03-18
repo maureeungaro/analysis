@@ -1,0 +1,27 @@
+#!/bin/csh -f
+
+
+setenv PASS         pass3
+setenv VERSION      v1
+setenv DATASET      e1-6a
+setenv CHEF         `whoami`                              # user name of chef
+
+setenv CSCRIPTS     /home/clase1-6/recook                 # cooking scripts locations
+setenv DOUTPUT      /work/clas/clase1-6                   # disk output
+
+setenv LASTLAUNCHED $CSCRIPTS/lists/lastLaunched          # file containing the last run launched
+setenv GOODRUNS     $CSCRIPTS/lists/goodRuns              # list of good runs
+setenv EMPTYRUNS    $CSCRIPTS/lists/emptyTargetRuns       # list of empty target runs
+
+setenv DATA_OUT     $DOUTPUT/$DATASET/$PASS               # datafiles
+setenv NTUP_OUT     $DOUTPUT/$DATASET/$PASS               # ntuple
+setenv ROOT_OUT     $DOUTPUT/$DATASET/$PASS               # root
+setenv HIST_OUT     $DOUTPUT/$DATASET/$PASS               # monitoring histos, pdu
+
+setenv SILO_OUT     /mss/clas/$DATASET/production/$PASS/$VERSION     # silo path of output
+setenv SILO_IN      /mss/clas/$DATASET/data                          # silo path of input
+
+setenv HIST_SIZE     9080
+setenv DATA_MIN_SIZE 1100000
+setenv NTP_MIN_SIZE  200000
+

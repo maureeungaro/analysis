@@ -21,12 +21,6 @@ void change_what()
 	cout << endl << " WHAT set to " << what[WHAT] << endl << endl;
 }
 
-void change_binning()
-{
-	BIN++;
-	if(BIN==3) BIN=0;
-	cout << endl << " Binning set to " << bindex[BIN] << endl << endl;
-}
 
 
 void show_phi()
