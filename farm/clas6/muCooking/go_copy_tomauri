@@ -4,8 +4,6 @@ set DATA    = e1-6a
 set DIR     = /work/clas/disk3/ungaro/$DATA
 set MDIR    = /akasha/e1-6_p1/mu_files
 
-
-
 set NFILES  = (`\ls $DIR | wc | awk '{print $1}'`)
 echo
 echo $NFILES files in $DIR

@@ -1,19 +1,15 @@
 #!/bin/csh -f
 
-set RUN  = $1   # run number
-set DATA = $2   # data set (e.g. e1-6a)
-set PASS = $3   # pass (directory on mss)
-set VERS = $4   # version of pass (directory on mss)
-set RUNI = $5   # run index
+set RUN    = $1   # run number
+set SOURCE = $2   # SILO or DISK
 
-set PROJECT = $6  # auger project
-set MAIL    = $7  # email
-set BOS2MU  = $8  # executable
-set COOK    = $9  # cooking scripts directory
-set DIR     = $10 # output directory
+set LOC = $SILOIN
+if($SOURCE == "DISK") then
+	set LOC = $DISKIN
+endif
 
 # Creating list of files
-set list  = (`\ls /mss/clas/$DATA/production/$PASS/$VERS/data/run_$RUN"_"*`)
+set list  = (`\ls $LOC/run_$RUN"_"*`)
 rm -rf list_files ; touch list_files
 
 foreach x ($list)
@@ -23,19 +19,19 @@ end
 
 # Creating jsub file
 rm -f jsub.$DATA
-echo JOBNAME:" "$DATA reduction                   > jsub.$DATA
-echo PROJECT:" "$PROJECT                         >> jsub.$DATA
-echo MAIL:"    "$MAIL                            >> jsub.$DATA
-echo OS:"      "centos65                         >> jsub.$DATA
-echo TRACK:"   "reconstruction                   >> jsub.$DATA
-echo " "                                         >> jsub.$DATA
-echo OTHER_FILES: $BOS2MU                        >> jsub.$DATA
-echo OTHER_FILES: $COOK                          >> jsub.$DATA
-echo MEMORY:      500 MB                         >> jsub.$DATA
-echo " "                                         >> jsub.$DATA
-echo "COMMAND: ./go_COOK "$DATA $RUNI $PASS $DIR >> jsub.$DATA
-echo " "                                         >> jsub.$DATA
-cat list_files                                   >> jsub.$DATA
+echo JOBNAME:" "$DATA reduction       > jsub.$DATA
+echo PROJECT:" "$PROJECT             >> jsub.$DATA
+echo MAIL:"    "$MAIL                >> jsub.$DATA
+echo OS:"      "centos65             >> jsub.$DATA
+echo TRACK:"   "reconstruction       >> jsub.$DATA
+echo " "                             >> jsub.$DATA
+echo OTHER_FILES: $BOS2MU            >> jsub.$DATA
+echo OTHER_FILES: $COOK              >> jsub.$DATA
+echo MEMORY:      500 MB             >> jsub.$DATA
+echo " "                             >> jsub.$DATA
+echo "COMMAND: ./go_COOK "           >> jsub.$DATA
+echo " "                             >> jsub.$DATA
+cat list_files                       >> jsub.$DATA
 
 # Cleaning up
 rm list_files

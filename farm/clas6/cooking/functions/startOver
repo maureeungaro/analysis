@@ -4,14 +4,20 @@
 
 source cookEnvironment
 
+# last launched
 \echo resetting $LASTLAUNCHED
 cd $CSCRIPTS/lists
 rm $LASTLAUNCHED ; head -1 $GOODRUNS > $LASTLAUNCHED
 \echo
 
+# output directories
 cd $CSCRIPTS/functions
 ./createDirs DEL
 
+# launched file
+\echo resetting launched
+cd $CSCRIPTS/lists
+rm launched ; touch launched
 
 
 

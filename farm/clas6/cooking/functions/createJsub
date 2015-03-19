@@ -35,6 +35,9 @@ rm -f list_files ; touch list_files
 foreach x (`cat tmp_list`)
 	echo "INPUT_FILES:" >> list_files
 	echo $x             >> list_files
+
+	# for bookkeeping reasons:
+	echo $x             >> lists/launched
 end
 
 # creating jsub

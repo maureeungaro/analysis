@@ -1,0 +1,40 @@
+#!/bin/csh -f
+
+# check that files in "launched" are failed. Failed = data, skims, ntp10 outputs in FARM
+# File "failed" is produced
+# However if ALL the outputs are present, "maybe_good" is created
+
+mkdir -p $FMOND
+
+rm -f $FMOND/root_launched
+cat lists/launched | awk -F/ '{print $6}' | awk -F_ '{print $2}' | awk -F. '{printf "%d.%s \n", $1, $2}' | tr '[A]' '[a]' | sort -u > $FMOND/root_launched
+
+
+rm -rf tmpList; mkdir -p tmpList
+
+ls $FARM_OUT/hist                 | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/mon_dsk
+ls $FARM_OUT/log                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/log_dsk
+ls $FARM_OUT/ntuple               | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/ntp10_dsk
+ls $FARM_OUT/data | grep "\.1"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/out1_dsk1
+ls $FARM_OUT/data | grep "\.2"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/out1_dsk2
+ls $FARM_OUT/pdu                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/pdu_dsk
+
+
+touch tmpList/tmp
+set all_mons = (`\ls tmpList`)
+
+foreach f($all_mons)
+	echo $f
+	cat  tmpList/$f >> tmp
+end
+
+rm -f $FMOND/failed ;     sort -u tmp > $FMOND/failed
+rm -f $FMOND/maybe_good ; touch $FMOND/maybe_good
+
+foreach x (`cat failed`)
+	if(`grep $x *dsk | wc | awk '{print $1}'` == "6") then
+		echo $x >> $FMOND/maybe_good
+	endif
+end
+
+

@@ -1,0 +1,39 @@
+#!/bin/csh -f
+
+\echo Checking files that failed the size \(they are on disk\)
+functions/checkFailed
+\echo
+\echo
+\echo Failed:        `wc $FMOND/failed     | awk '{print $1}'`
+\echo Might be good: `wc $FMOND/maybe_good | awk '{print $1}'`
+\echo
+\echo
+
+\echo Among the failed, checking if there are files that might be last files of a run
+functions/checkMaybeGood
+\echo
+\echo
+#
+#\echo Among the failed, checking if there are files with wring histo size \(these certainly failed\)
+#functions/go_maybe_notgood
+#\echo
+#\echo
+#
+#\echo Making sure that some jput candidates are not already in silo.
+#functions/is_it_finished
+#\echo
+#\echo
+#
+#
+#\echo Removing bad files
+#functions/go_delete_failed
+#\echo
+#\echo
+#
+#
+#\echo Jputting last files that have all outputs
+#functions/go_jput_lasts
+#\echo
+#\echo
+#\echo
+#\echo Finished!
