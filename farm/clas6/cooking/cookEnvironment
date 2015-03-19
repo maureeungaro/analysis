@@ -1,5 +1,6 @@
 #!/bin/csh -f
 
+setenv CLAS_CALDB_RUNINDEX calib_user.RunIndexe1_6
 
 setenv PASS         pass3
 setenv VERSION      v1
@@ -8,15 +9,19 @@ setenv CHEF         `whoami`                              # user name of chef
 
 setenv CSCRIPTS     /home/clase1-6/recook                 # cooking scripts locations
 setenv DOUTPUT      /work/clas/production/clase1-6        # disk output
+setenv DOUTPUT2     /work/clas/production2/clase1-6       # disk output
+setenv DOUTPUT3     /work/clas/production3/clase1-6       # disk output
 
 setenv LASTLAUNCHED $CSCRIPTS/lists/lastLaunched          # file containing the last run launched
 setenv GOODRUNS     $CSCRIPTS/lists/goodRuns              # list of good runs
 setenv EMPTYRUNS    $CSCRIPTS/lists/emptyTargetRuns       # list of empty target runs
 
 setenv DATA_OUT     $DOUTPUT/$DATASET/$PASS               # datafiles
-setenv NTUP_OUT     $DOUTPUT/$DATASET/$PASS               # ntuple
-setenv ROOT_OUT     $DOUTPUT/$DATASET/$PASS               # root
-setenv HIST_OUT     $DOUTPUT/$DATASET/$PASS               # monitoring histos, pdu
+setenv NTUP_OUT     $DOUTPUT2/$DATASET/$PASS              # ntuple
+setenv ROOT_OUT     $DOUTPUT2/$DATASET/$PASS              # root
+setenv HIST_OUT     $DOUTPUT3/$DATASET/$PASS              # monitoring histos, pdu
+
+setenv MU_OUT       $DOUTPUT3/$DATASET/$PASS              # mu output
 
 setenv SILO_OUT     /mss/clas/$DATASET/production/$PASS/$VERSION     # silo path of output
 setenv SILO_IN      /mss/clas/$DATASET/data                          # silo path of input
@@ -44,7 +49,7 @@ setenv TCLLIB /usr/lib
 
 # this line is commented out until gcc 4.8 software is installed on ifarm
 # this line needs to be done at command line after jlab.csh is sourced
-setenv PATH ${GCC}/bin:${PATH}
+setenv PATH ${GCC}/bin:.:${PATH}
 setenv PATH ${CLASPREFIX}/scripts::${CLAS6BIN}:${PATH}
 
 if( ! $?LD_LIBRARY_PATH) then
@@ -55,7 +60,7 @@ setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${GCC}/lib64:${CLAS6LIB}
 
 setenv CLAS_PARMS /group/clas/parms
 
-# clas path
+# paths
 set path = (/group/clas/tools/caldb $CLAS6BIN $path)
 set path = (/apps/bin $path)
-set path = (/apps/cmake/bin $path)
+set path = (/apps/cmake/bin . $path)

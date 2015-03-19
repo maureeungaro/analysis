@@ -4,8 +4,10 @@
 
 source cookEnvironment
 
+\echo resetting $LASTLAUNCHED
 cd $CSCRIPTS/lists
 rm $LASTLAUNCHED ; head -1 $GOODRUNS > $LASTLAUNCHED
+\echo
 
 cd $CSCRIPTS/functions
 ./createDirs DEL

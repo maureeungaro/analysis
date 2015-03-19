@@ -1,8 +1,10 @@
 #!/bin/csh -f
 
-set a = (`jobstat -u $CHEF | grep -v JOB | awk '{print $1}'`)
-echo jkilling $a
-jkill $a
+set a = (`/site/bin/jobstat -u $CHEF | grep -v JOB | awk '{print $1}'`)
+\echo
+\echo jkilling $a
+\echo
+/site/bin/jkill $a
 
 
 

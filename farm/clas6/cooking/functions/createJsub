@@ -4,7 +4,7 @@ set run  = $1
 set exts = (`echo $2 |  sed "s/-/ /g"`)
 set loc  = $3
 
-echo Run: $run   --   Extensions: $exts    --   Location: $3
+echo Run: $run   --   Extensions: $exts    --   Input File Location: $loc
 
 if($loc == "SILO") then
 	set LOC = $SILO_IN
