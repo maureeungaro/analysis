@@ -4,7 +4,7 @@ source /group/clas/builds/test3/src/clas6-trunk/reconstruction/recsis/recsis_pro
 # define packages
 turnoff ALL;
 global_section off;
-turnon seb trk cc tof egn lac user pid;
+turnon seb trk cc tof egn user pid;
 set trigger_particle_s 2212;
 #
 inputfile           InputFile;
@@ -12,7 +12,7 @@ setc chist_filename histfile;
 setc log_file_name  logfile;
 #
 #
-setc outbanknames(1) "CC  CCPBCL01DC0 DCPBEC  EC1 ECPBECPCECPOEVNTFBPMHEADHEVTIC  IC0 ICPBICHBLCPBMVRTPARTSC  SCPBSCRCTBERTBIDTBTRTGBITRPBTDPLTBLA"; 
+setc outbanknames(1) "CCPBCL01DCPBEC1 ECPBECPCECPOEVNTFBPMHEADHEVTLCPBMVRTPARTSCPBSCRCTBERTBIDTBTRTGBITRPBTDPLTBLA";
 outputfile outfile1 PROC1 2047;
 #
 setc prlink_file_name "prlink_e16_tg4.bos" ; #for target at zero (-4cm)

@@ -1,0 +1,26 @@
+raw : clas_030921.A00
+
+cooked   : run_30921_pass1.a00.00
+histo    : hst_30921_pass1.a00.00.hbook
+log      : log_30921_pass1.a00.00.txt
+ntuple   : ntp_30921_pass1.a00.00.rz
+ntuple10 : ntp_30921_pass1.a00.00.rz
+root     : run_30921_pass1.a00.root
+root10   : run_30921_pass1.a00.root
+muout    : run_30921.0000.a00.mu
+
+
+
+cooked   : /work/clas/production/clase1-6/e1-6a/pass3/
+histo    : /work/clas/production3/clase1-6/e1-6a/pass3/
+log      : /work/clas/production3/clase1-6/e1-6a/pass3/
+ntuple   : /work/clas/production2/clase1-6/e1-6a/pass3/
+ntuple10 : /work/clas/production2/clase1-6/e1-6a/pass3/
+root     : /work/clas/production2/clase1-6/e1-6a/pass3/
+root10   : /work/clas/production2/clase1-6/e1-6a/pass3/
+muout    : /work/clas/production3/clase1-6/e1-6a/pass3/
+
+
+
+
+
