@@ -34,12 +34,12 @@ foreach r (`grep -A$NMAX $LAST $LISTF`)
 	./createJsub $r $SOURCE
 
 	if($DEBUG == "yes") then
-		cat jsub.$DATA
+		cat jsub.$DATASET
 	else
-		/site/bin/jsub jsub.$DATA
+		/site/bin/jsub jsub.$DATASET
 	endif
 
-	set NEW_LAST = (`grep -A1 $r  lists/list_$DATA".txt" | tail -1`)
+	set NEW_LAST = (`grep -A1 $r  lists/list_$DATASET".txt" | tail -1`)
 	rm  $LASTF ; echo $NEW_LAST > $LASTF
 	echo New last run is $NEW_LAST
 end

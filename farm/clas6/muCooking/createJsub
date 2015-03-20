@@ -18,20 +18,19 @@ foreach x ($list)
 end
 
 # Creating jsub file
-rm -f jsub.$DATA
-echo JOBNAME:" "$DATA reduction       > jsub.$DATA
-echo PROJECT:" "$PROJECT             >> jsub.$DATA
-echo MAIL:"    "$MAIL                >> jsub.$DATA
-echo OS:"      "centos65             >> jsub.$DATA
-echo TRACK:"   "reconstruction       >> jsub.$DATA
-echo " "                             >> jsub.$DATA
-echo OTHER_FILES: $BOS2MU            >> jsub.$DATA
-echo OTHER_FILES: $COOK              >> jsub.$DATA
-echo MEMORY:      500 MB             >> jsub.$DATA
-echo " "                             >> jsub.$DATA
-echo "COMMAND: ./go_COOK "           >> jsub.$DATA
-echo " "                             >> jsub.$DATA
-cat list_files                       >> jsub.$DATA
+rm -f jsub.$DATASET
+echo JOBNAME:" "$DATASET reduction    > jsub.$DATASET
+echo PROJECT:" "$PROJECT             >> jsub.$DATASET
+echo MAIL:"    "$MAIL                >> jsub.$DATASET
+echo OS:"      "centos65             >> jsub.$DATASET
+echo TRACK:"   "reconstruction       >> jsub.$DATASET
+echo " "                             >> jsub.$DATASET
+echo OTHER_FILES: $BOS2MU            >> jsub.$DATASET
+echo MEMORY:      500 MB             >> jsub.$DATASET
+echo " "                             >> jsub.$DATASET
+echo "COMMAND: ./go_COOK "           >> jsub.$DATASET
+echo " "                             >> jsub.$DATASET
+cat list_files                       >> jsub.$DATASET
 
 # Cleaning up
 rm list_files

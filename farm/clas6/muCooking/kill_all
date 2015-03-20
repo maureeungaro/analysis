@@ -1,9 +1,9 @@
 #!/bin/csh -f
 
-set DATA    = e1-6a
+set DATASET   = e1-6a
 
 
-set a = (`/site/bin/jobstat -u ungaro | grep -v JOB | grep $DATA | awk '{print $1}'`)
+set a = (`/site/bin/jobstat -u ungaro | grep -v JOB | grep $DATASET| awk '{print $1}'`)
 echo $a
 /site/bin/jkill $a
 

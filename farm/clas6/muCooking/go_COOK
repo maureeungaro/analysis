@@ -7,7 +7,7 @@ set file   = (`ls run*`)
 set run    = (`ls run* | awk -F_ '{print $2}'`)
 set ext    = (`ls run* | awk -F_ '{print $3}' | awk -F. '{print $2}'`)
 set output = $run"."$ext".mu"
-set INFOS  = (\""$DATA" "$PASS" Production Data\")
+set INFOS  = (\""$DATASET" "$PASS" Production Data\")
 
 echo
 echo File: $file

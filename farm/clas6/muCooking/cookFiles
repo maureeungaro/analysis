@@ -9,7 +9,7 @@ set DIR     = /work/clas/disk1/ungaro/$DATA
 # End of User Information --------------------
 
 
-./go_files $DATA $PASS $VERS $RUNI $PROJECT $MAIL $BOS2MU $COOK $DIR
+./go_files $DATASET $PASS $VERS $RUNI $PROJECT $MAIL $BOS2MU $COOK $DIR
 /site/bin/jsub jsub.$DATA
 #cat jsub.$DATA
 

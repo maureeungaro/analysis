@@ -10,9 +10,9 @@ setenv MAIL     ungaro@jlab.org
 
 setenv CSCRIPTS /home/ungaro/analysis/farm/clas6/muCooking
 setenv BOS2MU   /home/ungaro/projects/muEvent/bin/bos2mu
-setenv OUTPUTD  /work/clas/clas12/ungaro/$DATA
+setenv OUTPUTD  /work/clas/clas12/ungaro/$DATASET
 
-setenv SILOIN   /mss/clas/$DATA/production/$PASS/$VERS/data
+setenv SILOIN   /mss/clas/$DATASET/production/$PASS/$VERS/data
 
-set LISTF =  $CSCRIPTS/lists/list_$DATA".txt"       # List ofruns
-set LASTF =  $CSCRIPTSlists/last_launched_$DATA     # Contains the last job launched
+setenv LISTF   $CSCRIPTS/lists/list_$DATASET".txt"      # List ofruns
+setenv LASTF   $CSCRIPTS/lists/last_launched_$DATASET   # Contains the last job launched

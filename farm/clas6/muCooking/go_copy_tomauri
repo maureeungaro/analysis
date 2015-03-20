@@ -1,6 +1,6 @@
 #!/bin/csh -f
 
-set DATA    = e1-6a
+set DATASET    = e1-6a
 set DIR     = /work/clas/disk3/ungaro/$DATA
 set MDIR    = /akasha/e1-6_p1/mu_files
 

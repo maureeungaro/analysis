@@ -1,6 +1,6 @@
 #!/bin/csh -f
 
-set DATA = $1
+set DATASET = $1
 set PASS = $2
 set VERS = $3
 set RUNI = $4
