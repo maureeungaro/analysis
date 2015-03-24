@@ -45,7 +45,7 @@ foreach r (`awk '{print $1}' $RUNS_LIST`)
 
 	set BAD_RUN = 0
 	set nfiles = (`grep $r $RUNS_LIST | awk '{print $2}'`)
-	set nfiles_presents = (`\ls $ORIG_DIR/mu_$r* | wc | awk '{print $1}' `)
+	set nfiles_presents = (`\ls $ORIG_DIR/$r* | wc | awk '{print $1}' `)
 	echo Checking $r, it should have $nfiles files, it has $nfiles_presents
 
 	# matches number of files
@@ -79,7 +79,7 @@ foreach r (`awk '{print $1}' $RUNS_LIST`)
 			if($findex < 10 ) then
 				set fext = a0$findex
 			endif
-			if(`filetest -e $ORIG_DIR/mu_$r.$fext".mu"` == 0) then
+			if(`filetest -e $ORIG_DIR/$r.$fext".mu"` == 0) then
 				echo $ORIG_DIR/$r.$fext".mu" is missing. Adding it to missing file list
 				echo $r.$fext".mu" >> missing_files
 			endif
@@ -89,7 +89,7 @@ foreach r (`awk '{print $1}' $RUNS_LIST`)
 	# moving good runs
 	if($BAD_RUN == 0) then
 		echo $r is good, moving it to $DEST_DIR
-		mv $ORIG_DIR/mu_$r* $DEST_DIR
+		mv $ORIG_DIR/$r* $DEST_DIR
 	endif
 
 	# already processed

@@ -1,6 +1,9 @@
 #!/bin/csh -f
 
-# this script is run from mauri directory
+# this script is run from a JLab cue machine to delete
+# files that are done concatenating in mauri's machine
+
+
 
 set DATASET  = e1-6a
 set PASS     = pass1

@@ -13,7 +13,7 @@ if($1 == "-h" || $1 == ""  || $#argv != 2) then
 	echo " "
 	echo "Example:"
 	echo " ./goConcatenate /Volumes/e1-6/pass3/allPresent /Volumes/e1-6/pass3/fullRuns"
-	echo " ./goConcatenate /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass3/fullRuns"
+	echo " ./goConcatenate /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass1/fullRuns"
 	exit 0
 endif
 
@@ -41,13 +41,13 @@ echo " ROOT files directory:    "  $ROOT_DIR
 echo " Command line:            "  $COMMAND
 echo " "
 
-set runs = (`\ls $ORIG_DIR | grep "\.mu" | awk -F. '{print $1}' | awk -F\_ '{print $2}' | sort -u`)
+set runs = (`\ls $ORIG_DIR | grep "\.mu" | awk -F. '{print $1}' | sort -u`)
 
 foreach r ($runs)
 	echo Concatenating $r...
 	rm -rf $LOG_DIR/$r.log
-	$COMMAND  $ORIG_DIR/mu_$r*.mu -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root > $LOG_DIR/$r.log
-	rm $ORIG_DIR/mu_$r*.mu
+	$COMMAND  $ORIG_DIR/$r*.mu -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root > $LOG_DIR/$r.log
+#	rm $ORIG_DIR/$r*.mu
 end
 
 
