@@ -10,7 +10,7 @@ setenv MAIL     ungaro@jlab.org
 
 setenv CSCRIPTS /home/ungaro/analysis/farm/clas6/muCooking
 setenv BOS2MU   /home/ungaro/projects/muEvent/bin/bos2mu
-setenv OUTPUTD  /work/clas/clas12/ungaro/$DATASET
+setenv OUTPUTD  /work/clas/clas12/ungaro/$DATASET/$PASS
 
 setenv SILOIN   /mss/clas/$DATASET/production/$PASS/$VERS/data
 
