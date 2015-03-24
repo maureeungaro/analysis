@@ -18,6 +18,7 @@ if($1 == "-h" || $1 == ""  || $#argv != 2) then
 endif
 
 set COMMAND  = "/opt/projects/muEvent/bin/concatenate"
+set REMOTED  = "/home/ungaro/analysis/farm/clas6/muCooking/"
 
 if(`filetest -e $COMMAND` == 0) then
 	echo $COMMAND not found. Exiting
@@ -47,7 +48,7 @@ foreach r ($runs)
 	echo Concatenating $r...
 	rm -rf $LOG_DIR/$r.log
 	$COMMAND  $ORIG_DIR/$r*.mu -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root > $LOG_DIR/$r.log
-#	rm $ORIG_DIR/$r*.mu
+	rm $ORIG_DIR/$r*.mu
 end
 
 
@@ -55,4 +56,4 @@ end
 # so I do not copy all files every time
 rm -f canBeDeletedAtJlab
 \ls $DEST_DIR | grep "\.mu" | awk -F. '{print $1}'  > canBeDeletedAtJlab
-scp canBeDeletedAtJlab ftp:./analysis
+scp canBeDeletedAtJlab ftp:./$REMOTED

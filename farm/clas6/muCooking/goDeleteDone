@@ -3,32 +3,13 @@
 # this script is run from a JLab cue machine to delete
 # files that are done concatenating in mauri's machine
 
-
-
 set DATASET  = e1-6a
 set PASS     = pass1
 set IDIR      = /work/clas/clas12/ungaro/$DATASET/$PASS
 
-set LDIR     = /Volumes/e1-6/$PASS/rawFiles/mu
 
+set runs = `cat /home/ungaro/analysis/farm/clas6/muCooking/canBeDeletedAtJlab`
 
-set NFILES  = (`\ls $DIR | wc | awk '{print $1}'`)
-echo
-echo $NFILES files in $DIR
-echo
-
-@ NFILES -= 10
-echo Copying $NFILES files to $MDIR
-
-set fl = (`\ls $DIR | head -$NFILES | grep \.mu`)
-
-foreach f($fl)
-	echo $f
-	scp $DIR/$f mauri:$MDIR
-	rm $DIR/$f
-end
-
-
-
+echo $runs
 
 
