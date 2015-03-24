@@ -5,11 +5,12 @@
 
 set DATASET  = e1-6a
 set PASS     = pass1
-set IDIR      = /work/clas/clas12/ungaro/$DATASET/$PASS
+set IDIR      = /work/clas/clas12/ungaro/$DATASET/$PASS/mu
 
 
 set runs = `cat /home/ungaro/analysis/farm/clas6/muCooking/canBeDeletedAtJlab`
 
-echo $runs
-
-
+foreach r ($runs)
+	echo removing $IDIR/$r*
+	rm $IDIR/$r*
+end
