@@ -1,0 +1,58 @@
+#!/bin/csh
+
+# will concatenate files from ORIG and put in DEST
+# the concatenation will create root and log
+
+if($1 == "-h" || $1 == ""  || $#argv != 2) then
+	echo " "
+	echo "Usage:   "
+	echo "  >> go_concatenate ORIG_DIR DEST_DIR"
+	echo "  "
+	echo " ORIG_DIR: Input files directory"
+	echo " DEST_DIR: Output files directory"
+	echo " "
+	echo "Example:"
+	echo " ./goConcatenate /Volumes/e1-6/pass3/allPresent /Volumes/e1-6/pass3/fullRuns"
+	echo " ./goConcatenate /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass3/fullRuns"
+	exit 0
+endif
+
+set COMMAND  = "/opt/projects/muEvent/bin/concatenate"
+
+if(`filetest -e $COMMAND` == 0) then
+	echo $COMMAND not found. Exiting
+	exit 0
+endif
+
+
+set ORIG_DIR = $1
+set DEST_DIR = $2
+
+set ROOT_DIR = $DEST_DIR/root
+set LOG_DIR  = $DEST_DIR/log
+
+mkdir -p $ROOT_DIR
+mkdir -p $LOG_DIR
+
+echo " "
+echo " Input files directory:   "  $ORIG_DIR
+echo " Output files directory:  "  $DEST_DIR
+echo " ROOT files directory:    "  $ROOT_DIR
+echo " Command line:            "  $COMMAND
+echo " "
+
+set runs = (`\ls $ORIG_DIR | grep "\.mu" | awk -F. '{print $1}' | awk -F\_ '{print $2}' | sort -u`)
+
+foreach r ($runs)
+	echo Concatenating $r...
+	rm -rf $LOG_DIR/$r.log
+	$COMMAND  $ORIG_DIR/mu_$r*.mu -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root > $LOG_DIR/$r.log
+	rm $ORIG_DIR/mu_$r*.mu
+end
+
+
+# creating list of runs that can be deleted from the cue machines
+# so I do not copy all files every time
+rm -f canBeDeletedAtJlab
+\ls $DEST_DIR | grep "\.mu" | awk -F. '{print $1}'  > canBeDeletedAtJlab
+scp canBeDeletedAtJlab ftp:./analysis

@@ -1,8 +1,13 @@
 #!/bin/csh -f
 
-set DATASET    = e1-6a
-set DIR     = /work/clas/disk3/ungaro/$DATA
-set MDIR    = /akasha/e1-6_p1/mu_files
+# this script is run from mauri directory
+
+set DATASET  = e1-6a
+set PASS     = pass1
+set IDIR      = /work/clas/clas12/ungaro/$DATASET/$PASS
+
+set LDIR     = /Volumes/e1-6/$PASS/rawFiles/mu
+
 
 set NFILES  = (`\ls $DIR | wc | awk '{print $1}'`)
 echo

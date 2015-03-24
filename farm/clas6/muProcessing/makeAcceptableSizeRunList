@@ -10,7 +10,7 @@ if($1 == "-h" || $1 == ""  || $#argv != 2) then
  echo "  >> make_acceptable_size_run_list DATASET MIN_N_FILES"
  echo "  "
  echo "Example:  "
- echo "  >> make_acceptable_size_run_list e1_6a 4"
+ echo "  >> makeAcceptableSizeRunList e1_6a 4"
  echo " "
  echo " "
  exit 0

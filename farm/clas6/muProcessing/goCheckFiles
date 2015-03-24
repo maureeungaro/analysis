@@ -1,5 +1,8 @@
 #!/bin/csh -f
 
+# will check Input files dir to check if all files are there and have good size
+# if they are, nove it to destination (they will be concatenated and put in full runs)
+
 if($1 == "-h" || $1 == ""  || $#argv != 4) then
  echo " "
  echo "Usage:   "
@@ -11,7 +14,8 @@ if($1 == "-h" || $1 == ""  || $#argv != 4) then
  echo "   RUNS_LIST:  File containing run list and number of files for each run"
  echo " "
  echo "Example: "
- echo " go_check_files /akasha/e1-6/mu_files /akasha/e1-6/all_files /akasha/e1-6/full_runs /opt/work/projects/analysis/run_infos/e1-6a/acceptable_size_runs_e1-6a"
+ echo " ./goCheckFiles /Volumes/e1-6/pass3/rawFiles/ /Volumes/e1-6/pass3/allPresent /Volumes/e1-6/pass3/fullRuns e1-6a/acceptable_size_runs_e1-6a"
+ echo " ./goCheckFiles /Volumes/e1-6/pass1/rawFiles/ /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass1/fullRuns e1-6a/acceptable_size_runs_e1-6a"
  exit 0
 endif
 
@@ -24,37 +28,48 @@ set RUNS_LIST = $4
 echo " "
 echo " Input files directory:  "  $ORIG_DIR
 echo " Output files directory: "  $DEST_DIR
-echo " Full runs directory: "     $DEST_DIR
+echo " Full runs directory: "     $FULL_DIR
 echo " Runs list file:         "  $RUNS_LIST
 echo " "
+
+mkdir -p $DEST_DIR
 
 rm -rf missing_files ; touch missing_files
 
 foreach r (`awk '{print $1}' $RUNS_LIST`)
+
+# don't do anything if already processed
 	if(`filetest -e $FULL_DIR/$r.mu` == 1) then
 		goto done
 	endif
+
 	set BAD_RUN = 0
 	set nfiles = (`grep $r $RUNS_LIST | awk '{print $2}'`)
-	set files_presents = (`\ls $ORIG_DIR/$r*`)
-	set nfiles_presents = (`\ls $ORIG_DIR/$r* | wc | awk '{print $1}' `)
+	set nfiles_presents = (`\ls $ORIG_DIR/mu_$r* | wc | awk '{print $1}' `)
 	echo Checking $r, it should have $nfiles files, it has $nfiles_presents
+
+	# matches number of files
 	if($nfiles == $nfiles_presents) then
+		# now checking size
 		foreach f(`\ls $ORIG_DIR/$r*`)
 			set size = (`ls -s $f | awk '{print $1}'`)
+			# bad size
 			if($size < 1000) then
 				set fnumber = (`echo $f | awk -F. '{print $2}' | awk -Fa '{print $2}'`)
 				echo Checking size of $f
 				@ fnumber += 1
+				# checking if it's the last file
 				if($fnumber != $nfiles_presents) then
 					echo $f is not last file and its size $size is too small. Adding $f to missing files list
 					echo $f | awk -F\/ '{print $NF}' >> missing_files
 					set BAD_RUN = 1
+				# last file - it's ok to be small
 				else
-					echo $f is the last file, it\'s supposed to be small
+					echo $f is the last file, it is supposed to be small so it is ok
 				endif
 			endif
 		end
+	# does not match number of files
 	else
 		set BAD_RUN = 1
 		echo Finding missing file
@@ -64,17 +79,20 @@ foreach r (`awk '{print $1}' $RUNS_LIST`)
 			if($findex < 10 ) then
 				set fext = a0$findex
 			endif
-			if(`filetest -e $ORIG_DIR/$r.$fext".mu"` == 0) then
+			if(`filetest -e $ORIG_DIR/mu_$r.$fext".mu"` == 0) then
 				echo $ORIG_DIR/$r.$fext".mu" is missing. Adding it to missing file list
 				echo $r.$fext".mu" >> missing_files
 			endif
 			@ findex += 1
 		end
 	endif
+	# moving good runs
 	if($BAD_RUN == 0) then
 		echo $r is good, moving it to $DEST_DIR
-		mv $ORIG_DIR/$r* $DEST_DIR
+		mv $ORIG_DIR/mu_$r* $DEST_DIR
 	endif
+
+	# already processed
 	done:
 		echo $r is already processed
 end

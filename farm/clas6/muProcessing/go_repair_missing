@@ -6,8 +6,6 @@
 
 set dir = $1
 
-
-
 set nmax = (`\ls $dir | grep mu | wc | awk '{print $1}'`)
 
 echo $nmax files to check in $dir

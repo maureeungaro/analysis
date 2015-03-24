@@ -10,14 +10,14 @@ set output = $run"."$ext".mu"
 set INFOS  = (\""$DATASET" "$PASS" Production Data\")
 set OUTD   = $OUTPUTD/mu
 
-echo
-echo File: $file
-echo
+\echo
+\echo File: $file
+\echo
 
 
 ./bos2mu -DC_PLANES=1 -INFOS="$INFOS" -RUN_INDEX=$RUNI -OUTPUT=$output $file
-echo Copying Files into $OUTD
-echo
+\echo Copying Files into $OUTD
+\echo
 mkdir -p $OUTD
 cp  *.mu $OUTD
 
