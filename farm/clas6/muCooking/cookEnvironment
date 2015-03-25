@@ -1,14 +1,14 @@
 #!/bin/csh -f
 
 setenv DATASET   e1-6a
-setenv PASS      pass1
+setenv PASS      pass2
 setenv VERS      v1
 setenv RUNI      calib_user.RunIndexe1_6
 
 setenv PROJECT  e1-6a
 setenv MAIL     ungaro@jlab.org
 
-setenv CSCRIPTS /home/ungaro/analysis/farm/clas6/muCooking
+setenv CSCRIPTS /home/ungaro/projects/analysis/farm/clas6/muCooking
 setenv BOS2MU   /home/ungaro/projects/muEvent/bin/bos2mu
 setenv OUTPUTD  /work/clas/clas12/ungaro/$DATASET/$PASS
 

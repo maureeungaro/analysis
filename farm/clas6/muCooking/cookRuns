@@ -1,6 +1,6 @@
 #!/bin/csh -f
 
-source /home/ungaro/analysis/farm/clas6/muCooking/cookEnvironment
+source /home/ungaro/projects/analysis/farm/clas6/muCooking/cookEnvironment
 
 # chef setup
 # ----------
