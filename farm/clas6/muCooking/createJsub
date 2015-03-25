@@ -13,8 +13,8 @@ set list  = (`\ls $LOC/run_$RUN"_"*`)
 rm -rf list_files ; touch list_files
 
 foreach x ($list)
-	echo "INPUT_FILES:" >> list_files
-	echo $x             >> list_files
+	\echo "INPUT_FILES:" >> list_files
+	\echo $x             >> list_files
 end
 
 # Creating jsub file
