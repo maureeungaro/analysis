@@ -1,7 +1,7 @@
 #!/bin/csh -f
 
 source /site/12gev_phys/production.csh 1.2
-source /home/ungaro/analysis/farm/clas6/muCooking/cookEnvironment
+source /home/ungaro/projects/analysis/farm/clas6/muCooking/cookEnvironment
 
 set file   = (`ls run*`)
 set run    = (`ls run* | awk -F_ '{print $2}'`)

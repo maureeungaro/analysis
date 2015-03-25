@@ -8,7 +8,7 @@ set PASS     = pass1
 set IDIR      = /work/clas/clas12/ungaro/$DATASET/$PASS/mu
 
 
-set runs = `cat /home/ungaro/analysis/farm/clas6/muCooking/canBeDeletedAtJlab`
+set runs = `cat /home/ungaro/projects/analysis/farm/clas6/muCooking/canBeDeletedAtJlab`
 
 foreach r ($runs)
 	echo removing $IDIR/$r*
