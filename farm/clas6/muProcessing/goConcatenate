@@ -13,12 +13,13 @@ if($1 == "-h" || $1 == ""  || $#argv != 2) then
 	echo " "
 	echo "Example:"
 	echo " ./goConcatenate /Volumes/e1-6/pass3/allPresent /Volumes/e1-6/pass3/fullRuns"
+	echo " ./goConcatenate /Volumes/e1-6/pass2/allPresent /Volumes/e1-6/pass2/fullRuns"
 	echo " ./goConcatenate /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass1/fullRuns"
 	exit 0
 endif
 
 set COMMAND  = "/opt/projects/muEvent/bin/concatenate"
-set REMOTED  = "/home/ungaro/analysis/farm/clas6/muCooking/"
+set REMOTED  = "/home/ungaro/projects/analysis/farm/clas6/muCooking/"
 
 if(`filetest -e $COMMAND` == 0) then
 	echo $COMMAND not found. Exiting

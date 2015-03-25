@@ -54,6 +54,10 @@ map<string, int> e_pid_selection::selection(particle p)
 		selection["CCTHEM"] = 1;*/
 	if(cc_sect == dc_sect && cctheta >= cc_min && cctheta <= cc_max)
 		selection["CCTHEM"] = 1;
+
+	// pmt == 0 is when both pmt in the same
+	// segment are fired.
+	// in that case we bypass the cut
 	if(pmt == 0)
 		selection["CCTHEM"] = 1;
 	

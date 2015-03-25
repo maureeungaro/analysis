@@ -85,6 +85,9 @@ void show_ecp()
 			lab.DrawLatex(0.49, 0.38,  "d. all cuts applied");
 			lab.DrawLatex(0.42, 0.31,  Form("entries d. / a. : %3.1f%%", 100.0*H.ecp[c][s]->GetEntries()/H.ecp[0][s]->GetEntries()));
 			lab.DrawLatex(0.42, 0.24,  Form("entries d. / b. : %3.1f%%", 100.0*H.ecp[c][s]->GetEntries()/H.ecp[1][s]->GetEntries()));
+			
+			// summary of total events passed
+			lab.DrawLatex(0.28, 0.90,  Form("Passed all cuts: %2.3e", H.ecp[c][s]->GetEntries()));
 		}
 	}
 	

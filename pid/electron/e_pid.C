@@ -3,7 +3,7 @@
 	string root_file = "electrons_gsim.root";
 	int GSIM         = 1;*/
 	string pars_file = "electron_id_par.txt";
-	string root_file = "epid.root";
+	string root_file = "pass3.root";
 	int GSIM         = 0;
 	
 	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");

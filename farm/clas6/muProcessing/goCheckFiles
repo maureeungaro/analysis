@@ -15,6 +15,7 @@ if($1 == "-h" || $1 == ""  || $#argv != 4) then
  echo " "
  echo "Example: "
  echo " ./goCheckFiles /Volumes/e1-6/pass3/rawFiles/ /Volumes/e1-6/pass3/allPresent /Volumes/e1-6/pass3/fullRuns e1-6a/acceptable_size_runs_e1-6a"
+ echo " ./goCheckFiles /Volumes/e1-6/pass2/rawFiles/ /Volumes/e1-6/pass2/allPresent /Volumes/e1-6/pass2/fullRuns e1-6a/acceptable_size_runs_e1-6a"
  echo " ./goCheckFiles /Volumes/e1-6/pass1/rawFiles/ /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass1/fullRuns e1-6a/acceptable_size_runs_e1-6a"
  exit 0
 endif

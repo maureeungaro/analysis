@@ -5,7 +5,7 @@ ECSL:  -2.2  -2.2  -2.2  -2.1  -2.2  -2.1    # slope on the curve ecop_vs_ecip
 UVWC: 40 400 362 395                         # Umin, Umax, Vmax, Wmax
 INTO: 0.25 0.25 0.25 0.25 0.25 0.25          # EC inner/total cut
 SFNS: 3.4 3                                  # sampling fraction number of sigmas for upper/lower curve
-CCNS: 2 2                                    # CC Theta Matching number of sigmas for upper/lower curve
+CCNS: 3 3                                    # CC Theta Matching number of sigmas for upper/lower curve
 CCTNS: 2                                     # CC Timing number of sigmas for lower limit
 SFMA:     0.249471     0.252591     0.250881     0.246831     0.247017     0.248919          # sampling fraction mean A: a + bx + cx2 + dx3
 SFMB:    0.0350377    0.0487858    0.0443294    0.0381502    0.0326401    0.0467523          # sampling fraction mean B: a + bx + cx2 + dx3
