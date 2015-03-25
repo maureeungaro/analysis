@@ -5,3 +5,10 @@
 pid/proton/proton_pid
 pid/electron/e_pid
 reso_histos
+DONE_SEL
+TODO_SEL
+TOTA_SEL
+canBeDeletedAtJlab
+missing_files
+fcMonitor/rootFiles
+fcMonitor/img
