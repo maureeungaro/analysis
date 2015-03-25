@@ -11,7 +11,8 @@ if($1 == "-h" || $1 == ""  || $#argv < 3) then
  echo " [PAR_FILE]: Parameter File "
  echo " "
  echo "Example: "
- echo " go_SEL /akasha/e1-6/full_runs /enkil/e1-6/e_pid   /opt/work/projects/analysis/pid/electron/e_pid              /opt/work/projects/analysis/pid/electron/electron_id_par.txt"
+ echo " go_SEL /Volumes/e1-6/pass1/fullRuns /Volumes/e1-6/pass1/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
+ echo " go_SEL /Volumes/e1-6/pass3/fullRuns /Volumes/e1-6/pass3/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
  echo " go_SEL /enkil/e1-6/e_pid      /enkil/e1-6/p_pid   /opt/work/projects/analysis/pid/proton/proton_pid           /opt/work/projects/analysis/pid/proton/proton_id_par.txt"
  echo " go_SEL /enkil/e1-6/p_pid      /enkil/e1-6/vertex  /opt/work/projects/analysis/vertex/vertex_corr_sel          /opt/work/projects/analysis/vertex/vertex_par.txt"
  echo " go_SEL /enkil/e1-6/vertex     /enkil/e1-6/e_fid   /opt/work/projects/analysis/fiducial/electron/e_fiducial    /opt/work/projects/analysis/fiducial/electron/fiducial_par.txt"
@@ -58,7 +59,6 @@ endif
 
 mkdir -p $ROOT_DIR
 mkdir -p $LOG_DIR
-mkdir -p $DEST_DIR
 
 echo " "
 echo " Input files directory:  "  $ORIG_DIR
@@ -76,15 +76,14 @@ rm -rf TODO_SEL ; touch TODO_SEL
 
 # Making sure no 1/2 job left: deleting last run done
 set last_file = (`\ls -rt $DEST_DIR  | grep ".mu" | tail -1`)
-if(`filetest -e $DEST_DIR/$last_file` != 0) then
+if(`filetest -e $DEST_DIR/$last_file` != 0 && $last_file != "") then
 	echo " "Removing $DEST_DIR/$last_file
 	rm $DEST_DIR/$last_file
 endif
 
-\ls  $ORIG_DIR  | grep ".mu"   | awk -F. '{print $1}' |  sort -u  >> TOTA_SEL
-# \ls  $ROOT_DIR  | grep ".root" | awk -F. '{print $1}' |  sort -u  >> DONE_SEL
+\ls  $ORIG_DIR  | grep ".mu" | awk -F. '{print $1}' |  sort -u  >> TOTA_SEL
 \ls  $DEST_DIR  | grep ".mu" | awk -F. '{print $1}' |  sort -u  >> DONE_SEL
-comm DONE_SEL TOTA_SEL  -1 -3                        >> TODO_SEL
+comm -1 -3 DONE_SEL TOTA_SEL                                    >> TODO_SEL
 
 echo " "
 echo " Number of files already processed: " `wc DONE_SEL | awk '{print $1}'`
@@ -93,7 +92,7 @@ echo " Total number of files              " `wc TOTA_SEL | awk '{print $1}'`
 echo " "
 
 foreach r (`cat TODO_SEL`)
-	echo "$COMMAND"  $ORIG_DIR/$r.mu
+	echo " > executing $COMMAND on run: "  $ORIG_DIR/$r.mu
 	if($PAR_FILE != "") then
 		rm -rf $LOG_DIR/$r.log
 		$COMMAND  $ORIG_DIR/$r.mu -BEAM_E=5.754 -TARGET=proton -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root -PARS_FILE=$PAR_FILE > $LOG_DIR/$r.log

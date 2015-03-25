@@ -56,4 +56,4 @@ end
 # so I do not copy all files every time
 rm -f canBeDeletedAtJlab
 \ls $DEST_DIR | grep "\.mu" | awk -F. '{print $1}'  > canBeDeletedAtJlab
-scp canBeDeletedAtJlab ftp:./$REMOTED
+scp canBeDeletedAtJlab ftp:$REMOTED

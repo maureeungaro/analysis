@@ -37,7 +37,7 @@ set LOG       =    "log_"$CORENAME".txt"
 set HISTO     =    "hst_"$CORENAME".hbook"
 set PDU       =    "pdu_"$CORENAME".hbook"
 
-set MU        =    $CORENAME".mu"
+set MU        =    $RUN"."$LEV".mu"
 
 # Pdu
 # ---

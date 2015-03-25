@@ -1,9 +1,11 @@
 #!/bin/csh -f
 
-set MDIR = /Volumes/e1-6/pass1/fullRuns
+set PASS = pass3
+set STAGE = fullRuns
 
-ls /Volumes/e1-6/pass1/fullRuns/root/ | awk -F. '{print $1}' > rootFiles
+set MDIR = /Volumes/e1-6/$PASS/$STAGE
 
+ls $MDIR/root/*.root > rootFiles
 
 root -b -q fcMonitor.C
 

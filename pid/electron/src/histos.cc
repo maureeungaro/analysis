@@ -1,7 +1,6 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "histos.h"
+#include "utilities.h"
 
 // %%%%%%%%%%%%
 // C++ includes

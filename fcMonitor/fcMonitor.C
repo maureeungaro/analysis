@@ -7,7 +7,6 @@ fcMonitor()
 	gStyle->SetPadBottomMargin(0.12);
 	gStyle->SetPadLeftMargin(0.12);
 
-	string path = "/Volumes/e1-6/pass1/fullRuns/root/";
 	
 	ifstream rfiles("rootFiles");
 	
@@ -21,12 +20,33 @@ fcMonitor()
 	while(!rfiles.eof())
 	{
 		rfiles >> rfile;
-		string file = path + rfile + ".root";
-		
-		cout << " Opening root file: " << file << endl;
 		
 		
-		TFile f(file.c_str());
+		// finding run number
+		size_t pos  = rfile.find("root/");
+		string run1 = rfile.substr(pos+5);
+		pos = run1.find(".");
+		string run = run1.substr(0, pos);
+
+		// finding pass
+		pos  = rfile.find("e1-6/");
+		string pass1 = rfile.substr(pos+5);
+		pos = pass1.find("/");
+		string pass = pass1.substr(0, pos);
+
+		// finding analysis stage
+		pos  = rfile.find(pass);
+		string stage1 = rfile.substr(pos+6);
+		pos = stage1.find("/");
+		string stage = stage1.substr(0, pos);
+		
+		
+		
+		
+		cout << " Opening root file: " << rfile << " for run number: " << run << ", pass: " << pass << " stage: " << stage << endl;
+		
+		
+		TFile f(rfile.c_str());
 		
 		f.ls();
 		
@@ -44,7 +64,7 @@ fcMonitor()
 		lab.SetNDC();
 		
 		lab.SetTextColor(kRed+3);
-		lab.DrawLatex(0.45, 0.92,  Form("Run %s", rfile.c_str()));
+		lab.DrawLatex(0.4, 0.92,  Form("Run %s %s %s", run.c_str(), pass.c_str(), stage.c_str() ));
 		
 		lab.SetTextFont(52);
 		lab.SetTextSize(0.045);
@@ -60,7 +80,7 @@ fcMonitor()
 		lab.SetTextAngle(90);
 		lab.DrawLatex(0.05, 0.3,  "Events per scaler event");
 		
-		fcC->Print(  Form("img/%s.png", rfile.c_str()) );
+		fcC->Print(  Form("img/%s_%s_%s.png", run.c_str(), pass.c_str(), stage.c_str()  ) );
 
 		
 		f.Close();
