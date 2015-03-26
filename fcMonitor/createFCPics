@@ -1,7 +1,7 @@
 #!/bin/csh -f
 
-set PASS = pass3
-set STAGE = fullRuns
+set PASS = pass1
+set STAGE = e_pid
 
 set MDIR = /Volumes/e1-6/$PASS/$STAGE
 

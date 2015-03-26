@@ -14,7 +14,11 @@ if($1 == "-h" || $1 == ""  || $#argv < 3) then
  echo " go_SEL /Volumes/e1-6/pass1/fullRuns /Volumes/e1-6/pass1/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
  echo " go_SEL /Volumes/e1-6/pass2/fullRuns /Volumes/e1-6/pass2/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
  echo " go_SEL /Volumes/e1-6/pass3/fullRuns /Volumes/e1-6/pass3/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
- echo " go_SEL /enkil/e1-6/e_pid      /enkil/e1-6/p_pid   /opt/work/projects/analysis/pid/proton/proton_pid           /opt/work/projects/analysis/pid/proton/proton_id_par.txt"
+
+ echo " go_SEL /Volumes/e1-6/pass1/e_pid /Volumes/e1-6/pass1/p_pid  /opt/projects/analysis/pid/proton/proton_pid  /opt/projects/analysis/pid/proton/proton_id_par.txt"
+ echo " go_SEL /Volumes/e1-6/pass2/e_pid /Volumes/e1-6/pass2/p_pid  /opt/projects/analysis/pid/proton/proton_pid  /opt/projects/analysis/pid/proton/proton_id_par.txt"
+ echo " go_SEL /Volumes/e1-6/pass3/e_pid /Volumes/e1-6/pass3/p_pid  /opt/projects/analysis/pid/proton/proton_pid  /opt/projects/analysis/pid/proton/proton_id_par.txt"
+
  echo " go_SEL /enkil/e1-6/p_pid      /enkil/e1-6/vertex  /opt/work/projects/analysis/vertex/vertex_corr_sel          /opt/work/projects/analysis/vertex/vertex_par.txt"
  echo " go_SEL /enkil/e1-6/vertex     /enkil/e1-6/e_fid   /opt/work/projects/analysis/fiducial/electron/e_fiducial    /opt/work/projects/analysis/fiducial/electron/fiducial_par.txt"
  echo " go_SEL /enkil/e1-6/e_fid      /enkil/e1-6/p_fid   /opt/work/projects/analysis/fiducial/proton/p_fiducial      /opt/work/projects/analysis/fiducial/proton/fiducial_par.txt"
