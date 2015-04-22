@@ -1,5 +1,8 @@
 #!/bin/csh -f
 
+
+# create directory structure necessary for cooking
+
 set DIRS = ($DOUTPUT $DOUTPUT2 $DOUTPUT3)
 set WHAT = (data ntuple/main root/main histos/monitoring histos/pdu log mu)
 

@@ -12,12 +12,12 @@ cat lists/launched | awk -F/ '{print $6}' | awk -F_ '{print $2}' | awk -F. '{pri
 
 rm -rf tmpList; mkdir -p tmpList
 
-ls $FARM_OUT/hist                 | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/mon_dsk
-ls $FARM_OUT/log                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/log_dsk
-ls $FARM_OUT/ntuple               | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/ntp10_dsk
-ls $FARM_OUT/data | grep "\.1"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/out1_dsk1
-ls $FARM_OUT/data | grep "\.2"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/out1_dsk2
-ls $FARM_OUT/pdu                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/pdu_dsk
+ls $FARM_OUT/hist                 | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/mon_dsk      # 1
+ls $FARM_OUT/log                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/log_dsk      # 2
+ls $FARM_OUT/ntuple               | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/ntp10_dsk    # 3
+ls $FARM_OUT/data | grep "\.1"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/out1_dsk1    # 4
+ls $FARM_OUT/data | grep "\.2"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/out1_dsk2    # 5
+ls $FARM_OUT/pdu                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'    > tmpList/pdu_dsk      # 6
 
 
 touch tmpList/tmp
@@ -31,7 +31,8 @@ end
 rm -f $FMOND/failed ;     sort -u tmp > $FMOND/failed
 rm -f $FMOND/maybe_good ; touch $FMOND/maybe_good
 
-foreach x (`cat failed`)
+# if all output are present, then it may be good
+foreach x (`cat $FMOND/failed`)
 	if(`grep $x *dsk | wc | awk '{print $1}'` == "6") then
 		echo $x >> $FMOND/maybe_good
 	endif

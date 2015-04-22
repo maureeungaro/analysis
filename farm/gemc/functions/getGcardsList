@@ -1,0 +1,13 @@
+#!/bin/csh -f
+
+# this script will check for all .gcard files inside a directory (given as argument)
+# it will return those filenames, minus the .gcard
+
+
+set dir = $1
+
+set gcards = `(\ls $dir/*.gcard)`
+
+
+set 
+

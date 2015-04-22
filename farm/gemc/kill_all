@@ -1,0 +1,15 @@
+#!/bin/csh -f
+
+set prod = prod64
+
+set a = (`/site/bin/jobstat -u ungaro | grep -v JOB | grep $prod | awk '{print $1}'`)
+echo $a
+/site/bin/jkill $a
+
+
+
+
+
+
+
+

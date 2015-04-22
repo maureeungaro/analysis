@@ -1,5 +1,9 @@
 #!/bin/csh -f
 
+# this function checks the farm for number of current jobs running
+# it then returns how many more jobs can be launched until
+# $1 = NMAXFARM is reached, given $2 = average # files per run 
+
 set NMAXFARM = $1
 set AVG_N    = $2
 

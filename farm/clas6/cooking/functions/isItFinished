@@ -1,0 +1,110 @@
+#!/bin/csh -f
+
+
+
+
+
+
+# check that files in "launched" are finished. Finished = all outputs in silo
+# If they are finished put them in "finished"
+
+
+
+rm -f $FMOND/root_launched ;
+
+cat badtape/tobecooked.txt | awk -F_ '{print $2}' | awk -F. '{printf "%d.%s \n", $1, $2}' | tr '[A]' '[a]' | sort -u > lists/root_launched
+
+
+rm -f mon_ins log_ins ntp10_ins ntp21_ins ntpr_ins root_ins vpk_ins out1_ins out1_ins1 out1_ins2 out2_ins out3_ins pdu_ins gflux1_ins gflux2_ins gflux3_ins gflux4_ins
+trip_ins
+
+ls $SILO_OUT/hist                 | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > mon_ins
+ls $SILO_OUT/log                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > log_ins
+ls $SILO_OUT/ntuple               | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > ntp10_ins
+ls $SILO_OUT/skims/ntp21          | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > ntp21_ins
+ls $SILO_OUT/skims/ntpreduced     | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > ntpr_ins
+ls $SILO_OUT/skims/rootreduced    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > root_ins
+ls $SILO_OUT/data | grep "\.1"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > out1_ins1
+ls $SILO_OUT/data | grep "\.2"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > out1_ins2
+ls $SILO_OUT/skims/2pos1neg       | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > out2_ins
+ls $SILO_OUT/pdu                  | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}'                        > pdu_ins
+ls $SILO_OUT/skims/1ckaon_1track  | awk -Fk '{print $3}' | awk -F_ '{print $1"."$2}' | awk -F.  '{print $1"."$3}' > out3_ins
+ls $SILO_OUT/gflux | grep "erg\." | awk -Fx '{print $2}' | awk -F_ '{print $1"."$2}' | awk -F.  '{print $1"."$3}' > gflux1_ins
+ls $SILO_OUT/gflux | grep "erg2"  | awk -Fx '{print $2}' | awk -F_ '{print $1"."$2}' | awk -F.  '{print $1"."$3}' > gflux2_ins
+ls $SILO_OUT/gflux | grep "eb"    | awk -Fx '{print $2}' | awk -F_ '{print $1"."$2}' | awk -F.  '{print $1"."$3}' > gflux3_ins
+ls $SILO_OUT/gflux | grep "tc"    | awk -Fx '{print $2}' | awk -F_ '{print $1"."$2}' | awk -F.  '{print $1"."$3}' > gflux4_ins
+ls $SILO_OUT/trip                 | awk -F_ '{print $2}' | awk -F. '{printf "%d.%s\n", $1, $2}' | tr '[A]' '[a]'  > trip_ins
+
+
+cat out1_ins1 out1_ins2 | sort -u >  out1_ins
+
+foreach x (mon_ins log_ins ntp10_ins ntp21_ins ntpr_ins root_ins out1_ins  out2_ins out3_ins pdu_ins gflux1_ins gflux2_ins gflux3_ins gflux4_ins trip_ins)
+echo $x `wc $x | awk '{print $1}'`
+end
+
+
+rm -f finished candidates ; touch finished
+cat   mon_ins log_ins ntp10_ins ntp21_ins ntpr_ins root_ins out1_ins out2_ins out3_ins pdu_ins gflux1_ins gflux2_ins gflux3_ins gflux4_ins trip_ins | sort -u > candida
+tes
+
+rm -f missing incomplete complete; touch missing; touch incomplete; touch complete
+foreach x (`cat lists/root_launched`)
+if(`grep $x *ins | wc | awk '{print $1}'` == "0") then
+echo $x >> missing
+else if(`grep $x *ins | wc | awk '{print $1}'` == "15") then
+echo $x >> complete
+else
+grep $x *ins | wc | awk '{print $1}'
+echo $x >> incomplete
+endif
+end
+
+foreach x (`cat candidates`)
+if(`grep $x *ins | wc | awk '{print $1}'` == "15") then
+echo $x >> finished
+endif
+end
+
+#rm -f mon_ins log_ins ntp10_ins ntp21_ins ntpr_ins root_ins out1_ins out1_ins1 out1_ins2 out2_ins out3_ins pdu_ins gflux1_ins gflux2_ins gflux3_ins gflux4_ins trip_in
+s
+
+rm -f  candidates
+mv finished lists
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# check if a file in to_put is already finished. If it is, then remove that
+# from list to_put and add it to to_delete
+
+foreach f (`cat $FMOND/to_put`)
+
+	set is_fin = (`grep $f $FMOND/finished`)
+	if($f == $is_fin) then
+		echo $f is done! Removing it from to_put. Adding it to to_delete
+		echo $f >> to_delete
+		grep -v $f to_put > aaa ; mv aaa to_put
+	endif
+
+end

@@ -4,36 +4,37 @@
 # check if it's the last file of the run.
 # if it is a last, check for the sizes below, and if it pass create lastFilesToPutInSilo
 #
-# if it's nota list, put them on a file to_delete
+# if it's not a last, put them on a file to_delete
 # for the data, a min size of 200 Meg of first file is enough
 
 
-rm -f $FMOND/to_put to_delete ; touch to_put to_delete
+rm -f $FMOND/to_put $FMOND/to_delete ; touch $FMOND/to_put $FMOND/to_delete
 
-foreach f (`cat maybe_good`)
-set is_last = (`grep $f lists/last_files | wc | awk '{print $1}'`)
+foreach f (`cat $FMOND/maybe_good`)
 
-set RUN = (`echo $f | awk -F. '{print $1}'`)
-set EXT = (`echo $f | awk -F. '{print $2}'`)
+	set is_last = (`grep $f lists/last_files | wc | awk '{print $1}'`)
+
+	set RUN = (`echo $f | awk -F. '{print $1}'`)
+	set EXT = (`echo $f | awk -F. '{print $2}'`)
+
+	if( $is_last == '1' ) then
+
+		set size_of_hist   = (`ls -s  $FARM_OUT/hist/hst_$RUN"_pass1."$EXT".hbook"   | awk '{print $1}'`)
+		set size_of_data1  = (`ls -s  $FARM_OUT/data/run_$RUN"_pass1."$EXT".1"       | awk '{print $1}'`)
+		set size_of_ntp    = (`ls -s  $FARM_OUT/ntuple/ntp_$RUN"_pass1."$EXT".hbook" | awk '{print $1}'`)
 
 
-# if( $is_last == '1' ) then
+		if( ($size_of_hist ==  $HIST_SIZE1 || $size_of_hist ==  $HIST_SIZE2) && $size_of_data1 >=  $DATA_MIN_SIZE && $size_of_ntp >= $NTP_MIN_SIZE) then
+			echo $f -- Hist size: $size_of_hist  --  Data size: $size_of_data1  -- Ntuple size: $size_of_ntp  -- PASSED
+			echo $f >> $FMOND/to_put
+		else
+			echo $f -- Hist size: $size_of_hist  --  Data size: $size_of_data1  -- Ntuple size: $size_of_ntp  -- FAILED
+			echo $f >> $FMOND/to_delete
+		endif
 
-set size_of_hist   = (`ls -s  $FARM_OUT/hist/hst_$RUN"_pass1."$EXT".hbook"   | awk '{print $1}'`)
-set size_of_data1  = (`ls -s  $FARM_OUT/data/run_$RUN"_pass1."$EXT".1"       | awk '{print $1}'`)
-set size_of_ntp    = (`ls -s  $FARM_OUT/ntuple/ntp_$RUN"_pass1."$EXT".hbook" | awk '{print $1}'`)
-
-
-if( ($size_of_hist ==  $LHBOOK_SIZE1 || $size_of_hist ==  $LHBOOK_SIZE2) && $size_of_data1 >=  $LDATA_MIN_SIZE && $size_of_ntp >= $LNTP_MIN_SIZE) then
-	echo $f -- Hist size: $size_of_hist  --  Data size: $size_of_data1  -- Ntuple size: $size_of_ntp  -- PASSED
-	echo $f >> to_put
-else
-	echo $f -- Hist size: $size_of_hist  --  Data size: $size_of_data1  -- Ntuple size: $size_of_ntp  -- FAILED
-	echo $f >> to_delete
-endif
-# else
-#  echo $f is not the last file. Something went wrong.
-#  echo $f >> to_delete
-# endif
+	else
+		echo $f is not the last file. Something went wrong.
+		echo $f >> $FMOND/to_delete
+	endif
 
 end

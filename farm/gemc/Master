@@ -1,0 +1,42 @@
+#!/bin/csh -f
+
+set TITLE    = (clas12b.t0.5.s0.5              clas12b.t0.5.s1.0              clas12b.t0.75.s0.75              clas12b.t1.0.s0.5              clas12b.t1.0.s1.0              clas12b.t0.5.s0.75              clas12b.t0.75.s0.5              clas12b.t0.75.s1.0              clas12b.t1.0.s0.75             )
+#set gcard    = (clas12b.t0.5.s0.5.gcard.proton clas12b.t0.5.s1.0.gcard.proton clas12b.t0.75.s0.75.gcard.proton clas12b.t1.0.s0.5.gcard.proton clas12b.t1.0.s1.0.gcard.proton clas12b.t0.5.$
+set gcard    = (clas12b.t0.5.s0.5.gcard        clas12b.t0.5.s1.0.gcard        clas12b.t0.75.s0.75.gcard        clas12b.t1.0.s0.5.gcard        clas12b.t1.0.s1.0.gcard        clas12b.t0.5.s0.75.gcard        clas12b.t0.75.s0.5.gcard        clas12b.t0.75.s1.0.gcard        clas12b.t1.0.s0.75.gcard)
+
+set NEVENTS  = 10
+set NMAX     = 1000
+
+set launchd   = /home/ungaro/projects/gemc_farm
+set workdir   = /work/clas/clas12/ungaro/clas12
+set gcard_dir = fields
+
+set i = 1
+while ($i <= $NMAX)
+
+	set w = 1
+
+	while ($w <= $#TITLE)
+		rm -f gemc.jsub
+		\echo  JOBNAME: $TITLE[$w]                                             > gemc.jsub
+		\echo  PROJECT: clas12                                                >> gemc.jsub
+		\echo  MAIL:    ungaro@jlab.org                                       >> gemc.jsub
+		\echo  TRACK:   simulation                                            >> gemc.jsub
+		\echo  COMMAND: go_simulate $gcard[$w] $TITLE[$w] $workdir $NEVENTS   >> gemc.jsub
+		\echo  OS:      centos65                                              >> gemc.jsub
+		\echo  MEMORY:  2000 MB                                               >> gemc.jsub
+#		\echo  MEMORY:  500 MB                                                >> gemc.jsub
+		#      \echo  TIME:    2000                                           >> gemc.jsub
+		\echo  OTHER_FILES: $launchd/go_simulate                              >> gemc.jsub
+		\echo  OTHER_FILES: $launchd/$gcard_dir/$gcard[$w]                    >> gemc.jsub
+		\echo
+		\echo Launching simulation $i for $TITLE[$w]
+		\echo
+		/site/bin/jsub gemc.jsub
+		#      cat  gemc.jsub
+		@ w += 1
+	end 
+	@ i += 1 
+end
+
+

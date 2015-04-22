@@ -13,16 +13,12 @@ functions/checkFailed
 functions/checkMaybeGood
 \echo
 \echo
-#
-#\echo Among the failed, checking if there are files with wring histo size \(these certainly failed\)
-#functions/go_maybe_notgood
-#\echo
-#\echo
-#
-#\echo Making sure that some jput candidates are not already in silo.
-#functions/is_it_finished
-#\echo
-#\echo
+
+
+\echo Making sure that some jput candidates are not already in silo.
+functions/isItFinished
+\echo
+\echo
 #
 #
 #\echo Removing bad files
