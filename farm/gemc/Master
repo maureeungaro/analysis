@@ -1,42 +1,66 @@
 #!/bin/csh -f
 
-set TITLE    = (clas12b.t0.5.s0.5              clas12b.t0.5.s1.0              clas12b.t0.75.s0.75              clas12b.t1.0.s0.5              clas12b.t1.0.s1.0              clas12b.t0.5.s0.75              clas12b.t0.75.s0.5              clas12b.t0.75.s1.0              clas12b.t1.0.s0.75             )
-#set gcard    = (clas12b.t0.5.s0.5.gcard.proton clas12b.t0.5.s1.0.gcard.proton clas12b.t0.75.s0.75.gcard.proton clas12b.t1.0.s0.5.gcard.proton clas12b.t1.0.s1.0.gcard.proton clas12b.t0.5.$
-set gcard    = (clas12b.t0.5.s0.5.gcard        clas12b.t0.5.s1.0.gcard        clas12b.t0.75.s0.75.gcard        clas12b.t1.0.s0.5.gcard        clas12b.t1.0.s1.0.gcard        clas12b.t0.5.s0.75.gcard        clas12b.t0.75.s0.5.gcard        clas12b.t0.75.s1.0.gcard        clas12b.t1.0.s0.75.gcard)
+# Parameters set by user
+# ----------------------
 
-set NEVENTS  = 10
-set NMAX     = 1000
+set NEVENTS    = 10                              # number of events / job
+set NMAXJOBS   = 2                               # number of jobs to be launched per gcard
+set GCARDSD    = ~/svt                           # collection of gcards. One job / gcard will be launched
+set OUTPUTD    = /work/clas/clas12/ungaro/clas12 # output directory
+set DEBUG      = yes                             # "yes" will print out the jsub file instead of submitting it
+set EXPSD      = ~/experiments                   # directory containing the detector definition
+set INPUTFILES = none                            # directory containing the input files. Can be "none" for internal generator
+                                                 # The files must be of the format "gemcInput_#.dat" where # (file number) will match the job number
 
-set launchd   = /home/ungaro/projects/gemc_farm
-set workdir   = /work/clas/clas12/ungaro/clas12
-set gcard_dir = fields
+# Farm specific parameters
+set MEMORY   = "2000 MB"       # node memory to be used
+set OS       = centos65        # job OS
+set PROJECT  = clas12          # job project name
+set MAIL     = ungaro@jlab.org # author email
+set TRACK    = simulation      # job track
+set JSUBC    = /site/bin/jsub  # command to submit the job
 
-set i = 1
-while ($i <= $NMAX)
+# End of user parameter
+# ---------------------
+
+
+# title of the jobs to be launched
+set titles    = `./functions/getGcardsList $GCARDSD`
+echo
+echo " > Gcards to be launched from " $GCARDSD " :"
+echo
+echo " >" $titles
+echo
+
+set scriptsd  = `pwd`
+set i         = 1
+
+# Creating jsub and submitting jobs
+while ($i <= $NMAXJOBS)
 
 	set w = 1
-
-	while ($w <= $#TITLE)
+	while ($w <= $#titles)
+		set gcard = $titles[$w]".gcard"
 		rm -f gemc.jsub
-		\echo  JOBNAME: $TITLE[$w]                                             > gemc.jsub
-		\echo  PROJECT: clas12                                                >> gemc.jsub
-		\echo  MAIL:    ungaro@jlab.org                                       >> gemc.jsub
-		\echo  TRACK:   simulation                                            >> gemc.jsub
-		\echo  COMMAND: go_simulate $gcard[$w] $TITLE[$w] $workdir $NEVENTS   >> gemc.jsub
-		\echo  OS:      centos65                                              >> gemc.jsub
-		\echo  MEMORY:  2000 MB                                               >> gemc.jsub
-#		\echo  MEMORY:  500 MB                                                >> gemc.jsub
-		#      \echo  TIME:    2000                                           >> gemc.jsub
-		\echo  OTHER_FILES: $launchd/go_simulate                              >> gemc.jsub
-		\echo  OTHER_FILES: $launchd/$gcard_dir/$gcard[$w]                    >> gemc.jsub
+		\echo  JOBNAME: $titles[$w]                                                  > gemc.jsub
+		\echo  PROJECT: $PROJECT                                                    >> gemc.jsub
+		\echo  MAIL:    $MAIL                                                       >> gemc.jsub
+		\echo  TRACK:   $TRACK                                                      >> gemc.jsub
+		\echo  OS:      $OS                                                         >> gemc.jsub
+		\echo  MEMORY:  $MEMORY                                                     >> gemc.jsub
+		\echo  COMMAND: goSimulate $titles[$w] $OUTPUTD $NEVENTS $EXPSD $INPUTFILES >> gemc.jsub
+		\echo  OTHER_FILES: $scriptsd/goSimulate                                    >> gemc.jsub
+		\echo  OTHER_FILES: $scriptsd/$GCARDSD/gcard                                >> gemc.jsub
 		\echo
-		\echo Launching simulation $i for $TITLE[$w]
+		\echo Launching simulation $i for $titles[$w]
 		\echo
-		/site/bin/jsub gemc.jsub
-		#      cat  gemc.jsub
+		if($DEBUG != "yes") then
+			$JSUBC gemc.jsub
+		else
+			cat  gemc.jsub
+		endif
 		@ w += 1
-	end 
+	end
 	@ i += 1 
 end
-
 

@@ -2,8 +2,11 @@
 *.mu
 .sconsign.dblite
 *.root
+*.png
 pid/proton/proton_pid
+pid/proton/common_runs
 pid/electron/e_pid
+pid/electron/common_runs
 reso_histos
 DONE_SEL
 TODO_SEL

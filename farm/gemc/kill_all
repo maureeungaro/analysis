@@ -1,9 +1,11 @@
 #!/bin/csh -f
 
 set prod = prod64
+set me = `whoami`
 
-set a = (`/site/bin/jobstat -u ungaro | grep -v JOB | grep $prod | awk '{print $1}'`)
-echo $a
+set a = (`/site/bin/jobstat -u $me | grep -v JOB | grep $prod | awk '{print $1}'`)
+echo "Jobs to be killed: "$a
+
 /site/bin/jkill $a
 
 

@@ -6,8 +6,13 @@
 
 set dir = $1
 
-set gcards = `(\ls $dir/*.gcard)`
+# changing directory is cleaner than having to clean up
+# the path from the names (ls a/* will give full path)
+cd $dir
 
+set gcards = `(\ls *.gcard  | awk -F".gcard" '{print $1}')`
 
-set 
+echo $gcards
+
+cd -
 
