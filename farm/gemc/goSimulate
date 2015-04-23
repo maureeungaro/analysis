@@ -56,11 +56,11 @@ while ($SIMU < $NMAX)
 		echo    
 
 		# running gemc
-		gemc $gcard -N=$NEVENTS > $dir/simu_$SIMU/gemc.log
+		gemc $gcard -N=$nevents > $dir/simu_$SIMU/gemc.log
 
 		cp out.ev $gcard $dir/simu_$SIMU
 
-		# exit here to stop at the first non-existin dir
+		# exit here to stop at the first non-existing dir
 		exit
 	endif
 
