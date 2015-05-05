@@ -1,14 +1,12 @@
 #!/bin/csh -f
 
-#./inquire_simulation clas12 srrsolenoid reset 
-
 # Availiable options:
 #
 # reset:   will reset the event count number to 1 (write to .dat file)
 # verbose: will display the event information (no ROOTIFICATION)
-# clear:   will remove unfinished directories
 # root:    will rootify, w/o removing dir
 # rootr:   will rootify and remove rootified dir
+# clear:   will remove unfinished directories
 
 set OPT = $1
 
@@ -18,8 +16,8 @@ set OPT = $1
 set GCARDSD = ~/ddvcs                         # collection of gcards. One job / gcard will be launched
 set INPUTD  = /work/clas/clas12/ungaro/clas12 # location of evio files (inside each gcard title)
 set OUTPUTD = $INPUTD/root                    # output directory
-set EXACT   = 5  # number of expected events
-set MINP    = 5  # minimum number of events required to be copied
+set EXACT   = 5                               # number of expected events
+set MINP    = 5                               # minimum number of events required for the sim to be processed
 
 # End of user parameter
 # ---------------------
@@ -33,7 +31,7 @@ echo
 echo " >" $titles
 echo
 
-
+# resetting if requested
 if($OPT == "reset") then
 	set w = 1
 	while ($w <= $#titles)
@@ -47,86 +45,105 @@ if($OPT == "reset") then
 endif
 
 
-set SIMU = 1
-set EVN  = `cat nevents_$WHAT.dat` 
- 
-set SUBP  = 0       # number of events to substract from EXACT - this in case we don't have the EXACT
+# loop over gcards
+set w = 1
+while ($w <= $#titles)
+	set thisJob     = $titles[$w]
+	set thisInputD  = $INPUTD/$thisJob
+	set thisOutputD = $OUTPUTD/$thisJob
+
+	mkdir -p $thisOutputD
+
+	set SIMU = 1
+	set EVN  = `cat nevents_$thisJob.dat`
+
+	set NEXISTD = `ls thisInputD              | wc | awk '{print $1}'`  # number of existing directories to process
+	set NRFILES = `ls thisOutputD | grep root | wc | awk '{print $1}'`  # number of processed files
+
+	\echo " > -------------------"
+	\echo
+	\echo " Job: " $thisJob
+	\echo
+	\echo "Number of available directories: " $NEXISTD
+	\echo "Number of processed files in " $thisOutputD " is " $NRFILES
+	\echo Last event for $thisJob is $EVN
+	\echo
+	\echo " > -------------------"
 
 
-#ssh ungaro@mauri mkdir -p $mdir/$WHAT
-mkdir -p $mdir/$WHAT
-#set NFILE = `ssh mauri "ls $mdir/$WHAT" | grep root | wc | awk '{print $1}'`
-set NFILE = `ls $mdir/$WHAT | grep root | wc | awk '{print $1}'`
 
-\echo
-\echo Number of files existing in $mdir/$WHAT is $NFILE
-\echo Last event for $WHAT is $EVN
-\echo
+	# this job loop
+	while ($SIMU < $NEXISTD)
 
-while ($SIMU < 2000)
-	if(`filetest -e  $dir/simu_$SIMU` == "1") then
-		set CORE    = (`ls $dir/simu_$SIMU | grep core | wc | awk '{print $1}'`)
-		set EXITED  = (`grep Exiting $dir/simu_$SIMU/gemc.log | wc | awk '{print $1}'`)
-  
-		if($OPT == "VERBOSE") then 
-			\echo  $dir/simu_$SIMU `grep event $dir/simu_$SIMU/gemc.log | tail -1`
-		endif
+		# making sure directory exists
+		set thisDir = $dir/simu_$SIMU
+		if(`filetest -e  $thisDir` == "1") then
 
-		if($CORE == "1") then
-			\echo Core found! Removing dir $dir/simu_$SIMU 
-			rm -rf $dir/simu_$SIMU   
-		endif
-
-
-		if($EXITED == "1") then
-			\echo gemc exited - check the log. Use option \"CLEAR\" to clear those.
-			if($OPT == "CLEAR") then
-				\echo Removing dir
-				rm -rf $dir/simu_$SIMU   
-			endif
-		endif
-    
-		if($OPT == "ROOT") then 
-			# The last part to avoid err msg on screen during event action logs
-			set LASTE = `grep event $dir/simu_$SIMU/gemc.log | grep "Begin of event"   | tail -1 | awk -F"Begin of event" '{print $NF}' | awk -F">>" '{print $1}'`
-			if($LASTE == $EXACT) then
-				@ PROC = $LASTE
+			# removing directory if core is found
+			if(`ls $thisDir | grep core | head -1 | wc | awk '{print $1}' ` == "1")
+				\echo " > !! Core found! Removing dir $thisDir "
+				rm -rf $thisDir
 			else
-				@ PROC = $LASTE - $SUBP
+
+				# no core found - proceed
+				if($OPT == "verbose") then
+					\echo  $thisDir `grep event $thisDir/gemc.log | tail -1`
+				endif
+
+				# rootification
+				if($OPT == "root" || $OPT == "rootr") then
+
+					# identifying last event
+					set LASTE = `grep event $thisDir/gemc.log | grep "End of Event" | tail -1 | awk -F"End of Event" '{print $2}' | awk '{print $1}'`
+
+					# satisfying minimum number of events
+					if( $LASTE >= $MINP) then
+						\echo " > "Last good event for simulation $SIMU is $LASTE - Good. Start Event is $EVN"
+						set exc = `./evio2root -B=dc -INPUTF=$thisDir/out.ev |& grep -i segmentation | awk '{print $1}'`
+
+						# evio2root failed
+						if( `\echo $exc` != "" || `ls | grep core | wc | awk '{print $1}'` == "1") then
+							\echo "simu_$SIMU gave error $exc , deleting root file and directory"
+							rm $SIMU.root core.*
+							rm -rf $thisDir
+						else
+						# evio2root was succesful
+							@ EVN += $LASTE
+							@ $NRFILES += 1
+							mv $thisDir/out.root $thisOutputD/$NRFILES.root
+							rm -rf nevents_$thisJob.dat ; \echo $EVN >  nevents_$thisJob.dat
+							if($OPT == "rootr") then
+								\echo " > directory $SIMU is done, removing it"
+								rm -rf $thisDir
+							else
+								\echo " > directory $SIMU is done"
+							endif
+						# end of successful evio2root
+						endif
+
+					# number of events was not above minimum limit
+					else
+						\echo only $LASTE in $thisDir
+						if($OPT == "clear") then
+							\echo " > Clearing $thisDir"
+							rm -rf  $thisDir
+						endif
+					endif
+
+				# end of rootification
+				endif
+
+			# end of core checking
 			endif
 
-			if( $PROC >= $MINP) then 
-				\echo Last event for simulation $SIMU is $LASTE - $PROC to be processed - Start Event is $EVN
-				set exc = `./evio2root -B=DC -INPUTF=$dir/simu_$SIMU/out.ev |& grep -i segmentation | awk '{print $1}' `
-				@ EVN += $PROC
-				if( `\echo $exc` != "" || `ls | grep core | wc | awk '{print $1}'` == "1") then
-					\echo simu_$SIMU gave error $exc , deleting root file 
-					rm $SIMU.root
-					@ EVN -= $PROC
-					rm core.*
-					\echo removing directory too
-					rm -rf $dir/simu_$SIMU/
-					
-				else
-					@ NFILE += 1
-					\echo directory $SIMU is done, copying to mauri to $NFILE".root" and removing it
-					mv $dir/simu_$SIMU/out.root $mdir/$WHAT/$NFILE".root"
-					#rm -rf $dir/simu_$SIMU 
-					#rm -rf nevents_$WHAT.dat ; \echo $EVN >  nevents_$WHAT.dat
-				endif
-			else
-				\echo only $PROC in $dir/simu_$SIMU
-				if($OPT2 == "REMOVE") then
-					\echo Not enough events in $dir/simu_$SIMU - REMOVING DIRECTORY
-					rm -rf  $dir/simu_$SIMU 
-				endif
-			endif	 
-		 endif
-    
- 
-	endif
-	@ SIMU += 1
+		# end of inside available dir
+		endif
+
+		@ SIMU += 1
+	end
+
+	@ w += 1
 end
- 
- 
- 
+
+
+
