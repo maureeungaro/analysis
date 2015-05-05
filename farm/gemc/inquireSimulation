@@ -1,32 +1,55 @@
 #!/bin/csh -f
 
-#./inquire_simulation disk4 LUND ROOT
-#./inquire_simulation disk3 background
-#./inquire_simulation disk3 gemc_background ROOT 
-#./inquire_simulation disk3 gemc_background ROOT REMOVE
-#./inquire_simulation disk2 hps_test_nopa reset 
 #./inquire_simulation clas12 srrsolenoid reset 
 
-set DISK     = $1
-set WHAT     = $2
-set OPT      = $3
-set OPT2     = $4
+# Availiable options:
+#
+# reset:   will reset the event count number to 1 (write to .dat file)
+# verbose: will display the event information (no ROOTIFICATION)
+# clear:   will remove unfinished directories
+# root:    will rootify, w/o removing dir
+# rootr:   will rootify and remove rootified dir
 
-set dir  = /work/clas/$DISK/ungaro/clas12/$WHAT
-set mdir = /arena1/gemc_data/root
-set mdir = /volatile/clas/$DISK/ungaro/gemc_farm/root
+set OPT = $1
 
-set SIMU = 1
+# Parameters set by user
+# ----------------------
+
+set GCARDSD = ~/ddvcs                         # collection of gcards. One job / gcard will be launched
+set INPUTD  = /work/clas/clas12/ungaro/clas12 # location of evio files (inside each gcard title)
+set OUTPUTD = $INPUTD/root                    # output directory
+set EXACT   = 5  # number of expected events
+set MINP    = 5  # minimum number of events required to be copied
+
+# End of user parameter
+# ---------------------
+
+
+# title of the jobs to be launched
+set titles    = `./functions/getGcardsList $GCARDSD`
+echo
+echo " > Gcards to be launched from " $GCARDSD " :"
+echo
+echo " >" $titles
+echo
+
+
 if($OPT == "reset") then
-	\echo Resetting $WHAT
-	rm -rf nevents_$WHAT.dat
-	\echo 1 > nevents_$WHAT.dat
+	set w = 1
+	while ($w <= $#titles)
+		set thisJob = $titles[$w]
+		\echo Resetting $thisJob
+		rm -rf nevents_$thisJob.dat
+		\echo 1 > nevents_$thisJob.dat
+		@ w += 1
+	end
 	exit
 endif
+
+
+set SIMU = 1
 set EVN  = `cat nevents_$WHAT.dat` 
  
-set EXACT = 10  # number of expected events
-set MINP  = 10  # minimum number of events required to be copied
 set SUBP  = 0       # number of events to substract from EXACT - this in case we don't have the EXACT
 
 
@@ -40,7 +63,7 @@ set NFILE = `ls $mdir/$WHAT | grep root | wc | awk '{print $1}'`
 \echo Last event for $WHAT is $EVN
 \echo
 
-while ($SIMU < 1000)
+while ($SIMU < 2000)
 	if(`filetest -e  $dir/simu_$SIMU` == "1") then
 		set CORE    = (`ls $dir/simu_$SIMU | grep core | wc | awk '{print $1}'`)
 		set EXITED  = (`grep Exiting $dir/simu_$SIMU/gemc.log | wc | awk '{print $1}'`)
@@ -74,7 +97,7 @@ while ($SIMU < 1000)
 
 			if( $PROC >= $MINP) then 
 				\echo Last event for simulation $SIMU is $LASTE - $PROC to be processed - Start Event is $EVN
-				set exc = `./gemc_evio2root $dir/simu_$SIMU/out.ev $SIMU.root $PROC $EVN |& grep -i segmentation | awk '{print $1}' `
+				set exc = `./evio2root -B=DC -INPUTF=$dir/simu_$SIMU/out.ev |& grep -i segmentation | awk '{print $1}' `
 				@ EVN += $PROC
 				if( `\echo $exc` != "" || `ls | grep core | wc | awk '{print $1}'` == "1") then
 					\echo simu_$SIMU gave error $exc , deleting root file 
@@ -87,11 +110,9 @@ while ($SIMU < 1000)
 				else
 					@ NFILE += 1
 					\echo directory $SIMU is done, copying to mauri to $NFILE".root" and removing it
-					#scp $SIMU.root ungaro@mauri:$mdir/$WHAT/$NFILE".root"
-					cp $SIMU.root $mdir/$WHAT/$NFILE".root"
-					rm $SIMU.root
-					rm -rf $dir/simu_$SIMU 
-					rm -rf nevents_$WHAT.dat ; \echo $EVN >  nevents_$WHAT.dat
+					mv $dir/simu_$SIMU/out.root $mdir/$WHAT/$NFILE".root"
+					#rm -rf $dir/simu_$SIMU 
+					#rm -rf nevents_$WHAT.dat ; \echo $EVN >  nevents_$WHAT.dat
 				endif
 			else
 				\echo only $PROC in $dir/simu_$SIMU
