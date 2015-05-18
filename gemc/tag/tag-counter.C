@@ -1,215 +1,206 @@
 {
-
-	TFile    f(Form("in.root"));
+	TFile finp(Form("in.root"));
 	TFile fout(Form("out.root"), "RECREATE");
+	
 
-	int dc[20];     // = 1 if dc accepted
-    
-    int evn;        // input evn
-    int evn2;       // output evn, same as input but it needs a different address
+	// DC Hits
+	vector<double>   *hitn    = 0;    // hit index
+	vector<double>   *dcTotE  = 0;    // sector
+	vector<double>   *dcS     = 0;    // sector
+	vector<double>   *dcSL    = 0;    // superlayer
+	vector<double>   *dcL     = 0;    // layer
+	vector<double>   *dcpid   = 0;    // pid
+	vector<double>   *dcmpid  = 0;    // mother pid
+	vector<double>   *dcpx    = 0;    // mom x
+	vector<double>   *dcpy    = 0;    // mom y
+	vector<double>   *dcpz    = 0;    // mom z
+	vector<double>   *dcvx    = 0;    // vertex x
+	vector<double>   *dcvy    = 0;    // vertex y
+	vector<double>   *dcvz    = 0;    // vertex z
+	vector<double>   *avg_t   = 0;    // time
+	
+	TTree *dcT  = (TTree*)finp.Get("dc");
+	dcT->SetBranchAddress("totEdep",     &dcTotE);
+	dcT->SetBranchAddress("sector",      &dcS);
+	dcT->SetBranchAddress("superlayer",  &dcSL);
+	dcT->SetBranchAddress("layer",       &dcL);
+	dcT->SetBranchAddress("pid",         &dcpid);
+	dcT->SetBranchAddress("mpid",        &dcmpid);
+	dcT->SetBranchAddress("px",          &dcpx);
+	dcT->SetBranchAddress("py",          &dcpy);
+	dcT->SetBranchAddress("pz",          &dcpz);
+	dcT->SetBranchAddress("vx",          &dcvx);
+	dcT->SetBranchAddress("vy",          &dcvy);
+	dcT->SetBranchAddress("vz",          &dcvz);
+	dcT->SetBranchAddress("avg_t",       &avg_t);
+	
+	
+	
+	// header
+	vector<double> *evn = 0;        // input evn
 
-    // DC Hits
-    int   hitn[1000];    // hit index
- 	int   dcS[1000];     // sector
-	int   dcSL[1000];    // superlayer
-	int   dcL[1000];     // layer
-	int   dcpid[1000];   // pid
-	int   dcmpid[1000];  // mother pid
-	float dcE[1000];     // track energy
+	TTree *headerT  = (TTree*)finp.Get("header");
+	headerT->SetBranchAddress("evn",  &evn);
+	
+	
+	int evn2;               // output evn, same as input but it needs a different address
+	vector<double> pid;     // pid of accepted particle
+	vector<double> mom;     // momentum
+	vector<double> theta;   // theta
+	vector<double> coinc;   // 1 or 2 particles at the same time
+	vector<double> vx;      // vertex x
+	vector<double> vy;      // vertex y
+	vector<double> vz;      // vertex z
+	vector<double> time;    // time
 
-	TTree *dcT  = (TTree*)f.Get("dc");
-	dcT->SetBranchAddress("hitn",        hitn);
-	dcT->SetBranchAddress("totEdep",     dcE);
-	dcT->SetBranchAddress("sector",      dcS);
-	dcT->SetBranchAddress("superlayer",  dcSL);
-	dcT->SetBranchAddress("layer",       dcL);
-	dcT->SetBranchAddress("pid",         dcpid);
-	dcT->SetBranchAddress("mpid",        dcmpid);
-	dcT->SetBranchAddress("trackE",      dcE);
-
-    TTree *headerT  = (TTree*)f.Get("header");
-    headerT->SetBranchAddress("evn",  &evn);
-
-
+	
+	
+	
 	TTree *out = new TTree("out", "accepted particles");
-	out->Branch("evn",  &evn2, "evn/I");
-	out->Branch("ngen", &ngen, "ngen/I");
-	out->Branch("id",   id,    "id[20]/I");
-	out->Branch("px",   px,    "px[20]/F");
-	out->Branch("py",   py,    "py[20]/F");
-	out->Branch("pz",   pz,    "pz[20]/F");
-	out->Branch("dc",   dc,    "dc[20]/I");
-	out->Branch("ct",   ct,    "ct[20]/I");
-	out->Branch("bs",   bs,    "bs[20]/I");
-	out->Branch("sc",   sc,    "sc[20]/I");
-	out->Branch("bn",   bn,    "bn[20]/I");
-
-	for(int i=0; i<genT->GetEntries(); i++)
+	out->Branch("evn",    &evn2);
+	out->Branch("pid",    &pid);
+	out->Branch("mom",    &mom);
+	out->Branch("theta",  &theta);
+	out->Branch("coinc",  &coinc);
+	out->Branch("vx",     &vx);
+	out->Branch("vy",     &vy);
+	out->Branch("vz",     &vz);
+	out->Branch("time",   &time);
+	
+	
+	int NPART  = 2;
+	int PARTID[NPART] = {211, -211};
+	
+	for(int i=0; i<dcT->GetEntries(); i++)
 	{
-		genT->GetEntry(i);
+		headerT->GetEntry(i);
 		dcT->GetEntry(i);
-		ctT->GetEntry(i);
-		bstT->GetEntry(i);
-		scT->GetEntry(i);
-		bnT->GetEntry(i);
-		evn2 = evn ;
-		if(evn%100 == 0)
-			cout << " evn: " << evn << " ndchits: " << ndchit
-					<< " ncthits: "  << ncthit
-					<< " nbsthits: " << nbsthit
-					<< " nbnhits: "  << nbnhit
-					<< " nschits: "  << nschit << endl;
-
-		for(int in=0; in<20; in++)
-		{
-			dc[in] = 0;
-			ct[in] = 0;
-			bs[in] = 0;
-			bn[in] = 0;
-			sc[in] = 0;
-		}	
 		
-		for(int p=0; p<ngen; p++)
+		if(evn->size() ==1) evn2 = (*evn)[0];
+		
+		pid.clear();
+		mom.clear();
+		theta.clear();
+		coinc.clear();
+		vx.clear();
+		vy.clear();
+		vz.clear();
+		time.clear();
+		double coincidence = 0;
+		
+		// when counting particles, we're assuming only 1 of a kind
+		// in each event.
+		// if we have hit in 5 out of 6 SL above the energy threshold
+		// the we count that as 1.
+		for(int p=0; p<NPART; p++)
 		{
-			double mass = -1;
-			if(id[p] == 22)         mass = 0;
-			if(id[p] == 11)         mass = electron_mass;
-			if(id[p] == -11)        mass = electron_mass;
-			if(id[p] == 111)        mass = pi0_mass;
-			if(id[p] ==  211)       mass = pi_mass;
-			if(id[p] == -211)       mass = pi_mass;
-			if(id[p] ==  130)       mass = kaon_mass;
-			if(id[p] ==  321)       mass = kaon_mass;
-			if(id[p] == -321)       mass = kaon_mass;
-			if(id[p] == 2212)       mass = proton_mass;
-			if(id[p] == -2212)      mass = proton_mass;
-			if(id[p] == 2112)       mass = neutron_mass;
-			if(id[p] == -2112)       mass = neutron_mass;
-			if(id[p] == 1000010030) mass = H3_mass;
-			if(mass == -1) cout << " Unknown mass for id " << id[p] << endl;
-
-			gE[p] = sqrt(px[p]*px[p] + py[p]*py[p] + pz[p]*pz[p] + mass*mass);
-
-			// %%%%%%%%%%%%%
-			// DC acceptance
-			// %%%%%%%%%%%%%
-			int dc_la[6][6];
+			double momentum   = 0;
+			double thetaangle = 0;
+			double vtx        = 0;
+			double vty        = 0;
+			double vtz        = 0;
+			double dtime      = 0;
+			
+			// init DC count
+			int dc_hits[6][6][6];       // layer superlayer sector
 			for(int l=0; l<6; l++)
 				for(int sl=0; sl<6; sl++)
-					dc_la[l][sl] = 0;
-	
-			for(int d=0; d<ndchit; d++)
+					for(int ss=0; ss<6; ss++)
+						dc_hits[l][sl][ss] = 0;
+
+			// looping over dchits
+			for(unsigned d=0; d<(*dcpid).size(); d++)
 			{
-				// if same pid of generated, it's a hit in that layer, superlayer
-				if(dcpid[d]==id[p] && dcmpid[d] ==0 && dcE[d] > 0.0001)
+				// DC count set to 1 for hit in that layer / sector
+				if((*dcpid)[d] == PARTID[p] || (*dcmpid)[d] == PARTID[p])
 				{
-					if(fabs(dcgE[d] - gE[p]) < 200)
-						dc_la[dcL[d]-1][dcSL[d]-1] = 1;
-				// cout << dcpid[d] << " " << dcL[d] << " " << dcS[d] << " " << dcSL[d] << " " << dcE[d] << endl;
-				}
-			}
-			// if at least 5 hit in each superlayer, it's a segment
-			int seg[6] = {0, 0, 0, 0, 0, 0};
-			for(int sl=0; sl<6; sl++)
-			{
-				int nhit = 0;
-				for(int l=0; l<6; l++)
-					if(dc_la[l][sl] == 1) nhit++;
-				if(nhit>4) seg[sl] = 1;
-			}
-			// if at least 5 segments, it's accepted
-			dc[p] = 0;
-			int dcacc  = 0;
-			for(int sl=0; sl<6; sl++)
-				if(seg[sl]==1) dcacc++;
-			if(dcacc > 4)
-				dc[p] = 1;
-
-
-			// %%%%%%%%%%%%%%%
-			// CTOF acceptance
-			// %%%%%%%%%%%%%%%
-			ct[p] = 0;
-			for(int c=0; c<ncthit; c++)
-			{
-//				cout << p+1 <<  " " << id[p] << " " << ctpid[c] << " " << ctmpid[c] << " " << ctE[c] <<  " " << fabs(ctgE[c] - gE[p]) << " " << ctpaddle[c] << endl;
-				// if same pid of generated and if energy within 300 MeV of generated, it's a hit in ctof
-				if(ctpid[c]==id[p] && ctmpid[c]==0 && ctE[c] > 1)
-				{
-					if(fabs(ctgE[c] - gE[p]) < 300)
-					{
-						ct[p] = 1;
-						// cout << "yes " << endl;
-					}
-				}
-			}
-
-			// %%%%%%%%%%%%%%%
-			// BST acceptance
-			// %%%%%%%%%%%%%%%
-			int bst_la[6];
-			for(int l=0; l<6; l++)
-				bst_la[l] = 0;
-			
-			// if same pid of generated and energy within 60 MeV of generated, it's a hit in that layer
-			for(int b=0; b<nbsthit; b++)
-			{
-				// if energy within 300 MeV of generated, it's a hit in ctof
-				if(bstmpid[b]==0 && bstE[b] > 0.0001)
-				{	
-					if(fabs(bstgE[c] - gE[p]) < 300)			
-						bst_la[bstL[b]-1] = 1;
-				}
-			}
-			
-			// have to have a hit in each layer to be accepted
-			bs[p] = 0;
-			if(bst_la[0]*bst_la[1]*bst_la[2]*bst_la[3]*bst_la[4]*bst_la[5] > 0)
-				bs[p] = 1;
-
-
-
-			
-			// %%%%%%%%%%%%%%%
-			// OTOF acceptance
-			// %%%%%%%%%%%%%%%
-			sc[p] = 0;
-			for(int s=0; s<nschit; s++)
-			{
-				// if same pid of generated, mpid=0 and energy within 60 MeV of generated, it's a hit in otof
-				if(scpid[s]==id[p] && scmpid[s] ==0 && scE[s] > 0.1)
-				{
-
-					if(fabs(scgE[s] - gE[p]) < 60)
-						sc[p] = 1;
-				}
-			}
-
-			// %%%%%%%%%%%%%%%%
-			// Bonus acceptance
-			// %%%%%%%%%%%%%%%%
-			bn[p] = 0;
-			// if same pid of generated, mpid=0 and energy within 60 MeV of generated, it's a hit in otof
-			for(int b=0; b<nbnhit; b++)
-			{
-				// if same pid of generated, mpid=0 and energy within 100 MeV of generated, it's a hit in otof
-				//			cout << p+1 <<  " " << id[p] << " " << bnpid[b] << " " << bnmpid[b] << " " << bnE[b] <<  " " << fabs(bngE[b] - gE[p]) << " "  << endl;
-				if(bnpid[b]==id[p] && bnmpid[b] ==0 && bnE[b] > 0.0001)
-				{
+					int thisLayer      = (*dcL)[d];
+					int thisSuperLayer = (*dcSL)[d];
+					int thisSector     = (*dcS)[d];
 					
-					if(fabs(bngE[b] - gE[p]) < 10)
-					// cout << "yes " << endl;
-					bn[p] = 1;
+					// getting momentum, vertex, time as it enters first region
+					if(thisLayer == 1 && thisSuperLayer == 1 && dtime == 0)
+					{
+						momentum   = sqrt((*dcpx)[d]*(*dcpx)[d] + (*dcpy)[d]*(*dcpy)[d] + (*dcpz)[d]*(*dcpz)[d]);
+						thetaangle = acos((*dcpz)[d] / momentum)*180/3.1415;
+						vtx        = (*dcvx)[d];
+						vty        = (*dcvy)[d];
+						vtz        = (*dcvz)[d];
+						dtime      = (*avg_t)[d];
+					}
+					
+					dc_hits[thisLayer-1][thisSuperLayer-1][thisSector-1] = 1;
+				}
+			}
+			
+			
+			// now making segments in each SL and sectors
+			int dc_seg[6][6];       // superlayer sector
+			for(int sl=0; sl<6; sl++)
+				for(int ss=0; ss<6; ss++)
+					dc_seg[sl][ss] = 0;
+			
+			for(int sl=0; sl<6; sl++)
+				for(int ss=0; ss<6; ss++)
+				{
+					int nhitsL = 0;
+					for(int l=0; l<6; l++)
+						nhitsL += dc_hits[l][sl][ss];
+					
+					// if we have 5 hits the same layer it's a segment
+					if(nhitsL > 4)
+						dc_seg[sl][ss] = 1;
+				}
+			
+			
+			// now making tracks in each sectors - 5 segments at least
+			int dc_track[6];       // sector
+			for(int ss=0; ss<6; ss++)
+				dc_track[ss] = 0;
+			
+			for(int ss=0; ss<6; ss++)
+			{
+				int ntrack = 0;
+				for(int sl=0; sl<6; sl++)
+					ntrack += dc_seg[sl][ss] ;
+
+				if(ntrack > 4)
+					dc_track[ss] = 1;
+			}
+			
+			// now filling up track infos
+			for(int ss=0; ss<6; ss++)
+			{
+				if(dc_track[ss])
+				{
+					pid.push_back(PARTID[p]);
+					mom.push_back(momentum);
+					theta.push_back(thetaangle);
+					vx.push_back(vtx);
+					vy.push_back(vty);
+					vz.push_back(vtz);
+					time.push_back(dtime);
+					coincidence++;
+					cout << evn2 << " " << coincidence << endl;
 				}
 			}
 			
 		}
+		
+		if(coincidence && pid.size())
+		for(int p=0; p<NPART; p++)
+			coinc.push_back(coincidence);
+
 		fout.cd();
 		out->Fill();
 	}
- 
-	f.Close();
+	
+	finp.Close();
 	fout.Write();
 	fout.Close();
 
+	
 }
+
+
+
