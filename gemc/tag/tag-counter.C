@@ -4,7 +4,6 @@
 	
 
 	// DC Hits
-	vector<double>   *hitn    = 0;    // hit index
 	vector<double>   *dcTotE  = 0;    // sector
 	vector<double>   *dcS     = 0;    // sector
 	vector<double>   *dcSL    = 0;    // superlayer
@@ -52,9 +51,6 @@
 	vector<double> vy;      // vertex y
 	vector<double> vz;      // vertex z
 	vector<double> time;    // time
-
-	
-	
 	
 	TTree *out = new TTree("out", "accepted particles");
 	out->Branch("evn",    &evn2);
