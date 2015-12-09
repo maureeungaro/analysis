@@ -35,6 +35,10 @@ echo
 set scriptsd  = `pwd`
 set i         = 1
 
+# Settings defined here:
+https://scicomp.jlab.org/docs/text_command_file
+
+
 # Creating jsub and submitting jobs
 while ($i <= $NMAXJOBS)
 
@@ -49,9 +53,10 @@ while ($i <= $NMAXJOBS)
                 \echo  SINGLE_JOB: true                                                       >> gemc.jsub
 		\echo  OS:      $OS                                                           >> gemc.jsub
 		\echo  MEMORY:  $MEMORY                                                       >> gemc.jsub
+		\echo  TIME:    2000                                                          >> gemc.jsub
 		\echo  COMMAND: ./goSimulate $titles[$w] $OUTPUTD $NEVENTS $EXPSD $INPUTFILES >> gemc.jsub
 		\echo  OTHER_FILES: $scriptsd/goSimulate                                      >> gemc.jsub
-                \echo  OTHER_FILES: $scriptsd/functions/logConditions                         >> gemc.jsub
+		\echo  OTHER_FILES: $scriptsd/functions/logConditions                         >> gemc.jsub
 		\echo  OTHER_FILES: $GCARDSD/$gcard                                           >> gemc.jsub
 		\echo
 		\echo Launching simulation $i for $titles[$w]
