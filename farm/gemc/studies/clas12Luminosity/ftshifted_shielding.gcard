@@ -6,6 +6,7 @@
 
 	<!-- central -->
 	<detector name="/u/home/ungaro/experiments/clas12/magnets/solenoid"      factory="TEXT" variation="original"/>
+	<detector name="/u/home/ungaro/experiments/clas12/magnets/torus"         factory="TEXT" variation="original"/>
 
 
 	<!-- forward -->
@@ -46,7 +47,11 @@
 	<option name="LUMI_V"         value="(0.,0.,-10.)cm" />
 	<option name="LUMI_SPREAD_V"  value="(0.01, 0.01)cm" />
 	
-	
+	<option name="MAX_X_POS"  value="10000" />
+	<option name="MAX_Y_POS"  value="10000" />
+	<option name="MAX_Z_POS"  value="10000" />
+	<option name="HALL_MATERIAL" value="Vacuum"/>
+
 	<!--
 	 <option name="MAX_FIELD_STEP"  value="20" />
 	 -->
