@@ -14,6 +14,7 @@
 	 -->
 	
 	<!-- forward tagger configuration -->
+	
 	 <detector name="/u/home/ungaro/experiments/clas12/ft/ft"             factory="TEXT" variation="shifted"/>
 	 <detector name="/u/home/ungaro/experiments/clas12/beamline/beamline" factory="TEXT" variation="ft"/>
 
@@ -44,18 +45,10 @@
 	<option name="LUMI_P"         value="e-, 11*GeV, 0*deg, 0*deg" />
 	<option name="LUMI_V"         value="(0.,0.,-10.)cm" />
 	<option name="LUMI_SPREAD_V"  value="(0.01, 0.01)cm" />
-
-
-	<!--
-
-
 	
-	<option name="MAX_FIELD_STEP"  value="20" />
-
+	
+	<!--
+	 <option name="MAX_FIELD_STEP"  value="20" />
 	 -->
-
-
-
-
-
+	
 </gcard>
