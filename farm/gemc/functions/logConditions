@@ -1,0 +1,19 @@
+#!/bin/csh -f
+
+if($1 == "pre-run") then
+	\echo   
+	\echo                                   
+	\echo "=== Starting Simulation $2 ==="
+	\echo
+	\echo " Current directory: `pwd`"             
+	\echo " Using gemc executable `which gemc`"   
+	\echo " Sleeping before running: $3 seconds"  
+	\echo                                      
+	\echo "> Current directory content: `\ls`"     
+	\echo                                      
+else if($1 == "after-run") then
+	\echo
+	\echo "> final directory content: `\ls`"     
+	\echo                              
+endif
+

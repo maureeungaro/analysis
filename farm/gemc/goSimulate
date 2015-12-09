@@ -1,7 +1,7 @@
 #!/bin/csh -f
 
 # environment
-source /site/12gev_phys/production.csh 1.2
+source /site/12gev_phys/devel.csh
 
 # Usage:
 # go_simulate title workdir nevents experimentsdir inputfdir
@@ -36,29 +36,35 @@ while ($SIMU < $NMAX)
 
 	if(`filetest -e $dir/simu_$SIMU` == 0) then
 
-		echo Starting Simulation $SIMU
-		echo Using gemc executable `which gemc`
-		echo
-		mkdir -p $dir/simu_$SIMU
-		chmod a+rwx $dir/simu_$SIMU
+		set runDir =  $dir/simu_$SIMU
+
+		mkdir -p $runDir
+		chmod a+rwx $runDir 
 
 		# linking detector info and input files
 		ln -s $expsd .
+                cp $gcard $runDir
 
 		# linking input file if given
 		if($inputf != "none") then
 			ln -s $inputf/input$SIMU".dat" sidis.dat
 		endif
+	
+		set logFile = $runDir/gemc.log
+		touch $logFile
 
-		echo gemc executable: `which gemc`
-		echo
-		ls -alp  
-		echo    
+		# log before running
+		./logConditions pre-run $SIMU $x            
+                ./logConditions pre-run $SIMU $x          >> $logFile
 
 		# running gemc
-		gemc $gcard -N=$nevents > $dir/simu_$SIMU/gemc.log
+		gemc $gcard -N=$nevents -USE_GUI=0        >> $logFile
 
-		cp out.ev $gcard $dir/simu_$SIMU
+		cp out.ev $gcard $runDir
+
+                # log after running
+                ./logConditions after-run                
+                ./logConditions after-run                 >> $logFile
 
 		# exit here to stop at the first non-existing dir
 		exit
