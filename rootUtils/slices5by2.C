@@ -14,7 +14,7 @@
 // 3 multiplicative factor for maximum
 // 4 zero line value
 
-slices_5by2(TH1D *slice[10][10],  char TITLES[50][300], double limits[5], int opt)
+slices_5by2(TH1D *slice[10][4],  char TITLES[50][300], double limits[5], int opt)
 {  
  const int NPADS = 10; 
  gStyle->SetErrorX(0.);
@@ -24,7 +24,7 @@ slices_5by2(TH1D *slice[10][10],  char TITLES[50][300], double limits[5], int op
  ZERO->SetLineStyle(2);  
    
  // ----- Pads creation and settings -------------------------------------------------------
- TCanvas *c2by5 = new TCanvas(TITLES[3], TITLES[3], 600, 330);
+ TCanvas *c2by5 = new TCanvas(TITLES[3], TITLES[3], 1000, 700);
 
  TPad    *padph[NPADS];
  double y_lim[3]   = {0.12, 0.54, 0.92};
