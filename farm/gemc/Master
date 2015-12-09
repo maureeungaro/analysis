@@ -5,7 +5,7 @@
 
 set NEVENTS    = 10                              # number of events / job
 set NMAXJOBS   = 100                             # number of jobs to be launched per gcard
-set GCARDSD    = ~/tmp                           # collection of gcards. One job / gcard will be launched
+set GCARDSD    = ~/projects/analysis/farm/gemc/studies/clas12Luminosity                           # collection of gcards. One job / gcard will be launched
 set OUTPUTD    = /work/clas/clas12/ungaro/clas12 # output directory
 set DEBUG      = no                              # "yes" will print out the jsub file instead of submitting it
 set EXPSD      = ~/experiments                   # directory containing the detector definition
@@ -36,7 +36,7 @@ set scriptsd  = `pwd`
 set i         = 1
 
 # Settings defined here:
-https://scicomp.jlab.org/docs/text_command_file
+# https://scicomp.jlab.org/docs/text_command_file
 
 
 # Creating jsub and submitting jobs
