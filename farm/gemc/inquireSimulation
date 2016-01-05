@@ -5,7 +5,7 @@
 # reset:   will reset the event count number to 1 (write to .dat file)
 # verbose: will display the event information (no ROOTIFICATION)
 # root:    will rootify, w/o removing dir
-# rootr:   will rootify and remove rootified dir
+# rootr:   will rootify and remove simulation dir
 # clear:   will remove unfinished directories
 
 set OPT = $1
@@ -74,7 +74,7 @@ while ($w <= $#titles)
 
 
 	# this job loop
-	while ($SIMU < $NEXISTD)
+	while ($SIMU <= $NEXISTD)
 
 		# making sure directory exists
 		set thisDir = $thisInputD/simu_$SIMU
@@ -99,7 +99,7 @@ while ($w <= $#titles)
 					if($OPT == "root" || $OPT == "rootr") then
 
 						\echo " > Last good event for simulation $SIMU is $LASTE. Good. Start Event is $EVN"
-						set exc = `./evio2root -B=dc -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
+						set exc = `evio2root -B=dc -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
 
 						# evio2root failed
 						if( `\echo $exc` != "" || `ls | grep core | wc | awk '{print $1}'` == "1") then
