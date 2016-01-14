@@ -1,0 +1,58 @@
+<gcard>
+	<option name="geometry" value="1400x1200"/>
+
+	<!-- target. Notice variation give the target type. Can be: lH2, lD2, ND3 -->
+	<detector name="experiments/clas12/targets/target" factory="TEXT" variation="lH2"/>
+
+	<!-- central -->
+	<detector name="experiments/clas12/magnets/solenoid"      factory="TEXT" variation="original"/>
+
+	<!-- beamline and shielding - no forward tagger-->
+	<detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="physicistsBaselineNoFT"/>
+	
+	
+	<!--  beamline and shielding - with forward tagger -->
+	<!--
+	 <detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="original"/>
+	 <detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="ft"/>
+	 -->
+
+	<!-- forward carriage -->
+	<detector name="experiments/clas12/fc/forwardCarriage" factory="TEXT" variation="original"/>
+
+
+	<!-- fields -->
+	<option name="SCALE_FIELD" value="clas12-torus-bigRK, -1"/>
+	<option name="HALL_FIELD"  value="clas12-solenoidRK"/>
+
+	<!-- beam conditions -->
+	<option name="BEAM_P"   value="e-, 11.0*GeV, 0.0*deg, 0*deg"/>
+	<option name="SPREAD_P" value="0*GeV, 0*deg, 0*deg"/>
+
+	<!-- luminosity conditions -->
+	<option name="LUMI_EVENT"     value="1240, 250*ns, 2*ns" />
+	<option name="LUMI_P"         value="e-, 11*GeV, 0*deg, 0*deg" />
+	<option name="LUMI_V"         value="(0.,0.,-10.)cm" />
+	<option name="LUMI_SPREAD_V"  value="(0.01, 0.01)cm" />
+
+
+	<!-- don't track particles  -->
+	<option name="MAX_X_POS"  value="10000" />
+	<option name="MAX_Y_POS"  value="10000" />
+	<option name="MAX_Z_POS"  value="10000" />
+	<option name="HALL_MATERIAL" value="Vacuum"/>
+	
+<!--	<option name="MAX_FIELD_STEP"  value="20" />-->
+
+<option name="INTEGRATEDRAW" value="dc"/>
+
+<option name="PHYSICS" value="FTFP_BERT + STD"/>
+
+
+<option name="OUTPUT"   value="evio, out.ev"/>
+
+	<!--  Will print message every this n. of events -->
+	<option name="PRINT_EVENT"    value="1" />
+
+
+</gcard>
