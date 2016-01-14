@@ -45,7 +45,10 @@ while ($SIMU < $NMAX)
 
 		# linking detector info and input files
 		ln -s $expsd .
-                cp $gcard $runDir
+		ln -s $expsd $runDir/
+
+		# copying gcard to runDir
+		cp $gcard $runDir
 
 		# linking input file if given
 		if($inputf != "none") then
@@ -57,16 +60,16 @@ while ($SIMU < $NMAX)
 
 		# log before running
 		./logConditions pre-run $SIMU $x            
-                ./logConditions pre-run $SIMU $x          >> $logFile
+		./logConditions pre-run $SIMU $x          >> $logFile
 
 		# running gemc
 		gemc $gcard -N=$nevents -USE_GUI=0        >> $logFile
 
 		cp out.ev $gcard $runDir
 
-                # log after running
-                ./logConditions after-run                
-                ./logConditions after-run                 >> $logFile
+		# log after running
+		./logConditions after-run
+		./logConditions after-run                 >> $logFile
 
 		# exit here to stop at the first non-existing dir
 		exit

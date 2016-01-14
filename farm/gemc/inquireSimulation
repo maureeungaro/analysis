@@ -88,6 +88,10 @@ while ($w <= $#titles)
 				# no core found - proceed
 				# identifying last event
 				set LASTE = `grep Event $thisDir/gemc.log | grep "End of Event" | tail -1 | awk -F"End of Event" '{print $2}' | awk '{print $1}'`
+				if($LASTE == "") then
+					set LASTE = 0
+				endif
+
 				if($OPT == "verbose") then
 					\echo  "$thisDir has $LASTE good event(s)"
 				endif
