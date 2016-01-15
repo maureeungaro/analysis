@@ -48,7 +48,7 @@
 	<option name="HALL_MATERIAL" value="G4_AIR"/>
 	
    
-	<!--	<option name="MAX_FIELD_STEP"  value="20" />-->
+	<option name="MAX_FIELD_STEP"  value="20"/>
 	<option name="INTEGRATEDRAW" value="dc"/>
 
 
