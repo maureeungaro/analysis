@@ -14,8 +14,15 @@
 	
 	<!-- forward tagger -->
 	<!--
-	 <detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="original"/>
-	 -->
+	<detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="original"/>
+
+	<detector name="ft_trk">
+		<existence exist="no" />
+	</detector>
+	<detector name="ft_trk_ring">
+		<existence exist="no" />
+	</detector>
+	-->
 
 	<!-- forward carriage -->
 	<detector name="experiments/clas12/fc/forwardCarriage" factory="TEXT" variation="original"/>
@@ -48,7 +55,7 @@
 	<option name="HALL_MATERIAL" value="G4_AIR"/>
 	
    
-	<option name="MAX_FIELD_STEP"  value="10"/>
+	<option name="MAX_FIELD_STEP"  value="20"/>
 	<option name="INTEGRATEDRAW" value="dc"/>
 
 
