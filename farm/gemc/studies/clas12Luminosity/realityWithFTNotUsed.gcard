@@ -3,6 +3,7 @@
 
 	<!-- target. Notice variation give the target type. Can be: lH2, lD2, ND3 -->
 	<detector name="experiments/clas12/targets/target" factory="TEXT" variation="lH2"/>
+	<detector name="experiments/clas12/bst/bst" factory="TEXT" variation="original"/>
 
 	<!-- magnets -->
 	<detector name="experiments/clas12/magnets/solenoid"      factory="TEXT" variation="original"/>
@@ -37,6 +38,8 @@
 	<option name="SCALE_FIELD" value="clas12-torus-bigRK, -1"/>
 	<option name="HALL_FIELD"  value="clas12-solenoidRK"/>
 
+
+
 	<!-- beam conditions -->
 	<option name="BEAM_P"   value="e-, 11.0*GeV, 0.0*deg, 0*deg"/>
 	<option name="SPREAD_P" value="0*GeV, 0*deg, 0*deg"/>
@@ -56,7 +59,7 @@
 	
    
 	<option name="MAX_FIELD_STEP"  value="20"/>
-	<option name="INTEGRATEDRAW" value="dc"/>
+	<option name="INTEGRATEDRAW" value="dc, bst, ftof_p1a, ftof_p1b"/>
 
 
 	<option name="PHYSICS" value="FTFP_BERT + STD"/>

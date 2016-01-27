@@ -10,11 +10,11 @@
    <detector name="experiments/clas12/magnets/torus"         factory="TEXT" variation="original"/>
 
 	<!-- beamline and shielding -->
-	<detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="realityNoFT"/>
+	<detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="realityWithFTNotUsed"/>
 	
 	
 	<!-- forward tagger -->
-	<!--
+	
 	<detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="original"/>
 
 	<detector name="ft_trk">
@@ -23,7 +23,7 @@
 	<detector name="ft_trk_ring">
 		<existence exist="no" />
 	</detector>
-	-->
+
 
 	<!-- forward carriage -->
 	<detector name="experiments/clas12/fc/forwardCarriage" factory="TEXT" variation="original"/>
@@ -37,7 +37,7 @@
 	<!-- fields -->
 	<option name="SCALE_FIELD" value="clas12-torus-bigRK, -1"/>
 	<option name="HALL_FIELD"  value="clas12-solenoidRK"/>
-
+	<option name="SCALE_FIELD" value="clas12-solenoidRK, 0.5"/>
 
 
 	<!-- beam conditions -->
