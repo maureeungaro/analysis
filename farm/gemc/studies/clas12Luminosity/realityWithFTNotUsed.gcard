@@ -15,14 +15,7 @@
 	
 	<!-- forward tagger -->
 	
-	<detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="original"/>
-
-	<detector name="ft_trk">
-		<existence exist="no" />
-	</detector>
-	<detector name="ft_trk_ring">
-		<existence exist="no" />
-	</detector>
+	<detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="NotUsed"/>
 
 
 	<!-- forward carriage -->

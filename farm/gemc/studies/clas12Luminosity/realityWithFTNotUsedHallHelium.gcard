@@ -10,13 +10,13 @@
    <detector name="experiments/clas12/magnets/torus"         factory="TEXT" variation="original"/>
 
 	<!-- beamline and shielding -->
-	<detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="realityNoFT"/>
+	<detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="realityWithFTNotUsed"/>
 	
 	
 	<!-- forward tagger -->
-	<!--
-	<detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="original"/>
-	-->
+	
+	<detector name="experiments/clas12/ft/ft"             factory="TEXT" variation="NotUsed"/>
+
 
 	<!-- forward carriage -->
 	<detector name="experiments/clas12/fc/forwardCarriage" factory="TEXT" variation="original"/>
@@ -48,7 +48,7 @@
 	<option name="MAX_X_POS"  value="10000" />
 	<option name="MAX_Y_POS"  value="10000" />
 	<option name="MAX_Z_POS"  value="10000" />
-	<option name="HALL_MATERIAL" value="G4_AIR"/>
+	<option name="HALL_MATERIAL" value="G4_He"/>
 	
    
 	<option name="MAX_FIELD_STEP"  value="20"/>
