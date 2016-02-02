@@ -3,14 +3,15 @@
 
 	<!-- target. Notice variation give the target type. Can be: lH2, lD2, ND3 -->
 	<detector name="experiments/clas12/targets/target" factory="TEXT" variation="lH2"/>
-	<detector name="experiments/clas12/bst/bst" factory="TEXT" variation="original"/>
+	<detector name="experiments/clas12/bst/bst"        factory="TEXT" variation="original"/>
+	<detector name="experiments/clas12/ctof/ctof"      factory="TEXT" variation="original"/>
 
 	<!-- magnets -->
 	<detector name="experiments/clas12/magnets/solenoid"      factory="TEXT" variation="original"/>
    <detector name="experiments/clas12/magnets/torus"         factory="TEXT" variation="original"/>
 
 	<!-- beamline and shielding -->
-	<detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="realityWithFTNotUsedWithInnerShieldd"/>
+	<detector name="experiments/clas12/beamline/beamline" factory="TEXT" variation="realityWithFTNotUsedWithInnerShield"/>
 	
 	
 	<!-- forward tagger -->
@@ -21,7 +22,6 @@
 	<!-- forward carriage -->
 	<detector name="experiments/clas12/fc/forwardCarriage" factory="TEXT" variation="original"/>
    <detector name="experiments/clas12/ftof/ftof"          factory="TEXT" variation="original"/>
-   <detector name="experiments/clas12/ctof/ctof"          factory="TEXT" variation="original"/>
    <detector name="experiments/clas12/dc/dc"              factory="TEXT" variation="original"/>
    <detector name="experiments/clas12/ec/ec"              factory="TEXT" variation="original"/>
    <detector name="experiments/clas12/pcal/pcal"          factory="TEXT" variation="javageom"/>
@@ -51,7 +51,6 @@
 	<option name="HALL_MATERIAL" value="G4_AIR"/>
 	
    
-	<option name="MAX_FIELD_STEP"  value="20"/>
 	<option name="INTEGRATEDRAW" value="dc, bst, ftof_p1a, ftof_p1b"/>
 
 
