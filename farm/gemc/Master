@@ -3,9 +3,9 @@
 # Parameters set by user
 # ----------------------
 
-set NEVENTS    = 10                              # number of events / job
+set NEVENTS    = 100                             # number of events / job
 set NMAXJOBS   = 500                             # number of jobs to be launched per gcard
-set GCARDSD    = ~/projects/analysis/farm/gemc/studies/clas12Luminosity                           # collection of gcards. One job / gcard will be launched
+set GCARDSD    = ~/ddvs                          # collection of gcards. One job / gcard will be launched
 set OUTPUTD    = /work/clas/clas12/ungaro/clas12 # output directory
 set DEBUG      = no                              # "yes" will print out the jsub file instead of submitting it
 set EXPSD      = ~/experiments                   # directory containing the detector definition
