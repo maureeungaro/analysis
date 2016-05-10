@@ -3,7 +3,7 @@
 # Parameters set by user
 # ----------------------
 
-set NEVENTS    = 100                             # number of events / job
+set NEVENTS    = 50                              # number of events / job
 set NMAXJOBS   = 500                             # number of jobs to be launched per gcard
 set GCARDSD    = ~/ddvcs                         # collection of gcards. One job / gcard will be launched
 set OUTPUTD    = /work/clas/clas12/ungaro/clas12 # output directory
