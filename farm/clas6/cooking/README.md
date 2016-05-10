@@ -7,3 +7,12 @@ Can use "scp" to scopy there:<br/>
 	scp -r * clase1-6@ftp.jlab.org:/home/clase1-6/recook
 </pre>
 
+<b>Cooking</b>
+
+Edit the cookRuns to select cooking conditions. <br/>
+Can run functions/startOver to restart from the first run and re-creating
+the directory structures in the various disks pointed by DOUTPUT, DOUTPUT2, DOUTPUT3
+<br/>
+
+
+<b>Cronjob</b>

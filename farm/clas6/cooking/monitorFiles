@@ -9,16 +9,16 @@ functions/checkFailed
 \echo
 \echo
 
-\echo Among the failed, checking if there are files that might be last files of a run
-functions/checkMaybeGood
-\echo
-\echo
+#\echo Among the failed, checking if there are files that might be last files of a run
+#functions/checkMaybeGood
+#\echo
+#\echo
 
 
-\echo Making sure that some jput candidates are not already in silo.
-functions/isItFinished
-\echo
-\echo
+#\echo Making sure that some jput candidates are not already in silo.
+#functions/isItFinished
+#\echo
+#\echo
 #
 #
 #\echo Removing bad files

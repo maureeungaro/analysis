@@ -7,7 +7,7 @@ source cookEnvironment
 # last launched
 \echo resetting $LASTLAUNCHED
 cd $CSCRIPTS/lists
-rm $LASTLAUNCHED ; head -1 $GOODRUNS > $LASTLAUNCHED
+rm -rf $LASTLAUNCHED ; head -1 $GOODRUNS > $LASTLAUNCHED
 \echo
 
 # output directories
