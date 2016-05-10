@@ -13,9 +13,9 @@ set OPT = $1
 # Parameters set by user
 # ----------------------
 
-set GCARDSD = ~/projects/analysis/farm/gemc/studies/clas12Luminosity
-set INPUTD  = /work/clas/clas12/ungaro/clas12 # location of evio files (inside each gcard title)
-set OUTPUTD = $INPUTD/root                    # output directory
+set GCARDSD = ~/projects/analysis/farm/gemc/studies/ddvcs
+set INPUTD  = /work/clas/clas12/ungaro/clas12  # location of evio files (inside each gcard title)
+set OUTPUTD = $INPUTD/root                     # output directory
 set EXACT   = 50                               # number of expected events
 set MINP    = 50                               # minimum number of events required for the sim to be processed
 
