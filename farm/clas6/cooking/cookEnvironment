@@ -7,7 +7,7 @@ setenv VERSION      v1
 setenv DATASET      e1-6a
 setenv CHEF         `whoami`                              # user name of chef
 
-setenv CSCRIPTS     /home/clase1-6/recook                 # cooking scripts locations
+setenv CSCRIPTS     /home/clase1-6/recook                 # cooking scripts locations and executables
 setenv DOUTPUT      /work/clas/production/clase1-6        # disk output
 setenv DOUTPUT2     /work/clas/production2/clase1-6       # disk output
 setenv DOUTPUT3     /work/clas/production3/clase1-6       # disk output
@@ -34,35 +34,35 @@ setenv NTP_MIN_SIZE  200000
 
 
 # environment for executables
-setenv CLASPREFIX /work/clas/clas12/ungaro/clas6-trunk
-setenv GCC /apps/gcc/4.8.0
-setenv CERNLIB /usr/lib64/cernlib/2006/lib
+setenv PATH /apps/gcc/4.8.0/bin:$PATH
+setenv LD_LIBRARY_PATH /apps/gcc/4.8.0/lib64:$LD_LIBRARY_PATH
+setenv CXX /apps/gcc/4.8.0/bin/c++
+setenv CC  /apps/gcc/4.8.0/bin/gcc
 
-setenv PYTHONPATH ${CLASPREFIX}/lib/python
-
-setenv MYSQLINC /usr/include/mysql
-setenv MYSQLLIB /usr/lib64/mysql
-
+# CLAS6 software
+setenv CLASPREFIX /u/home/clase1-6/clas6-source
 setenv CLAS6INC ${CLASPREFIX}/build/include
 setenv CLAS6LIB ${CLASPREFIX}/build/lib
 setenv CLAS6BIN ${CLASPREFIX}/build/bin
+setenv ALIGNBITS 64
+setenv PYTHONPATH ${CLASPREFIX}/lib/python:${PYTHONPATH}
 
-setenv TCLLIB /usr/lib
-
-# this line is commented out until gcc 4.8 software is installed on ifarm
-# this line needs to be done at command line after jlab.csh is sourced
-setenv PATH ${GCC}/bin:.:${PATH}
-setenv PATH ${CLASPREFIX}/scripts::${CLAS6BIN}:${PATH}
-
-if( ! $?LD_LIBRARY_PATH) then
-	setenv LD_LIBRARY_PATH ""
-endif
-
-setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${GCC}/lib64:${CLAS6LIB}
-
+# clas paths
 setenv CLAS_PARMS /group/clas/parms
+setenv LD_LIBRARY_PATH ${CLAS6LIB}:${LD_LIBRARY_PATH}
 
-# paths
-set path = (/group/clas/tools/caldb $CLAS6BIN $path)
-set path = (/apps/bin $path)
-set path = (/apps/cmake/bin . $path)
+setenv PATH ${CLASPREFIX}/scripts:${CLAS6BIN}:${PATH}
+set path = (/group/clas/tools/caldb $CLAS6BIN /apps/bin $path)
+
+# perl scripts for clasdb
+setenv PERL5LIB /group/clas/tools/caldb
+
+# cernlib
+setenv CERNLIB /usr/lib64/cernlib/2006/lib
+
+# mysql
+setenv MYSQLINC /usr/include/mysql
+setenv MYSQLLIB /usr/lib64/mysql
+
+# tcl
+setenv TCLLIB /usr/lib

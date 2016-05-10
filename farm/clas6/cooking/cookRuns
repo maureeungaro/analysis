@@ -5,7 +5,7 @@ source cookEnvironment
 # chef setup
 # ----------
 
-set NMAX     = 1     # Max runs to be submitted - interactive mode
+set NMAX     = 2     # Max runs to be submitted - interactive mode
 set FILES    = ALL   # Extensions to be cooked. Can be multiple files: A01-A03-A05
 set LOC      = SILO	# Will pick files from: SILO=silo. CACHE=cache
 set DEBUG    = no    # if "yes" it won't jsub
