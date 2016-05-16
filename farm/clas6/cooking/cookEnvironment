@@ -34,7 +34,7 @@ setenv NTP_MIN_SIZE  200000
 
 
 # environment for executables
-setenv PATH /apps/gcc/4.8.0/bin:$PATH
+setenv PATH /apps/gcc/4.8.0/bin:.:$PATH
 setenv LD_LIBRARY_PATH /apps/gcc/4.8.0/lib64:$LD_LIBRARY_PATH
 setenv CXX /apps/gcc/4.8.0/bin/c++
 setenv CC  /apps/gcc/4.8.0/bin/gcc

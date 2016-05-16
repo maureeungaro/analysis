@@ -50,10 +50,10 @@ while ($i <= $NMAXJOBS)
 		\echo  PROJECT: $PROJECT                                                      >> gemc.jsub
 		\echo  MAIL:    $MAIL                                                         >> gemc.jsub
 		\echo  TRACK:   $TRACK                                                        >> gemc.jsub
-                \echo  SINGLE_JOB: true                                                       >> gemc.jsub
+		\echo  SINGLE_JOB: true                                                       >> gemc.jsub
 		\echo  OS:      $OS                                                           >> gemc.jsub
 		\echo  MEMORY:  $MEMORY                                                       >> gemc.jsub
-		\echo  TIME:    2000                                                          >> gemc.jsub
+		\echo  TIME:    120                                                           >> gemc.jsub
 		\echo  COMMAND: ./goSimulate $titles[$w] $OUTPUTD $NEVENTS $EXPSD $INPUTFILES >> gemc.jsub
 		\echo  OTHER_FILES: $scriptsd/goSimulate                                      >> gemc.jsub
 		\echo  OTHER_FILES: $scriptsd/functions/logConditions                         >> gemc.jsub

@@ -27,7 +27,7 @@ if($1 == "BATCH") then
 endif
 
 echo
-echo $NMAX jobs to be launched
+echo $NMAX runs to be launched
 echo
 
 set LAST    = (`cat $LASTLAUNCHED`)
