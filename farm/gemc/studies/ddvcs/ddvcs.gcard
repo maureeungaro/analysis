@@ -25,7 +25,7 @@
 
 
 	<!-- simulation conditions -->
-	<option name="INTEGRATEDRAW" value="flux"/>
+	<option name="INTEGRATEDRAW" value="ft_cal"/>
 	<option name="RECORD_PASSBY" value="1"/>
 	<option name="PHYSICS"       value="FTFP_BERT + STD"/>
 	<option name="OUTPUT"        value="evio, out.ev"/>
