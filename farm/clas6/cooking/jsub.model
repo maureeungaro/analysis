@@ -4,3 +4,4 @@ MAIL:    ungaro@jlab.org
 TRACK:   reconstruction
 COMMAND: go_COOK
 OS:      centos65
+MEMORY:  2000 MB
