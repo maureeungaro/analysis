@@ -1,0 +1,34 @@
+#!/bin/csh -f
+
+
+# This will monitor file by file the completed runs on disk
+
+
+cd $FMOND
+rm -f hist_files data_files pdu_files mu_files
+
+ls $HIST_OUT/histos/monitoring    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}' > hist_files
+#ls $DATA_OUT/data | grep "\.1"    | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}' > data_files
+ls $DATA_OUT/data                 | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}' > data_files
+ls $HIST_OUT/histos/pdu           | awk -F_ '{print $2"."$3}' | awk -F.  '{print $1"."$3}' > pdu_files
+ls $MU_OUT/mu                     | awk -F.  '{print $1"."$2}' > mu_files
+
+
+foreach x (hist_files data_files pdu_files mu_files)
+	echo $x `wc $x | awk '{print $1}'`
+end
+
+
+rm -f candidates
+cat hist_files data_files pdu_files mu_files | sort -u > candidates
+
+rm finished ; touch finished
+foreach x (`cat candidates`)
+	if(`grep $x *files | wc | awk '{print $1}'` == "4") then
+		echo $x >> finished
+	endif
+end
+
+foreach x (`cat finished`)
+	echo $x is finished
+end

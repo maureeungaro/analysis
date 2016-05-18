@@ -73,13 +73,18 @@ ls -lrt
 
 # renaming files to conventions
 mv outfile1       $COOKED
+if( -f outfile1.A00) then
+	mv $COOKED      $COOKED.1
+	mv outfile1.A00 $COOKED.2
+endif
+
 mv histfile       $NTUPLE
 mv anamonhist     $HISTO
 mv logfile        $LOG
 mv pdu_$RUN".hbk" $PDU
 
 # MU output
-./bos2mu -DC_PLANES=1 -INFOS="e1-6 pass3" -RUN_INDEX=$CLAS_CALDB_RUNINDEX -OUTPUT=$MU $COOKED
+./bos2mu -DC_PLANES=1 -INFOS="e1-6 pass3" -RUN_INDEX=$CLAS_CALDB_RUNINDEX -OUTPUT=$MU $COOKED.1  $COOKED.2
 
 # NTUPLE
 #./nt10maker -o$NTUPLE10  $COOKED > /dev/null
