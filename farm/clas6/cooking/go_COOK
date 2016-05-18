@@ -1,6 +1,6 @@
 #!/bin/csh -f
 
-source /site/12gev_phys/production.csh 1.2
+source /site/12gev_phys/production.csh 1.3
 source /home/clase1-6/recook/cookEnvironment
 
 set file    = (`ls clas_0*.A*`)
@@ -18,6 +18,8 @@ set EXT  = (`\echo $LEV   | awk -Fa '{print $2}'`)
 \echo Data file to be processed: $file
 \echo Run number: $RUN - file $LEV
 \echo
+\echo Conntent of current directory:
+\ls -alr
 
 
 # Naming conventions
@@ -58,7 +60,7 @@ printf "exit_pend;\n\n"            >> $tclfile
 
 \echo Running user_ana
 
-ln -s $file InputFile
+rm InputFile ; ln -s $file InputFile
 ./user_ana -t ./$tclfile
 
 
@@ -80,7 +82,7 @@ mv pdu_$RUN".hbk" $PDU
 ./bos2mu -DC_PLANES=1 -INFOS="e1-6 pass3" -RUN_INDEX=$CLAS_CALDB_RUNINDEX -OUTPUT=$MU $COOKED
 
 # NTUPLE
-./nt10maker -o$NTUPLE10  $COOKED > /dev/null
+#./nt10maker -o$NTUPLE10  $COOKED > /dev/null
 
 # ROOT
 h2root $NTUPLE    $ROOT    > /dev/null

@@ -39,12 +39,13 @@ setenv LD_LIBRARY_PATH /apps/gcc/4.8.0/lib64:$LD_LIBRARY_PATH
 setenv CXX /apps/gcc/4.8.0/bin/c++
 setenv CC  /apps/gcc/4.8.0/bin/gcc
 
-# CLAS6 software
+# CLAS6 software - oh joy
 setenv CLASPREFIX /u/home/clase1-6/clas6-source
 setenv CLAS6INC ${CLASPREFIX}/build/include
 setenv CLAS6LIB ${CLASPREFIX}/build/lib
 setenv CLAS6BIN ${CLASPREFIX}/build/bin
-setenv ALIGNBITS 64
+#setenv ALIGNBITS 64
+setenv ALIGNBITS 32
 setenv PYTHONPATH ${CLASPREFIX}/lib/python:${PYTHONPATH}
 
 # clas paths
@@ -58,11 +59,13 @@ set path = (/group/clas/tools/caldb $CLAS6BIN /apps/bin $path)
 setenv PERL5LIB /group/clas/tools/caldb
 
 # cernlib
-setenv CERNLIB /usr/lib64/cernlib/2006/lib
+#setenv CERNLIB /usr/lib64/cernlib/2006/lib
+setenv CERNLIB /apps/cernlib/i386_rhel6/2005/lib/
 
 # mysql
 setenv MYSQLINC /usr/include/mysql
-setenv MYSQLLIB /usr/lib64/mysql
+#setenv MYSQLLIB /usr/lib64/mysql
+setenv MYSQLLIB /usr/lib/mysql
 
 # tcl
 setenv TCLLIB /usr/lib

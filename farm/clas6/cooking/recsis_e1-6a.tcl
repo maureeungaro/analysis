@@ -1,5 +1,6 @@
 #source /group/clas/builds/PRODUCTION/packages/tcl/recsis_proc.tcl;
-source /group/clas/builds/test3/src/clas6-trunk/reconstruction/recsis/recsis_proc.tcl
+#source /group/clas/builds/test3/src/clas6-trunk/reconstruction/recsis/recsis_proc.tcl
+source /u/home/clase1-6/clas6-source/reconstruction/recsis/recsis_proc.tcl
 #
 # define packages
 turnoff ALL;
@@ -35,10 +36,11 @@ set trk_statistics    3 ;
 #
 #set dc_xvst_choice 0;
 #
+# Some of these are commented out to filter warning messages
 #
 #set ltime_do       -1;
-set lseb_nt_do      -1;
-set lall_nt_do      -1;
+#set lseb_nt_do      -1;
+#set lall_nt_do      -1;
 set lseb_hist       -1;
 set lseb_h_do       -1;
 set lmon_hist       -1;
@@ -46,8 +48,8 @@ set ltrk_h_do       -1;
 set legn_h_do       -1;
 set ltof_h_do       -1;
 set lec1_h_do       -1;                                                              
-set lfec_hist       -1;
-set l_nt_do         -1;
+#set lfec_hist       -1;
+#set l_nt_do         -1;
 #set lscr_nt_do      -1;
 #set ltbt_nt_do      -1;
 #set lpart_nt_do     -1;
