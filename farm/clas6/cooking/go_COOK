@@ -72,9 +72,8 @@ set CONDITIONS = (`./verifyConditions | grep Result | awk '{print $2}'`)
 ls -lrt
 
 # renaming files to conventions
-mv outfile1       $COOKED
+mv outfile1       $COOKED.1
 if( -f outfile1.A00) then
-	mv $COOKED      $COOKED.1
 	mv outfile1.A00 $COOKED.2
 endif
 
@@ -91,7 +90,7 @@ mv pdu_$RUN".hbk" $PDU
 
 # ROOT
 h2root $NTUPLE    $ROOT    > /dev/null
-h2root $NTUPLE10  $ROOT10  > /dev/null
+# h2root $NTUPLE10  $ROOT10  > /dev/null
 
 
 set CORE_FOUND     = (`ls | grep core | wc  | awk '{print $1}'`)
@@ -128,13 +127,16 @@ endif
 if($MOV == "1" || $CONDITIONS == "Failed") then
 	\echo Copying files in the work disks.
 
-	cp $COOKED    $DATA_OUT/data/
+	cp $COOKED.1    $DATA_OUT/data/
+	if( -f $COOKED.2) then
+		cp $COOKED.2    $DATA_OUT/data/
+	endif
 
 	cp $NTUPLE    $NTUP_OUT/ntuple/main/
-	cp $NTUPLE10  $NTUP_OUT/ntuple/nt10
+# cp $NTUPLE10  $NTUP_OUT/ntuple/nt10
 
 	cp $ROOT      $ROOT_OUT/root/main/
-	cp $ROOT10    $ROOT_OUT/root/nt10
+#cp $ROOT10    $ROOT_OUT/root/nt10
 
 	cp $LOG       $HIST_OUT/log/$LOG
 	cp $HISTO     $HIST_OUT/histos/monitoring/$HISTO
