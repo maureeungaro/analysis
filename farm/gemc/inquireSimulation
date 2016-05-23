@@ -106,7 +106,7 @@ while ($w <= $#titles)
 						set exc = `evio2root -B="flux, ddvcs" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
 
 						# evio2root failed
-						if( `\echo $exc` != "" || `ls | grep core | wc | awk '{print $1}'` == "1" && $OPT == "rootr") then
+						if( (`\echo $exc` != "" || `ls | grep "core\." | wc | awk '{print $1}'` == "1" ) && $OPT == "rootr") then
 							\echo "simu_$SIMU gave error $exc , deleting directory"
 							rm -rf $thisDir
 						else
