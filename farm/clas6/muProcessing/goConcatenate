@@ -12,6 +12,7 @@ if($1 == "-h" || $1 == ""  || $#argv != 2) then
 	echo " DEST_DIR: Output files directory"
 	echo " "
 	echo "Example:"
+	echo " ./goConcatenate /Volumes/e1-6/pass4/allPresent /Volumes/e1-6/pass4/fullRuns"
 	echo " ./goConcatenate /Volumes/e1-6/pass3/allPresent /Volumes/e1-6/pass3/fullRuns"
 	echo " ./goConcatenate /Volumes/e1-6/pass2/allPresent /Volumes/e1-6/pass2/fullRuns"
 	echo " ./goConcatenate /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass1/fullRuns"
@@ -49,7 +50,7 @@ foreach r ($runs)
 	echo Concatenating $r...
 	rm -rf $LOG_DIR/$r.log
 	$COMMAND  $ORIG_DIR/$r*.mu -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root > $LOG_DIR/$r.log
-	rm $ORIG_DIR/$r*.mu
+# rm $ORIG_DIR/$r*.mu
 end
 
 
