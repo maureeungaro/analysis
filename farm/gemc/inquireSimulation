@@ -80,7 +80,7 @@ while ($w <= $#titles)
 		set thisDir = $thisInputD/simu_$SIMU
 		if(`filetest -d  $thisDir` == "1") then
 			# removing directory if core is found
-			set coreFound = `ls $thisDir | grep core | head -1 | wc | awk '{print $1}'`
+			set coreFound = `ls $thisDir | grep "core\." | head -1 | wc | awk '{print $1}'`
 			if($coreFound == "1") then
 				\echo " > !! Core found! Removing dir $thisDir "
 				rm -rf $thisDir
