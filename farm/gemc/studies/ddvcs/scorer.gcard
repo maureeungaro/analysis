@@ -27,7 +27,7 @@
 	<!-- simulation conditions -->
 	<option name="INTEGRATEDRAW" value="flux"/>
 	<option name="RECORD_PASSBY" value="1"/>
-	<option name="PHYSICS"       value="FTFP_BERT + STD"/>
+	<option name="PHYSICS"       value="FTFP_BERT + EMZ"/>
 	<option name="OUTPUT"        value="evio, out.ev"/>
 
 	<!--  Will print message every this n. of events -->
