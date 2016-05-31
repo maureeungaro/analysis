@@ -13,3 +13,5 @@ e_pid_sources = Split("""src/e_pid.cc
                          src/e_pid_selection.cc""")
 
 e_pid = env.Program(source = e_pid_sources, target = 'e_pid')
+
+env.SharedLibrary(source = e_pid_sources, target = 'epid')

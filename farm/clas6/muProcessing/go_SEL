@@ -14,6 +14,7 @@ if($1 == "-h" || $1 == ""  || $#argv < 3) then
  echo " go_SEL /Volumes/e1-6/pass1/fullRuns /Volumes/e1-6/pass1/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
  echo " go_SEL /Volumes/e1-6/pass2/fullRuns /Volumes/e1-6/pass2/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
  echo " go_SEL /Volumes/e1-6/pass3/fullRuns /Volumes/e1-6/pass3/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
+ echo " go_SEL /Volumes/e1-6/pass4/fullRuns /Volumes/e1-6/pass4/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
 
  echo " go_SEL /Volumes/e1-6/pass1/e_pid /Volumes/e1-6/pass1/p_pid  /opt/projects/analysis/pid/proton/proton_pid  /opt/projects/analysis/pid/proton/proton_id_par.txt"
  echo " go_SEL /Volumes/e1-6/pass2/e_pid /Volumes/e1-6/pass2/p_pid  /opt/projects/analysis/pid/proton/proton_pid  /opt/projects/analysis/pid/proton/proton_id_par.txt"

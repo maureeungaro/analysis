@@ -33,5 +33,7 @@
 	<!--  Will print message every this n. of events -->
 	<option name="PRINT_EVENT"    value="1" />
 
+	<option name="MAX_FIELD_STEP"    value="10" />
+
 
 </gcard>
