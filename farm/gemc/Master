@@ -39,38 +39,33 @@ set i         = 1
 # Settings defined here:
 # https://scicomp.jlab.org/docs/text_command_file
 # Time is in minutes
-# Memory is in
+# Memory needs units
 
-# Creating jsub and submitting jobs
-# while ($i <= $NMAXJOBS)
 
-	set w = 1
-	while ($w <= $#titles)
-		set gcard = $titles[$w]".gcard"
-		rm -f gemc.jsub
-		\echo  JOBNAME: $titles[$w]                                                    > gemc.jsub
-		\echo  PROJECT: $PROJECT                                                      >> gemc.jsub
-		\echo  MAIL:    $MAIL                                                         >> gemc.jsub
-		\echo  TRACK:   $TRACK                                                        >> gemc.jsub
-		\echo  SINGLE_JOB: true                                                       >> gemc.jsub
-		\echo  OS:      $OS                                                           >> gemc.jsub
-		\echo  MEMORY:  $MEMORY                                                       >> gemc.jsub
-		\echo  TIME:    $TIME                                                         >> gemc.jsub
-		\echo  MULTI_JOBS: $MULTI_JOBS                                                >> gemc.jsub
-		\echo  COMMAND: ./goSimulate $titles[$w] $OUTPUTD $NEVENTS $EXPSD $INPUTFILES >> gemc.jsub
-		\echo  OTHER_FILES: $scriptsd/goSimulate                                      >> gemc.jsub
-		\echo  OTHER_FILES: $scriptsd/functions/logConditions                         >> gemc.jsub
-		\echo  OTHER_FILES: $GCARDSD/$gcard                                           >> gemc.jsub
-		\echo
-		\echo Launching simulation $i for $titles[$w]
-		\echo
-		if($DEBUG != "yes") then
-			$JSUBC gemc.jsub
-		else
-			cat  gemc.jsub
-		endif
-		@ w += 1
-	end
-#	@ i += 1
-#end
-
+set w = 1
+while ($w <= $#titles)
+	set gcard = $titles[$w]".gcard"
+	rm -f gemc.jsub
+	\echo  JOBNAME: $titles[$w]                                                    > gemc.jsub
+	\echo  PROJECT: $PROJECT                                                      >> gemc.jsub
+	\echo  MAIL:    $MAIL                                                         >> gemc.jsub
+	\echo  TRACK:   $TRACK                                                        >> gemc.jsub
+	\echo  SINGLE_JOB: true                                                       >> gemc.jsub
+	\echo  OS:      $OS                                                           >> gemc.jsub
+	\echo  MEMORY:  $MEMORY                                                       >> gemc.jsub
+	\echo  TIME:    $TIME                                                         >> gemc.jsub
+	\echo  MULTI_JOBS: $MULTI_JOBS                                                >> gemc.jsub
+	\echo  COMMAND: ./goSimulate $titles[$w] $OUTPUTD $NEVENTS $EXPSD $INPUTFILES >> gemc.jsub
+	\echo  OTHER_FILES: $scriptsd/goSimulate                                      >> gemc.jsub
+	\echo  OTHER_FILES: $scriptsd/functions/logConditions                         >> gemc.jsub
+	\echo  OTHER_FILES: $GCARDSD/$gcard                                           >> gemc.jsub
+	\echo
+	\echo Launching $MULTI_JOBS jobs for for $titles[$w]
+	\echo
+	if($DEBUG != "yes") then
+		$JSUBC gemc.jsub
+	else
+		cat  gemc.jsub
+	endif
+	@ w += 1
+end
