@@ -4,7 +4,7 @@
 # ----------------------
 
 set NEVENTS    = 50                              # number of events / job
-set NMAXJOBS   = 500                             # number of jobs to be launched per gcard
+set MULTI_JOBS = 500                             # number of jobs to be launched per gcard
 set GCARDSD    = ~/projects/analysis/farm/gemc/studies/ddvcs      # collection of gcards. One job / gcard will be launched
 set OUTPUTD    = /work/clas/clas12/ungaro/clas12                  # output directory
 set DEBUG      = no                              # "yes" will print out the jsub file instead of submitting it
@@ -19,6 +19,7 @@ set PROJECT  = clas12          # job project name
 set MAIL     = ungaro@jlab.org # author email
 set TRACK    = simulation      # job track
 set JSUBC    = /site/bin/jsub  # command to submit the job
+set TIME     = 120             # max time in minutes
 
 # End of user parameter
 # ---------------------
@@ -37,10 +38,11 @@ set i         = 1
 
 # Settings defined here:
 # https://scicomp.jlab.org/docs/text_command_file
-
+# Time is in minutes
+# Memory is in
 
 # Creating jsub and submitting jobs
-while ($i <= $NMAXJOBS)
+# while ($i <= $NMAXJOBS)
 
 	set w = 1
 	while ($w <= $#titles)
@@ -53,7 +55,8 @@ while ($i <= $NMAXJOBS)
 		\echo  SINGLE_JOB: true                                                       >> gemc.jsub
 		\echo  OS:      $OS                                                           >> gemc.jsub
 		\echo  MEMORY:  $MEMORY                                                       >> gemc.jsub
-		\echo  TIME:    120                                                           >> gemc.jsub
+		\echo  TIME:    $TIME                                                         >> gemc.jsub
+		\echo  MULTI_JOBS: $MULTI_JOBS                                                >> gemc.jsub
 		\echo  COMMAND: ./goSimulate $titles[$w] $OUTPUTD $NEVENTS $EXPSD $INPUTFILES >> gemc.jsub
 		\echo  OTHER_FILES: $scriptsd/goSimulate                                      >> gemc.jsub
 		\echo  OTHER_FILES: $scriptsd/functions/logConditions                         >> gemc.jsub
@@ -68,6 +71,6 @@ while ($i <= $NMAXJOBS)
 		endif
 		@ w += 1
 	end
-	@ i += 1 
-end
+#	@ i += 1
+#end
 
