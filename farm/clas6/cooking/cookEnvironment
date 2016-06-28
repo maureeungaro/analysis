@@ -40,7 +40,7 @@ setenv CXX /apps/gcc/4.8.0/bin/c++
 setenv CC  /apps/gcc/4.8.0/bin/gcc
 
 # CLAS6 software - oh joy
-setenv CLASPREFIX /u/home/clase1-6/clas6-source
+setenv CLASPREFIX /u/home/clase1-6/test-source
 setenv CLAS6INC ${CLASPREFIX}/build/include
 setenv CLAS6LIB ${CLASPREFIX}/build/lib
 setenv CLAS6BIN ${CLASPREFIX}/build/bin

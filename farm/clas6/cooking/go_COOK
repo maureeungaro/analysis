@@ -86,11 +86,11 @@ mv pdu_$RUN".hbk" $PDU
 ./bos2mu -DC_PLANES=1 -INFOS="e1-6 pass3" -RUN_INDEX=$CLAS_CALDB_RUNINDEX -OUTPUT=$MU $COOKED.1  $COOKED.2
 
 # NTUPLE
-#./nt10maker -o$NTUPLE10  $COOKED > /dev/null
+./nt10maker -o$NTUPLE10  $COOKED > /dev/null
 
 # ROOT
 h2root $NTUPLE    $ROOT    > /dev/null
-# h2root $NTUPLE10  $ROOT10  > /dev/null
+h2root $NTUPLE10  $ROOT10  > /dev/null
 
 
 set CORE_FOUND     = (`ls | grep core | wc  | awk '{print $1}'`)
@@ -133,10 +133,10 @@ if($MOV == "1" || $CONDITIONS == "Failed") then
 	endif
 
 	cp $NTUPLE    $NTUP_OUT/ntuple/main/
-# cp $NTUPLE10  $NTUP_OUT/ntuple/nt10
+ 	cp $NTUPLE10  $NTUP_OUT/ntuple/nt10
 
 	cp $ROOT      $ROOT_OUT/root/main/
-#cp $ROOT10    $ROOT_OUT/root/nt10
+	cp $ROOT10    $ROOT_OUT/root/nt10
 
 	cp $LOG       $HIST_OUT/log/$LOG
 	cp $HISTO     $HIST_OUT/histos/monitoring/$HISTO
