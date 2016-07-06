@@ -18,7 +18,7 @@ set EXT  = (`\echo $LEV   | awk -Fa '{print $2}'`)
 \echo Data file to be processed: $file
 \echo Run number: $RUN - file $LEV
 \echo
-\echo Conntent of current directory:
+\echo "Conntent of current directory:"
 \ls -alr
 
 
@@ -60,19 +60,22 @@ printf "exit_pend;\n\n"            >> $tclfile
 
 \echo Running user_ana
 
-rm InputFile ; ln -s $file InputFile
+rm -f InputFile ; ln -s $file InputFile
 ./user_ana -t ./$tclfile
 
+\echo "Conntent of current after user_ana:"
+\ls -alr
+
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 # check that the file has been cooked correctly
 # first run it once to display result on screen
 ./verifyConditions
 set CONDITIONS = (`./verifyConditions | grep Result | awk '{print $2}'`)
 
-ls -lrt
 
 # renaming files to conventions
-mv outfile1       $COOKED.1
+mv outfile1       $COOKED
 if( -f outfile1.A00) then
 	mv outfile1.A00 $COOKED.2
 endif
@@ -82,15 +85,28 @@ mv anamonhist     $HISTO
 mv logfile        $LOG
 mv pdu_$RUN".hbk" $PDU
 
-# MU output
-./bos2mu -DC_PLANES=1 -INFOS="e1-6 pass3" -RUN_INDEX=$CLAS_CALDB_RUNINDEX -OUTPUT=$MU $COOKED.1  $COOKED.2
+\echo "Conntent of renaming user_ana and pdu output:"
+\ls -alr
 
-# NTUPLE
-./nt10maker -o$NTUPLE10  $COOKED > /dev/null
+
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
+
+# MU output
+\echo Running bos2mu
+./bos2mu -DC_PLANES=1 -INFOS="e1-6 pass3" -RUN_INDEX=$CLAS_CALDB_RUNINDEX -OUTPUT=$MU $COOKED
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
+
+
+# NTUPLE10
+\echo running nt10maker, output is $NTUPLE10
+./nt10maker -o$NTUPLE10  $COOKED
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 # ROOT
+\echo running h2root
 h2root $NTUPLE    $ROOT    > /dev/null
 h2root $NTUPLE10  $ROOT10  > /dev/null
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 
 set CORE_FOUND     = (`ls | grep core | wc  | awk '{print $1}'`)
@@ -99,7 +115,8 @@ if($CORE_FOUND == "1") then
 endif
 
 
-ls -lrt
+\echo "Conntent of current after bos2mu and nt10maker and h2roo"
+\ls -alr
 
 
 # Jputting if conditions met and no core found
@@ -127,7 +144,7 @@ endif
 if($MOV == "1" || $CONDITIONS == "Failed") then
 	\echo Copying files in the work disks.
 
-	cp $COOKED.1    $DATA_OUT/data/
+	cp $COOKED    $DATA_OUT/data/
 	if( -f $COOKED.2) then
 		cp $COOKED.2    $DATA_OUT/data/
 	endif

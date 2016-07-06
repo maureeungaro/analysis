@@ -27,7 +27,7 @@ setenv MU_OUT       $DOUTPUT3/$DATASET/$PASS              # mu output
 setenv SILO_OUT     /mss/clas/$DATASET/production/$PASS/$VERSION     # silo path of output
 setenv SILO_IN      /mss/clas/$DATASET/data                          # silo path of input
 
-setenv HIST_SIZE1    9080     # sometimes histos slightly differ on the file size
+setenv HIST_SIZE1    8180     # sometimes histos slightly differ on the file size
 setenv HIST_SIZE2    9080
 setenv DATA_MIN_SIZE 1100000
 setenv NTP_MIN_SIZE  200000

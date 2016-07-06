@@ -6,7 +6,7 @@ set size_of_ntp    = (`ls -s histfile   | awk '{print $1}'`)
 
 echo
 # Histo size
-if($size_of_hist == $HIST_SIZE) then
+if($size_of_hist == $HIST_SIZE1 || $size_of_hist == $HIST_SIZE1) then
 	echo Size of histogram: "    "     $size_of_hist    PASSED
 	set TEST_H = (1)
 else
