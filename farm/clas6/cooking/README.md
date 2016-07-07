@@ -17,4 +17,11 @@ the directory structures in the various disks pointed by DOUTPUT, DOUTPUT2, DOUT
 <br/>
 
 
-<b>Cronjob</b>
+<b>Cronjob</b><br/>
+
+
+
+
+<b>Compiling</b><br/>
+
+In analysis nt10maker remove root from list of dependencies

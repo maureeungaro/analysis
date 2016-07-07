@@ -5,7 +5,7 @@ source /home/clase1-6/recook/cookEnvironment
 
 set file    = (`ls clas_0*.A*`)
 set pass    = $PASS
-set nevents = 2000000  # number of events to be processed
+set nevents = 2000  # number of events to be processed
 set JPUT    = 0        # 1 = put in silo (if conditions) 0 do not put in silo
 set MOV     = 1        # = 1 will always copy files to disk. = 0 will only copy if conditions are not met
 
@@ -46,6 +46,7 @@ set MU        =    $RUN"."$LEV".mu"
 
 \echo Running PDU
 ./pdu $file
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 
 # User_ana
@@ -58,7 +59,7 @@ printf "set runfile %d;\n" $RUNEXT >> $tclfile
 printf "go %d;\n"  $nevents        >> $tclfile
 printf "exit_pend;\n\n"            >> $tclfile
 
-\echo Running user_ana
+\echo Running user_ana on $file
 
 rm -f InputFile ; ln -s $file InputFile
 ./user_ana -t ./$tclfile
@@ -70,6 +71,7 @@ rm -f InputFile ; ln -s $file InputFile
 
 # check that the file has been cooked correctly
 # first run it once to display result on screen
+\echo Veryfing conditions
 ./verifyConditions
 set CONDITIONS = (`./verifyConditions | grep Result | awk '{print $2}'`)
 
@@ -84,6 +86,7 @@ mv histfile       $NTUPLE
 mv anamonhist     $HISTO
 mv logfile        $LOG
 mv pdu_$RUN".hbk" $PDU
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 \echo "Conntent of renaming user_ana and pdu output:"
 \ls -alr

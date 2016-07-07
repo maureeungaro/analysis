@@ -1,7 +1,7 @@
 JOBNAME: e1-6 pass3
 PROJECT: e1-6a
 MAIL:    ungaro@jlab.org
-TRACK:   reconstruction
+TRACK:   debug
 COMMAND: go_COOK
 OS:      centos65
 MEMORY:  2000 MB
