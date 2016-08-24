@@ -153,10 +153,10 @@ if($MOV == "1" || $CONDITIONS == "Failed") then
 	endif
 
 	cp $NTUPLE    $NTUP_OUT/ntuple/main/
- 	cp $NTUPLE10  $NTUP_OUT/ntuple/nt10
+ 	cp $NTUPLE10  $NTUP_OUT/ntuple/nt10/
 
 	cp $ROOT      $ROOT_OUT/root/main/
-	cp $ROOT10    $ROOT_OUT/root/nt10
+	cp $ROOT10    $ROOT_OUT/root/nt10/
 
 	cp $LOG       $HIST_OUT/log/$LOG
 	cp $HISTO     $HIST_OUT/histos/monitoring/$HISTO
