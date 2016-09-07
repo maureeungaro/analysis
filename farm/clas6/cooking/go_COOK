@@ -28,12 +28,15 @@ set EXT  = (`\echo $LEV   | awk -Fa '{print $2}'`)
 set CORENAME = $RUN"_"$pass"."$LEV
 
 set COOKED    =    "run_"$CORENAME
+set FILTERED  =    "run_"$CORENAME".filtered"
 
 set NTUPLE    =    "ntp_"$CORENAME".hbook"
 set NTUPLE10  =  "ntp10_"$CORENAME".hbook"
+set NTUPLE22  =  "ntp22_"$CORENAME".hbook"
 
 set ROOT      =   "root_"$CORENAME".root"
 set ROOT10    = "root10_"$CORENAME".root"
+set ROOT22    = "root22_"$CORENAME".root"
 
 set LOG       =    "log_"$CORENAME".txt"
 set HISTO     =    "hst_"$CORENAME".hbook"
@@ -94,6 +97,8 @@ mv pdu_$RUN".hbk" $PDU
 
 \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
+
+
 # MU output
 \echo Running bos2mu
 ./bos2mu -DC_PLANES=1 -INFOS="e1-6 pass3" -RUN_INDEX=$CLAS_CALDB_RUNINDEX -OUTPUT=$MU $COOKED
@@ -105,10 +110,21 @@ mv pdu_$RUN".hbk" $PDU
 ./nt10maker -o$NTUPLE10  $COOKED
 \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
+
+# NT22
+\echo running nt22maker, output is $NTUPLE22
+ln -s $NTUPLE10 histfile
+./nt22maker_dvcs
+mv dsthb $NTUPLE22
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
+
+
+
 # ROOT
 \echo running h2root
 h2root $NTUPLE    $ROOT    > /dev/null
 h2root $NTUPLE10  $ROOT10  > /dev/null
+h2root $NTUPLE22  $ROOT22  > /dev/null
 \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 
@@ -118,7 +134,12 @@ if($CORE_FOUND == "1") then
 endif
 
 
-\echo "Conntent of current after bos2mu and nt10maker and h2roo"
+
+# Filtered file
+/group/clas12/packages/bos/bosutility -filter -b "HEADHEVTEVNTECPBCCPBSCPBLCPB" $COOKED
+
+
+\echo "Conntent of current after bos2mu and nt10maker and nt22maker and h2root"
 \ls -alr
 
 
@@ -132,9 +153,11 @@ if($JPUT == "1" && $CONDITIONS == "Passed" && $CORE_FOUND == "0") then
 
 	/site/bin/jput $NTUPLE    $SILO_OUT/ntuple/main/$NTUPLE
 	/site/bin/jput $NTUPLE10  $SILO_OUT/ntuple/e/$NTUPLE10
+	/site/bin/jput $NTUPLE22  $SILO_OUT/ntuple/e/$NTUPLE22
 
 	/site/bin/jput $ROOT      $SILO_OUT/root/main/$ROOT
 	/site/bin/jput $ROOT10    $SILO_OUT/root/e/$ROOT10
+	/site/bin/jput $ROOT22    $SILO_OUT/root/e/$ROOT22
 
 	/site/bin/jput $LOG       $SILO_OUT/log/$LOG
 	/site/bin/jput $HISTO     $SILO_OUT/histos/monitoring/$HISTO
@@ -147,16 +170,15 @@ endif
 if($MOV == "1" || $CONDITIONS == "Failed") then
 	\echo Copying files in the work disks.
 
-	cp $COOKED    $DATA_OUT/data/
-	if( -f $COOKED.2) then
-		cp $COOKED.2    $DATA_OUT/data/
-	endif
+# cp $COOKED    $DATA_OUT/data/
 
 	cp $NTUPLE    $NTUP_OUT/ntuple/main/
  	cp $NTUPLE10  $NTUP_OUT/ntuple/nt10/
+	cp $NTUPLE22  $NTUP_OUT/ntuple/nt22/
 
 	cp $ROOT      $ROOT_OUT/root/main/
 	cp $ROOT10    $ROOT_OUT/root/nt10/
+	cp $ROOT22    $ROOT_OUT/root/nt22/
 
 	cp $LOG       $HIST_OUT/log/$LOG
 	cp $HISTO     $HIST_OUT/histos/monitoring/$HISTO
@@ -169,3 +191,15 @@ endif
 \echo
 \echo Done!
 \echo
+
+
+
+
+
+
+
+
+
+
+
+
