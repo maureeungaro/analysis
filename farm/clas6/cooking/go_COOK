@@ -171,6 +171,7 @@ if($MOV == "1" || $CONDITIONS == "Failed") then
 	\echo Copying files in the work disks.
 
 # cp $COOKED    $DATA_OUT/data/
+	cp $FILTERED    $DATA_OUT/data/
 
 	cp $NTUPLE    $NTUP_OUT/ntuple/main/
  	cp $NTUPLE10  $NTUP_OUT/ntuple/nt10/
