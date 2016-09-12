@@ -29,6 +29,7 @@ set CORENAME = $RUN"_"$pass"."$LEV
 
 set COOKED    =    "run_"$CORENAME
 set FILTERED  =    "run_"$CORENAME".filtered"
+set COOKHIPO  =    "run_"$CORENAME".hipo"
 
 set NTUPLE    =    "ntp_"$CORENAME".hbook"
 set NTUPLE10  =  "ntp10_"$CORENAME".hbook"
@@ -115,9 +116,8 @@ mv pdu_$RUN".hbk" $PDU
 \echo running nt22maker, output is $NTUPLE22
 ln -s $NTUPLE10 histfile
 ./nt22maker_dvcs
-mv dsthb $NTUPLE22
+mv dsthb.hbook $NTUPLE22
 \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
-
 
 
 # ROOT
@@ -128,19 +128,28 @@ h2root $NTUPLE22  $ROOT22  > /dev/null
 \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 
+# BANKS Filtered file
+\echo running bosutility
+/group/clas12/packages/bos/bosutility -filter -b "HEADHEVTEVNTECPBCCPBSCPBLCPB" $COOKED
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
+
+
+# HIPO converted file
+\echo running bos2hipo
+/group/clas12/packages/coatjava-3.0/bin/bos2hipo -lz4 $COOKHIPO $FILTERED
+\echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
+
+
+\echo "Conntent of current after filters and ntuples:"
+\echo
+\ls -alr
+
+
 set CORE_FOUND     = (`ls | grep core | wc  | awk '{print $1}'`)
 if($CORE_FOUND == "1") then
 	\echo Core found. Arg.
 endif
 
-
-
-# Filtered file
-/group/clas12/packages/bos/bosutility -filter -b "HEADHEVTEVNTECPBCCPBSCPBLCPB" $COOKED
-
-
-\echo "Conntent of current after bos2mu and nt10maker and nt22maker and h2root"
-\ls -alr
 
 
 # Jputting if conditions met and no core found
@@ -172,6 +181,7 @@ if($MOV == "1" || $CONDITIONS == "Failed") then
 
 # cp $COOKED    $DATA_OUT/data/
 	cp $FILTERED    $DATA_OUT/data/
+	cp $COOKHIPO    $DATA_OUT/hipo/
 
 	cp $NTUPLE    $NTUP_OUT/ntuple/main/
  	cp $NTUPLE10  $NTUP_OUT/ntuple/nt10/

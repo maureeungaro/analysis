@@ -6,78 +6,72 @@
 	string root_file = "pass4.root";
 	int GSIM         = 0;
 	
-//	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
-	gROOT->ProcessLine(".include /opt/projects/muEvent/src/");
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
+	#include "utilities.h"
 
-	//gROOT->ProcessLine(".include src/common_info.h");
-	#include "src/common_info.h"
-	//#include "utilities.h"
+	gROOT->LoadMacro("src/common_info.cc");
+	gROOT->LoadMacro("ana/init.C");
+	gROOT->LoadMacro("ana/show_npe.C");
+	gROOT->LoadMacro("ana/calc_cc_match.C");
+	gROOT->LoadMacro("ana/show_cc_match.C");
+	gROOT->LoadMacro("ana/show_phi_matching.C");
+	gROOT->LoadMacro("ana/calc_cc_timing.C");
+	gROOT->LoadMacro("ana/show_cc_timing.C");
+	gROOT->LoadMacro("ana/show_ecthr.C");
+	gROOT->LoadMacro("ana/calc_ecp.C");
+	gROOT->LoadMacro("ana/show_ecp.C");
+	gROOT->LoadMacro("ana/show_uvw.C");
+	gROOT->LoadMacro("ana/show_ecyx.C");
+	gROOT->LoadMacro("ana/show_EoEi.C");
+	gROOT->LoadMacro("ana/show_EinEtot.C");
+	gROOT->LoadMacro("ana/show_summary.C");
+	
+	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
+	
+	string PRINT   = "";
+	int SECTOR     = 1;
+	const int NDIV = 15;       // divisions of sampling fraction	
+	
+	double no_cc_or_ec[7];
+	double hit_cc[7];
+	double hit_ec[7];
+	double hit_cc_and_ec[7];
+	
+	chistos H(root_file, 1);
+	cpars Pars(pars_file);
+	
 
-	//gROOT->LoadMacro("src/common_info.cc");
-
-
-//	gROOT->LoadMacro("ana/init.C");
-//	gROOT->LoadMacro("ana/show_npe.C");
-//	gROOT->LoadMacro("ana/calc_cc_match.C");
-//	gROOT->LoadMacro("ana/show_cc_match.C");
-//	gROOT->LoadMacro("ana/show_phi_matching.C");
-//	gROOT->LoadMacro("ana/calc_cc_timing.C");
-//	gROOT->LoadMacro("ana/show_cc_timing.C");
-//	gROOT->LoadMacro("ana/show_ecthr.C");
-//	gROOT->LoadMacro("ana/calc_ecp.C");
-//	gROOT->LoadMacro("ana/show_ecp.C");
-//	gROOT->LoadMacro("ana/show_uvw.C");
-//	gROOT->LoadMacro("ana/show_ecyx.C");
-//	gROOT->LoadMacro("ana/show_EoEi.C");
-//	gROOT->LoadMacro("ana/show_EinEtot.C");
-//	gROOT->LoadMacro("ana/show_summary.C");
-//	
-//	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
-//	
-//	string PRINT   = "";
-//	int SECTOR     = 1;
-//	const int NDIV = 15;       // divisions of sampling fraction	
-//	
-//	double no_cc_or_ec[7];
-//	double hit_cc[7];
-//	double hit_ec[7];
-//	double hit_cc_and_ec[7];
-//	
-//	chistos H(root_file, 1);
-//	cpars Pars(pars_file);
-//	
-//
-//	// Sampling fraction histos, variables, functions
-//	TH1F *ecp1d[6][NDIV];      // 1 dimensional projections, fitted with GAUS+PARABOLE
-//	double ecpmean[6][NDIV];
-//	double ecpsigm[6][NDIV];
-//	double ecpmeane[6][NDIV];
-//	double ecpsigme[6][NDIV];
-//	TGraphErrors *sf_mean[6];
-//	TGraphErrors *sf_sigm[6];
-//	double min_limit_sf = 0.65;  // Fit range x min
-//	double max_limit_sf = 5.00;  // Fit range x max
-//	TF1 *sf_me = new TF1("sf_me", Mean,      0.2, 5, 1);
-//	TF1 *sf_up = new TF1("sf_up", ecp_limit, 0.2, 5, 3);
-//	TF1 *sf_dn = new TF1("sf_dn", ecp_limit, 0.2, 5, 3);
-//	
-//	// CC theta match histos, variables, functions
-//	TH1F *cc_match1d[6][18];      // 1 dimensional projections, fitted with GAUS+PARABOLE
-//	double cc_matchmean[6][18];
-//	double cc_matchsigm[6][18];
-//	double cc_matchmeane[6][18];
-//	double cc_matchsigme[6][18];
-//	TGraphErrors *cc_match_mean[6];
-//	TGraphErrors *cc_match_sigm[6];
-//	TF1 *cc_match_me = new TF1("cc_match_me", cc_match_Mean,  1, 19, 1);
-//	TF1 *cc_match_up = new TF1("cc_match_up", cc_match_limit, 1, 19, 3);
-//	TF1 *cc_match_dn = new TF1("cc_match_dn", cc_match_limit, 1, 19, 3);
-//	
-//	// CC timing histos, variables, functions
-//	TH1F *cc_timing1d[6][36];      // 1 dimensional projections, fitted with GAUS
-//	TGraphErrors *cc_timing_low[6];
-//	
-//	init();
+	// Sampling fraction histos, variables, functions
+	TH1F *ecp1d[6][NDIV];      // 1 dimensional projections, fitted with GAUS+PARABOLE
+	double ecpmean[6][NDIV];
+	double ecpsigm[6][NDIV];
+	double ecpmeane[6][NDIV];
+	double ecpsigme[6][NDIV];
+	TGraphErrors *sf_mean[6];
+	TGraphErrors *sf_sigm[6];
+	double min_limit_sf = 0.65;  // Fit range x min
+	double max_limit_sf = 5.00;  // Fit range x max
+	TF1 *sf_me = new TF1("sf_me", Mean,      0.2, 5, 1);
+	TF1 *sf_up = new TF1("sf_up", ecp_limit, 0.2, 5, 3);
+	TF1 *sf_dn = new TF1("sf_dn", ecp_limit, 0.2, 5, 3);
+	
+	// CC theta match histos, variables, functions
+	TH1F *cc_match1d[6][18];      // 1 dimensional projections, fitted with GAUS+PARABOLE
+	double cc_matchmean[6][18];
+	double cc_matchsigm[6][18];
+	double cc_matchmeane[6][18];
+	double cc_matchsigme[6][18];
+	TGraphErrors *cc_match_mean[6];
+	TGraphErrors *cc_match_sigm[6];
+	TF1 *cc_match_me = new TF1("cc_match_me", cc_match_Mean,  1, 19, 1);
+	TF1 *cc_match_up = new TF1("cc_match_up", cc_match_limit, 1, 19, 3);
+	TF1 *cc_match_dn = new TF1("cc_match_dn", cc_match_limit, 1, 19, 3);
+	
+	// CC timing histos, variables, functions
+	TH1F *cc_timing1d[6][36];      // 1 dimensional projections, fitted with GAUS
+	TGraphErrors *cc_timing_low[6];
+	
+	init();
 
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("Electron Particle ID", "");

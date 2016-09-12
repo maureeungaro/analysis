@@ -4,7 +4,7 @@
 # create directory structure necessary for cooking
 
 set DIRS = ($DOUTPUT $DOUTPUT2 $DOUTPUT3)
-set WHAT = (data ntuple/main ntuple/nt10 ntuple/nt22 root/main root/nt10 root/nt22 histos/monitoring histos/pdu log mu)
+set WHAT = (data hipo ntuple/main ntuple/nt10 ntuple/nt22 root/main root/nt10 root/nt22 histos/monitoring histos/pdu log mu)
 
 foreach D ($DIRS)
 

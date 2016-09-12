@@ -41,7 +41,7 @@ void show_npe()
 	for(int s=0; s<6; s++)
 	{
 		Pnpe->cd(s+1);
-		H.nphe[0][s]->SetMinimum(10000);
+		//H.nphe[0][s]->SetMinimum(10000);
 		H.nphe[0][s]->Draw();
 		H.nphe[1][s]->Draw("same");
 		H.nphe[2][s]->Draw("same");
