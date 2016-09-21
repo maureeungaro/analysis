@@ -1,0 +1,23 @@
+Pre-Processing
+--------------
+
+1. copy files from remote dir:
+
+rm -rf rawFiles
+scp -r ftp:/work/clas/production3/clase1-6/e1-6a/pass3/mu  /Volumes/e1-6/pass4/rawFiles
+
+
+Grouping Runs
+-------------
+
+1. goCheckFiles to make sure all files within a run are present and acceptable
+2. goConcatenate to group them in runs
+
+At this point can delete remote runs that were completed:
+
+
+
+Analysis
+--------
+
+run go_SEL
