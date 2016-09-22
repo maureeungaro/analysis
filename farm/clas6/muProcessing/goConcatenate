@@ -50,7 +50,7 @@ foreach r ($runs)
 	echo Concatenating $r...
 	rm -rf $LOG_DIR/$r.log
 	$COMMAND  $ORIG_DIR/$r*.mu -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root > $LOG_DIR/$r.log
-# rm $ORIG_DIR/$r*.mu
+	rm $ORIG_DIR/$r*.mu
 end
 
 

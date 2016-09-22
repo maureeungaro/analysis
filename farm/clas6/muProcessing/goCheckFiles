@@ -9,15 +9,12 @@ if($1 == "-h" || $1 == ""  || $#argv != 4) then
  echo "  >> go_check_files ORIG_DIR DEST_DIR RUNS_LIST"
  echo "  "
  echo "   ORIG_DIR:   Input files directory"
- echo "   DEST_DIR:   Output files directory"
- echo "   FULL_DIR:   Full runs directory"
+ echo "   DEST_DIR:   Output files directory (full run but bad)"
+ echo "   FULL_DIR:   Full runs directory - needed so can skip already processed files"
  echo "   RUNS_LIST:  File containing run list and number of files for each run"
  echo " "
  echo "Example: "
  echo " ./goCheckFiles /Volumes/e1-6/pass4/rawFiles/ /Volumes/e1-6/pass4/allPresent /Volumes/e1-6/pass4/fullRuns e1-6a/acceptable_size_runs_e1-6a"
- echo " ./goCheckFiles /Volumes/e1-6/pass3/rawFiles/ /Volumes/e1-6/pass3/allPresent /Volumes/e1-6/pass3/fullRuns e1-6a/acceptable_size_runs_e1-6a"
- echo " ./goCheckFiles /Volumes/e1-6/pass2/rawFiles/ /Volumes/e1-6/pass2/allPresent /Volumes/e1-6/pass2/fullRuns e1-6a/acceptable_size_runs_e1-6a"
- echo " ./goCheckFiles /Volumes/e1-6/pass1/rawFiles/ /Volumes/e1-6/pass1/allPresent /Volumes/e1-6/pass1/fullRuns e1-6a/acceptable_size_runs_e1-6a"
  exit 0
 endif
 

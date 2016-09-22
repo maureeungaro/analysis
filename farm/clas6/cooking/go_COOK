@@ -130,7 +130,7 @@ h2root $NTUPLE22  $ROOT22  > /dev/null
 
 # BANKS Filtered file
 \echo running bosutility
-/group/clas12/packages/bos/bosutility -filter -b "HEADHEVTEVNTECPBCCPBSCPBLCPB" $COOKED
+/group/clas12/packages/bos/bosutility -filter -b "HEVTHEADTRGSEVNTECPBCCPBSCPBLCPB" $COOKED
 \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ; \echo ;
 
 
