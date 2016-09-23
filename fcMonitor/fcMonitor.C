@@ -2,10 +2,12 @@
 #include <iostream>
 using namespace std;
 
-fcMonitor()
+void fcMonitor()
 {
+	gStyle->SetPadTopMargin(0.18);
 	gStyle->SetPadBottomMargin(0.12);
 	gStyle->SetPadLeftMargin(0.12);
+	gStyle->SetOptStat(0);
 
 	
 	ifstream rfiles("rootFiles");
@@ -15,8 +17,12 @@ fcMonitor()
 	
 	string rfile;
 	
-	TCanvas *fcC = new TCanvas("fCc", "fcC", 1000, 700);
-	
+	TCanvas *fcC = new TCanvas("fCc", "fcC", 900, 600);
+
+
+	int groupNumber = 1;
+	int index = 1;
+
 	while(!rfiles.eof())
 	{
 		rfiles >> rfile;
@@ -40,9 +46,7 @@ fcMonitor()
 		pos = stage1.find("/");
 		string stage = stage1.substr(0, pos);
 		
-		
-		
-		
+
 		cout << " Opening root file: " << rfile << " for run number: " << run << ", pass: " << pass << " stage: " << stage << endl;
 		
 		
@@ -60,27 +64,30 @@ fcMonitor()
 		
 		TLatex lab;
 		lab.SetTextFont(42);
-		lab.SetTextSize(0.052);
+		lab.SetTextSize(0.045);
 		lab.SetNDC();
-		
-		lab.SetTextColor(kRed+3);
-		lab.DrawLatex(0.4, 0.92,  Form("Run %s %s %s", run.c_str(), pass.c_str(), stage.c_str() ));
+		lab.SetTextColor(kBlack);
+
+		lab.DrawLatex(0.35, 0.88,  Form("Run %s %s %s", run.c_str(), pass.c_str(), stage.c_str() ));
 		
 		lab.SetTextFont(52);
 		lab.SetTextSize(0.045);
 		lab.SetTextColor(kBlue+3);
-		lab.DrawLatex(0.45, 0.80,  Form("Number of Events:  %3.4e", summary->GetBinContent(1)));
-		lab.DrawLatex(0.55, 0.72,  Form("Total FC:  %4.3f #muC", summary->GetBinContent(2)));
+		lab.DrawLatex(0.45, 0.74,  Form("Number of Events:  %3.4e", summary->GetBinContent(1)));
+		lab.DrawLatex(0.55, 0.66,  Form("Total FC:  %4.3f #muC", summary->GetBinContent(2)));
 
 	
 		lab.SetTextColor(kBlack);
 		lab.DrawLatex(0.4, 0.02,  "Scaler event number");
 		
-		lab.SetTextColor(kBlack);
 		lab.SetTextAngle(90);
 		lab.DrawLatex(0.05, 0.3,  "Events per scaler event");
 		
-		fcC->Print(  Form("img/%s_%s_%s.png", run.c_str(), pass.c_str(), stage.c_str()  ) );
+		fcC->Print(  Form("img/run_%s_%s_%d.png", run.c_str(), stage.c_str(),groupNumber  ) );
+
+		index++;
+
+		if(index%10 == 0) groupNumber++;
 
 		
 		f.Close();

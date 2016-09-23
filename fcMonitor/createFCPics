@@ -1,11 +1,12 @@
 #!/bin/csh -f
 
-set PASS = pass1
+set PASS = pass4
 set STAGE = e_pid
+set STAGE = fullRuns
 
 set MDIR = /Volumes/e1-6/$PASS/$STAGE
 
-ls $MDIR/root/*.root > rootFiles
+ls $MDIR/root/*.root | head -10 > rootFiles
 
 root -b -q fcMonitor.C
 
