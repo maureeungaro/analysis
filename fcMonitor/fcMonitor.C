@@ -83,7 +83,7 @@ void fcMonitor()
 		lab.SetTextAngle(90);
 		lab.DrawLatex(0.05, 0.3,  "Events per scaler event");
 		
-		fcC->Print(  Form("img/run_%s_%s_%d.png", run.c_str(), stage.c_str(),groupNumber  ) );
+		fcC->Print(  Form("img/run-%s_stage-%s_group-%d.png", run.c_str(), stage.c_str(),groupNumber  ) );
 
 		index++;
 
