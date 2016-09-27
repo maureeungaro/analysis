@@ -16,7 +16,7 @@ root -b -q fcMonitor.C
 rm -f imageslist.txt ; ls img/* > imageslist.txt
 
 /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=run -tdGrouping=10 -addSelectableVariable=stage \
-																  -pageTitle="e16 Faraday Cup Monitor" -defaultPlot=img/run-30799_stage-fullRuns.png -imagesSize="900 600"
+																  -defaultPlot=img/run-30799_stage-fullRuns.png -imagesSize="900 600"
 
 
 
