@@ -6,7 +6,18 @@ set STAGE = fullRuns
 
 set MDIR = /Volumes/e1-6/$PASS/$STAGE
 
-ls $MDIR/root/*.root | head -10 > rootFiles
+rm -f rootFiles
+ls $MDIR/root/*.root  > rootFiles
+
+rm -rf img ; mkdir img
 
 root -b -q fcMonitor.C
+
+rm -f imageslist.txt ; ls img/* > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=run -tdGrouping=10 -addSelectableVariable=stage \
+																  -pageTitle="e16 Faraday Cup Monitor" -defaultPlot=img/run-30799_stage-fullRuns.png -imagesSize="900 600"
+
+
+
 

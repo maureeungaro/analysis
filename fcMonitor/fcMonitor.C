@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+
 void fcMonitor()
 {
 	gStyle->SetPadTopMargin(0.18);
@@ -9,7 +10,7 @@ void fcMonitor()
 	gStyle->SetPadLeftMargin(0.12);
 	gStyle->SetOptStat(0);
 
-	
+
 	ifstream rfiles("rootFiles");
 	
 	if(!rfiles)
@@ -20,10 +21,7 @@ void fcMonitor()
 	TCanvas *fcC = new TCanvas("fCc", "fcC", 900, 600);
 
 
-	int groupNumber = 1;
-	int index = 1;
-
-	while(!rfiles.eof())
+	while(!rfiles.eof() )
 	{
 		rfiles >> rfile;
 		
@@ -83,16 +81,12 @@ void fcMonitor()
 		lab.SetTextAngle(90);
 		lab.DrawLatex(0.05, 0.3,  "Events per scaler event");
 		
-		fcC->Print(  Form("img/run-%s_stage-%s_group-%d.png", run.c_str(), stage.c_str(),groupNumber  ) );
+		fcC->Print(  Form("img/run-%s_stage-%s.png", run.c_str(), stage.c_str() ) );
 
-		index++;
 
-		if(index%10 == 0) groupNumber++;
-
-		
 		f.Close();
 	}
-	
+
 }
 
 
