@@ -80,43 +80,43 @@ void show_npe()
 	
 	
    // All sectors
-	TCanvas *CAnpe  = new TCanvas("CAnpe", "CAnpe", 800, 600);
-	TPad    *PAnpe  = new TPad("PAnpe", "PAnpe", 0.02, 0.02,  0.98, 0.88);
-	PAnpe->Draw();
-	PAnpe->cd();
-	
-	gPad->SetLogy();
-	H.nphe[0][6]->SetMinimum(10000);
-	H.nphe[0][6]->Draw();
-	H.nphe[1][6]->Draw("same");
-	H.nphe[2][6]->Draw("same");
-	H.nphe[3][6]->Draw("same");
-	H.enphe[6]->Draw("same");
-	
-	CAnpe->cd(0);
-	lab.SetTextFont(102);
-	lab.SetTextSize(0.048);
-	lab.SetTextColor(kBlack);
-	lab.DrawLatex(0.21, 0.93,  "10 #times Number of photo-electrons");
-	
-	PAnpe->cd();
-	lab.SetTextFont(42);
-	lab.SetTextSize(0.04);
-	lab.SetTextColor(colors[0]);
-	
-	lab.SetTextColor(colors[0]);
-	lab.DrawLatex(0.66, 0.92,  "#rightarrow no cuts");
-	lab.SetTextColor(colors[1]);
-	lab.DrawLatex(0.66, 0.86,  "#rightarrow calorimeter cuts");
-	lab.SetTextColor(colors[2]);
-	lab.DrawLatex(0.66, 0.80,  "#rightarrow all other negative cuts");
-	lab.SetTextColor(colors[3]);
-	lab.DrawLatex(0.66, 0.74,  "#rightarrow all cuts applied");
-	
+//	TCanvas *CAnpe  = new TCanvas("CAnpe", "CAnpe", 800, 600);
+//	TPad    *PAnpe  = new TPad("PAnpe", "PAnpe", 0.02, 0.02,  0.98, 0.88);
+//	PAnpe->Draw();
+//	PAnpe->cd();
+//	
+//	gPad->SetLogy();
+//	H.nphe[0][6]->SetMinimum(10000);
+//	H.nphe[0][6]->Draw();
+//	H.nphe[1][6]->Draw("same");
+//	H.nphe[2][6]->Draw("same");
+//	H.nphe[3][6]->Draw("same");
+//	H.enphe[6]->Draw("same");
+//	
+//	CAnpe->cd(0);
+//	lab.SetTextFont(102);
+//	lab.SetTextSize(0.048);
+//	lab.SetTextColor(kBlack);
+//	lab.DrawLatex(0.21, 0.93,  "10 #times Number of photo-electrons");
+//	
+//	PAnpe->cd();
+//	lab.SetTextFont(42);
+//	lab.SetTextSize(0.04);
+//	lab.SetTextColor(colors[0]);
+//	
+//	lab.SetTextColor(colors[0]);
+//	lab.DrawLatex(0.66, 0.92,  "#rightarrow no cuts");
+//	lab.SetTextColor(colors[1]);
+//	lab.DrawLatex(0.66, 0.86,  "#rightarrow calorimeter cuts");
+//	lab.SetTextColor(colors[2]);
+//	lab.DrawLatex(0.66, 0.80,  "#rightarrow all other negative cuts");
+//	lab.SetTextColor(colors[3]);
+//	lab.DrawLatex(0.66, 0.74,  "#rightarrow all cuts applied");
+
 	if(PRINT != "") 
 	{
-		Cnpe->Print(  Form("npe_each_sector.%s", PRINT.c_str()) );
-		CAnpe->Print( Form("npe_all_sectors.%s", PRINT.c_str()) );
+		Cnpe->Print(  Form("img/cut-npe_sector-all.%s", PRINT.c_str()) );
+		//CAnpe->Print( Form("img/npe_all_sectors.%s", PRINT.c_str()) );
 	}
 
 	cout << " Done showing NPE." << endl;

@@ -1,45 +1,46 @@
 \clearpage\newpage
 \section{Electron identification}
 
-The purpose of this study is the proper identification of the 
-scattered electrons. In CLAS electro-production experiments
+In CLAS electro-production experiments
 the scattered electron defines the timing of each event,
 so it is particularly important to
 make sure that their identification is correct and that
 there is no contamination from particles such as $\pi^-$.
 
 In each event the {\it candidate electron} is the negative track
-that triggered the event. The trigger condition is ensured by choosing
+that produced an hardware trigger. The trigger condition is ensured by choosing
 the first entry in the EVNT bank. The track is also required to have
 hit matches in the CLAS \v Cerenkov (CC), Drift Chambers (DC),
 Electromagnetic Calorimeter (EC) and Time of Flight (SC or TOF),
-and to be time-based (positive DC status word in DCPB).
+and to have time-based reconstruction (positive DC status word in DCPB).
 The following are the list of criteria defining a good electron
 starting from a candidate electron:
+
 \begin{itemize}
-	\item CC $\theta$, $\phi$ and Time matching in the  detector.
+	\item CC $\theta$, $\phi$ and time matching in the  detector.
 	\item EC Threshold 
 	\item EC Sampling Fraction 
 	\item Track Coordinates in the EC plane 
-	\item Minimum Ionizing Particles rejection 
-	\item Electromagnetic Shower Shape
+	\item Minimum Ionizing Particles rejection in the EC
+	\item Electromagnetic Shower Shape in the EC
 	\item {\it Number of photo-electrons ($nphe$) in the CC.
               This cut is not used anymore for identification,
               but the distributions will be shown. }
 \end{itemize}
-In order to determine the best cut for each of the above criteria, four quantities
-are considered in each case:
+
+Four scenarios are considered for each quantity above:
+
 \begin{itemize}  
 	\item[a.] No cut is applied.
-	\item[b.] All other cuts are applied: this helps clean up the cut considered.
-	      For example, if looking at the sampling fraction, applying all other
-	      cuts helps clean up the plot and estimate the sampling fraction
+	\item[b.] All other cuts are applied: this helps defining cut under consideration.
+	      For example, when looking at the sampling fraction, applying all other
+	      cuts to helps clean up the plot and to better estimate the sampling fraction
 	      cut. We also refer as "calorimeter cuts" all cuts but the $nphe$ and EC threshold.
-	\item[c.] All other negative cuts are applied: these should be clearly non electrons. This
-	      can help identifying possible contamination.
+	\item[c.] All other negative cuts are applied: these should be particles other electrons. This
+	      condition can help identifying possible contamination.
 	\item[d.] All cuts are applied: final result.
 \end{itemize}
-Statistics and effectiveness of each case is reported in the plots.
+The statistics and effectiveness of each case is reported in the plots.
 Only the relevant plots are reported here. The complete set of plots and projection can
 be found on the web at: \href{http://www.jlab.org/~ungaro/maureepage/proj/pi0/e_pid/main.html}
 {http://www.jlab.org/~ungaro/maureepage/proj/pi0/e\_pid/main.html}.
@@ -47,8 +48,8 @@ be found on the web at: \href{http://www.jlab.org/~ungaro/maureepage/proj/pi0/e_
 \clearpage\newpage
 \subsection{CC $\theta$ Matching}
 This, and the following CC $\phi$ and Time Matching procedures, are based on a study
-\cite{bib:ccmatch} of the \v Cerenkov response function and to several exchanges
-\cite{bib:pc_fxpun}, \cite{bib:pc_osi}.
+\cite{bib:ccmatch},\cite{bib:pc_fxpun}, \cite{bib:pc_osi} of the \v Cerenkov response function.
+
 The first requirement in the CC matching is for the track to have a corresponding
 signal in the CC. The CC segments (one pmt from the right and the corresponding from the left,
 constitute a segment) and mirrors are placed along the CLAS polar angle.
@@ -79,8 +80,8 @@ are shown in Fig.~\ref{fig:ccm_theta}.
 
 There are two exception to this cut:
 \begin{itemize}
- \item [1.] The first and last segments distributions is hard to fit. All events here are kept.
- \item [2.] In case both (left and right) photomultipliers fire, the track is kept.
+ \item [1.] The first and last segments distributions is hard to fit. The cut in this case is ignored.
+ \item [2.] If both (left and right) photomultipliers have a signal the track is kept.
 \end{itemize}
 The events that fall in this category can be seen in the bottom right panel in Fig.~\ref{fig:ccm_theta}.
 

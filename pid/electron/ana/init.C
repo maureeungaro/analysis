@@ -26,13 +26,11 @@ void change_sector()
 
 void print_all()
 {
-	PRINT = "jpg";
+	PRINT = "png";
 
 	// NPHE
 	show_npe();
 
-	// P MIN
-	show_ecthr();
 
    // CC THETA MATCH
 	calc_all_cc_match();
@@ -46,55 +44,59 @@ void print_all()
 		
 	}
 
-   // CC PHI MATCH
-	show_phi_match();
+//   // CC PHI MATCH
+//	show_phi_match();
+//
+//	
+//   // CC TIMING
+//	calc_all_cc_timing();
+//	for(int s=0; s<6; s++)
+//	{
+//		SECTOR = s+1;
+//		show_cc_timing();
+//		show_cc_timings();
+//	}	
+//
+//	// P MIN
+//	show_ecthr();
+//
+//
+//	// SAMPLING FRACTION
+//	calc_all_ecp();
+//	for(int s=0; s<6; s++)
+//	{
+//		SECTOR = s+1;
+//		show_ecp();
+//		show_ecps();
+//		for(int b=0; b<NDIV; b++)
+//			DrawFit(s, b);
+//	}
+//	
+//	// TRACK POSITION IN EC
+//	show_uvw(ECu);
+//	show_uvw(ECv);
+//	show_uvw(ECw);
+//	show_ecyx();
+//	
+//	// MIP cut: E OUT vs E IN
+//	for(int s=0; s<6; s++)
+//	{
+//		SECTOR = s+1;
+//		show_EoEi();
+//	}
+//	show_EoEi_all();
+//	
+//	// Shower Shape cut:  E IN / E TOT
+//	for(int s=0; s<6; s++)
+//	{
+//		SECTOR = s+1;
+//		show_EinEtot();
+//	}
+//	
+//	show_summary();
+//	
+//	Pars.write_vars(pars_file);
 
-	
-   // CC TIMING
-	calc_all_cc_timing();
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s+1;
-		show_cc_timing();
-		show_cc_timings();
-	}	
-			
-	// SAMPLING FRACTION
-	calc_all_ecp();
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s+1;
-		show_ecp();
-		show_ecps();
-		for(int b=0; b<NDIV; b++)
-			DrawFit(s, b);
-	}
-	
-	// TRACK POSITION IN EC
-	show_uvw(ECu);
-	show_uvw(ECv);
-	show_uvw(ECw);
-	show_ecyx();
-	
-	// MIP cut: E OUT vs E IN
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s+1;
-		show_EoEi();
-	}
-	show_EoEi_all();
-	
-	// Shower Shape cut:  E IN / E TOT
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s+1;
-		show_EinEtot();
-	}
-	
-	show_summary();
-	
-	Pars.write_vars(pars_file);
-	
 	PRINT = "";
 }
 

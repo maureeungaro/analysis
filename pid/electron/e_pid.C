@@ -28,7 +28,7 @@
 	
 	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
 	
-	string PRINT   = "";
+	string PRINT   = "png";
 	int SECTOR     = 1;
 	const int NDIV = 15;       // divisions of sampling fraction	
 	
@@ -82,6 +82,7 @@
 	bar->AddButton("Calculate new CC theta matching cuts",     "calc_cc_match();");
 	bar->AddButton("Show CC theta matching cuts",              "show_cc_match();");
 	bar->AddButton("Show CC theta matching cuts each sector",  "show_theta_vs_segms();");
+	bar->AddButton("Show CC theta matching cuts all sectors",  "show_theta_vs_segm_all_sectors();");
 	bar->AddButton("","");
 	bar->AddButton("Show CC phi matching cuts each sector",    "show_phi_match();");
 	bar->AddButton("","");

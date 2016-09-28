@@ -178,7 +178,7 @@ void show_theta_vs_segms()
 	
 	if(PRINT != "") 
 	{
-		Ctheta_vs_segm->Print(Form("cc_theta_match_sect%d.%s", s+1, PRINT.c_str()));
+		Ctheta_vs_segm->Print(Form("img/cut-cctm_sector-%d.%s", s+1, PRINT.c_str()));
 	}
 	
 	if(cc_match_mean[s])
@@ -268,7 +268,7 @@ void CC_DrawFit(int s, int hid)
 	
 	if(PRINT != "") 
 	{
-		c2->Print(Form("ccm_slice%d_fit_sect%d.%s", hid+1, s+1, PRINT.c_str()) );
+		c2->Print(Form("imgs/cut-cctm_slice-%d_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -296,9 +296,10 @@ void show_theta_vs_segm_all_sectors()
 	for(int s=0; s<6; s++)
 	{
 		// Changing titles
+
 		H.theta_vs_segm[1][s]->GetXaxis()->CenterTitle(0);
-		H.theta_vs_segm[1][s]->GetXaxis()->SetTitle(Form("Sector %d              p [GeV]", s+1));
-		H.theta_vs_segm[1][s]->GetYaxis()->SetTitle(Form("E_{TOT} / p"));
+		H.theta_vs_segm[1][s]->GetXaxis()->SetTitle(Form("Sector %d              segment", s+1));
+		H.theta_vs_segm[1][s]->GetYaxis()->SetTitle(Form("\theta on CC plane    [degrees]"));
 		H.theta_vs_segm[1][s]->GetXaxis()->SetTitleSize(0.046);
 		H.theta_vs_segm[1][s]->GetYaxis()->SetTitleSize(0.046);
 		H.theta_vs_segm[1][s]->GetXaxis()->SetTitleOffset(1.2);
@@ -306,7 +307,7 @@ void show_theta_vs_segm_all_sectors()
 		H.theta_vs_segm[1][s]->GetXaxis()->SetLabelSize(0.036);
 		H.theta_vs_segm[1][s]->GetYaxis()->SetLabelSize(0.036);
 		H.theta_vs_segm[1][s]->GetZaxis()->SetLabelSize(0.036);
-		H.theta_vs_segm[1][s]->GetYaxis()->SetRangeUser(0.1, 0.45);
+		H.theta_vs_segm[1][s]->GetYaxis()->SetRangeUser(1, 55);
 	}
 	
 	TCanvas *Ctheta_vs_segmA  = new TCanvas("Ctheta_vs_segmA", "Ctheta_vs_segmA", 1200, 800);

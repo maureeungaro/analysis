@@ -9,17 +9,16 @@
  TColor *background2 = new TColor(667, 0.9,   1.0, 1.0, "background2");
  TColor *background3 = new TColor(668, 1.0,   0.9, 1.0, "background3");
 
- mystyle->SetOptTitle(0); 
+ mystyle->SetOptTitle(0);
  mystyle->SetOptStat(0);
- mystyle->SetOptFit(0); 
- mystyle->SetCanvasColor(0);
-// mystyle->SetCanvasColor(666);
- mystyle->SetFillStyle(1001);
+ mystyle->SetOptFit(0);
+ mystyle->SetCanvasColor(kWhite);
+ mystyle->SetFillStyle(0);
  mystyle->SetNumberContours(80);
  mystyle->SetErrorX(0);
 
- mystyle->SetFrameFillColor(0);
-// mystyle->SetFrameFillColor(668);
+ mystyle->SetFrameFillColor(kWhite);
+ mystyle->SetPadColor(kWhite);
 
 
  mystyle->SetNdivisions(505);
@@ -28,12 +27,12 @@
  mystyle->SetHeaderPS("220 500 translate");
 
 
-// Pads
-//  mystyle->SetPadLeftMargin(0.14);
-//  mystyle->SetPadRightMargin(0.14);
-//  mystyle->SetPadTopMargin(0.12);
-//  mystyle->SetPadBottomMargin(0.15);
-// 
+	// Pads
+	//  mystyle->SetPadLeftMargin(0.14);
+	//  mystyle->SetPadRightMargin(0.14);
+	//  mystyle->SetPadTopMargin(0.12);
+	//  mystyle->SetPadBottomMargin(0.15);
+	//
 
  mystyle->SetCanvasBorderMode(0);
  mystyle->SetFrameBorderMode(0);
@@ -41,22 +40,22 @@
 
  gROOT->SetStyle("mystyle");
 
-// gROOT->LoadMacro("/opt/projects/analysis/rootUtils/palette.C");
+	// gROOT->LoadMacro("/opt/projects/analysis/rootUtils/palette.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/asym.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/definitions.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices2by5.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices2by3.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices2by4.C");
- gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by5.C"); 
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by5.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by3.C");
- gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by4.C"); 
+ gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by4.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices3by7.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices5by2.C");
  gROOT->LoadMacro("/opt/projects/analysis/rootUtils/slices6by2.C");
 
-
-// palette();
-
+	
+	// palette();
+	
 }
 
 
