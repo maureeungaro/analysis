@@ -98,7 +98,7 @@ void show_cc_match()
 
 	if(PRINT != "") 
 	{
-		Ctheta_vs_segmS->Print( Form("cc_theta_matching_sect%d.%s", s+1, PRINT.c_str()) );
+		Ctheta_vs_segmS->Print( Form("img/cut-cctmd_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -362,7 +362,7 @@ void show_theta_vs_segm_all_sectors()
 	
 	if(PRINT != "") 
 	{
-		Ctheta_vs_segmA->Print(  Form("theta_vs_segm_all_sectors.%s", PRINT.c_str()) );
+		Ctheta_vs_segmA->Print(  Form("img/cut-cctm_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }
