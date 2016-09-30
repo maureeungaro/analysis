@@ -19,8 +19,14 @@ void calc_cc_timing()
 		xbe[b] = 0.5;
 		ybe[b] = 0;
 	}
-	
-	// Slicing + fitting
+
+
+	// reading cuts from original pass - looks like about 5 sigma was saved
+	// reading those values instead of re-doing the fit, which may yield slightly different results
+	// and confuse people.
+	// alternatively, I could re-run all the DST with slightly different cuts
+
+//	// Slicing + fitting
 	cout << " Fitting sector " << s+1 << endl;
 	for(int b=0; b<36; b++)
 	{
@@ -43,6 +49,7 @@ void calc_cc_timing()
 			
 		}
 	}
+
 	cc_timing_low[s] = new TGraphErrors(36, xb, Pars.cc_timing_low[s], xbe, ybe);
 	cc_timing_low[s]->SetMarkerSize(0.2);
 	cc_timing_low[s]->SetLineWidth(2);
