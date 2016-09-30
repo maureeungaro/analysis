@@ -28,26 +28,34 @@ void print_all()
 {
 	PRINT = "png";
 
-	// NPHE
-	show_npe();
-
-
-   // CC THETA MATCH
-	calc_all_cc_match();
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s+1;
-		show_cc_match();
-		show_theta_vs_segms();
-		for(int b=0; b<18; b++)
-			CC_DrawFit(s, b);
-		
-	}
-
-//   // CC PHI MATCH
-//	show_phi_match();
+//	// indivicual sectors
+//	calc_all_cc_match();
+//	for(int s=0; s<6; s++)
+//	{
+//		SECTOR = s+1;
+//		show_npeSingle();
+//		show_cc_match();
+//		show_theta_vs_segms();
+//		show_phi_match();
 //
-//	
+//		for(int b=0; b<18; b++) {
+//			CC_DrawFit(s, b);
+//		}
+//	}
+//
+//	// NPHE all sectors
+//	show_npe();
+//
+//	// theta all sectors
+//	show_theta_vs_segm_all_sectors();
+//
+//	// phi all sectors
+//	show_phi_matchAll();
+
+
+
+
+
 //   // CC TIMING
 //	calc_all_cc_timing();
 //	for(int s=0; s<6; s++)

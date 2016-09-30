@@ -2,7 +2,7 @@ void show_phi_match()
 {
 	gStyle->SetPadLeftMargin(0.08);
 	gStyle->SetPadRightMargin(0.04);
-	gStyle->SetPadTopMargin(0.02);
+	gStyle->SetPadTopMargin(0.2);
 	gStyle->SetPadBottomMargin(0.12);
 
 	int hist_minimum = 5;
@@ -12,79 +12,97 @@ void show_phi_match()
 	lab.SetTextFont(32);
 	lab.SetTextSize(0.052);
 	lab.SetNDC();
-	for(int s=0; s<7; s++)
+
+	int s = SECTOR-1;
+
+	H.phi_match[1][s]->SetFillColor(colors[1]);
+	H.phi_match[3][s]->SetFillColor(kGreen);
+	H.phi_match[1][s]->SetFillStyle(3004);
+	H.phi_match[3][s]->SetFillStyle(3001);
+
+	for(int c=0; c<4; c++)
 	{
-		H.phi_match[1][s]->SetFillColor(colors[1]);
-		H.phi_match[3][s]->SetFillColor(kGreen);
-		H.phi_match[1][s]->SetFillStyle(3004);
-		H.phi_match[3][s]->SetFillStyle(3001);
-		
-		for(int c=0; c<4; c++)
-		{
-			H.phi_match[c][s]->GetXaxis()->SetTitleSize(0.054);
-			H.phi_match[c][s]->GetXaxis()->SetTitleOffset(1.1);
-			H.phi_match[c][s]->GetXaxis()->SetLabelSize(0.044);
-			H.phi_match[c][s]->GetYaxis()->SetLabelSize(0.044);
-			if(s == 6)
-			{
-				H.phi_match[c][s]->GetXaxis()->SetTitleOffset(1.1);
-			}
-		}
+		H.phi_match[c][s]->GetXaxis()->SetTitleSize(0.04);
+		H.phi_match[c][s]->GetXaxis()->SetTitleOffset(1.1);
+		H.phi_match[c][s]->GetXaxis()->SetLabelSize(0.034);
+		H.phi_match[c][s]->GetYaxis()->SetLabelSize(0.034);
 	}
 
-	TCanvas *Cphi_match  = new TCanvas("Cphi_match", "Cphi_match", 1200, 800);
+
+	TCanvas *Cphi_match  = new TCanvas("Cphi_match", "Cphi_match", 1000, 1000);
 	TPad    *Pphi_match  = new TPad("Pphi_match", "Pphi_match", 0.02, 0.00,  0.98, 0.92);
-   Pphi_match->Divide(3, 2);
-	Pphi_match->Draw();
+ 	Pphi_match->Draw();
 
-	for(int s=0; s<6; s++)
-	{
-		Pphi_match->cd(s+1);
-		H.phi_match[0][s]->SetMinimum(hist_minimum);
-		H.phi_match[0][s]->Draw();
-		H.phi_match[1][s]->Draw("same");
-//		H.phi_match[2][s]->Draw("same");
-		H.phi_match[3][s]->Draw("same");
-		gPad->SetLogy();
-		lab.SetTextColor(colors[0]);
-		lab.SetTextFont(42);
-		lab.SetTextSize(0.048);
-		lab.DrawLatex(0.340, 0.44,  Form("cc / no cc:  %3.1f%%",               100.0*hit_cc[s] / no_cc_or_ec[s]));
-		lab.SetTextColor(colors[1]);
-		lab.DrawLatex(0.300, 0.38,  Form("calorimeter / cc:  %3.1f%%",         100.0*H.phi_match[1][s]->GetEntries()    / H.phi_match[0][s]->GetEntries()));
-		lab.SetTextColor(colors[3]);
-		lab.DrawLatex(0.250, 0.32,  Form("#phi match / calorimeter : %3.1f%%", 100.0*H.phi_match[3][s]->GetEntries()    / H.phi_match[1][s]->GetEntries()));
-		lab.DrawLatex(0.330, 0.26,  Form("all cuts / cc: %3.1f%%",             100.0*H.monitor[1][s]->GetBinContent(10) / H.monitor[0][s]->GetBinContent(1)));
-	}
-	
-	Cphi_match->cd(0);
-	lab.SetTextFont(102);
-	lab.SetTextSize(0.048);
+	H.phi_match[0][s]->SetMinimum(hist_minimum);
+	H.phi_match[0][s]->Draw();
+	H.phi_match[1][s]->Draw("same");
+	H.phi_match[2][s]->Draw("same");
+	H.phi_match[3][s]->Draw("same");
+	gPad->SetLogy();
+	lab.SetTextColor(colors[0]);
+	lab.SetTextFont(42);
+	lab.SetTextSize(0.04);
+	lab.DrawLatex(0.350, 0.44,  Form("cc match / no cut:  %3.1f%%",        100.0*H.phi_match[3][s]->GetEntries()    / H.phi_match[0][s]->GetEntries()   ));
+	lab.SetTextColor(colors[1]);
+	lab.DrawLatex(0.320, 0.38,  Form("calorimeter / no cut:  %3.1f%%",     100.0*H.phi_match[1][s]->GetEntries()    / H.phi_match[0][s]->GetEntries()   ));
+	lab.SetTextColor(kRed);
+	lab.DrawLatex(0.245, 0.32,  Form("neg calorimeter / no cut : %3.1f%%", 100.0*H.phi_match[2][s]->GetEntries()    / H.phi_match[0][s]->GetEntries()   ));
 	lab.SetTextColor(kBlack);
-	lab.DrawLatex(0.06, 0.94,  "#phi matching cut");
-	
+	lab.DrawLatex(0.28, 0.26,   Form("cc match  / calorimeter: %3.1f%%",   100.0*H.phi_match[3][s]->GetEntries()    / H.phi_match[1][s]->GetEntries()  ));
+
+
+	lab.SetTextFont(102);
+	lab.SetTextSize(0.034);
+	lab.SetTextColor(kBlack);
+	lab.DrawLatex(0.06, 0.94,  "#phi matching cut:");
+	lab.DrawLatex(0.06, 0.90,  "|match|<2 || #phi > 4");
+
 	lab.SetTextFont(42);
 	lab.SetTextSize(0.024);
 	lab.SetTextColor(colors[0]);
-	lab.DrawLatex(0.40, 0.96,  "#rightarrow no cuts applied");
+	lab.DrawLatex(0.45, 0.96,  "#rightarrow no cuts applied");
 	lab.SetTextColor(colors[1]);
-	lab.DrawLatex(0.40, 0.93,  "#rightarrow all other cuts applied");
+	lab.DrawLatex(0.45, 0.93,  "#rightarrow all other cuts applied");
 	lab.SetTextColor(colors[2]);
-//	lab.DrawLatex(0.70, 0.97,  "#rightarrow all negative other cuts applied");
+	lab.DrawLatex(0.45, 0.90,  "#rightarrow all negative other cuts applied");
 	lab.SetTextColor(colors[3]);
-	lab.DrawLatex(0.60, 0.93,  "#rightarrow all cuts applied");
+	lab.DrawLatex(0.45, 0.87,  "#rightarrow all cuts applied");
 	
 	lab.SetTextColor(colors[0]);
-	lab.SetTextSize(0.02);
-	lab.DrawLatex(0.818, 0.98,  "0: both pmts fired");
-	lab.DrawLatex(0.800, 0.955,  "-1, 1: track/pmt same side");
-	lab.DrawLatex(0.800, 0.93,  "-2, 2: track/pmt opposite side");
+	lab.SetTextSize(0.016);
+	lab.DrawLatex(0.78, 0.95,  "0: both pmts fired");
+	lab.DrawLatex(0.78, 0.92,  "-1, 1: track/pmt same side");
+	lab.DrawLatex(0.78, 0.89,  "-2, 2: track/pmt opposite side");
 
+	if(PRINT != "")
+	{
+		Cphi_match->Print(  Form("img/cut-ccphi_sector-%d.%s", SECTOR, PRINT.c_str()) );
+	}
 
+}
 
-	
+void show_phi_matchAll()
+{
+	gStyle->SetPadLeftMargin(0.08);
+	gStyle->SetPadRightMargin(0.04);
+	gStyle->SetPadTopMargin(0.15);
+	gStyle->SetPadBottomMargin(0.12);
+
+	int hist_minimum = 5;
+
+	TLatex lab;
+	lab.SetTextColor(kBlue+3);
+	lab.SetTextFont(32);
+	lab.SetTextSize(0.052);
+	lab.SetNDC();
+
+	H.phi_match[1][6]->SetFillColor(colors[1]);
+	H.phi_match[3][6]->SetFillColor(kGreen);
+	H.phi_match[1][6]->SetFillStyle(3004);
+	H.phi_match[3][6]->SetFillStyle(3001);
+
    // All sectors
-	TCanvas *CAphi_match  = new TCanvas("CAphi_match", "CAphi_match", 800, 600);
+	TCanvas *CAphi_match  = new TCanvas("CAphi_match", "CAphi_match", 1000, 1000);
 	TPad    *PAphi_match  = new TPad("PAphi_match", "PAphi_match", 0.02, 0.02,  0.98, 0.88);
 	PAphi_match->Draw();
 	PAphi_match->cd();
@@ -92,7 +110,7 @@ void show_phi_match()
 	H.phi_match[0][6]->SetMinimum(hist_minimum);
 	H.phi_match[0][6]->Draw();
 	H.phi_match[1][6]->Draw("same");
-//	H.phi_match[2][6]->Draw("same");
+	H.phi_match[2][6]->Draw("same");
 	H.phi_match[3][6]->Draw("same");
 	
 	CAphi_match->cd(0);
@@ -105,35 +123,41 @@ void show_phi_match()
 	lab.SetTextFont(42);
 	lab.SetTextSize(0.038);
 	lab.SetTextColor(colors[0]);
-	lab.DrawLatex(0.220, 0.40,  Form("cc / no cc:  %3.1f%%",               100.0*hit_cc[6] / no_cc_or_ec[6] ));
+	lab.DrawLatex(0.350, 0.44,  Form("cc match / no cut:  %3.1f%%",        100.0*H.phi_match[3][6]->GetEntries()    / H.phi_match[0][6]->GetEntries()   ));
 	lab.SetTextColor(colors[1]);
-	lab.DrawLatex(0.220, 0.35,  Form("calorimeter / cc:  %3.1f%%",         100.0*H.phi_match[1][6]->GetEntries() / H.phi_match[0][6]->GetEntries()));
-	lab.SetTextColor(colors[3]);
-	lab.DrawLatex(0.220, 0.30,  Form("#phi match / calorimeter: %3.1f%%",  100.0*H.phi_match[3][6]->GetEntries() / H.phi_match[1][6]->GetEntries()));
-	lab.DrawLatex(0.220, 0.25,  Form("all cuts / ec:  %3.1f%%",            100.0*H.monitor[1][6]->GetBinContent(10) / H.monitor[0][6]->GetBinContent(1)));
-	
+	lab.DrawLatex(0.320, 0.38,  Form("calorimeter / no cut:  %3.1f%%",     100.0*H.phi_match[1][6]->GetEntries()    / H.phi_match[0][6]->GetEntries()   ));
+	lab.SetTextColor(kRed);
+	lab.DrawLatex(0.25, 0.32,  Form("neg calorimeter / no cut : %3.1f%%", 100.0*H.phi_match[2][6]->GetEntries()    / H.phi_match[0][6]->GetEntries()   ));
+	lab.SetTextColor(kBlack);
+	lab.DrawLatex(0.28, 0.26,   Form("cc match  / calorimeter: %3.1f%%",   100.0*H.phi_match[3][6]->GetEntries()    / H.phi_match[1][6]->GetEntries()  ));
+
+	lab.SetTextFont(102);
+	lab.SetTextSize(0.034);
+	lab.SetTextColor(kBlack);
+	lab.DrawLatex(0.06, 0.94,  "|match|<2 || #phi > 4");
+
+	lab.SetTextFont(42);
+	lab.SetTextSize(0.026);
 	lab.SetTextColor(colors[0]);
-	lab.DrawLatex(0.52, 0.40,  "#rightarrow no cuts applied");
+	lab.DrawLatex(0.45, 0.98,  "#rightarrow no cuts applied");
 	lab.SetTextColor(colors[1]);
-	lab.DrawLatex(0.52, 0.35,  "#rightarrow all other cuts applied");
+	lab.DrawLatex(0.45, 0.95,  "#rightarrow all other cuts applied");
 	lab.SetTextColor(colors[2]);
-//	lab.DrawLatex(0.52, 0.30,  "#rightarrow all negative other cuts applied");
+	lab.DrawLatex(0.45, 0.92,  "#rightarrow all negative other cuts applied");
 	lab.SetTextColor(colors[3]);
-	lab.DrawLatex(0.52, 0.25,  "#rightarrow all cuts applied");
-	
-	CAphi_match->cd(0);
-	lab.SetTextSize(0.03);
+	lab.DrawLatex(0.45, 0.89,  "#rightarrow all cuts applied");
+
 	lab.SetTextColor(colors[0]);
-	lab.DrawLatex(0.730, 0.97,  "0: both pmts fired");
-	lab.DrawLatex(0.700, 0.93,  "-1, 1: track/pmt same side");
-	lab.DrawLatex(0.700, 0.89,  "-2, 2: track/pmt opposite side");
+	lab.SetTextSize(0.02);
+	lab.DrawLatex(0.78, 0.95,  "0: both pmts fired");
+	lab.DrawLatex(0.78, 0.92,  "-1, 1: track/pmt same side");
+	lab.DrawLatex(0.78, 0.89,  "-2, 2: track/pmt opposite side");
 
 
 	
 	if(PRINT != "") 
 	{
-		Cphi_match->Print(  Form("phi_match_each_sector.%s", PRINT.c_str()) );
-		CAphi_match->Print( Form("phi_match_all_sectors.%s", PRINT.c_str()) );
+		CAphi_match->Print( Form("img/cut-ccphi_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }

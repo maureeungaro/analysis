@@ -1,0 +1,22 @@
+#!/bin/csh -f
+
+# manually copying come pics
+
+cp img/cut-cctm_sector-all.png img/cut-cctmd_sector-all.png
+cp img/cut-cctm_sector-all.png img/cut-cctmpars_sector-all.png
+
+
+rm imageslist.txt ; ls img/* > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=cut  -addColumnTableVariable=sector \
+-defaultPlot=img/cut-cctm_sector-1.png -imagesSize="1000 1000"
+
+mv page.html cuts.html
+
+rm imageslist.txt ; ls imgs/* > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=slice -addColumnTableVariable=cut \
+-addSelectableVariable=sector -defaultPlot=imgs/slice-10_cut-cctm_sector-6.png -imagesSize="800 800" -d=imgs
+
+mv page.html slices.html
+

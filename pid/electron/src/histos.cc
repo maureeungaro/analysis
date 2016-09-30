@@ -351,7 +351,7 @@ void histos::fill(map<string, int> passed, particle p)
 		// cuts are applied one after the other
 		monitor[1][sector_i]->Fill(0);
 		monitor[1][6]->Fill(0);
-		if(passed["NPHE"] == 1 || 1)
+		if(passed["NPHE"] == 1 || 1) // nphe not applied
 		{
 			monitor[1][sector_i]->Fill(1);
 			monitor[1][6]->Fill(1);
@@ -403,18 +403,22 @@ void histos::fill(map<string, int> passed, particle p)
 		}
 	}
 	// Counting Hits in CC, EC
+	// bin 1: all
 	monitor[2][sector_i]->Fill(0);
 	monitor[2][6]->Fill(0);
+	// bin 2: cc
 	if(p.ccinfos.size())
 	{
 		monitor[2][sector_i]->Fill(1);
 		monitor[2][6]->Fill(1);
 	}
+	// bin 3: ec
 	if(p.cainfos.size())
 	{
 		monitor[2][sector_i]->Fill(2);
 		monitor[2][6]->Fill(2);
 	}
+	// bin 3: both ec and cc
 	if(p.ccinfos.size() && p.cainfos.size())
 	{
 		monitor[2][sector_i]->Fill(3);

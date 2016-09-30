@@ -28,7 +28,7 @@ void show_cc_match()
 	TCanvas *Ctheta_vs_segmS;
 	TPad    *Ptheta_vs_segmS;
 	
-	Ctheta_vs_segmS = new TCanvas(Form("Ctheta_vs_segmS%d", s+1), Form("Ctheta_vs_segmS%d", s+1), 940, 900);
+	Ctheta_vs_segmS = new TCanvas(Form("Ctheta_vs_segmS%d", s+1), Form("Ctheta_vs_segmS%d", s+1), 1000, 1000);
 	Ptheta_vs_segmS = new TPad(Form("Ptheta_vs_segmS%d", s+1), Form("Ptheta_vs_segmS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Ptheta_vs_segmS->Divide(2, 2);
 	Ptheta_vs_segmS->Draw();
@@ -118,7 +118,7 @@ void show_theta_vs_segms()
 	int NBINS = H.theta_vs_segm[1][0]->GetNbinsX();
 	int db = NBINS/NDIV;
 	
-	TCanvas *Ctheta_vs_segm  = new TCanvas("Ctheta_vs_segm", "Ctheta_vs_segm", 700, 700);
+	TCanvas *Ctheta_vs_segm  = new TCanvas("Ctheta_vs_segm", "Ctheta_vs_segm", 1000, 1000);
 	gPad->SetLogz();
 	
 	// Changing titles
@@ -233,7 +233,7 @@ void CC_DrawFit(int s, int hid)
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,700,500);
+	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
 	c2->cd();
 	
 	if(cc_match1d[s][hid])
@@ -268,7 +268,10 @@ void CC_DrawFit(int s, int hid)
 	
 	if(PRINT != "") 
 	{
-		c2->Print(Form("imgs/cut-cctm_slice-%d_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+		if(hid>=9)
+			c2->Print(Form("imgs/slice-%d_cut-cctm_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+		else
+			c2->Print(Form("imgs/slice-0%d_cut-cctm_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -310,7 +313,7 @@ void show_theta_vs_segm_all_sectors()
 		H.theta_vs_segm[1][s]->GetYaxis()->SetRangeUser(1, 55);
 	}
 	
-	TCanvas *Ctheta_vs_segmA  = new TCanvas("Ctheta_vs_segmA", "Ctheta_vs_segmA", 1200, 800);
+	TCanvas *Ctheta_vs_segmA  = new TCanvas("Ctheta_vs_segmA", "Ctheta_vs_segmA", 1000, 1000);
 	TPad    *Ptheta_vs_segmA  = new TPad("Ptheta_vs_segmA", "Ptheta_vs_segmA", 0.02, 0.00,  0.98, 0.92);
 	Ptheta_vs_segmA->Divide(3, 2);
 	Ptheta_vs_segmA->Draw();
@@ -322,6 +325,7 @@ void show_theta_vs_segm_all_sectors()
 		Ptheta_vs_segmA->cd(s+1);
 		gPad->SetGridx();
 		gPad->SetGridy();
+		gPad->SetLogz();
 		H.theta_vs_segm[1][s]->Draw("colz");
 		Ctheta_vs_segmA->Update();
 
@@ -353,11 +357,11 @@ void show_theta_vs_segm_all_sectors()
 	Ctheta_vs_segmA->cd(0);
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
-	lab.SetTextSize(0.044);
-	lab.DrawLatex(0.10, 0.94,  "Sampling Fraction - All Sectors");
+	lab.SetTextSize(0.036);
+	lab.DrawLatex(0.04, 0.94,  "CC #theta matching - All Sectors");
 	lab.SetTextSize(0.026);
 	lab.SetTextColor(kBlue+2);
-	lab.DrawLatex(0.72, 0.94,  "All Other Cuts Applied");
+	lab.DrawLatex(0.62, 0.94,  "All Other Cuts Applied");
 	
 	
 	if(PRINT != "") 

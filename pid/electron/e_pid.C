@@ -1,3 +1,5 @@
+// /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=cut  -addColumnTableVariable=sector -defaultPlot=img/cut-cctm_sector-1.png -imagesSize="1000 1000"
+
 {
 /*	string pars_file = "electron_id_par_gsim.txt";
 	string root_file = "electrons_gsim.root";
@@ -77,6 +79,7 @@
 	bar->AddButton("Electron Particle ID", "");
 	bar->AddButton("","");
 	bar->AddButton("Show number of photoelectrons",            "show_npe();");
+	bar->AddButton("Show number of photoelectrons in sector",  "show_npeSingle();");
 	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
 	bar->AddButton("","");
 	bar->AddButton("Calculate new CC theta matching cuts",     "calc_cc_match();");
@@ -85,6 +88,7 @@
 	bar->AddButton("Show CC theta matching cuts all sectors",  "show_theta_vs_segm_all_sectors();");
 	bar->AddButton("","");
 	bar->AddButton("Show CC phi matching cuts each sector",    "show_phi_match();");
+	bar->AddButton("Show CC phi matching cuts all sector",     "show_phi_matchAll();");
 	bar->AddButton("","");
 	bar->AddButton("Calculate new CC timing cuts",             "calc_cc_timing();");
 	bar->AddButton("Show CC timing",                           "show_cc_timing();");
