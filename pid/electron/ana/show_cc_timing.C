@@ -91,7 +91,8 @@ void show_cc_timing()
 
 	if(PRINT != "") 
 	{
-		Ccc_timingS->Print( Form("cc_timing_sect%d.%s", s+1, PRINT.c_str()) );
+		Ccc_timingS->Print( Form("img/cut-cctimd_sector-%d.%s", s+1, PRINT.c_str()) );
+
 	}
 }
 
@@ -157,7 +158,7 @@ void show_cc_timings()
 	
 	if(PRINT != "") 
 	{
-		Ccc_timing->Print(Form("cc_theta_match_sect%d.%s", s+1, PRINT.c_str()));
+		Ccc_timing->Print(Form("img/cut-cctim_sector-%d.%s", s+1, PRINT.c_str()));
 	}
 	
 	if(cc_timing_low[s])
@@ -247,7 +248,10 @@ void CCT_DrawFit(int s, int hid)
 	
 	if(PRINT != "") 
 	{
-		c2->Print(Form("cct_slice%d_fit_sect%d.%s", hid+1, s+1, PRINT.c_str()) );
+		if(hid>=9)
+			c2->Print(Form("imgs/slice-%d_cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+		else
+			c2->Print(Form("imgs/slice-0%d_cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }

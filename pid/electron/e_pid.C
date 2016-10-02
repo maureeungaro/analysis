@@ -93,14 +93,13 @@
 	bar->AddButton("Show CC timing",                           "show_cc_timing();");
 	bar->AddButton("Show CC timing each sector",               "show_cc_timings();");
 	bar->AddButton("","");
+	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
 	bar->AddButton("","");
 	bar->AddButton("Calculate new fraction cuts",              "calc_all_ecp();");
 	bar->AddButton("Calculate new fraction cuts this sector",  "calc_ecp();");
 	bar->AddButton("Show sampling fraction cuts",              "show_ecp();");
 	bar->AddButton("Show sampling fraction sector by sector",  "show_ecps();");
 	bar->AddButton("Show Sampling Fraction for all sectors",   "show_ecp_all_sectors();");
-	bar->AddButton("","");
-	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
 	bar->AddButton("","");
 	bar->AddButton("Show U",                                   "show_uvw(H.ECu);");
 	bar->AddButton("Show V",                                   "show_uvw(H.ECv);");
