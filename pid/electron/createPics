@@ -2,8 +2,8 @@
 
 # manually copying come pics
 
-cp img/cut-cctm_sector-all.png img/cut-cctmd_sector-all.png
-cp img/cut-cctm_sector-all.png img/cut-cctmpars_sector-all.png
+cp img/cut-ccthm_sector-all.png img/cut-ccthmd_sector-all.png
+cp img/cut-ccthm_sector-all.png img/cut-cctmpars_sector-all.png
 
 
 rm imageslist.txt ; ls img/* > imageslist.txt

@@ -28,7 +28,7 @@ void show_ecp()
 	TCanvas *CecpS;
 	TPad    *PecpS;
 	
-	CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), 940, 900);
+	CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), 1000, 1000);
 	PecpS = new TPad(Form("PecpS%d", s+1), Form("PecpS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	PecpS->Divide(2, 2);
 	PecpS->Draw();
@@ -99,7 +99,7 @@ void show_ecp()
 
 	if(PRINT != "") 
 	{
-		CecpS->Print( Form("sampling_sect%d.%s", s+1, PRINT.c_str()) );
+		CecpS->Print( Form("img/cut-sampfd_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -119,7 +119,7 @@ void show_ecps()
 	int NBINS = H.ecp[1][0]->GetNbinsX();
 	int db = NBINS/NDIV;
 	
-	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 700, 700);
+	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 1000, 1000);
 	
 	// Changing titles
 	H.ecp[1][s]->GetXaxis()->CenterTitle(0);
@@ -191,7 +191,7 @@ void show_ecps()
 	
 	if(PRINT != "") 
 	{
-		Cecp->Print(Form("sampling_fit_sect%d.%s", s+1, PRINT.c_str()));
+		Cecp->Print( Form("img/cut-sampf_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 	
 	if(sf_mean[s])
@@ -251,7 +251,7 @@ void DrawFit(int s, int hid)
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,700,500);
+	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
 	c2->cd();
 	
 	if(ecp1d[s][hid])
@@ -278,7 +278,10 @@ void DrawFit(int s, int hid)
 	
 	if(PRINT != "") 
 	{
-		c2->Print(Form("slice%d_fit_sect%d.%s", hid+1, s+1, PRINT.c_str()) );
+		if(hid>=9)
+			c2->Print(Form("imgs/slice-%d_cut-sampf_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+		else
+			c2->Print(Form("imgs/slice-0%d_cut-sampf_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -321,7 +324,7 @@ void show_ecp_all_sectors()
 	}
 
 	
-	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", 1200, 800);
+	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", 1000, 1000);
 	TPad    *PecpA  = new TPad("PecpA", "PecpA", 0.02, 0.00,  0.98, 0.92);
 	PecpA->Divide(3, 2);
 	PecpA->Draw();
@@ -372,7 +375,8 @@ void show_ecp_all_sectors()
 	
 	if(PRINT != "") 
 	{
-		CecpA->Print(  Form("ecp_all_sectors.%s", PRINT.c_str()) );
+		CecpA->Print(Form("img/cut-sampf_sector-all.%s", PRINT.c_str()));
+
 	}
 	
 }

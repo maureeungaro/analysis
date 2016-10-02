@@ -28,7 +28,7 @@ void show_cc_timing()
 	TCanvas *Ccc_timingS;
 	TPad    *Pcc_timingS;
 	
-	Ccc_timingS = new TCanvas(Form("Ccc_timingS%d", s+1), Form("Ccc_timingS%d", s+1), 940, 900);
+	Ccc_timingS = new TCanvas(Form("Ccc_timingS%d", s+1), Form("Ccc_timingS%d", s+1), 1000, 1000);
 	Pcc_timingS = new TPad(Form("Pcc_timingS%d", s+1), Form("Pcc_timingS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Pcc_timingS->Divide(2, 2);
 	Pcc_timingS->Draw();
@@ -92,7 +92,6 @@ void show_cc_timing()
 	if(PRINT != "") 
 	{
 		Ccc_timingS->Print( Form("img/cut-cctimd_sector-%d.%s", s+1, PRINT.c_str()) );
-
 	}
 }
 
@@ -213,7 +212,7 @@ void CCT_DrawFit(int s, int hid)
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,700,500);
+	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
 	c2->cd();
 	
 	if(cc_timing1d[s][hid])
@@ -292,7 +291,7 @@ void show_cc_timing_all_sectors()
 		H.cc_timing[1][s]->GetYaxis()->SetRangeUser(0.1, 0.45);
 	}
 	
-	TCanvas *Ccc_timingA  = new TCanvas("Ccc_timingA", "Ccc_timingA", 1200, 800);
+	TCanvas *Ccc_timingA  = new TCanvas("Ccc_timingA", "Ccc_timingA", 1000, 1000);
 	TPad    *Pcc_timingA  = new TPad("Pcc_timingA", "Pcc_timingA", 0.02, 0.00,  0.98, 0.92);
 	Pcc_timingA->Divide(3, 2);
 	Pcc_timingA->Draw();
@@ -344,7 +343,8 @@ void show_cc_timing_all_sectors()
 	
 	if(PRINT != "") 
 	{
-		Ccc_timingA->Print(  Form("cc_timing_all_sectors.%s", PRINT.c_str()) );
+		Ccc_timingA->Print(Form("img/cut-cctim_sector-all.%s", PRINT.c_str()));
+
 	}
 	
 }

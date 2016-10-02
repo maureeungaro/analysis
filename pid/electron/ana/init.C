@@ -28,57 +28,67 @@ void print_all()
 {
 	PRINT = "png";
 
-//	// indivicual sectors
+//	// cc theta
 //	calc_all_cc_match();
+//
+//	// cc TIMING
+//	calc_all_cc_timing();
+//
+//	// sampling
+//	calc_all_ecp();
+
+//	// indivicual sectors plots
 //	for(int s=0; s<6; s++)
 //	{
 //		SECTOR = s+1;
 //		show_npeSingle();
+//		
 //		show_cc_match();
 //		show_theta_vs_segms();
+//		
 //		show_phi_match();
+//		
+//		show_cc_timing();
+//		show_cc_timings();
 //
+//		show_ecthr();
+//
+//		show_ecp();
+//		show_ecps();
+//
+//		// cc theta slices
 //		for(int b=0; b<18; b++) {
 //			CC_DrawFit(s, b);
 //		}
-//	}
-//
-//	// NPHE all sectors
-//	show_npe();
-//
-//	// theta all sectors
-//	show_theta_vs_segm_all_sectors();
-//
-//	// phi all sectors
-//	show_phi_matchAll();
-
-
-
-
-
-//   // CC TIMING
-//	calc_all_cc_timing();
-//	for(int s=0; s<6; s++)
-//	{
-//		SECTOR = s+1;
-//		show_cc_timing();
-//		show_cc_timings();
-//	}	
-//
-//	// P MIN
-//	show_ecthr();
-//
-//
-//	// SAMPLING FRACTION
-//	calc_all_ecp();
-//	for(int s=0; s<6; s++)
-//	{
-//		SECTOR = s+1;
-//		show_ecp();
-//		show_ecps();
-//		for(int b=0; b<NDIV; b++)
+//		
+//		// cc timing slices
+//		for(int b=0; b<36; b++) {
+//			CCT_DrawFit(s,b);
+//		}
+//		
+//		// sampling slices
+//		for(int b=0; b<NDIV; b++) {
 //			DrawFit(s, b);
+//		}
+//
 //	}
+
+	// NPHE all sectors
+	show_npe();
+
+	// cc theta all sectors
+	show_theta_vs_segm_all_sectors();
+
+	// cc phi all sectors
+	show_phi_matchAll();
+
+	// cc timing all sectors
+	show_cc_timing_all_sectors();
+
+	// P MIN all sectors
+	show_ecthrAll();
+
+
 //	
 //	// TRACK POSITION IN EC
 //	show_uvw(ECu);

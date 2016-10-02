@@ -94,6 +94,7 @@
 	bar->AddButton("Show CC timing each sector",               "show_cc_timings();");
 	bar->AddButton("","");
 	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
+	bar->AddButton("Show minimum momentum cut all sectors",    "show_ecthrAll();");
 	bar->AddButton("","");
 	bar->AddButton("Calculate new fraction cuts",              "calc_all_ecp();");
 	bar->AddButton("Calculate new fraction cuts this sector",  "calc_ecp();");
