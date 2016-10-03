@@ -99,7 +99,7 @@ void show_ecp()
 
 	if(PRINT != "") 
 	{
-		CecpS->Print( Form("img/cut-sampfd_sector-%d.%s", s+1, PRINT.c_str()) );
+		CecpS->Print( Form("img/epid5cut-sampfd_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -191,7 +191,7 @@ void show_ecps()
 	
 	if(PRINT != "") 
 	{
-		Cecp->Print( Form("img/cut-sampf_sector-%d.%s", s+1, PRINT.c_str()) );
+		Cecp->Print( Form("img/epid5cut-sampf_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 	
 	if(sf_mean[s])
@@ -279,9 +279,9 @@ void DrawFit(int s, int hid)
 	if(PRINT != "") 
 	{
 		if(hid>=9)
-			c2->Print(Form("imgs/slice-%d_cut-sampf_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-%d_epid5cut-sampf_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 		else
-			c2->Print(Form("imgs/slice-0%d_cut-sampf_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-0%d_epid5cut-sampf_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -375,7 +375,7 @@ void show_ecp_all_sectors()
 	
 	if(PRINT != "") 
 	{
-		CecpA->Print(Form("img/cut-sampf_sector-all.%s", PRINT.c_str()));
+		CecpA->Print(Form("img/epid5cut-sampf_sector-all.%s", PRINT.c_str()));
 
 	}
 	

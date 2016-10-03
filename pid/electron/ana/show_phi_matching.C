@@ -76,7 +76,7 @@ void show_phi_match()
 
 	if(PRINT != "")
 	{
-		Cphi_match->Print(  Form("img/cut-ccphi_sector-%d.%s", SECTOR, PRINT.c_str()) );
+		Cphi_match->Print(  Form("img/epid2cut-ccphi_sector-%d.%s", SECTOR, PRINT.c_str()) );
 	}
 
 }
@@ -157,7 +157,7 @@ void show_phi_matchAll()
 	
 	if(PRINT != "") 
 	{
-		CAphi_match->Print( Form("img/cut-ccphi_sector-all.%s", PRINT.c_str()) );
+		CAphi_match->Print( Form("img/epid2cut-ccphi_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }

@@ -28,50 +28,50 @@ void print_all()
 {
 	PRINT = "png";
 
-//	// cc theta
-//	calc_all_cc_match();
-//
-//	// cc TIMING
-//	calc_all_cc_timing();
-//
-//	// sampling
-//	calc_all_ecp();
+	// cc theta
+	calc_all_cc_match();
 
-//	// indivicual sectors plots
-//	for(int s=0; s<6; s++)
-//	{
-//		SECTOR = s+1;
-//		show_npeSingle();
-//		
-//		show_cc_match();
-//		show_theta_vs_segms();
-//		
-//		show_phi_match();
-//		
-//		show_cc_timing();
-//		show_cc_timings();
-//
-//		show_ecthr();
-//
-//		show_ecp();
-//		show_ecps();
-//
-//		// cc theta slices
-//		for(int b=0; b<18; b++) {
-//			CC_DrawFit(s, b);
-//		}
-//		
-//		// cc timing slices
-//		for(int b=0; b<36; b++) {
-//			CCT_DrawFit(s,b);
-//		}
-//		
-//		// sampling slices
-//		for(int b=0; b<NDIV; b++) {
-//			DrawFit(s, b);
-//		}
-//
-//	}
+	// cc TIMING
+	calc_all_cc_timing();
+
+	// sampling
+	calc_all_ecp();
+
+	// indivicual sectors plots
+	for(int s=0; s<6; s++)
+	{
+		SECTOR = s+1;
+		show_npeSingle();
+		
+		show_cc_match();
+		show_theta_vs_segms();
+		
+		show_phi_match();
+		
+		show_cc_timing();
+		show_cc_timings();
+
+		show_ecthr();
+
+		show_ecp();
+		show_ecps();
+
+		// cc theta slices
+		for(int b=0; b<18; b++) {
+			CC_DrawFit(s, b);
+		}
+		
+		// cc timing slices
+		for(int b=0; b<36; b++) {
+			CCT_DrawFit(s,b);
+		}
+		
+		// sampling slices
+		for(int b=0; b<NDIV; b++) {
+			DrawFit(s, b);
+		}
+
+	}
 
 	// NPHE all sectors
 	show_npe();

@@ -1,5 +1,18 @@
 // /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=cut  -addColumnTableVariable=sector -defaultPlot=img/cut-cctm_sector-1.png -imagesSize="1000 1000"
 
+// cc matching pars - in title
+// sampf all sectors
+// slices: slice 1 / total?
+// slices sampling fraction title
+
+
+// epid1: theta match
+// epid2: phi match
+// epid3: time match
+// epid4: p threshold
+// epid5: sampling fraction
+
+
 {
 /*	string pars_file = "electron_id_par_gsim.txt";
 	string root_file = "electrons_gsim.root";
@@ -13,7 +26,6 @@
 
 	gROOT->LoadMacro("src/common_info.cc");
 	gROOT->LoadMacro("ana/init.C");
-	gROOT->LoadMacro("ana/show_npe.C");
 	gROOT->LoadMacro("ana/calc_cc_match.C");
 	gROOT->LoadMacro("ana/show_cc_match.C");
 	gROOT->LoadMacro("ana/show_phi_matching.C");
@@ -26,6 +38,7 @@
 	gROOT->LoadMacro("ana/show_ecyx.C");
 	gROOT->LoadMacro("ana/show_EoEi.C");
 	gROOT->LoadMacro("ana/show_EinEtot.C");
+	gROOT->LoadMacro("ana/show_npe.C");
 	gROOT->LoadMacro("ana/show_summary.C");
 	
 	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
@@ -78,9 +91,6 @@
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("Electron Particle ID", "");
 	bar->AddButton("","");
-	bar->AddButton("Show number of photoelectrons",            "show_npe();");
-	bar->AddButton("Show number of photoelectrons in sector",  "show_npeSingle();");
-	bar->AddButton("","");
 	bar->AddButton("Calculate new CC theta matching cuts",     "calc_cc_match();");
 	bar->AddButton("Show CC theta matching cuts",              "show_cc_match();");
 	bar->AddButton("Show CC theta matching cuts each sector",  "show_theta_vs_segms();");
@@ -92,6 +102,7 @@
 	bar->AddButton("Calculate new CC timing cuts",             "calc_cc_timing();");
 	bar->AddButton("Show CC timing",                           "show_cc_timing();");
 	bar->AddButton("Show CC timing each sector",               "show_cc_timings();");
+	bar->AddButton("Show CC timing all sectors",               "show_cc_timing_all_sectors();");
 	bar->AddButton("","");
 	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
 	bar->AddButton("Show minimum momentum cut all sectors",    "show_ecthrAll();");
@@ -112,12 +123,14 @@
 	bar->AddButton("","");
 	bar->AddButton("Show Ein/Etot vs p",                       "show_EinEtot();");
 	bar->AddButton("","");
+	bar->AddButton("Show number of photoelectrons",            "show_npe();");
+	bar->AddButton("Show number of photoelectrons in sector",  "show_npeSingle();");
+	bar->AddButton("","");
 	bar->AddButton("Show Summary",                             "show_summary();");
 	bar->AddButton("","");
 	bar->AddButton("Change Sector",                            "change_sector();");
 	bar->AddButton("Print all electrond ID plots",             "print_all();");
 	bar->AddButton("Write Parameters",                         "Pars.write_vars(pars_file);");
-	bar->AddButton("","");
 	bar->AddButton("","");
 	bar->Show();
 }

@@ -91,7 +91,7 @@ void show_cc_timing()
 
 	if(PRINT != "") 
 	{
-		Ccc_timingS->Print( Form("img/cut-cctimd_sector-%d.%s", s+1, PRINT.c_str()) );
+		Ccc_timingS->Print( Form("img/epid3cut-cctimd_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -157,7 +157,7 @@ void show_cc_timings()
 	
 	if(PRINT != "") 
 	{
-		Ccc_timing->Print(Form("img/cut-cctim_sector-%d.%s", s+1, PRINT.c_str()));
+		Ccc_timing->Print(Form("img/epid3cut-cctim_sector-%d.%s", s+1, PRINT.c_str()));
 	}
 	
 	if(cc_timing_low[s])
@@ -248,9 +248,9 @@ void CCT_DrawFit(int s, int hid)
 	if(PRINT != "") 
 	{
 		if(hid>=9)
-			c2->Print(Form("imgs/slice-%d_cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-%d_epid3cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 		else
-			c2->Print(Form("imgs/slice-0%d_cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-0%d_epid3cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -281,14 +281,13 @@ void show_cc_timing_all_sectors()
 		H.cc_timing[1][s]->GetXaxis()->CenterTitle(0);
 		H.cc_timing[1][s]->GetXaxis()->SetTitle(Form("Sector %d              p [GeV]", s+1));
 		H.cc_timing[1][s]->GetYaxis()->SetTitle(Form("E_{TOT} / p"));
-		H.cc_timing[1][s]->GetXaxis()->SetTitleSize(0.046);
-		H.cc_timing[1][s]->GetYaxis()->SetTitleSize(0.046);
-		H.cc_timing[1][s]->GetXaxis()->SetTitleOffset(1.2);
-		H.cc_timing[1][s]->GetYaxis()->SetTitleOffset(1.5);
-		H.cc_timing[1][s]->GetXaxis()->SetLabelSize(0.036);
-		H.cc_timing[1][s]->GetYaxis()->SetLabelSize(0.036);
-		H.cc_timing[1][s]->GetZaxis()->SetLabelSize(0.036);
-		H.cc_timing[1][s]->GetYaxis()->SetRangeUser(0.1, 0.45);
+		H.cc_timing[1][s]->GetXaxis()->SetTitleSize(0.05);
+		H.cc_timing[1][s]->GetYaxis()->SetTitleSize(0.05);
+		H.cc_timing[1][s]->GetXaxis()->SetTitleOffset(1.0);
+		H.cc_timing[1][s]->GetYaxis()->SetTitleOffset(1.2);
+		H.cc_timing[1][s]->GetXaxis()->SetLabelSize(0.04);
+		H.cc_timing[1][s]->GetYaxis()->SetLabelSize(0.04);
+		H.cc_timing[1][s]->GetZaxis()->SetLabelSize(0.04);
 	}
 	
 	TCanvas *Ccc_timingA  = new TCanvas("Ccc_timingA", "Ccc_timingA", 1000, 1000);
@@ -314,40 +313,30 @@ void show_cc_timing_all_sectors()
 			palette->SetX1NDC(0.89);
 		}
 		
-		cc_match_me->SetParameter(0, s+1);
-		cc_match_up->SetParameter(0, s+1);
-		cc_match_up->SetParameter(1, Pars.CC_NSIGMAS[0]);
-		cc_match_up->SetParameter(2, 1);
-		cc_match_dn->SetParameter(0, s+1);
-		cc_match_dn->SetParameter(1, Pars.CC_NSIGMAS[1]);
-		cc_match_dn->SetParameter(2, -1);
-	
-		cc_match_up->SetLineWidth(3);
-		cc_match_dn->SetLineWidth(3);
-		cc_match_up->Draw("same");
-		cc_match_dn->Draw("same");
-		cc_match_me->Draw("same");
-		
-		hor->Draw("same");
+
+		if(cc_timing_low[s])
+			cc_timing_low[s]->Draw("P");
 	}
 	
 	Ccc_timingA->cd(0);
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
-	lab.SetTextSize(0.044);
-	lab.DrawLatex(0.10, 0.94,  "Sampling Fraction - All Sectors");
+	lab.SetTextSize(0.034);
+	lab.DrawLatex(0.10, 0.94,  "CC Timing - All Sectors");
 	lab.SetTextSize(0.026);
 	lab.SetTextColor(kBlue+2);
-	lab.DrawLatex(0.72, 0.94,  "All Other Cuts Applied");
+	lab.DrawLatex(0.62, 0.94,  "All Other Cuts Applied");
 	
 	
 	if(PRINT != "") 
 	{
-		Ccc_timingA->Print(Form("img/cut-cctim_sector-all.%s", PRINT.c_str()));
+		Ccc_timingA->Print(Form("img/epid3cut-cctim_sector-all.%s", PRINT.c_str()));
 
 	}
 	
 }
+
+
 
 
 

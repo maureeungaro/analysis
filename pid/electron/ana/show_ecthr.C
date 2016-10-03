@@ -67,7 +67,7 @@ void show_ecthr()
 	
 	if(PRINT != "") 
 	{
-		Cecthr->Print(  Form("img/cut-ccthr_sector-%d.%s", SECTOR, PRINT.c_str()) );
+		Cecthr->Print(  Form("img/epid4cut-pthr_sector-%d.%s", SECTOR, PRINT.c_str()) );
 	}
 	
 }
@@ -143,7 +143,7 @@ void show_ecthrAll()
 	
 	if(PRINT != "")
 	{
-		Cecthr->Print(  Form("img/cut-ccthr_sector-all.%s", PRINT.c_str()) );
+		Cecthr->Print(  Form("img/epid4cut-pthr_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }

@@ -180,12 +180,12 @@ void calc_cc_match()
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.038);
-	lab.DrawLatex(0.24, 0.94,  Form("CC #theta Matching  -  Sector %d", SECTOR));
+	lab.DrawLatex(0.2, 0.94,  Form("CC #theta Matching Pars  -  Sector %d", SECTOR));
 
 
 	if(PRINT != "")
 	{
-		Csum->Print( Form("img/cut-cctmpars_sector-%d.%s", s+1, PRINT.c_str()) );
+		Csum->Print( Form("img/epid1cut-cctmpars_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 	
 	cout << " done " << endl;
