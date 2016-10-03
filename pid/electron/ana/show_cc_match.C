@@ -242,7 +242,7 @@ void CC_DrawFit(int s, int hid)
 		cc_match1d[s][hid]->Draw();
 		lab.SetTextFont(102);
 		lab.SetTextSize(0.058);
-		lab.DrawLatex(0.34, 0.92,  "#theta on CC plane");
+		lab.DrawLatex(0.28, 0.92,  "#theta on CC plane");
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
 		if(hid<11)

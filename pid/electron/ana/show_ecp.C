@@ -262,8 +262,8 @@ void DrawFit(int s, int hid)
 		ecp1d[s][hid]->GetXaxis()->SetTitleOffset(1.3);
 		ecp1d[s][hid]->Draw();
 		lab.SetTextFont(102);
-		lab.SetTextSize(0.058);
-		lab.DrawLatex(0.3, 0.92,  "Sampling Fraction");
+		lab.SetTextSize(0.045);
+		lab.DrawLatex(0.26, 0.92,  "Sampling Fraction");
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
 		lab.DrawLatex(0.66, 0.82,  Form("Sector %d", SECTOR));

@@ -99,7 +99,7 @@ void show_EinEtot()
 	
 	if(PRINT != "")
 	{
-		CEinEtotS->Print(Form("img/cut-11EoVsEi_sector-%d.%s", SECTOR, PRINT.c_str() ));
+		CEinEtotS->Print(Form("img/cut-11EoOEtot_sector-%d.%s", SECTOR, PRINT.c_str() ));
 	}
 
 }
@@ -181,7 +181,7 @@ void show_EinEtotAll()
 		lab.SetTextSize(0.052);
 	}
 
-	CEinEtotA->cd(0);
+	CEinEtotS->cd(0);
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.034);
@@ -192,7 +192,7 @@ void show_EinEtotAll()
 
 	if(PRINT != "")
 	{
-		CEinEtotA->Print(  Form("img/cut-11EoVsEi_sector-all.%s", PRINT.c_str()) );
+		CEinEtotA->Print(  Form("img/cut-11EoOEtot_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }

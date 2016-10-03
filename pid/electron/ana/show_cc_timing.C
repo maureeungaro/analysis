@@ -220,8 +220,8 @@ void CCT_DrawFit(int s, int hid)
 		cc_timing1d[s][hid]->GetXaxis()->SetTitleOffset(1.3);
 		cc_timing1d[s][hid]->Draw();
 		lab.SetTextFont(102);
-		lab.SetTextSize(0.058);
-		lab.DrawLatex(0.19, 0.92,  "#Delta T = T_{CC} + |#vec{R}_{SC}-#vec{R}_{CC}|/c - T_{SC}");
+		lab.SetTextSize(0.045);
+		lab.DrawLatex(0.15, 0.92,  "#Delta T = T_{CC} + |#vec{R}_{SC}-#vec{R}_{CC}|/c - T_{SC}");
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
 		if(hid<11)

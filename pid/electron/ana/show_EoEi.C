@@ -121,10 +121,9 @@ show_EoEi()
 	
 	if(PRINT != "") 
 	{
-		CEoutEinS->Print(Form("img/cut-10EoVsEi_sector-%d.%s", s+1, PRINT.c_str()));
+		CEoutEinS->Print(Form("img/cut-10EoVsEi_sector-%d.%s", SECTOR, PRINT.c_str()));
 	}
 	
-//	change_sector();
 }
 
 

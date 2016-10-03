@@ -76,7 +76,7 @@ void show_npe()
 
 	if(PRINT != "") 
 	{
-		Cnpe->Print(  Form("img/cut-npe_sector-all.%s", PRINT.c_str()) );
+		Cnpe->Print(  Form("img/cut-12nphe_sector-all.%s", PRINT.c_str()) );
 	}
 
 	cout << " Done showing NPE." << endl;
@@ -146,7 +146,7 @@ void show_npeSingle()
 
 	if(PRINT != "")
 	{
-		Cnpe->Print(  Form("img/cut-npe_sector-%d.%s", SECTOR, PRINT.c_str()) );
+		Cnpe->Print(  Form("img/cut-12nphe_sector-%d.%s", SECTOR, PRINT.c_str()) );
 	}
 
 	cout << " Done showing NPE." << endl;

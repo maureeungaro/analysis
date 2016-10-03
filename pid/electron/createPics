@@ -2,10 +2,13 @@
 
 # manually copying come pics
 
-cp img/cut-01ccthm_sector-all.png img/cut-ccthmd_sector-all.png
-cp img/cut-01ccthm_sector-all.png img/cut-cctmpars_sector-all.png
+cp img/cut-01ccthm_sector-all.png img/cut-01ccthmd_sector-all.png
+cp img/cut-01ccthm_sector-all.png img/cut-01cctmpars_sector-all.png
 
-cp img/cut-03cctim_sector-all.png img/cut-03cctmpars_sector-all.png
+cp img/cut-03cctim_sector-all.png img/cut-03cctimd_sector-all.png
+
+# sampling
+cp img/cut-05sampf_sector-all.png  img/cut-05sampfd_sector-all.png
 
 # uvw 2d copied across all sectors
 cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-1.png
@@ -19,14 +22,14 @@ cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-6.png
 rm imageslist.txt ; ls img/* > imageslist.txt
 
 /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=cut  -addColumnTableVariable=sector \
--defaultPlot=img/cut-cctm_sector-1.png -imagesSize="1000 1000"
+-defaultPlot=img/cut-09uvw_sector-all.png -imagesSize="1000 1000"
 
 mv page.html cuts.html
 
 rm imageslist.txt ; ls imgs/* > imageslist.txt
 
 /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=slice -addColumnTableVariable=cut \
--addSelectableVariable=sector -defaultPlot=imgs/slice-10_cut-cctm_sector-6.png -imagesSize="800 800" -d=imgs
+-addSelectableVariable=sector -defaultPlot=imgs/slice-23_cut-03cctim_sector-2.png -imagesSize="800 800" -d=imgs
 
 mv page.html slices.html
 
