@@ -41,11 +41,9 @@ show_EoEi()
 		}
 		// Max is at Eout=0
 		// Renormalizing
-		H.EoutEin[c][s]->GetYaxis()->SetRangeUser(0.02, 0.3);
-		H.EoutEin[c][s]->GetXaxis()->SetRangeUser(0.02, 0.3);
+		H.EoutEin[c][s]->GetYaxis()->SetRangeUser(0.005, 0.3);
+		H.EoutEin[c][s]->GetXaxis()->SetRangeUser(0.005, 0.3);
 		double hmax = H.EoutEin[c][s]->GetMaximum()/1.5;
-		H.EoutEin[c][s]->GetYaxis()->SetRangeUser(0.0, 0.3);
-		H.EoutEin[c][s]->GetXaxis()->SetRangeUser(0.0, 0.3);
 		H.EoutEin[c][s]->SetMaximum(hmax);
 		
 	}
@@ -53,7 +51,7 @@ show_EoEi()
 	TCanvas *CEoutEinS;
 	TPad    *PEoutEinS;
 	
-	CEoutEinS = new TCanvas(Form("CEoutEinS%d", s+1), Form("CEoutEinS%d", s+1), 940, 900);
+	CEoutEinS = new TCanvas(Form("CEoutEinS%d", s+1), Form("CEoutEinS%d", s+1), 1000, 1000);
 	PEoutEinS = new TPad(Form("PEoutEinS%d", s+1), Form("PEoutEinS%d", s+1), 0.02, 0.00,  0.98, 0.90);
 	PEoutEinS->Divide(2, 2);
 	PEoutEinS->Draw();
@@ -63,6 +61,7 @@ show_EoEi()
 	for(int c=0; c<4; c++)
 	{
 		PEoutEinS->cd(c+1);
+		if(c==2) gPad->SetLogz();
 		H.EoutEin[c][s]->Draw("colz");
 		diag->Draw("same");
 		EoutEin_cut->Draw("same");
@@ -95,9 +94,12 @@ show_EoEi()
 		}
 		if(c==3) 
 		{
+
+			// since there is also a cut Eout > 0.001 (most events cut out)
+			// getting integral past that otherwise it seems this cut is 88%
 			lab.DrawLatex(0.515, 0.90,  "d. all cuts applied");
-			lab.DrawLatex(0.450, 0.84,  Form("entries d. / a. : %3.1f%%", 100.0*H.EoutEin[c][s]->GetEntries()/H.EoutEin[0][s]->GetEntries()));
-			lab.DrawLatex(0.450, 0.78,  Form("entries d. / b. : %3.1f%%", 100.0*H.EoutEin[c][s]->GetEntries()/H.EoutEin[1][s]->GetEntries()));
+			lab.DrawLatex(0.450, 0.84,  Form("entries d. / a. : %3.1f%%", 100.0*H.EoutEin[c][s]->Integral(0, 300, 10, 300)/H.EoutEin[0][s]->Integral(0, 300, 10, 300) ));
+			lab.DrawLatex(0.450, 0.78,  Form("entries d. / b. : %3.1f%%", 100.0*H.EoutEin[c][s]->Integral(0, 300, 10, 300)/H.EoutEin[1][s]->Integral(0, 300, 10, 300) ));
 		}
 		
 	}
@@ -113,13 +115,13 @@ show_EoEi()
 	lab.SetTextColor(kRed+2);
 	lab.DrawLatex(0.76, 0.96,  "MIP:  y = #frac{5}{3} x");
 	lab.SetTextColor(kGreen+3);
-	lab.DrawLatex(0.76, 0.92,  Form("CUT:  y > %3.2f %3.1f x", Pars.ecop_vs_ecip_a[s], Pars.ecop_vs_ecip_b[s]));
+	lab.DrawLatex(0.3, 0.9,  Form("CUT:  y > %3.2f %3.1f x, Eout > 0.001", Pars.ecop_vs_ecip_a[s], Pars.ecop_vs_ecip_b[s]));
 	lab.SetTextColor(kBlue+2);
 	
 	
 	if(PRINT != "") 
 	{
-		CEoutEinS->Print(Form("EoEi_sect%d.%s", s+1, PRINT.c_str()));
+		CEoutEinS->Print(Form("img/cut-10EoVsEi_sector-%d.%s", s+1, PRINT.c_str()));
 	}
 	
 //	change_sector();
@@ -131,7 +133,7 @@ void show_EoEi_all()
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.12);
-	gStyle->SetPadTopMargin(0.02);
+	gStyle->SetPadTopMargin(0.15);
 	gStyle->SetPadBottomMargin(0.12);
 
 	TLatex lab;
@@ -160,17 +162,10 @@ void show_EoEi_all()
 		H.EoutEin[1][s]->GetXaxis()->SetLabelSize(0.036);
 		H.EoutEin[1][s]->GetYaxis()->SetLabelSize(0.036);
 		H.EoutEin[1][s]->GetZaxis()->SetLabelSize(0.036);
-		H.EoutEin[1][s]->GetYaxis()->SetRangeUser(0.02, 0.3);
-		H.EoutEin[1][s]->GetXaxis()->SetRangeUser(0.02, 0.3);
-		double hmax = H.EoutEin[1][s]->GetMaximum()/1.5;
-		H.EoutEin[1][s]->GetYaxis()->SetRangeUser(0.0, 0.3);
-		H.EoutEin[1][s]->GetXaxis()->SetRangeUser(0.0, 0.3);
-//		H.EoutEin[1][s]->SetMaximum(hmax);
-//		H.EoutEin[1][s]->GetYaxis()->SetRangeUser(0.1, 0.45);
 	}
 
 	
-	TCanvas *CEoutEinA  = new TCanvas("CEoutEinA", "CEoutEinA", 1200, 800);
+	TCanvas *CEoutEinA  = new TCanvas("CEoutEinA", "CEoutEinA", 1000, 1000);
 	TPad    *PEoutEinA  = new TPad("PEoutEinA", "PEoutEinA", 0.02, 0.00,  0.98, 0.92);
 	PEoutEinA->Divide(3, 2);
 	PEoutEinA->Draw();
@@ -186,14 +181,11 @@ void show_EoEi_all()
 	}
 
 
-	
 	TPaletteAxis *palette;
 	
 	for(int s=0; s<6; s++)
 	{
 		PEoutEinA->cd(s+1);
-/*		gPad->SetGridx();
-		gPad->SetGridy();*/
 		H.EoutEin[1][s]->Draw("colz");
 		CEoutEinA->Update();
 
@@ -206,35 +198,28 @@ void show_EoEi_all()
 		}
 		EoutEin_cut[s]->Draw("same");
 		
-		lab.SetTextSize(0.050);
+		lab.SetTextSize(0.055);
 		lab.SetTextColor(kBlack);
-		lab.DrawLatex(0.506, 0.93,  Form("MIP cut / all: %3.1f%%",    100.0*H.monitor[0][s]->GetBinContent(9)  / H.monitor[0][s]->GetBinContent(1)));
-		lab.DrawLatex(0.440, 0.87,  Form("MIP cut / others: %3.1f%%", 100.0*H.EoutEin[3][s]->GetEntries()/H.EoutEin[1][s]->GetEntries()));
+		lab.DrawLatex(0.3, 0.95,  Form("MIP cut / no cut: %3.1f%%",     100.0*H.EoutEin[3][s]->Integral(0, 300, 10, 300)/H.EoutEin[0][s]->Integral(0, 300, 10, 300) ));
+		lab.DrawLatex(0.3, 0.90,  Form("MIP cut / all others: %3.1f%%", 100.0*H.EoutEin[3][s]->Integral(0, 300, 10, 300)/H.EoutEin[1][s]->Integral(0, 300, 10, 300)  ));
 		lab.SetTextSize(0.052);
 		lab.SetTextColor(kGreen+3);
-		lab.DrawLatex(0.69, 0.79,  Form("a = %3.2f", Pars.ecop_vs_ecip_a[s]));
-		lab.DrawLatex(0.69, 0.72,  Form("b = %3.1f", Pars.ecop_vs_ecip_b[s]));
-		
-		
+		lab.DrawLatex(0.69, 0.80,  Form("a = %3.2f", Pars.ecop_vs_ecip_a[s]));
+		lab.DrawLatex(0.69, 0.75,  Form("b = %3.1f", Pars.ecop_vs_ecip_b[s]));
 	}
 	
 	CEoutEinA->cd(0);
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
-	lab.SetTextSize(0.042);
-	lab.DrawLatex(0.06, 0.945,  "Minimum Ionizing Cut  - All Sectors");
+	lab.SetTextSize(0.034);
+	lab.DrawLatex(0.06, 0.945,  "Minimum Ionizing Cut");
 	lab.SetTextSize(0.028);
 	lab.SetTextColor(kBlue+2);
-	lab.DrawLatex(0.72, 0.97,  "All Other Cuts Applied");
-	lab.SetTextColor(kGreen+3);
-	lab.DrawLatex(0.78, 0.93,  "y = a + bx");
-	
-	
-	
-	
+	lab.DrawLatex(0.65, 0.945,  "All Other Cuts Applied");
+
 	if(PRINT != "") 
 	{
-		CEoutEinA->Print(  Form("EoutEin_all_sectors.%s", PRINT.c_str()) );
+		CEoutEinA->Print(  Form("img/cut-10EoVsEi_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }

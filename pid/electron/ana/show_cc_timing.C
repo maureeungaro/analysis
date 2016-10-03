@@ -91,7 +91,7 @@ void show_cc_timing()
 
 	if(PRINT != "") 
 	{
-		Ccc_timingS->Print( Form("img/epid3cut-cctimd_sector-%d.%s", s+1, PRINT.c_str()) );
+		Ccc_timingS->Print( Form("img/cut-03cctimd_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -157,7 +157,7 @@ void show_cc_timings()
 	
 	if(PRINT != "") 
 	{
-		Ccc_timing->Print(Form("img/epid3cut-cctim_sector-%d.%s", s+1, PRINT.c_str()));
+		Ccc_timing->Print(Form("img/cut-03cctim_sector-%d.%s", s+1, PRINT.c_str()));
 	}
 	
 	if(cc_timing_low[s])
@@ -248,9 +248,9 @@ void CCT_DrawFit(int s, int hid)
 	if(PRINT != "") 
 	{
 		if(hid>=9)
-			c2->Print(Form("imgs/slice-%d_epid3cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-%d_cut-03cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 		else
-			c2->Print(Form("imgs/slice-0%d_epid3cut-cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-0%d_cut-03cctim_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -330,7 +330,7 @@ void show_cc_timing_all_sectors()
 	
 	if(PRINT != "") 
 	{
-		Ccc_timingA->Print(Form("img/epid3cut-cctim_sector-all.%s", PRINT.c_str()));
+		Ccc_timingA->Print(Form("img/cut-03cctim_sector-all.%s", PRINT.c_str()));
 
 	}
 	

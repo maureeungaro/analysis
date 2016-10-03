@@ -98,7 +98,7 @@ void show_cc_match()
 
 	if(PRINT != "") 
 	{
-		Ctheta_vs_segmS->Print( Form("img/epid1cut-ccthmd_sector-%d.%s", s+1, PRINT.c_str()) );
+		Ctheta_vs_segmS->Print( Form("img/cut-01ccthmd_sector-%d.%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -178,7 +178,7 @@ void show_theta_vs_segms()
 	
 	if(PRINT != "") 
 	{
-		Ctheta_vs_segm->Print(Form("img/epid1cut-ccthm_sector-%d.%s", s+1, PRINT.c_str()));
+		Ctheta_vs_segm->Print(Form("img/cut-01ccthm_sector-%d.%s", s+1, PRINT.c_str()));
 	}
 	
 	if(cc_match_mean[s])
@@ -269,9 +269,9 @@ void CC_DrawFit(int s, int hid)
 	if(PRINT != "") 
 	{
 		if(hid>=9)
-			c2->Print(Form("imgs/slice-%d_epid1cut-ccthm_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-%d_cut-01ccthm_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 		else
-			c2->Print(Form("imgs/slice-0%d_epid1cut-ccthm_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+			c2->Print(Form("imgs/slice-0%d_cut-01ccthm_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -366,7 +366,7 @@ void show_theta_vs_segm_all_sectors()
 	
 	if(PRINT != "") 
 	{
-		Ctheta_vs_segmA->Print(  Form("img/epid1cut-ccthm_sector-all.%s", PRINT.c_str()) );
+		Ctheta_vs_segmA->Print(  Form("img/cut-01ccthm_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }

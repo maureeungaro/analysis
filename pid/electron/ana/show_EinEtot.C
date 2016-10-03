@@ -6,7 +6,6 @@ void show_EinEtot()
 	TF1 *EinEtot_cut = new TF1("up", "pol0", 0, 5);
 	EinEtot_cut->SetLineColor(kGreen+3);
 	EinEtot_cut->SetLineWidth(2);
-
 	EinEtot_cut->SetParameter(0, Pars.min_ecit[s]);
 
 	gStyle->SetPadLeftMargin(0.15);
@@ -26,10 +25,7 @@ void show_EinEtot()
 		H.EinEtot[c][s]->GetXaxis()->SetLabelSize(0.042);
 		H.EinEtot[c][s]->GetYaxis()->SetLabelSize(0.042);
 		H.EinEtot[c][s]->GetZaxis()->SetNdivisions(8);
-		if(s == 6)
-		{
-			H.EinEtot[c][s]->GetXaxis()->SetTitleOffset(1.1);
-		}
+
 		// Max is at Eout=0
 		// Renormalizing
 		H.EinEtot[c][s]->GetYaxis()->SetRangeUser(0.01, 0.97);
@@ -87,7 +83,6 @@ void show_EinEtot()
 			lab.DrawLatex(0.46, 0.86,  Form("entries d. / a. : %3.1f%%", 100.0*H.EinEtot[c][s]->GetEntries()/H.EinEtot[0][s]->GetEntries()));
 			lab.DrawLatex(0.46, 0.81,  Form("entries d. / b. : %3.1f%%", 100.0*H.EinEtot[c][s]->GetEntries()/H.EinEtot[1][s]->GetEntries()));
 		}
-		
 	}
 	
 	CEinEtotS->cd(0);
@@ -104,18 +99,103 @@ void show_EinEtot()
 	
 	if(PRINT != "") 
 	{
-		CEinEtotS->Print(Form("einetot_sect%d.%s", s+1, PRINT.c_str()));
+		CEinEtotS->Print(Form("img/cut-11EoVsEi_sector-%s.%s", s+1, PRINT.c_str()));
 	}
-
-
-
-
-
-
-
 
 }
 
+void show_EinEtotAll()
+{
+	gStyle->SetPadLeftMargin(0.14);
+	gStyle->SetPadRightMargin(0.12);
+	gStyle->SetPadTopMargin(0.15);
+	gStyle->SetPadBottomMargin(0.12);
+
+	TLatex lab;
+	lab.SetTextColor(kBlue+3);
+	lab.SetTextFont(32);
+	lab.SetTextSize(0.052);
+	lab.SetNDC();
+
+	TF1 *hor = new TF1("hor", "pol0", 0, 5);
+	hor->SetLineColor(kBlack);
+	hor->SetLineWidth(1);
+	hor->SetLineStyle(1);
+	hor->SetParameter(0, 0.3);
+
+
+	for(int s=0; s<6; s++)
+	{
+		// Changing titles
+		H.EinEtot[1][s]->GetXaxis()->CenterTitle(0);
+		H.EinEtot[1][s]->GetXaxis()->SetTitle(Form("Sector %d              E_{in} / p", s+1));
+		H.EinEtot[1][s]->GetYaxis()->SetTitle("E_{out} / p");
+		H.EinEtot[1][s]->GetXaxis()->SetTitleSize(0.046);
+		H.EinEtot[1][s]->GetYaxis()->SetTitleSize(0.046);
+		H.EinEtot[1][s]->GetXaxis()->SetTitleOffset(1.2);
+		H.EinEtot[1][s]->GetYaxis()->SetTitleOffset(1.5);
+		H.EinEtot[1][s]->GetXaxis()->SetLabelSize(0.036);
+		H.EinEtot[1][s]->GetYaxis()->SetLabelSize(0.036);
+		H.EinEtot[1][s]->GetZaxis()->SetLabelSize(0.036);
+	}
+
+
+	TCanvas *CEinEtotS  = new TCanvas("CEinEtotA", "CEinEtotA", 1000, 1000);
+	TPad    *PEinEtotA  = new TPad("PEinEtotA", "PEinEtotA", 0.02, 0.00,  0.98, 0.92);
+	PEinEtotA->Divide(3, 2);
+	PEinEtotA->Draw();
+
+
+	TF1 *EinEtot_cut = new TF1("up", "pol0", 0, 5);
+	EinEtot_cut->SetLineColor(kGreen+3);
+	EinEtot_cut->SetLineWidth(2);
+	EinEtot_cut->SetParameter(0, Pars.min_ecit[1]);
+
+	TPaletteAxis *palette;
+
+	for(int s=0; s<6; s++)
+	{
+		PEinEtotA->cd(s+1);
+		H.EinEtot[1][s]->Draw("colz");
+
+		EinEtot_cut->Draw("same");
+		CEinEtotS->Update();
+
+		if(H.EinEtot[1][s]->GetMaximum()>2)
+		{
+			palette = (TPaletteAxis*)H.EinEtot[1][s]->FindObject("palette");
+			if(palette) {
+				palette->SetLabelSize(0.035);
+				palette->SetLabelOffset(0.01);
+				palette->SetX1NDC(0.89);
+				palette->SetX2NDC(0.95);
+				palette->SetY2NDC(0.84);
+			}
+		}
+
+
+		lab.SetTextSize(0.055);
+		lab.SetTextColor(kBlack);
+		lab.DrawLatex(0.2, 0.95,  Form("Shower Shape cut / no cut: %3.1f%%",     100.0*H.EinEtot[3][s]->Integral(0, 225, 10, 200)/H.EinEtot[0][s]->Integral(0, 225, 10, 200) ));
+		lab.DrawLatex(0.2, 0.90,  Form("Shower Shape cut / all others: %3.1f%%", 100.0*H.EinEtot[3][s]->Integral(0, 225, 10, 200)/H.EinEtot[1][s]->Integral(0, 225, 10, 200)  ));
+		lab.SetTextSize(0.052);
+	}
+
+	CEinEtotA->cd(0);
+	lab.SetTextFont(102);
+	lab.SetTextColor(kBlack);
+	lab.SetTextSize(0.034);
+	lab.DrawLatex(0.06, 0.945,  "Shower Shape Cut");
+	lab.SetTextSize(0.028);
+	lab.SetTextColor(kBlue+2);
+	lab.DrawLatex(0.65, 0.945,  "All Other Cuts Applied");
+
+	if(PRINT != "")
+	{
+		CEinEtotA->Print(  Form("img/cut-11EoVsEi_sector-all.%s", PRINT.c_str()) );
+	}
+	
+}
 
 
 

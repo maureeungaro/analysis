@@ -56,6 +56,12 @@ void print_all()
 		show_ecp();
 		show_ecps();
 
+		show_uvw(H.ECu);
+		show_uvw(H.ECv);
+		show_uvw(H.ECw);
+
+		show_EoEi()
+
 		// cc theta slices
 		for(int b=0; b<18; b++) {
 			CC_DrawFit(s, b);
@@ -88,22 +94,23 @@ void print_all()
 	// P MIN all sectors
 	show_ecthrAll();
 
+	// sampling fraction all sectors
+	show_ecp_all_sectors();
 
-//	
-//	// TRACK POSITION IN EC
-//	show_uvw(ECu);
-//	show_uvw(ECv);
-//	show_uvw(ECw);
-//	show_ecyx();
-//	
-//	// MIP cut: E OUT vs E IN
-//	for(int s=0; s<6; s++)
-//	{
-//		SECTOR = s+1;
-//		show_EoEi();
-//	}
-//	show_EoEi_all();
-//	
+	// uvw all sectors
+	show_uvwAll(H.ECu);
+	show_uvwAll(H.ECv);
+	show_uvwAll(H.ECw);
+
+
+	// y vs x
+	show_ecyx();
+
+	// eout vs ein
+	show_EoEi_all();
+
+
+	
 //	// Shower Shape cut:  E IN / E TOT
 //	for(int s=0; s<6; s++)
 //	{

@@ -1,17 +1,19 @@
 // /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=cut  -addColumnTableVariable=sector -defaultPlot=img/cut-cctm_sector-1.png -imagesSize="1000 1000"
 
-// cc matching pars - in title
-// sampf all sectors
 // slices: slice 1 / total?
 // slices sampling fraction title
 
 
-// epid1: theta match
-// epid2: phi match
-// epid3: time match
-// epid4: p threshold
-// epid5: sampling fraction
-
+// cut-01: theta match
+// cut-02: phi match
+// cut-03: time match
+// cut-04: p threshold
+// cut-05: sampling fraction
+// cut-06,7,8: u,v,w
+// cut-09: 2d uvw (not a cut)
+// cut-10: EoVsEi
+// cut-11: shshape
+// cut-12: nphe (not a cut)
 
 {
 /*	string pars_file = "electron_id_par_gsim.txt";
@@ -113,15 +115,19 @@
 	bar->AddButton("Show sampling fraction sector by sector",  "show_ecps();");
 	bar->AddButton("Show Sampling Fraction for all sectors",   "show_ecp_all_sectors();");
 	bar->AddButton("","");
-	bar->AddButton("Show U",                                   "show_uvw(H.ECu);");
-	bar->AddButton("Show V",                                   "show_uvw(H.ECv);");
-	bar->AddButton("Show W",                                   "show_uvw(H.ECw);");
+	bar->AddButton("Show U (all sectors)",                     "show_uvwAll(H.ECu);");
+	bar->AddButton("Show V (all sectors)",                     "show_uvwAll(H.ECv);");
+	bar->AddButton("Show W (all sectors)",                     "show_uvwAll(H.ECw);");
+	bar->AddButton("Show U (single)",                          "show_uvw(H.ECu);");
+	bar->AddButton("Show V (single)",                          "show_uvw(H.ECv);");
+	bar->AddButton("Show W (single)",                          "show_uvw(H.ECw);");
 	bar->AddButton("Show EC Y vs X",                           "show_ecyx();");
 	bar->AddButton("","");
 	bar->AddButton("Show EC Eout/p vs Ein/p",                  "show_EoEi();");
 	bar->AddButton("Show EC Eout/p vs Ein/p for all sectors",  "show_EoEi_all();");
 	bar->AddButton("","");
 	bar->AddButton("Show Ein/Etot vs p",                       "show_EinEtot();");
+	bar->AddButton("Show Ein/Etot vs p all sectors",           "show_EinEtotAll();");
 	bar->AddButton("","");
 	bar->AddButton("Show number of photoelectrons",            "show_npe();");
 	bar->AddButton("Show number of photoelectrons in sector",  "show_npeSingle();");

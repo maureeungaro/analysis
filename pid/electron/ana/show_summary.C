@@ -36,9 +36,9 @@ show_summary()
 		s2->SetBinContent(c, 100.0*effectiveness[c-1]);
 		s3->SetBinContent(c, 100.0*H.monitor[1][6]->GetBinContent(c+1) / H.monitor[0][6]->GetBinContent(1));
 		
-		s1->GetYaxis()->SetRangeUser(0, 100);
-		s2->GetYaxis()->SetRangeUser(0, 100);
-		s3->GetYaxis()->SetRangeUser(0, 100);
+		s1->GetYaxis()->SetRangeUser(0, 110);
+		s2->GetYaxis()->SetRangeUser(0, 110);
+		s3->GetYaxis()->SetRangeUser(0, 110);
 		
 		s1->GetXaxis()->SetLabelSize(0.00);
 		s2->GetXaxis()->SetLabelSize(0.00);
@@ -79,7 +79,7 @@ show_summary()
 	Psum->cd(1);
 	gPad->SetGridx();
 	s1->SetFillColor(kGreen-9);
-	s1->SetFillStyle(2);
+	s1->SetFillStyle(1001);
 	s1->SetBarWidth(0.8);
 	s1->SetBarOffset(0.1);
 	s1->Draw("bar1");
@@ -98,7 +98,7 @@ show_summary()
 	Psum->cd(2);
 	gPad->SetGridx();
 	s2->SetFillColor(kGreen-9);
-	s2->SetFillStyle(2);
+	s2->SetFillStyle(1001);
 	s2->SetBarWidth(0.8);
 	s2->SetBarOffset(0.1);
 	s2->Draw("bar1");
@@ -113,14 +113,14 @@ show_summary()
 	Psum->cd(3);
 	gPad->SetGridx();
 	s3->SetFillColor(kGreen-9);
-	s3->SetFillStyle(2);
+	s3->SetFillStyle(1001);
 	s3->SetBarWidth(0.8);
 	s3->SetBarOffset(0.1);
 	s3->Draw("bar1");
 	for(int c=0; c<10; c++)
 	{
 		lab.DrawLatex(0.11+c*pos_slope2, 0.05, Form("%s",      cutn[c].c_str()  ));
-		lab.DrawLatex(0.11+c*pos_slope, 0.74,  Form("%3.1f%%", 100.0*H.monitor[1][6]->GetBinContent(c+2)  / H.monitor[0][6]->GetBinContent(1)  ));
+		lab.DrawLatex(0.11+c*pos_slope, 0.7,  Form("%3.1f%%", 100.0*H.monitor[1][6]->GetBinContent(c+2)  / H.monitor[0][6]->GetBinContent(1)  ));
 	}
 	
 	lab.SetTextSize(0.08);
@@ -141,7 +141,7 @@ show_summary()
 	
 	if(PRINT != "") 
 	{
-		Csum->Print(  Form("epidsummary.%s", PRINT.c_str()) );
+		Csum->Print(  Form("img/epidsummary.%s", PRINT.c_str()) );
 	}
 	
 	

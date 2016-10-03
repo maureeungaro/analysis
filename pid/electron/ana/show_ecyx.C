@@ -8,7 +8,7 @@ void show_ecyx()
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *CECpos  = new TCanvas("CECpos", "CECpos", 1000, 900);
+	TCanvas *CECpos  = new TCanvas("CECpos", "CECpos", 1000, 1000);
 	
 	H.ECpos[0]->GetXaxis()->SetTitleSize(0.040);
 	H.ECpos[0]->GetYaxis()->SetTitleSize(0.040);
@@ -36,17 +36,17 @@ void show_ecyx()
 	
 	lab.SetTextColor(colors[0]);
 	lab.SetTextFont(102);
-	lab.SetTextSize(0.048);
+	lab.SetTextSize(0.04);
 	lab.DrawLatex(0.14, 0.91,  "EC Y vs X");
 	
 	lab.SetTextFont(42);
-	lab.SetTextSize(0.028);
+	lab.SetTextSize(0.024);
 	lab.SetTextColor(colors[0]);
-	lab.DrawLatex(0.46, 0.95,   Form("ec / no ec:  %3.1f%%",    100.0*hit_ec[6] / no_cc_or_ec[6]));
+	lab.DrawLatex(0.4, 0.95,   Form("all others / no cut:  %3.1f%%",        100.0*H.ECpos[1]->GetEntries() / H.ECpos[0]->GetEntries()) );
 	lab.SetTextColor(kBlue+3);
-	lab.DrawLatex(0.44, 0.91,  Form("UVW Cut / ec: %3.1f%%",    100.0*H.monitor[0][6]->GetBinContent(8)  / H.monitor[0][6]->GetBinContent(1)));
+	lab.DrawLatex(0.4, 0.91,   Form("negative others / no cut:  %3.1f%%",   100.0*H.ECpos[2]->GetEntries() / H.ECpos[0]->GetEntries())  );
 	lab.SetTextColor(colors[3]);
-	lab.DrawLatex(0.45, 0.87,   Form("all cuts / ec: %3.1f%%",  100.0*H.monitor[1][6]->GetBinContent(10) / H.monitor[0][6]->GetBinContent(1)));
+	lab.DrawLatex(0.4, 0.87,   Form("U,V,W cuts / all others:  %3.1f%%",    100.0*H.ECpos[3]->GetEntries() / H.ECpos[1]->GetEntries())  );
 	
 	lab.SetTextSize(0.03);
 	lab.SetTextColor(colors[0]);
@@ -62,7 +62,7 @@ void show_ecyx()
 	
 	if(PRINT != "") 
 	{
-		CECpos->Print( Form("EC_yvsx.%s", PRINT.c_str()) );
+		CECpos->Print( Form("img/cut-09uvw_sector-all.%s", PRINT.c_str()) );
 	}
 }
 

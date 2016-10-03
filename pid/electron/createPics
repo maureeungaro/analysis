@@ -2,8 +2,18 @@
 
 # manually copying come pics
 
-cp img/cut-ccthm_sector-all.png img/cut-ccthmd_sector-all.png
-cp img/cut-ccthm_sector-all.png img/cut-cctmpars_sector-all.png
+cp img/cut-01ccthm_sector-all.png img/cut-ccthmd_sector-all.png
+cp img/cut-01ccthm_sector-all.png img/cut-cctmpars_sector-all.png
+
+cp img/cut-03cctim_sector-all.png img/cut-03cctmpars_sector-all.png
+
+# uvw 2d copied across all sectors
+cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-1.png
+cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-2.png
+cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-3.png
+cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-4.png
+cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-5.png
+cp img/cut-09uvw_sector-all.png  img/cut-09uvw_sector-6.png
 
 
 rm imageslist.txt ; ls img/* > imageslist.txt
