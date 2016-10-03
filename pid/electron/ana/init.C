@@ -62,6 +62,8 @@ void print_all()
 
 		show_EoEi()
 
+		show_EinEtot();
+
 		// cc theta slices
 		for(int b=0; b<18; b++) {
 			CC_DrawFit(s, b);
@@ -102,25 +104,19 @@ void print_all()
 	show_uvwAll(H.ECv);
 	show_uvwAll(H.ECw);
 
-
 	// y vs x
 	show_ecyx();
 
 	// eout vs ein
 	show_EoEi_all();
 
+	// ein / etot
+	show_EinEtotAll();
 
-	
-//	// Shower Shape cut:  E IN / E TOT
-//	for(int s=0; s<6; s++)
-//	{
-//		SECTOR = s+1;
-//		show_EinEtot();
-//	}
-//	
-//	show_summary();
-//	
-//	Pars.write_vars(pars_file);
+
+	// summary
+	show_summary();
+
 
 	PRINT = "";
 }

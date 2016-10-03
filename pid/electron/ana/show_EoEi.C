@@ -162,6 +162,8 @@ void show_EoEi_all()
 		H.EoutEin[1][s]->GetXaxis()->SetLabelSize(0.036);
 		H.EoutEin[1][s]->GetYaxis()->SetLabelSize(0.036);
 		H.EoutEin[1][s]->GetZaxis()->SetLabelSize(0.036);
+		H.EoutEin[1][s]->GetYaxis()->SetRangeUser(0.005, 0.3);
+		H.EoutEin[1][s]->GetXaxis()->SetRangeUser(0.005, 0.3);
 	}
 
 	

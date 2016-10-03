@@ -97,9 +97,9 @@ void show_EinEtot()
 	lab.DrawLatex(0.70, 0.95,  Form("CUT:  E_{in} / E_{TOT} > %3.2f ", Pars.min_ecit[s]));
 	
 	
-	if(PRINT != "") 
+	if(PRINT != "")
 	{
-		CEinEtotS->Print(Form("img/cut-11EoVsEi_sector-%s.%s", s+1, PRINT.c_str()));
+		CEinEtotS->Print(Form("img/cut-11EoVsEi_sector-%d.%s", SECTOR, PRINT.c_str() ));
 	}
 
 }
