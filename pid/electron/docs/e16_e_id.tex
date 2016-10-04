@@ -10,8 +10,8 @@ there is no contamination from particles such as $\pi^-$.
 We consider {\it candidate electrons} every negative track
 that produced an hardware trigger (this trigger condition is ensured by choosing
 the first entry in the EVNT bank). The track is also required to have
-hit matches in the CLAS \v Cerenkov (CC), Drift Chambers (DC),
-Electromagnetic Calorimeter (EC) and Time of Flight (SC or TOF),
+hit matches in the CLAS \v Cerenkov (CC)\cite{bib:cc}, Drift Chambers (DC)\cite{bib:dc},
+Electromagnetic Calorimeter (EC)\cite{bib:ec} and Time of Flight (SC or TOF)\cite{bib:ftof},
 and to have time-based reconstruction (positive DC status word in DCPB).
 The following are the list of criteria defining a good electron
 starting from a candidate electron:
@@ -130,7 +130,6 @@ Fig.~\ref{fig:ccm_phi}. This quantity is $0$ when both pmts are fired, $1(-1)$ w
 there is a left (right) match and $2(-2)$ there is a left (right) mismatch.
 The cut applied is:  ``$\phi$ matching''$<2$ except when $|\phi|<4^0$.
 
-\vspace{1.3cm}
 \begin{figure}[ht]
   \centering
 		\includegraphics[width=0.93\textwidth]{img/cut-02ccphi_sector-1.png}
@@ -152,7 +151,6 @@ Since there could be multiple \v Cerenkov light reflections leading to a time de
 a 3 sigma cut is applied on the {\it left} of the signal, and not on the right.
 This difference is plotted in Fig.~\ref{fig:cc_time_sec1} for all tubes in sector one.
 
-\vspace{1cm}
 \begin{figure}[ht]
   \centering
 		\includegraphics[width=0.46\textwidth]{img/slice-03_cut-03cctim_sector-1.png}
@@ -288,7 +286,6 @@ In Fig.~\ref{fig:ecp_all_sectors} a comparison of the sampling fraction in all s
 The cut values used in each sector and their effectiveness are summarized in 
 table\,\ref{tab:sfcut}. The parameters used are listed in sec.\ref{sec:ecp_parameters}.
 
-\vspace{0.1cm}
 \begin{table}[h]
 \label{tab:sfcut}
 	\begin{center}
@@ -312,7 +309,7 @@ table\,\ref{tab:sfcut}. The parameters used are listed in sec.\ref{sec:ecp_param
 \end{table}
 
 
-\begin{figure}[tt]
+\begin{figure}[ht]
   \centering
 		\includegraphics[width=0.98\textwidth]{img/cut-05sampfd_sector-1.png}
 		\caption{Sampling Fraction cut. One can see in panel (b) that all the other cuts 
@@ -331,7 +328,6 @@ table\,\ref{tab:sfcut}. The parameters used are listed in sec.\ref{sec:ecp_param
 \end{figure}
 
 \subsubsection{Cut parameters}\label{sec:ecp_parameters}
-\vspace{1cm}
 $$
 f(p) = a + bp + cp^2 + dp^3
 $$
@@ -404,8 +400,7 @@ the $U,V,W$ cuts.
  		\label{fig:ECw}
 \end{figure}
 
-\vspace{1cm}
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 		\includegraphics[width=0.98\textwidth]{img/cut-09uvw_sector-all.png}
 		\caption{Y versus X track coordinate in the EC plane before and after 
@@ -433,8 +428,7 @@ The cut values used in each sector and their effectiveness are summarized in
 table\,\ref{tab:EoEi}.
 
 
-\vspace{1cm}
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 		\includegraphics[width=0.93\textwidth]{img/cut-10EoVsEi_sector-1.png}
 		\caption{$E_{out}/p$ versus $E_{in}/p$ for Sector 1.}
@@ -443,30 +437,29 @@ table\,\ref{tab:EoEi}.
 
 
 \clearpage\newpage
-\begin{figure}[t]
+\begin{figure}[ht]
   \centering
 		\includegraphics[width=1.00\textwidth]{img/cut-10EoVsEi_sector-all.png}
 		\caption{$E_{out}/p$ versus $E_{in}/p$ for all sectors. In every sector
-					more than $99\,^{\circ\!\!}/\!_\circ$ of events with all other cuts applied also pass this cut. }
+					roughly $99\,^{\circ\!\!}/\!_\circ$ of events with all other cuts applied also pass this cut. }
  		\label{fig:EoEi_all}
 \end{figure}
 
-
-\begin{table}[b]
+\begin{table}[ht]
 \label{tab:EoEi}
 	\begin{center}
 		\begin{tabular}{c | c | c | c}
 			\hline 
 			\multirow{2}{*}{Sector} 
-					& y = a + bx pars & events with EC & MIP cut \\
+					& y = a + bx pars & MIP cut / All others \\
 					&   & \% & \% \\
 			\hline
-			1    & $a=0.32$, $b=-2.2$ & 82.0 & 88.1 \\
-			2    & $a=0.32$, $b=-2.2$ & 82.5 & 86.9 \\
-			3    & $a=0.34$, $b=-2.2$ & 83.4 & 88.9 \\
-			4    & $a=0.31$, $b=-2.1$ & 81.2 & 89.2 \\
-			5    & $a=0.30$, $b=-2.2$ & 82.0 & 83.4 \\
-			6    & $a=0.33$, $b=-2.1$ & 81.8 & 86.6 \\
+			1    & $a=0.32$, $b=-2.2$ & 98.7 \\
+			2    & $a=0.32$, $b=-2.2$ & 98.6 \\
+			3    & $a=0.34$, $b=-2.2$ & 98.5 \\
+			4    & $a=0.31$, $b=-2.1$ &  99.1 \\
+			5    & $a=0.30$, $b=-2.2$ &  98.5 \\
+			6    & $a=0.33$, $b=-2.1$ &  98.3 \\
 			\hline
 		\end{tabular}
 		\caption{The Minimum Ionizing cut values and effectiveness in each sector.
@@ -478,7 +471,6 @@ table\,\ref{tab:EoEi}.
 
 
 
-\clearpage\newpage
 \subsection{Electromagnetic Shower Shape}
 Due to their shower shape, electrons release more energy in 
 the inner part of the calorimeter than in the outer part. In
@@ -491,12 +483,12 @@ out with all the other cuts, ass seen in Fig.~\ref{fig:einetot}.
 This cut keeps more than $99\%$ of events in each sector.
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-		\includegraphics[width=0.93\textwidth]{img/cut-11EoOEtot_sector-1.png}
+		\includegraphics[width=0.95\textwidth]{img/cut-11EoOEtot_sector-1.png}
 		\caption{$E_{in}/E_{TOT}$ for Sector 1. All other cuts (panel b.)
-					almost completely rid of the MIP. Panel c. shows all other negative
-               cuts except the minimum $p$ cut.}
+					almost completely rid of the MIP: $99.1\%$ of those events are kept (Panel d.). 
+					Panel c. shows all other negative cuts except the minimum $p$ cut.}
  		\label{fig:einetot}
 \end{figure}
 
@@ -519,10 +511,8 @@ The peak at $nphe \sim 1$ represents not only background and
 negative pions, but good electrons with low CC efficency hits. For this reason
 it's better to apply the CC $\theta$, $\phi$ and Timing match cuts.
 
-In average (see Fig.~\ref{fig:cccut_alls} for the value integrated
-over all sectors), only $\sim 59\%$ of the candidates have a signal in
-the CC. Of those, only $\sim 30\%$ pass the calorimeter cuts. If applied, the nphe cut would keep
-$58\%$ of the events with a CC signal.
+In average (see Fig.~\ref{fig:cccut_alls}) only $\sim 25\%$ of candidates pass the calorimeter cuts. 
+If applied, the nphe cut would keep $\sim 90\%$ of them.
 
 The $nphe$ cut is chosen visually to be at the minimum
 of the $nphe$ distribution between the background and electron signals peak.
@@ -530,35 +520,42 @@ of the $nphe$ distribution between the background and electron signals peak.
 
 \begin{figure}[ht]
   \centering
-		\includegraphics[width=0.85\textwidth ]{img/npe_all_sectors.jpg}
+		\includegraphics[width=0.85\textwidth ]{img/cut-12nphe_sector-all.png}
 		\caption{10 $\times$ Number of photo-electrons distribution integrated over all sectors.
-               In average, only $\sim 59 \,^{\circ\!\!}/\!_\circ$ of the candidates have a signal in
-               the CC. Of those, $51 \,^{\circ\!\!}/\!_\circ$ pass the calorimeter cuts and of these, 
-               $54 \,^{\circ\!\!}/\!_\circ$ pass the $nphe$ cut.}
+               In average, only $\sim 25 \,^{\circ\!\!}/\!_\circ$ pass the calorimeter cuts and of these, 
+               $\sim 90 \,^{\circ\!\!}/\!_\circ$ pass the $nphe$ cut.}
  		\label{fig:cccut_alls}
 \end{figure}
 		
-\clearpage\newpage
 
 
 
 
 \subsection{Summary of Electron Identification }
-In Fig.~\ref{fig:epidsummary} the summary of the cuts in all sectors is shown.
+In Fig.~\ref{fig:epidsummary} a summary of the electron identifications cuts in all sectors is shown:
 
-\vspace{0.6cm}
+\begin{itemize}
+	\item Individual cuts effect: this is the percentage of events that would be selected by each
+	individual cut if it was the only cut applied.
+	\item Effectiveness: this is the percentage of events that are selected by each individual cut when
+	all the other cuts are effective.
+	\item Cumulative: this is the percentage of events that are selected by each individual cut when
+	they are applied in the order show.
+\end{itemize}
+
+
 \begin{figure}[hb]
   \centering
-		\includegraphics[width=0.99\textwidth]{img/epidsummary.jpg}
+		\includegraphics[width=1.05\textwidth]{img/epidsummary.png}
 		\caption{Electron Identification Summary. Top: effects of individual cuts.
-		         Middle: effectivness of each cut.
+		         Middle: effectiveness of each cut.
                Bottom: effects of accumulated (ordered) cuts.}
  		\label{fig:epidsummary}
 \end{figure}
 
 
 
-
+\clearpage\newpage
 
 
 
