@@ -19,7 +19,8 @@ void calc_all()
 
 void print_all()
 {
-	PRINT = "jpg";
+	PRINT = "png";
+
 	if(dt_mean[5] == 0)
 		calc_all();
 		

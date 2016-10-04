@@ -1,12 +1,11 @@
 \section{Proton identification}
 
 The purpose of this study is the proper identification of the
-scattered protons. The CLAS timing resolution decreases with the particles
-momentum so that very difficult to properly identify
-charged particles with timing alone at very large ($> 3, 4$ GeV) momentum.
-Therefore the goal is to make the best possible selection of protons, while keeping
-in mind that further selections based on exclusive channels kinematic will
-be necessary.
+scattered protons. The CLAS timing resolution decreases as the
+particles momentum increases. It is problematic to properly identify
+charged particles with the timing  information alone at very large ($> 3, 4$ GeV) momentum.
+The goal of this analysis is to make the best possible selection of protons, while keeping
+in mind that further refinements based on individual reactions kinematics will be necessary.
 
 
 \subsection{CLAS Timing}
@@ -51,14 +50,14 @@ For this analysis every positive track (determined by its curvature in the torus
 is a {\it proton candidate}.
 
 The difference $\Delta T$ between the time calculated using
-the candidates's momentum and its actual TOF time $T$ 
+the candidates's momentum (assuming it is a proton) and its actual TOF time $T$ 
 should peak at zero for protons:
 \begin{equation}
  \label{eq:protondt}
   \Delta T = \frac{\ell}{\beta'} + T_{0} - T\sim0
 \end{equation}
 where $\beta' = \sqrt{ p^2 /( M_P^2 + p^2 ) }$ is the speed of the track calculated from its
-momentum, assuming it's a proton ($M_P$ is the proton mass). 
+momentum and $M_P$ is the proton mass. 
 A plot of $\Delta T$ versus momentum for Sector 1 is shown in 
 Fig.\ref{fig:dt_vs_mom}. The distribution is sliced along $\Delta T$ and each slide is fitted
 with $2$ Gaussians + $2^{nd}$ order polynomial function to calculate the mean 
@@ -66,10 +65,11 @@ positions $\mu$ and sigmas $\sigma$ of the proton and pions/kaons signals.
 The proton's $\mu$ and $\sigma$ are then fitted with a $5^{th}$-order polynomial. 
 An example of $\mu$ fit is also shown in 
 Figures \ref{fig:dt_vs_mom} and \ref{fig:dt_vs_mom_all_sectors}.
-Since at low momentum the protons are well separated, when 
-$\mu_{P} + 3\sigma_{P} < \mu_{\pi} - 3\sigma_{\pi}$ then 
-$(\mu_{\pi} - 3\sigma_{\pi} - \mu_{P})/3$ is used as the signal $\sigma$ instead.
-That means we include all tracks up to $3\sigma$ from the pion/kaons signal.
+
+At low momentum the protons are well separated.  The pions distribution 
+start to contaminate the protons when
+$\mu_{P} + 3\sigma_{P} < \mu_{\pi} - 3\sigma_{\pi}$;  in that case 
+$(\mu_{\pi} - 3\sigma_{\pi} - \mu_{P})/3$ is used as the signal $\sigma$ instead of $\sigma_{P}$.
 In Fig.\ref{fig:dt_vs_mom_all_sectors} the cuts for all sectors are shown. 
 
 Two quantities normally used to monitor the quality of the charged particles
@@ -85,9 +85,8 @@ as well as $\Delta T$ can.
 
 The value of the $\mu$ and $\sigma$ parameters used are listed in sec\ref{sec:dtp_parameters}.
 
-\clearpage\newpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 		\includegraphics[width=0.88\textwidth ]{img/dt_fit_sect1.jpg}
 		
@@ -107,7 +106,6 @@ The value of the $\mu$ and $\sigma$ parameters used are listed in sec\ref{sec:dt
  		\label{fig:dt_vs_mom}
 \end{figure}
 
-\clearpage\newpage
 
 
 \begin{landscape}
@@ -116,12 +114,11 @@ The value of the $\mu$ and $\sigma$ parameters used are listed in sec\ref{sec:dt
 		\includegraphics[width=1.45\textheight]{img/dt_vs_mom_all_sectors.jpg}
 		\caption{$\Delta T$ versus momentum cuts in all sectors. Plot grids
 					emphasize the differences between sectors.}
-		\label{fig:mass_beta_vs_p_sect5}
+		\label{fig:dt_vs_mom_all_sectors}
 \end{figure}
 \end{landscape}
 
 
-\clearpage\newpage
 
 
 \begin{figure}[h]
@@ -130,7 +127,7 @@ The value of the $\mu$ and $\sigma$ parameters used are listed in sec\ref{sec:dt
 		\caption{Left: $\beta$ and $M_{TOF}^2$ versus momentum for positive
 					tracks with no cut applied. Right: the same quantities with the
 					$\Delta T$ cut applied.}
-		\label{fig:dt_vs_mom_all_sectors}
+		\label{fig:mass_beta_vs_p_sect5}
 \end{figure}
 
 

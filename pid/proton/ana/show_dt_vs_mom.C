@@ -12,7 +12,7 @@ void show_dt_vs_mom()
 	int NBINS = H.dt_momz[s]->GetNbinsX();
 	int db = NBINS/NDIV;
 	
-	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 800, 600);
+	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 1000, 1000);
 	
 	// Changing titles
 	H.dt_momz[s]->GetXaxis()->CenterTitle(0);
@@ -85,7 +85,7 @@ void show_dt_vs_mom()
 	
 	if(PRINT != "") 
 	{
-		Cecp->Print(Form("dt_fit_sect%d.%s", s+1, PRINT.c_str()));
+		Cecp->Print(Form("img/dist-dtfit_sector-%d.%s", s+1, PRINT.c_str()));
 	}
 	
 	if(dt_mean[s])
@@ -148,7 +148,7 @@ void DrawFit(int s, int hid)
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,700,500);
+	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
 	c2->cd();
 	
 	if(dt_1d[s][hid])
@@ -188,7 +188,7 @@ void DrawFit(int s, int hid)
 	
 	if(PRINT != "") 
 	{
-		c2->Print(Form("slice%d_fit_sect%d.%s", hid+1, s+1, PRINT.c_str()) );
+		c2->Print(Form("imgs/slice-%d_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
@@ -233,7 +233,7 @@ void show_dt_vs_moms()
 	}
 
 	
-	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", 1200, 800);
+	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", 1000, 1000);
 	TPad    *PecpA  = new TPad("PecpA", "PecpA", 0.02, 0.00,  0.98, 0.92);
 	PecpA->Divide(3, 2);
 	PecpA->Draw();
@@ -291,7 +291,7 @@ void show_dt_vs_moms()
 	
 	if(PRINT != "") 
 	{
-		CecpA->Print(  Form("dt_vs_mom_all_sectors.%s", PRINT.c_str()) );
+		CecpA->Print(  Form("img/dist-dtfit_sector-all.%s", PRINT.c_str()) );
 	}
 }
 

@@ -11,11 +11,13 @@ if($1 == "-h" || $1 == ""  || $#argv < 3) then
 	echo " [PAR_FILE]: Parameter File "
 	echo " "
 	echo "Example: "
-	echo " go_SEL /Volumes/e1-6/pass4/fullRuns /Volumes/e1-6Proc/pass4/e_pid  /opt/projects/analysis/pid/electron/e_pid  /opt/projects/analysis/pid/electron/electron_id_par.txt"
+	echo " go_SEL /Volumes/e1-6/pass4/fullRuns  /Volumes/e1-6Proc/pass4/e_pid   /opt/projects/analysis/pid/electron/e_pid            /opt/projects/analysis/pid/electron/electron_id_par.txt"
+	echo " go_SEL /Volumes/e1-6Proc/pass4/e_pid /Volumes/e1-6Proc/pass4/p_pid   /opt/projects/analysis/pid/proton/proton_pid         /opt/projects/analysis/pid/proton/proton_id_par.txt"
+	echo " go_SEL /Volumes/e1-6Proc/pass4/p_pid /Volumes/e1-6Proc/pass4/vertex  /opt/work/projects/analysis/vertex/vertex_corr_sel   /opt/work/projects/analysis/vertex/vertex_par.txt"
 
-	echo " go_SEL /Volumes/e1-6Proc/pass3/e_pid /Volumes/e1-6/pass3/p_pid  /opt/projects/analysis/pid/proton/proton_pid  /opt/projects/analysis/pid/proton/proton_id_par.txt"
 
-	echo " go_SEL /enkil/e1-6/p_pid      /enkil/e1-6/vertex  /opt/work/projects/analysis/vertex/vertex_corr_sel          /opt/work/projects/analysis/vertex/vertex_par.txt"
+
+
 	echo " go_SEL /enkil/e1-6/vertex     /enkil/e1-6/e_fid   /opt/work/projects/analysis/fiducial/electron/e_fiducial    /opt/work/projects/analysis/fiducial/electron/fiducial_par.txt"
 	echo " go_SEL /enkil/e1-6/e_fid      /enkil/e1-6/p_fid   /opt/work/projects/analysis/fiducial/proton/p_fiducial      /opt/work/projects/analysis/fiducial/proton/fiducial_par.txt"
 	echo " go_SEL /enkil/e1-6/p_fid      /enkil/e1-6/e_corr  /opt/work/projects/analysis//e_kin_cor/momentum/e_mom_corr  /opt/work/projects/analysis//e_kin_cor/momentum/emom_corr_pars.txt"

@@ -3,7 +3,7 @@
 //	string root_file = "protons_gsim2.root";
 //	int GSIM         = 1;
 	string pars_file = "proton_id_par.txt";
-	string root_file = "pass3.root";
+	string root_file = "pass4.root";
 	int GSIM         = 0;
 	
 	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
