@@ -2,7 +2,6 @@
 *.mu
 .sconsign.dblite
 *.root
-*.png
 pid/proton/proton_pid
 pid/proton/common_runs
 pid/electron/e_pid
@@ -15,4 +14,3 @@ canBeDeletedAtJlab
 missing_files
 fcMonitor/rootFiles
 fcMonitor/img
-.DS_Store
