@@ -38,7 +38,7 @@ void show_EinEtot()
 	TCanvas *CEinEtotS;
 	TPad    *PEinEtotS;
 	
-	CEinEtotS = new TCanvas(Form("CEinEtotS%d", s+1), Form("CEinEtotS%d", s+1), 940, 900);
+	CEinEtotS = new TCanvas(Form("CEinEtotS%d", s+1), Form("CEinEtotS%d", s+1), 1000, 1000);
 	PEinEtotS = new TPad(Form("PEinEtotS%d", s+1), Form("PEinEtotS%d", s+1), 0.02, 0.00,  0.98, 0.90);
 	PEinEtotS->Divide(2, 2);
 	PEinEtotS->Draw();

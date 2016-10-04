@@ -7,9 +7,9 @@ so it is particularly important to
 make sure that their identification is correct and that
 there is no contamination from particles such as $\pi^-$.
 
-In each event the {\it candidate electron} is the negative track
-that produced an hardware trigger. The trigger condition is ensured by choosing
-the first entry in the EVNT bank. The track is also required to have
+We consider {\it candidate electrons} every negative track
+that produced an hardware trigger (this trigger condition is ensured by choosing
+the first entry in the EVNT bank). The track is also required to have
 hit matches in the CLAS \v Cerenkov (CC), Drift Chambers (DC),
 Electromagnetic Calorimeter (EC) and Time of Flight (SC or TOF),
 and to have time-based reconstruction (positive DC status word in DCPB).
@@ -50,7 +50,7 @@ be found on the web at: \href{http://www.jlab.org/~ungaro/maureepage/proj/pi0/e_
 This, and the following CC $\phi$ and Time Matching procedures, are based on a study
 \cite{bib:ccmatch},\cite{bib:pc_fxpun}, \cite{bib:pc_osi} of the \v Cerenkov response function.
 
-The first requirement in the CC matching is for the track to have a corresponding
+The CC matching requires the track to have a matching
 signal in the CC. The CC segments (one pmt from the right and the corresponding from the left,
 constitute a segment) and mirrors are placed along the CLAS polar angle.
 Since the torus magnetic field bend the electrons toward the beamline, it's convenient
@@ -87,11 +87,11 @@ The events that fall in this category can be seen in the bottom right panel in F
 
 \begin{figure}[h]
   \centering
-		\includegraphics[width=0.46\textwidth]{img/ccm_slice6_fit_sect1.jpg}
-		\includegraphics[width=0.46\textwidth]{img/ccm_slice9_fit_sect1.jpg}
-		\includegraphics[width=0.46\textwidth]{img/ccm_slice11_fit_sect1.jpg}
-		\includegraphics[width=0.46\textwidth]{img/ccm_slice14_fit_sect1.jpg}
-		\includegraphics[width=0.70\textwidth]{img/cc_theta_matching_pars_sect1.jpg}
+		\includegraphics[width=0.46\textwidth]{img/ccm_slice6_fit_sect1.png}
+		\includegraphics[width=0.46\textwidth]{img/ccm_slice9_fit_sect1.png}
+		\includegraphics[width=0.46\textwidth]{img/ccm_slice11_fit_sect1.png}
+		\includegraphics[width=0.46\textwidth]{img/ccm_slice14_fit_sect1.png}
+		\includegraphics[width=0.70\textwidth]{img/cc_theta_matching_pars_sect1.png}
  		\label{fig:ccm_slices}
 		\caption{Top panels: $\theta_{CC}$ for four segments, and gaussian + second order
 					polynomial fit. The distribution is slightly asymmetric to the

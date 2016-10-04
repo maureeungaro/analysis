@@ -111,7 +111,7 @@ void show_cc_timings()
 	int NBINS = H.cc_timing[1][0]->GetNbinsX();
 	int db = NBINS/NDIV;
 	
-	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", 700, 700);
+	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", 800, 800);
 	gPad->SetLogz();
 	
 	// Changing titles

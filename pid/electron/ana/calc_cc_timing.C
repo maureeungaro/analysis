@@ -8,7 +8,7 @@ void calc_cc_timing()
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", 500, 500);
+	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", 800, 800);
 
 	
 	int s = SECTOR - 1;
