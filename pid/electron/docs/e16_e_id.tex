@@ -90,29 +90,29 @@ The events that fall in this category can be seen in the bottom right panel in F
 		\includegraphics[width=0.42\textwidth]{img/slice-06_cut-01ccthm_sector-1.png}
 		\includegraphics[width=0.42\textwidth]{img/slice-14_cut-01ccthm_sector-1.png}
 		\includegraphics[width=0.80\textwidth]{img/cut-01cctmpars_sector-1.png}
- 		\label{fig:ccm_slices}
 		\caption{Top panels: $\theta_{CC}$ for four segments, and gaussian + second order
 					polynomial fit. The distribution is slightly asymmetric to the
                left, so the lower limit was $4\sigma$ while the upper limit
                was $3\sigma$.
                Bottom Panels: the mean distribution is fitted with a third order
                polynomial. The sigma values are stored for each segment individually. }
+ 		\label{fig:ccm_slices}
 \end{figure}
 
 
 \begin{figure}[h]
   \centering
-		\includegraphics[width=0.9\textwidth]{img/cut-01ccthm_sector-1.png}
+		\includegraphics[width=0.98\textwidth]{img/cut-01ccthmd_sector-1.png}
 		\caption{$\theta_{CC}$ versus Segment for Sector 1. The $\theta_{CC}$
                distribution for each segment is fitted with a gaussian +
                second order polynomial distribution to determine its mean
                and width. Events that have $\mu - 4\sigma < \theta_{CC} < \mu - 3\sigma$
                pass the cut.
-               Top left: all events. Top right: events with calorimeter cuts applied.
-               notice that these cuts remove $70 \,^{\circ\!\!}/\!_\circ$ of the data.
+               Top left: all events. Top right: events with calorimeter cuts applied
+               (notice that these cuts remove $74 \,^{\circ\!\!}/\!_\circ$ of the data).
                Bottom left: events with the negative calorimeter cuts applied.
                Bottom right: all cuts applied. Notice that the CC matching cut
-               only removes $5.5  \,^{\circ\!\!}/\!_\circ$ of the events with
+               only removes $7  \,^{\circ\!\!}/\!_\circ$ of the events with
                the calorimeter cuts already applied.}
  		\label{fig:ccm_theta}
 \end{figure}
@@ -123,7 +123,7 @@ The events that fall in this category can be seen in the bottom right panel in F
 The principle of this cut is very simple: when the track is on the right of the CC, the right
 photo-multiplier should fire, and viceversa. Exception: when $\phi$ (relative to the center
 in each sector) is less than $4^0$ the track is kept (the \v Cerenkov light should hit both
-pmts, but with less efficiency since it splits in the middle).
+pmts, but with less efficiency since it splits in the middle)\cite{bib:ccmatch},\cite{bib:pc_fxpun}, \cite{bib:pc_osi}.
 
 To show the effects of this cut the quantity ``$\phi$ matching'' is plotted in
 Fig.~\ref{fig:ccm_phi}. This quantity is $0$ when both pmts are fired, $1(-1)$ when
@@ -133,7 +133,7 @@ The cut applied is:  ``$\phi$ matching''$<2$ except when $|\phi|<4^0$.
 \vspace{1.3cm}
 \begin{figure}[h]
   \centering
-		\includegraphics[width=0.95\textwidth]{img/phi_match_all_sectors.jpg}
+		\includegraphics[width=0.93\textwidth]{img/cut-02ccphi_sector-1.png}
 		\caption{``$\phi$ matching``: this quantity is $0$ when both pmts are fired, $1(-1)$ when
 there is a left (right) match and $2(-2)$ there is a left (right) mismatch.
 The cut applied is:  ``$\phi$ matching''$<2$ except when $|\phi|<4^0$.}
@@ -155,10 +155,10 @@ This difference is plotted in Fig.~\ref{fig:cc_time_sec1} for all tubes in secto
 \vspace{1cm}
 \begin{figure}[h]
   \centering
-		\includegraphics[width=0.46\textwidth]{img/cct_slice6_fit_sect1.jpg}
-		\includegraphics[width=0.46\textwidth]{img/cct_slice9_fit_sect1.jpg}
-		\includegraphics[width=0.46\textwidth]{img/cct_slice11_fit_sect1.jpg}
-		\includegraphics[width=0.46\textwidth]{img/cct_slice14_fit_sect1.jpg}
+		\includegraphics[width=0.46\textwidth]{img/slice-03_cut-03cctim_sector-1.png}
+		\includegraphics[width=0.46\textwidth]{img/slice-08_cut-03cctim_sector-1.png}
+		\includegraphics[width=0.46\textwidth]{img/slice-12_cut-03cctim_sector-1.png}
+		\includegraphics[width=0.46\textwidth]{img/slice-15_cut-03cctim_sector-1.png}
 		\caption{CC time matching. The difference $\Delta T$ between the track time recorded
                at a CC tube ($T_{CC}$) and corresponding time recorded on the TOF ($T_{SC}$),
                corrected for the path length from the CC to the TOF ($|\vec{R_{CC}}-\vec{R_{SC}}|/c$),
@@ -169,7 +169,7 @@ This difference is plotted in Fig.~\ref{fig:cc_time_sec1} for all tubes in secto
 
 \begin{figure}[h]
   \centering
-		\includegraphics[width=0.90\textwidth]{img/cc_timing_sect1.jpg}
+		\includegraphics[width=0.98\textwidth]{img/cut-03cctimd_sector-1.png}
 		\caption{CC time matching. The difference $\Delta T$ between the track time recorded
                at a CC tube ($T_{CC}$) and corresponding time recorded on the TOF ($T_{SC}$),
                corrected for the path length from the CC to the TOF ($|\vec{R_{CC}}-\vec{R_{SC}}|/c$),
@@ -178,7 +178,7 @@ This difference is plotted in Fig.~\ref{fig:cc_time_sec1} for all tubes in secto
                notice that these cuts remove $71 \,^{\circ\!\!}/\!_\circ$ of the data.
                Bottom left: events with the negative calorimeter cuts applied.
                Bottom right: all cuts applied. Notice that the CC matching cut
-               only removes $5.5  \,^{\circ\!\!}/\!_\circ$ of the events with
+               only removes $7  \,^{\circ\!\!}/\!_\circ$ of the events with
                the calorimeter cuts already applied.}
  		\label{fig:cc_time_sec1}
 \end{figure}
@@ -203,8 +203,7 @@ p_{min} = 0.64\,\,{\rm GeV}
 $$
 
 Fig.~\ref{fig:pmincut_alls} shows for the momentum distribution of the candidates integrated
-over all sectors, while Fig.~\ref{fig:pmincut} shows the momentum distribution
-of the candidates for each sector. In average, $\sim 82\%$ of the candidates 
+over all sectors. In average, $\sim 82\%$ of the candidates 
 have a signal in the EC. Of those, $30\%$ pass the all other particle ID
 cuts and of these, $92.5\%$ pass the minimum $p$ cut.
 
@@ -214,25 +213,16 @@ table\,\ref{tab:pmincut}.
 
 \begin{figure}[h]
   \centering
-		\includegraphics[width=0.9\textwidth]{img/ecthr_all_sectors.jpg}
-		\caption{Candidates Momentum distribution integrated over all sectors.
-					The minimum momentum cut is chosen according to Eq.\ref{eq:pmin}.}
- 		\label{fig:pmincut_alls}
-\end{figure}
-
-\clearpage
-\begin{landscape}
-\begin{figure}[h]
-  \centering
-		\includegraphics[width=1.35\textheight]{img/ecthr_each_sector.jpg}
+		\includegraphics[width=0.9\textwidth]{img/cut-04pthr_sector-all.png}
 		\caption{Candidates Momentum distribution in each sector. The minimum momentum cut is
                chosen according to Eq.\ref{eq:pmin}. In average, $\sim 82 \,^{\circ\!\!}/\!_\circ$ 
 					of the candidates have a signal in the EC. Of those, $30 \,^{\circ\!\!}/\!_\circ$
 					pass the all other particle ID cuts and of these, $92.5 \,^{\circ\!\!}/\!_\circ$
 					pass the minimum $p$ cut.}
- 		\label{fig:pmincut}
+ 		\label{fig:pmincut_alls}
 \end{figure}
-\end{landscape}
+
+\clearpage
 
 
 
