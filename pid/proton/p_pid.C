@@ -47,6 +47,7 @@
 	bar->AddButton("Show DT all sectors",           "show_dt_vs_moms()");
 	bar->AddButton("","");
 	bar->AddButton("Show Beta and Mass vs p",       "show_mass_beta()");
+	bar->AddButton("Show Beta vs p all sectors",    "show_betaAll()");
 	bar->AddButton("","");
 	bar->AddButton("Change Sector",                 "change_sector()");
 	bar->AddButton("Print all proton ID plots",     "print_all()");

@@ -96,7 +96,7 @@ void calc_2d(TH2F *h, TH2F *h2)
 			// limits on the first gaussian
 			MyFit->SetParameter(4, 0);
 			MyFit->SetParLimits(4, -3, 0.2);
-			
+
 			// limits on the second gaussian: mean must be above 0.5ns
 			if(xb[b] <= 0.7) 
 			{
@@ -108,14 +108,16 @@ void calc_2d(TH2F *h, TH2F *h2)
 				MyFit->SetParameter(7, 2.5);
 				MyFit->SetParLimits(7, 2.0, 30);
 			}
+			
 			if(xb[b] > 1.7)
 			{
 				MyFit->SetParameter(7, 1);
 				MyFit->SetParLimits(7, 0.5, 5);
 			}
+
 			MyFit->SetParameter(6,    dt_1d[s][b]->GetFunction("gaus")->GetParameter(0)/2);
 			MyFit->SetParLimits(6, 0, dt_1d[s][b]->GetFunction("gaus")->GetParameter(0));
-			
+
 			dt_1d[s][b]->Fit("MyFit", "REM");
 			dtmean[s][b] = MyFit->GetParameter(4);
 			dtsigm[s][b] = fabs(MyFit->GetParameter(5));
@@ -125,6 +127,11 @@ void calc_2d(TH2F *h, TH2F *h2)
 				dtsigm[s][b] = (MyFit->GetParameter(7) - 3*fabs(MyFit->GetParameter(8)) - MyFit->GetParameter(4))/3.0;
 				cout << " Sigma is enlarged from " << fabs(MyFit->GetParameter(5)) << "  to " << dtsigm[s][b] << endl;
 			}
+
+			// putting lower limits on sigma for certain b
+
+			if(dtsigm[s][b] < 0.4 && b>1 && b<4) dtsigm[s][b] = 0.4;
+
 			dtmeane[s][b] = MyFit->GetParError(4);
 			dtsigme[s][b] = MyFit->GetParError(5);
 		}
@@ -141,7 +148,9 @@ void calc_2d(TH2F *h, TH2F *h2)
 		dtmeane[s][NDIV-1] = dtmeane[s][NDIV-2];
 		dtsigme[s][NDIV-1] = dtsigme[s][NDIV-2];
 	}
-	
+
+
+
 	dt_mean[s] = new TGraphErrors(NDIV, xb, dtmean[s], xbe, dtmeane[s]);
 	dt_sigm[s] = new TGraphErrors(NDIV, xb, dtsigm[s], xbe, dtsigme[s]);
 		
@@ -161,7 +170,21 @@ void calc_2d(TH2F *h, TH2F *h2)
 	Pars.dt_mom_sigm_d[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(3);
 	Pars.dt_mom_sigm_e[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(4);
 	Pars.dt_mom_sigm_f[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(5);
-	
+
+	// sector 5 fits do not work. Using sector 6 sigmas for sector 6.
+
+	if(s==5) {
+		Pars.dt_mom_sigm_a[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(0);
+		Pars.dt_mom_sigm_b[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(1);
+		Pars.dt_mom_sigm_c[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(2);
+		Pars.dt_mom_sigm_d[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(3);
+		Pars.dt_mom_sigm_e[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(4);
+		Pars.dt_mom_sigm_f[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(5);
+
+	}
+
+
+
 }
 
 
