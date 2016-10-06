@@ -62,23 +62,23 @@ void show_2D_vertex()
 	palette->SetX2NDC(0.92);
 	min_cut->Draw();
 	max_cut->Draw();
-	lab.DrawLatex(0.42, 0.94,  "a: electron, not corrected");
+	lab.DrawLatex(0.44, 0.94,  "a: electron, not corrected");
 	
 	Pvtx->cd(3);
 	gPad->SetLogz();
-	H.phi_vz[6][1][0]->Draw("colz");
+	H.phi_vz[6][2][0]->Draw("colz");
 	Cvtx->Update();
-	palette = (TPaletteAxis*)H.phi_vz[6][1][0]->FindObject("palette");
+	palette = (TPaletteAxis*)H.phi_vz[6][2][0]->FindObject("palette");
 	palette->SetLabelSize(0.038);
 	palette->SetLabelOffset(0.01);
 	palette->SetX1NDC(0.89);
 	palette->SetX2NDC(0.92);
 	min_cut->Draw();
 	max_cut->Draw();
-	lab.DrawLatex(0.49, 0.94,  "c: electron, corrected");
+	lab.DrawLatex(0.3, 0.94,  "c: electron, corrected, after cut");
 	
 	Pvtx->cd(2);
-	gPad->SetLogz();
+	//gPad->SetLogz();
 	H.deltavz_vz[6][0]->Draw("colz");
 	Cvtx->Update();
 	palette = (TPaletteAxis*)H.deltavz_vz[6][0]->FindObject("palette");
@@ -93,10 +93,10 @@ void show_2D_vertex()
 	lab.DrawLatex(0.49, 0.94,  "b: #Delta VZ, not corrected");
 	
 	Pvtx->cd(4);
-	gPad->SetLogz();
-	H.deltavz_vz[6][1]->Draw("colz");
+	//gPad->SetLogz();
+	H.deltavz_vz[6][2]->Draw("colz");
 	Cvtx->Update();
-	palette = (TPaletteAxis*)H.deltavz_vz[6][1]->FindObject("palette");
+	palette = (TPaletteAxis*)H.deltavz_vz[6][2]->FindObject("palette");
 	palette->SetLabelSize(0.038);
 	palette->SetLabelOffset(0.01);
 	palette->SetX1NDC(0.89);
@@ -105,8 +105,10 @@ void show_2D_vertex()
 	max_cut2->Draw();
 	dmin_cut->Draw();
 	dmax_cut->Draw();
-	lab.DrawLatex(0.55, 0.94,  "d: #Delta VZ, corrected");
-	
+	lab.DrawLatex(0.45, 0.94,  "d: #Delta VZ, corrected, after cut");
+	lab.SetTextColor(kBlack+3);
+	lab.DrawLatex(0.35, 0.87,  Form("events kept: %3.1f%%", 100*H.deltavz_vz[6][2]->GetEntries() /  H.deltavz_vz[6][1]->GetEntries() ));
+
 	
 	Cvtx->cd();
 	lab.SetTextFont(102);

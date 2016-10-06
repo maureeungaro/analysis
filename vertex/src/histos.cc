@@ -1,11 +1,7 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "histos.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 #include <iostream>
 using namespace std;
@@ -77,7 +73,7 @@ void histos::set_vars(map<string, int> passed)
 	if( passed["VCUT"] == 1)
 		alloth["VCUT"] = 1;
 	
-	if(!passed["VCUT"] == 1)
+	if(passed["VCUT"] == 0)
 		othneg["VCUT"] = 1;
 }
 

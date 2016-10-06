@@ -1,16 +1,16 @@
 \section{Vertex Correction, Selection}
 
-During reconstruction, for each charged track, a vertex $(x,y,z)$ is calculated
-from the intersection of that track with the midplane\footnote{The midplane of
+In the reconstruction software the track vertex $(x,y,z)$ is calculated
+from its intersection with the sector midplane\footnote{The midplane of
 a sector is defined by the plane that divide that sector in half and contains
-the beamline $(0,0,z)$.} of the corresponding sector. During the e1-6 experiment
-the beam was not centered at $(x,y) = (0,0)$ thus a sector-dependant offset 
-is introduced in the vertex calculation. 
-
+the beamline $(0,0,z)$.} of the corresponding sector. This procedure involve
+the assumption that the beam is centered along the z-axis. During the e1-6 
+experiment however the beam was not centered at $(x,y) = (0,0)$ thus 
+a sector-dependent offset  is introduced in the vertex calculation. 
 
 
 \subsection{Beam Offset}
-The displacement of the beam can be seem in Fig. \ref{fig:vertex_id}, where the events
+The displacement of the beam can be seen in Fig.~\ref{fig:vertex_id}, where the events
 on the window\footnote{A window was placed at $z=+0.5$ cm to help these kind of 
 studies and to be a z-position reference.} downstream of the target were 
 selected to fix the z position as reference. The calculated displacement
@@ -24,7 +24,7 @@ $$
 
 \begin{figure}[ht]
 	\centering
-		\includegraphics[width=0.72\textwidth ]{img/beam_displacement.jpg}
+		\includegraphics[width=0.65\textwidth ]{img/beam_displacement.jpg}
 			\caption{Top: y versus x position of the vertex at the window.
 						Upper right: same as upper left, except plotted logarithmically.
 	               One can see that the beam spot was slightly shifted from $(0,0)$.
@@ -41,7 +41,6 @@ so that they contain the correct beamline $(0.09, -0.345, z)$ and recalculate
 the intersection of the tracks with the new planes.
 This is illustrated in Fig.\ref{fig:vertex}.
 
-\vspace{1cm}
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=0.98\textwidth ]{img/corr_vertex.jpg}
@@ -53,6 +52,7 @@ This is illustrated in Fig.\ref{fig:vertex}.
 						simply intersects the same track with the corrected midplane. }
 			\label{fig:vertex}
 \end{figure}
+
 
 \vspace{1cm}
 The effect of the correction on the electrons and protons z position

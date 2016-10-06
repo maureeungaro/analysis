@@ -1,17 +1,13 @@
 #ifndef VERTEX_CORR_SELECTION_H
 #define VERTEX_CORR_SELECTION_H
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 #include "common_info.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 using namespace std;
 

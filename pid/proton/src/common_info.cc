@@ -6,9 +6,7 @@
 #include <fstream>
 #include <cstdlib>
 
-// %%%%%%%%%%
 // Histograms
-// %%%%%%%%%%
 chistos::chistos(string filename, int READ)
 {
 	// Default: filename is output file
@@ -98,9 +96,7 @@ void chistos::write_and_close()
 	}
 }
 
-// %%%%%%%%%%%%%%%%%%%%%%%%
 // Reads Parameters and functions
-// %%%%%%%%%%%%%%%%%%%%%%%%
 cpars::cpars(string filename)
 {
 	ifstream parfile(filename.c_str(), ios::in);

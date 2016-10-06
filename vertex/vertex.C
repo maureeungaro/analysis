@@ -1,8 +1,15 @@
 {
 	
 	string pars_file = "vertex_par.txt";
-	string root_file = "vertex_gsim.root";
-	int GSIM         = 1;
+	string root_file = "pass4.root";
+	int GSIM         = 0;
+
+//	string pars_file = "vertex_par.txt";
+//	string root_file = "vertex_gsim.root";
+//	int GSIM         = 1;
+
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
+	#include "utilities.h"
 
 	gROOT->LoadMacro("src/common_info.cc");
 	gROOT->LoadMacro("ana/utils.C");
@@ -10,7 +17,6 @@
 	gROOT->LoadMacro("ana/show_2D_vertex.C");
 	
 	string PRINT   = "";
-	int SECTOR     = 1;
 		
 	chistos H(root_file, 1);
 	cpars   Pars(pars_file);
