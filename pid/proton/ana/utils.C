@@ -35,6 +35,7 @@ void print_all()
 	}
 	
 	show_dt_vs_moms();	
+	show_betaAll();
 	
 	PRINT = "";
 }

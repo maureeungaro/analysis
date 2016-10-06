@@ -156,11 +156,11 @@ void show_betaAll()
 			H.beta_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Beta  [GeV]");
 
 			H.beta_vs_mom[c][s]->GetXaxis()->SetTitleSize(0.052);
-			H.beta_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.14);
+			H.beta_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.13);
 			H.beta_vs_mom[c][s]->GetYaxis()->SetTitleSize(0.054);
-			H.beta_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.12);
-			H.beta_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.042);
-			H.beta_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.042);
+			H.beta_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.2);
+			H.beta_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.05);
+			H.beta_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.05);
 			H.beta_vs_mom[c][s]->GetZaxis()->SetNdivisions(8);
 			H.beta_vs_mom[c][s]->GetXaxis()->SetRangeUser(0.0, 4.5);
 			
@@ -197,7 +197,7 @@ void show_betaAll()
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.038);
-	lab.DrawLatex(0.14, 0.95,  Form("Beta vs p"));
+	lab.DrawLatex(0.4, 0.95,  Form("Beta vs p"));
 
 	if(PRINT != "")
 	{
