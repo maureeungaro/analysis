@@ -1,0 +1,3 @@
+BEAMD: 0.09 -0.345  # Beam Displacement from (0,0) (cm)
+ZLIM:  -8.0 -0.8    # vz min and Max (cm)
+DLTZ:  3.0          # vz_e - vz_p cut (cm)

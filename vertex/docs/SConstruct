@@ -1,0 +1,13 @@
+import os
+from util import scanFiles
+env = Environment(ENV=os.environ)
+
+pdf = env.PDF(target  = 'vertex.pdf',  source = 'vertex.tex')
+html = env.Command('vertex.html', 'vertex.tex', "go_htlatex $SOURCE");
+
+Depends(html, pdf)
+
+cleans = scanFiles('.', accept=["vertex*", "*.aux"], reject=[".tex"])
+#rint "to remove: ", cleans;
+
+Clean('vertex.html', cleans)
