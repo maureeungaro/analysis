@@ -3,7 +3,7 @@
 The purpose of this study is the proper identification of the
 scattered protons. The CLAS timing resolution decreases as the
 particles momentum increases. It is problematic to properly identify
-charged particles with the timing  information alone at very large ($> 3, 4$ GeV) momentum.
+charged particles with the timing  information alone at very large (greater than $3, 4$ GeV) momentum.
 The goal of this analysis is to make the best possible selection of protons, while keeping
 in mind that further refinements based on individual reactions kinematics will be necessary.
 
@@ -23,11 +23,12 @@ path length of the electron track from the vertex to its TOF hit, $c$ is
 the speed of light, $z$ is the z-component of the event vertex and $z_0$ 
 is the $z$ position of the center of the 
 target\footnote{For this experiment $z_0 = -4$ cm.}. $T_0$ is then used 
-as the reference for all the remaining tracks in the event: $\beta$ for tracks 
-with path length $\ell$ and TOF time $T$ is calculated as
+as the reference for all the remaining tracks in the event. The track speed $\beta$ 
+is calculated as:
 \begin{equation}
  \beta = \frac{v}{\it c} = \frac{1}{c} \frac{\ell}{T-T_0}
 \end{equation}
+where $\ell$ is the track path length from the target and $T$ its TOF time.
 In  Fig.\ref{fig:beta_vs_mom} is plotted $\beta$ versus momentum for the all the 
 particles after the electron particle ID. One can clearly see bands corresponding 
 to pions, kaons, protons, deuterons.
@@ -41,8 +42,6 @@ to pions, kaons, protons, deuterons.
  		\label{fig:beta_vs_mom}
 \end{figure}
 
-
-
 \subsection{$\Delta T$ cut}
 \label{sec:clas_timing}
 
@@ -54,7 +53,7 @@ the candidates's momentum (assuming it is a proton) and its actual TOF time $T$
 should peak at zero for protons:
 \begin{equation}
  \label{eq:protondt}
-  \Delta T = \frac{\ell}{\beta'} + T_{0} - T\sim0
+  \Delta T = \frac{\ell}{\beta'} + T_{0} - T (\sim0 )
 \end{equation}
 where $\beta' = \sqrt{ p^2 /( M_P^2 + p^2 ) }$ is the speed of the track calculated from its
 momentum and $M_P$ is the proton mass. 
@@ -86,49 +85,6 @@ as well as $\Delta T$ can.
 The value of the $\mu$ and $\sigma$ parameters used are listed in sec\ref{sec:dtp_parameters}.
 
 
-\begin{figure}[ht]
-  \centering
-		\includegraphics[width=0.88\textwidth ]{img/dt_fit_sect1.jpg}
-		
-		\includegraphics[width=0.47\textwidth]{img/slice2_fit_sect1.jpg}
-		\includegraphics[width=0.47\textwidth]{img/slice3_fit_sect1.jpg}
-		\includegraphics[width=0.47\textwidth]{img/slice7_fit_sect1.jpg}
-		\includegraphics[width=0.47\textwidth]{img/slice9_fit_sect1.jpg}
-		
-		\caption{$\Delta T$ versus momentum and slices at different momentum.
-					At low momentum the proton signal is well separated
-					from kaons and pions, so we include everything up to
-					$3\sigma$ from the pion/kaons signal. At high momentum 
-					kinematic constrains for exclusive channels will be necessary.
-					The colors are as follows: blue: proton signal (gaussian).
-					Red: pion signal (gaussian) + background ($2^{nd}$ order 
-					polynomial). Dark green: total fit function.}
- 		\label{fig:dt_vs_mom}
-\end{figure}
-
-
-
-\begin{landscape}
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=1.45\textheight]{img/dt_vs_mom_all_sectors.jpg}
-		\caption{$\Delta T$ versus momentum cuts in all sectors. Plot grids
-					emphasize the differences between sectors.}
-		\label{fig:dt_vs_mom_all_sectors}
-\end{figure}
-\end{landscape}
-
-
-
-
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=0.80\textwidth]{img/mass_beta_vs_p_sect5.jpg}
-		\caption{Left: $\beta$ and $M_{TOF}^2$ versus momentum for positive
-					tracks with no cut applied. Right: the same quantities with the
-					$\Delta T$ cut applied.}
-		\label{fig:mass_beta_vs_p_sect5}
-\end{figure}
 
 
 \subsubsection{Cut parameters}\label{sec:dtp_parameters}
@@ -156,12 +112,54 @@ f:   -0.0470408   -0.0639353    -0.033369   -0.0545215   -0.0505353   -0.0600134
 
 \end{verbatim}
 
+\clearpage
+
+\begin{figure}[ht]
+  \centering
+		\includegraphics[width=0.88\textwidth ]{img/dist-dtfit_sector-1.png}
+		
+		\includegraphics[width=0.47\textwidth]{img/slice-2_sector-1.png}
+		\includegraphics[width=0.47\textwidth]{img/slice-4_sector-1.png}
+		
+		\caption{$\Delta T$ versus momentum and slices at different momentum.
+					At low momentum the proton signal is well separated
+					from kaons and pions, so we include everything up to
+					$3\sigma$ from the pion/kaons signal. At high momentum 
+					kinematic constrains for exclusive channels will be necessary.
+					The colors are as follows: blue: proton signal (gaussian).
+					Red: pion signal (gaussian) + background ($2^{nd}$ order 
+					polynomial). Dark green: total fit function.}
+ 		\label{fig:dt_vs_mom}
+\end{figure}
+
+
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.95\textwidth]{img/dist-dtfit_sector-all.png}
+		\caption{$\Delta T$ versus momentum cuts in all sectors. Plot grids
+					emphasize the differences between sectors.}
+		\label{fig:dt_vs_mom_all_sectors}
+\end{figure}
 
 
 
 
 
 
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.95\textwidth]{img/dist-massNbeta_sector-1.png}
+		\caption{Left: $\beta$ and $M_{TOF}^2$ versus momentum for positive
+					tracks with no cut applied. Right: the same quantities with the
+					$\Delta T$ cut applied.}
+		\label{fig:mass_beta_vs_p_sect5}
+\end{figure}
+
+
+
+\clearpage
 
 
 

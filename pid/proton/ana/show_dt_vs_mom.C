@@ -74,14 +74,14 @@ void show_dt_vs_mom()
 	
 	lab.SetTextColor(kBlack);
 	lab.SetTextFont(102);
-	lab.SetTextSize(0.052);
-	lab.DrawLatex(0.19, 0.94,  "#Delta T vs p");
+	lab.SetTextSize(0.045);
+	lab.DrawLatex(0.15, 0.94,  "#Delta T vs p");
 	
 	lab.SetTextFont(42);
-	lab.SetTextSize(0.029);
+	lab.SetTextSize(0.024);
 	lab.SetTextColor(kRed+2);
-	lab.DrawLatex(0.5, 0.96,  Form("Upper Limit: larger between (#mu_{P}+ 3 #sigma) and (#mu_{#pi} - 3 #sigma)", Pars.NSIGMAS[0]));
-	lab.DrawLatex(0.5, 0.91,  Form("Lower Limit: smaller #mu - %3.2f #sigma", Pars.NSIGMAS[1]));
+	lab.DrawLatex(0.4, 0.96,  Form("Upper Limit: larger between (#mu_{P}+ 3 #sigma) and (#mu_{#pi} - 3 #sigma)", Pars.NSIGMAS[0]));
+	lab.DrawLatex(0.4, 0.91,  Form("Lower Limit: #mu - %3.2f #sigma", Pars.NSIGMAS[1]));
 	
 	if(PRINT != "") 
 	{
