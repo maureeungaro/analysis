@@ -96,7 +96,7 @@ echo " Total number of files              " `wc TOTA_SEL | awk '{print $1}'`
 echo " "
 
 foreach r (`cat TODO_SEL`)
-echo " > executing $COMMAND on run: "  $ORIG_DIR/$r.mu
+echo " > executing $COMMAND on run: "  $ORIG_DIR/$r.mu  " with output: " $DEST_DIR/$r.mu
 if($PAR_FILE != "") then
 	rm -rf $LOG_DIR/$r.log
 	$COMMAND  $ORIG_DIR/$r.mu -BEAM_E=5.754 -TARGET=proton -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root -PARS_FILE=$PAR_FILE > $LOG_DIR/$r.log

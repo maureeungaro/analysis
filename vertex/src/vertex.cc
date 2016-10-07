@@ -89,6 +89,8 @@ int main(int argc, char **argv)
 			}
 			// end of scaler event
 
+
+
 			// Physics Event
 			if(Ev.start_time > 0 || is_gsim)
 			{
@@ -99,7 +101,7 @@ int main(int argc, char **argv)
 				
 					particle ele = get_particles(Ev, "electron").front();
 					particle pro = get_particles(Ev, "proton").front();
-					
+
 					// sets map and the corrected vertexes in SEL class
 					map<string, int> passed = SEL.selection(ele, pro);
 					
@@ -115,17 +117,26 @@ int main(int argc, char **argv)
 						ele.v.l();
 						cout << hd_msg << " Corrected e vertex: ";
 						SEL.e_v_corr.l();
+						cout << hd_msg << " Originial p vertex: ";
+						pro.v.l();
+						cout << hd_msg << " Corrected p vertex: ";
+						SEL.p_v_corr.l();
 						cout << "  PASSED: " << passed["PASSED"] << endl;
 					}
-					
+
 					
 					// now correct all particles vertexes
+					// correction: correct only the electron or the proton.
+					// for gammas there was a case where the momentum was NAN.
+					// /opt/projects/muEvent/bin/mudump -EVT_NUMBER=1831970 /Volumes/e1-6Proc/pass4/p_pid/30923.mu
 					for(unsigned int p=0; p<Ev.particles.size(); p++)
 					{
-						V3 vcorr =  SEL.vertex_corr(Ev.particles[p].v, Ev.particles[p].p);
-						Ev.particles[p].v.x = vcorr.x;
-						Ev.particles[p].v.y = vcorr.y;
-						Ev.particles[p].v.z = vcorr.z;
+						if(Ev.particles[p].pid == 2212 || Ev.particles[p].pid == 11) {
+							V3 vcorr =  SEL.vertex_corr(Ev.particles[p].v, Ev.particles[p].p);
+							Ev.particles[p].v.x = vcorr.x;
+							Ev.particles[p].v.y = vcorr.y;
+							Ev.particles[p].v.z = vcorr.z;
+						}
 					}
 					if(passed["PASSED"] == 1 && Opts.args["OUTPUT"].args != "none")
 						ofile << Ev;
@@ -151,7 +162,7 @@ int main(int argc, char **argv)
 	}
 	if(Opts.args["ROOT_OUTPUT"].args != "none")
 		H.write_and_close();
-	
+
    cout << endl;
 	return 1;
 }

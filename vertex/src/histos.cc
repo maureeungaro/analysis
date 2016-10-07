@@ -21,6 +21,7 @@ void histos::fill(map<string, int> passed, particle e, particle p, V3 e_v_corr, 
 	    phi_vz[p_sector_i][0][1]->Fill(p.v.z/cm, p.p.phi()/degree);
 	        vz[e_sector_i][0][0]->Fill(e.v.z/cm);
 	        vz[p_sector_i][0][1]->Fill(p.v.z/cm);
+
 	// all sectors
 	deltavz_vz[6][0]->Fill(e.v.z/cm, (e.v.z - p.v.z)/cm);
 	    phi_vz[6][0][0]->Fill(e.v.z/cm, e.p.phi()/degree);
@@ -34,6 +35,7 @@ void histos::fill(map<string, int> passed, particle e, particle p, V3 e_v_corr, 
 	    phi_vz[p_sector_i][1][1]->Fill(p_v_corr.z/cm, p.p.phi()/degree);
 	        vz[e_sector_i][1][0]->Fill(e_v_corr.z/cm);
 	        vz[p_sector_i][1][1]->Fill(p_v_corr.z/cm);
+
 	// all sectors
 	deltavz_vz[6][1]->Fill(e_v_corr.z/cm, (e_v_corr.z - p_v_corr.z)/cm);
 	    phi_vz[6][1][0]->Fill(e_v_corr.z/cm, e.p.phi()/degree);
