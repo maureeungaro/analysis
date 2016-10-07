@@ -1,0 +1,15 @@
+from init_env import init_environment
+
+env = init_environment("clhep mu root")
+
+
+# Include Path
+incpath = ['src']
+env.Append(CPPPATH = incpath)
+
+e_fid_sources = Split("""src/e_fiducial.cc
+								 src/common_info.cc
+								 src/histos.cc
+								 src/fiducial_cut.cc""")
+
+e_fid = env.Program(source = e_fid_sources, target = 'e_fiducial')
