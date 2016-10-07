@@ -104,34 +104,6 @@ class cpars
 
 #endif
 
-#ifndef UTILS_H
-#define UTILS_H
-
-#include <sstream>
-inline string stringify(double x)
-{
-	ostringstream o;
-	o << x;
-	return o.str();
-}
-
-inline string stringify(int x)
-{
-	ostringstream o;
-	o << x;
-	return o.str();
-}
-
-inline string stringify(unsigned int x)
-{
-	ostringstream o;
-	o << x;
-	return o.str();
-}
-
-#endif
-
-
 
 
 

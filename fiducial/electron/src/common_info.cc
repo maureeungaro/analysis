@@ -1,5 +1,6 @@
 // MU includes
 #include "common_info.h"
+#include "utilities.h"
 
 // C++ includes
 #include <fstream>
@@ -216,91 +217,91 @@ cpars::cpars(string filename)
 			cuts >> al;
 			if(al == "C1:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> c1[s];
+				for(int s=0; s<6; s++) cuts >> c1[s];
 			}
 			if(al == "C2:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> c2[s];
+				for(int s=0; s<6; s++) cuts >> c2[s];
 			}
 			if(al == "C3:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> c3[s];
+				for(int s=0; s<6; s++) cuts >> c3[s];
 			}
 			if(al == "C4:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> c4[s];
+				for(int s=0; s<6; s++) cuts >> c4[s];
 			}
 			if(al == "C5:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> c5[s];
+				for(int s=0; s<6; s++) cuts >> c5[s];
 			}
 			if(al == "C6:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> c6[s];
+				for(int s=0; s<6; s++) cuts >> c6[s];
 			}
 			if(al == "R1_B_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r1_b_left[s];
+				for(int s=0; s<6; s++) cuts >> r1_b_left[s];
 			}
 			if(al == "R1_B_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r1_b_rite[s];
+				for(int s=0; s<6; s++) cuts >> r1_b_rite[s];
 			}
 			if(al == "R2_B_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r2_b_left[s];
+				for(int s=0; s<6; s++) cuts >> r2_b_left[s];
 			}
 			if(al == "R2_B_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r2_b_rite[s];
+				for(int s=0; s<6; s++) cuts >> r2_b_rite[s];
 			}
 			if(al == "R3_B_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r3_b_left[s];
+				for(int s=0; s<6; s++) cuts >> r3_b_left[s];
 			}
 			if(al == "R3_B_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r3_b_rite[s];
+				for(int s=0; s<6; s++) cuts >> r3_b_rite[s];
 			}
 			if(al == "SC_B_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> sc_b_left[s];
+				for(int s=0; s<6; s++) cuts >> sc_b_left[s];
 			}
 			if(al == "SC_B_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> sc_b_rite[s];
+				for(int s=0; s<6; s++) cuts >> sc_b_rite[s];
 			}
 			if(al == "R1_C_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r1_c_left[s];
+				for(int s=0; s<6; s++) cuts >> r1_c_left[s];
 			}
 			if(al == "R1_C_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r1_c_rite[s];
+				for(int s=0; s<6; s++) cuts >> r1_c_rite[s];
 			}
 			if(al == "R2_C_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r2_c_left[s];
+				for(int s=0; s<6; s++) cuts >> r2_c_left[s];
 			}
 			if(al == "R2_C_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r2_c_rite[s];
+				for(int s=0; s<6; s++) cuts >> r2_c_rite[s];
 			}
 			if(al == "R3_C_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r3_c_left[s];
+				for(int s=0; s<6; s++) cuts >> r3_c_left[s];
 			}
 			if(al == "R3_C_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> r3_c_rite[s];
+				for(int s=0; s<6; s++) cuts >> r3_c_rite[s];
 			}
 			if(al == "SC_C_LEFT:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> sc_c_left[s];
+				for(int s=0; s<6; s++) cuts >> sc_c_left[s];
 			}
 			if(al == "SC_C_RITE:")
 			{
-				for(unsigned int s=0; s<6; s++) cuts >> sc_c_rite[s];
+				for(int s=0; s<6; s++) cuts >> sc_c_rite[s];
 			}
 
 			if(al == "R1_AXIAL_LIMITS:")
@@ -411,9 +412,9 @@ cpars::cpars(string filename)
 		}
 	}
 	addInfos.push_back(" > Theta vs Phi Cut Pars: ");
-	for(unsigned int s=0; s<6; s++)
+	for(int s=0; s<6; s++)
 	{
-		addinfo  = "   > S" + stringify(s+1);
+		addinfo  = "   > S"  + stringify(s+1);
 		addinfo += "  C1: "  + stringify(c1[s]);
 		addinfo += "  C2: "  + stringify(c2[s]);
 		addinfo += "  C3: "  + stringify(c3[s]);
@@ -425,7 +426,7 @@ cpars::cpars(string filename)
 	
 	addInfos.push_back(" > XY XMIN positions: ");
 	addinfo  = "";
-	for(unsigned int p=0; p<5; p++)
+	for(int p=0; p<5; p++)
 	{
 		addinfo += "   P" + stringify(p+1);
 		addinfo += ": "  + stringify(XMIN[p]);
@@ -441,7 +442,7 @@ cpars::cpars(string filename)
 	addInfos.push_back("   left:   x = a + b_left*y + c_left*y2");
 	addInfos.push_back("   right:  x = a + b_rite*y + c_rite*y2");
 	addInfos.push_back("   with parameter 'a' fixed to: XMIN - b YMIN - c YMIN*YMIN");
-	for(unsigned int s=0; s<6; s++)
+	for(int s=0; s<6; s++)
 	{
 		addinfo  = "   > S" + stringify(s+1);
 		addinfo += "  R1 B left: "  + stringify(r1_b_left[s]);
@@ -464,9 +465,9 @@ cpars::cpars(string filename)
 		addinfo += "  SC C rite: "  + stringify(sc_c_rite[s]);
 		addInfos.push_back(addinfo);
 	}
-	
-	for(unsigned int s=0; s<addInfos.size(); s++)
-		cout << addInfos[s] << endl;
+
+	for(unsigned int ss=0; ss<addInfos.size(); ss++)
+		cout << addInfos[ss] << endl;
 }
 
 void cpars::write_vars(string filename)

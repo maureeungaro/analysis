@@ -98,13 +98,10 @@ void histos::fill(map<string, int> passed, particle e)
 			x_y_tot[3][6][p]       ->Fill(pos[p].y/cm, pos[p].x/cm);
 		}
 	}
-	// FID_XY: X vs Y fiducial cuts
+	// End of FID_XY: X vs Y fiducial cuts
 	// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	
-	
-	
-	
+
+
 }
 
 
@@ -125,7 +122,7 @@ void histos::set_vars(map<string, int> passed)
 	if( passed["FID_PT"] == 1)
 		alloth["FID_XY"] = 1;
 	
-	if( !passed["FID_PT"] == 1)
+	if( passed["FID_PT"] == 0)
 		othneg["FID_XY"] = 1;
 	
 }

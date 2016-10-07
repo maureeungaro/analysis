@@ -17,8 +17,8 @@ void init()
 		if(pl == 3)
 			continue;
 			
-		left_para[s][pl] = new TF1(Form("left_para_s%d_pl%d", s+1, pl+1), Para,      -x_lims[pl], Pars.YMIN[pl][s], 3);
-		rite_para[s][pl] = new TF1(Form("rite_para_s%d_pl%d", s+1, pl+1), Para, Pars.YMIN[pl][s],       x_lims[pl], 3);
+		left_para[s][pl] = new TF1(Form("left_para_s%d_pl%d", s+1, pl+1), parabole,      -x_lims[pl], Pars.YMIN[pl][s], 3);
+		rite_para[s][pl] = new TF1(Form("rite_para_s%d_pl%d", s+1, pl+1), parabole, Pars.YMIN[pl][s],       x_lims[pl], 3);
 		left_para[s][pl]->SetLineColor(kRed+3);
 		rite_para[s][pl]->SetLineColor(kRed+3);
 		left_para[s][pl]->SetLineStyle(1);
