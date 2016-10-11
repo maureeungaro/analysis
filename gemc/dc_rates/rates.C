@@ -11,21 +11,26 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	int NHITS; // number of events
 	
 	
-	const int NCONF      = 8;
+	const int NCONF      = 12;
 	string sconf[NCONF]  = {
-		"realityNoFT",
-		"realityWithFTNotUsedHeliumBag",
-		"realityWithFTNotUsed",
-		"realityWithFTNotUsedSolenoid50",
-		"realityWithFTNotUsedSolenoid75",
-		"realityWithFTNotUsedTorusInverted",
-		"realityWithFTNotUsedWithInnerShield",
-		"realityWithFTNotUsedWithInnerSST"}
-	double factor[NCONF] = {1, 1, 1, 1, 1, 1, 1, 1};  // additional factor to scale the different configurations
+		"clas12_00",
+		"clas12_05",
+		"clas12_10",
+		"clas12_100",
+		"clas12_20",
+		"clas12_30",
+		"clas12_40",
+		"clas12_50",
+		"clas12_60",
+		"clas12_70",
+		"clas12_80",
+		"clas12_90"}
+
+	double factor[NCONF] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};  // additional factor to scale the different configurations
 	
 //	const int NCONF      = 1;
 //	string sconf[NCONF]  = {"realityNoFT"};
