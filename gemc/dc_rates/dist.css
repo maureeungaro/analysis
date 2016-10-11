@@ -1,0 +1,63 @@
+html, body
+	{
+	height:90%;
+	padding:0;
+	margin:0;
+	border:1;
+	background: #5683c4;
+	}
+
+.indextable  td:hover
+{
+	 color: white;
+	 background-color: #7c0416;
+	 border: 1;
+}
+
+indextable  td:
+{
+	color: white;
+	background-color: #7c0416;
+	border: 1;
+}
+
+.indextable
+{
+	color: yellow;
+	font-family:verdana, arial, helvetica, sans-serif;
+	font-size:0.9em;
+	font-weight: bold;
+	text-align: center;
+	
+}
+
+table
+{
+	font-family:verdana, arial, helvetica, sans-serif;
+	font-size:1.0em;
+	text-align: center;
+	border: 1;
+}
+
+.hovered
+{
+	 color: blue;
+	 background-color: #99ddff;
+}
+
+
+a
+{
+	font-size:0.85em;
+	color:#201b52;
+	text-decoration: none;
+	font-family:  Lucida Sans Unicode, Verdana;
+	font-weight:bold;
+	line-height: 22px;
+}
+
+a:hover 
+{
+	color:#b70404; 
+	text-decoration:underline
+}
