@@ -20,16 +20,22 @@ void show_phi_theta()
 		H.phi_theta[c][s][m]->GetXaxis()->SetLabelSize(0.042);
 		H.phi_theta[c][s][m]->GetYaxis()->SetLabelSize(0.042);
 		H.phi_theta[c][s][m]->GetZaxis()->SetNdivisions(8);
-		if(s == 6)
-		{
-			H.phi_theta[c][s][m]->GetXaxis()->SetTitleOffset(1.1);
-		}
 	}
-	
+
+	H.x_y[3][s][3][m]->GetXaxis()->SetTitleSize(0.052);
+	H.x_y[3][s][3][m]->GetXaxis()->SetTitleOffset(1.14);
+	H.x_y[3][s][3][m]->GetYaxis()->SetTitleSize(0.054);
+	H.x_y[3][s][3][m]->GetYaxis()->SetTitleOffset(1.32);
+	H.x_y[3][s][3][m]->GetXaxis()->SetLabelSize(0.042);
+	H.x_y[3][s][3][m]->GetYaxis()->SetLabelSize(0.042);
+	H.x_y[3][s][3][m]->GetZaxis()->SetNdivisions(8);
+	H.x_y[3][s][3][m]->GetZaxis()->SetLabelSize(0.042);
+
+
 	TCanvas *Cphi_thetaS;
 	TPad    *Pphi_thetaS;
 	
-	Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 940, 900);
+	Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 1000, 1000);
 	Pphi_thetaS = new TPad(Form("Pphi_thetaS%d", s+1), Form("Pphi_thetaS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Pphi_thetaS->Divide(2, 2);
 	Pphi_thetaS->Draw();
@@ -38,11 +44,16 @@ void show_phi_theta()
 	for(int c=0; c<4; c++)
 	{
 		Pphi_thetaS->cd(c+1);
-		H.phi_theta[c][s][m]->Draw("colz");
+
+		if(c<3) H.phi_theta[c][s][m]->Draw("colz");
+		else H.x_y[3][s][3][m]->Draw("colz");
+
 		Cphi_thetaS->Update();
 		if(H.phi_theta[c][s][m]->GetMaximum() > 1)
 		{
-			palette = (TPaletteAxis*)H.phi_theta[c][s][m]->FindObject("palette");
+			if(c<3) palette = (TPaletteAxis*)H.phi_theta[c][s][m]->FindObject("palette");
+			else palette = (TPaletteAxis*)H.x_y[3][s][3][m]->FindObject("palette");
+
 			palette->SetLabelSize(0.035);
 			palette->SetLabelOffset(0.01);
 			palette->SetX1NDC(0.88);
@@ -101,7 +112,7 @@ void show_phi_thetas(int which)
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 940, 1100);
+	TCanvas *Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 1000, 1000);
 	TPad    *Pphi_thetaS = new TPad(Form("Pphi_thetaS%d", s+1), Form("Pphi_thetaS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Pphi_thetaS->Divide(2, 5);
 	Pphi_thetaS->Draw();
@@ -145,7 +156,7 @@ void show_phi_thetas(int which)
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.035);
 	if(which == 0) lab.DrawLatex(0.04, 0.95,  Form("#phi versus #theta in Sector %d  -  No Cuts Applied", SECTOR));
-	if(which == 1) lab.DrawLatex(0.04, 0.95,  Form("#phi versus #theta in Sector %d  -  Planes Cuts Applied", SECTOR));
+	if(which == 3) lab.DrawLatex(0.04, 0.95,  Form("#phi versus #theta in Sector %d  -  Planes Cuts Applied", SECTOR));
 
 	if(PRINT != "")
 	{

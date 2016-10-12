@@ -128,7 +128,7 @@ void show_phi_thetas(int which)
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 940, 1100);
+	TCanvas *Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 1000, 1000);
 	TPad    *Pphi_thetaS = new TPad(Form("Pphi_thetaS%d", s+1), Form("Pphi_thetaS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Pphi_thetaS->Divide(2, 5);
 	Pphi_thetaS->Draw();
@@ -136,8 +136,6 @@ void show_phi_thetas(int which)
 	
 	lab.SetTextSize(0.08);
 	lab.SetTextColor(kBlue+3);
-	
-
 
 
 	TPaletteAxis *palette;
@@ -173,7 +171,7 @@ void show_phi_thetas(int which)
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.035);
 	if(which == 0) lab.DrawLatex(0.04, 0.95,  Form("#phi versus #theta in Sector %d  -  No Cuts Applied", SECTOR));
-	if(which == 1) lab.DrawLatex(0.04, 0.95,  Form("#phi versus #theta in Sector %d  -  Planes Cuts Applied", SECTOR));
+	if(which == 3) lab.DrawLatex(0.04, 0.95,  Form("#phi versus #theta in Sector %d  -  Planes Cuts Applied", SECTOR));
 
 	if(PRINT != "")
 	{
