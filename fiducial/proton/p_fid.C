@@ -1,10 +1,22 @@
 {
+//	string pars_file = "fiducial_par.txt";
+//	string root_file = "protons_gsim.root";
+//	int GSIM         = 1;
+
 	string pars_file = "fiducial_par.txt";
-	string root_file = "protons_gsim.root";
-	int GSIM         = 1;
-	
+	string root_file = "pass4.root";
+	int GSIM         = 0;
+
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
+	#include "utilities.h"
+
 	gROOT->LoadMacro("src/common_info.cc");
-	
+	gROOT->LoadMacro("ana/utils.C");
+	gROOT->LoadMacro("ana/show_phi_theta.C");
+	gROOT->LoadMacro("ana/show_phis.C");
+	gROOT->LoadMacro("ana/show_plane.C");
+	gROOT->LoadMacro("ana/slice_plane.C");
+
 	string PRINT     = "";
 	int SECTOR       = 1;
 	int MOM          = 1;
@@ -15,12 +27,7 @@
 	chistos H(root_file, 1);
 	cpars   Pars(pars_file);
 	
-	gROOT->LoadMacro("ana/utils.C");
-	gROOT->LoadMacro("ana/show_phi_theta.C");
-	gROOT->LoadMacro("ana/show_phis.C");
-	gROOT->LoadMacro("ana/show_plane.C");
-	gROOT->LoadMacro("ana/slice_plane.C");
-	
+
 	// slices in momentum, theta
 	TH2F *phi_theta[4][7][H.NDIV_P];
 	TH2F *y_x[4][7][3][H.NDIV_P];

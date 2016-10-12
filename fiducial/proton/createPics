@@ -1,0 +1,13 @@
+#!/bin/csh -f
+
+# manually copying come pics
+
+
+
+rm imageslist.txt ; ls img/* > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=mom   -addColumnTableVariable=sect \
+-addSelectableVariable=plot  -defaultPlot=img/mom-03_sect-2_plot-phiVsTheta.png -imagesSize="1000 1000"
+
+mv page.html efid.html
+

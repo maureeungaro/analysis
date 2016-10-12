@@ -17,8 +17,8 @@ void init()
 			if(pl == 3)
 				continue;
 			
-			left_para[s][pl] = new TF1(Form("left_para_s%d_pl%d", s+1, pl+1), Thir,      -x_lims[pl], Pars.YMIN[pl][s], 4);
-			rite_para[s][pl] = new TF1(Form("rite_para_s%d_pl%d", s+1, pl+1), Thir, Pars.YMIN[pl][s],       x_lims[pl], 4);
+			left_para[s][pl] = new TF1(Form("left_para_s%d_pl%d", s+1, pl+1), thirdOrder,      -x_lims[pl], Pars.YMIN[pl][s], 4);
+			rite_para[s][pl] = new TF1(Form("rite_para_s%d_pl%d", s+1, pl+1), thirdOrder, Pars.YMIN[pl][s],       x_lims[pl], 4);
 			left_para[s][pl]->SetLineColor(kRed+3);
 			rite_para[s][pl]->SetLineColor(kRed+3);
 			left_para[s][pl]->SetLineStyle(1);
@@ -297,8 +297,8 @@ void draw_fiducial()
 
 	double y_lims[5]  = { 30,   90,   150,  200,   200};
 	
-	TF1 *my_fit1 = new TF1("my_fit1",  Thir, -y_lims[pl],          Pars.YMIN[pl][s], 4);
-	TF1 *my_fit2 = new TF1("my_fit2",  Thir,           Pars.YMIN[pl][s], y_lims[pl], 4);
+	TF1 *my_fit1 = new TF1("my_fit1",  thirdOrder, -y_lims[pl],          Pars.YMIN[pl][s], 4);
+	TF1 *my_fit2 = new TF1("my_fit2",  thirdOrder,           Pars.YMIN[pl][s], y_lims[pl], 4);
 	my_fit1->SetLineWidth(2);
 	my_fit2->SetLineWidth(2);
 

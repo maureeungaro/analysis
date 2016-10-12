@@ -128,8 +128,8 @@ void slice_plane(int arg=0)
 	y_left[s][pl]->SetMarkerSize(0.8);
 	y_right[s][pl]->SetMarkerSize(0.8);
 
-	TF1 *my_fit1 = new TF1("my_fit1",  Thir, -y_lims[pl],          0, 4);
-	TF1 *my_fit2 = new TF1("my_fit2",  Thir,           0, y_lims[pl], 4);
+	TF1 *my_fit1 = new TF1("my_fit1",  thirdOrder, -y_lims[pl],          0, 4);
+	TF1 *my_fit2 = new TF1("my_fit2",  thirdOrder,           0, y_lims[pl], 4);
 	my_fit1->SetLineWidth(2);
 	my_fit2->SetLineWidth(2);
 	
