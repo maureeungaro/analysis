@@ -64,6 +64,7 @@ void show_dc_int_occ()
 		{
 			whicmax = r;
 			max = dc_occ_summary[r][ENERGY][CONF]->GetMaximum()*1.5;
+			if(max >100) max = 110;
 		}
 
 		// manually setting max
@@ -120,9 +121,8 @@ void show_dc_int_occ()
 	double r2Occ = intocc[1];
 	double r3Occ = intocc[2];
 
-	if(r1Occ > 100) r1Occ = 100;
+	//if(r1Occ > 100) r1Occ = 100;
 
-	cout << r1Occ << " " << r2Occ << " " << r3Occ << endl;
 
 	sprintf(r1label, "Region1: %3.2f%% * %d = %3.2f", intocc[0]/factor[CONF],  factor[CONF], r1Occ);
 	sprintf(r2label, "Region2: %3.2f%% * %d = %3.2f", intocc[1]/factor[CONF],  factor[CONF], r2Occ);
