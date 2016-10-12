@@ -34,23 +34,12 @@
 	<detector name="/group/clas12/experiments/clas12/pcal/pcal"          factory="TEXT" variation="java"/>
 	<option name="SCALE_FIELD" value="clas12-torus-big, -1"/>
 
-
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
-
-
-	<option name="SCALE_FIELD" value="clas12-solenoid, 0.7"/>
-
-
+	<option name="SCALE_FIELD" value="clas12-solenoid, 0.6"/>
 
 	<!-- fields, fast mode 	-->
 	 <option name="FIELD_PROPERTIES" value="clas12-torus-big, 10*mm, G4HelixSimpleRunge, linear"/>
 	 <option name="FIELD_PROPERTIES" value="clas12-solenoid,  2*mm, G4HelixSimpleRunge, linear"/>
-
-
-	<!-- beam conditions -->
-	<option name="BEAM_P"   value="e-, 4.0*GeV, 20.0*deg, 10*deg"/>
-	<option name="SPREAD_P" value="0*GeV, 10*deg, 180*deg"/>
-
 
 	<option name="INTEGRATEDRAW" value="bst, ctof, htcc, ft_cal, ft_hodo, dc, ec, ftof_p1a, ftof_p1b, ftof_p2, pcal"/>
 	<option name="SAVE_ALL_MOTHERS" value="0"/>

@@ -11,7 +11,7 @@ void show_dc_occ()
 	lab.SetTextFont(32);
 	lab.SetNDC(1);
 	
-	TCanvas *rates1  = new TCanvas("rates1", "DC Occupancy", 1000, 800);
+	TCanvas *rates1  = new TCanvas("rates1", "DC Occupancy", 1000, 1000);
 	dc_occ[SECT][ENERGY][CONF]->Draw("colz");
 	
 	lab.SetTextSize(0.05);
@@ -26,9 +26,13 @@ void show_dc_occ()
 	lab.DrawLatex(0.06, 0.7,   "Layer" );
 	
 	
-	if(PRINT != "")
-		rates1->Print(Form("img/hit_prob_s%d_%s.%s", SECT+1, sconf[CONF].c_str(), PRINT.c_str() ) );
-	
+	if(PRINT != "") {
+		for(int z=0; z<NZONES; z++){
+			rates1->Print(Form("img/conf-%s_zone-%s_plot-occ_region-1.%s", sconf[CONF].c_str(), SZONE[z].c_str(), PRINT.c_str() ) );
+			rates1->Print(Form("img/conf-%s_zone-%s_plot-occ_region-2.%s", sconf[CONF].c_str(), SZONE[z].c_str(), PRINT.c_str() ) );
+			rates1->Print(Form("img/conf-%s_zone-%s_plot-occ_region-3.%s", sconf[CONF].c_str(), SZONE[z].c_str(), PRINT.c_str() ) );
+		}
+	}
 }
 
 
@@ -44,13 +48,13 @@ void show_dc_int_occ()
 	lab.SetTextColor(kBlue+3);
 	lab.SetTextFont(32);
 	
-	TCanvas *rates  = new TCanvas("rates2", "DC Occupancy Summary", 1000, 800);
+	TCanvas *rates  = new TCanvas("rates2", "DC Occupancy Summary", 1000, 1000);
 	TPad *prates    = new TPad("prates","prates", 0.01, 0.06, 0.99, 0.88);
 	prates->Draw();
 	
 	// get max
 	int whicmax = 0;
-	double max  = 1.4;
+	double max  = 100;
 	for(int r=0; r<3; r++)
 	{
 		dc_occ_summary[r][ENERGY][CONF]->SetMarkerStyle(20 + r);
@@ -110,12 +114,21 @@ void show_dc_int_occ()
 	char r1label[100];
 	char r2label[100];
 	char r3label[100];
-	
-	sprintf(r1label, "Region1: %3.2f%%", intocc[0]);
-	sprintf(r2label, "Region2: %3.2f%%", intocc[1]);
-	sprintf(r3label, "Region3: %3.2f%%", intocc[2]);
 
-	TLegend *tmodels  = new TLegend(0.6, 0.7, 0.8,  0.9);
+
+	double r1Occ = intocc[0];
+	double r2Occ = intocc[1];
+	double r3Occ = intocc[2];
+
+	if(r1Occ > 100) r1Occ = 100;
+
+	cout << r1Occ << " " << r2Occ << " " << r3Occ << endl;
+
+	sprintf(r1label, "Region1: %3.2f%% * %d = %3.2f", intocc[0]/factor[CONF],  factor[CONF], r1Occ);
+	sprintf(r2label, "Region2: %3.2f%% * %d = %3.2f", intocc[1]/factor[CONF],  factor[CONF], r2Occ);
+	sprintf(r3label, "Region3: %3.2f%% * %d = %3.2f", intocc[2]/factor[CONF],  factor[CONF], r3Occ);
+
+	TLegend *tmodels  = new TLegend(0.5, 0.6, 0.8,  0.8);
 	tmodels->AddEntry(dc_occ_summary[0][ENERGY][CONF], r1label,  "P");
 	tmodels->AddEntry(dc_occ_summary[1][ENERGY][CONF], r2label,  "P");
 	tmodels->AddEntry(dc_occ_summary[2][ENERGY][CONF], r3label,  "P");
@@ -123,8 +136,13 @@ void show_dc_int_occ()
 	tmodels->SetFillColor(0);
 	tmodels->Draw();
 	
-	if(PRINT != "")
-		rates->Print(Form("img/hit_occ_%s.%s", sconf[CONF].c_str(), PRINT.c_str() ) );
+	if(PRINT != "") {
+		for(int z=0; z<NZONES; z++){
+			rates->Print(Form("img/conf-%s_zone-%s_plot-intocc_region-1.%s", sconf[CONF].c_str(), SZONE[z].c_str(), PRINT.c_str() ) );
+			rates->Print(Form("img/conf-%s_zone-%s_plot-intocc_region-2.%s", sconf[CONF].c_str(), SZONE[z].c_str(), PRINT.c_str() ) );
+			rates->Print(Form("img/conf-%s_zone-%s_plot-intocc_region-3.%s", sconf[CONF].c_str(), SZONE[z].c_str(), PRINT.c_str() ) );
+		}
+	}
 }
 
 
@@ -141,7 +159,7 @@ void show_zvertex()
 	lab.SetTextFont(32);
 	lab.SetNDC(1);
 	
-	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 800);
+	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
 	
 	dc_zver[ENERGY][CONF][REG][0]->SetLineColor(kBlack);
 	dc_zver[ENERGY][CONF][REG][1]->SetLineColor(kRed);
@@ -203,7 +221,12 @@ void show_zvertex()
 	ulGraph->Draw("Psame");
 	
 	if(PRINT != "")
-		rates1->Print(Form("img/zvertex_%s_r%d.%s", sconf[CONF].c_str(), REG+1, PRINT.c_str() ) );
+	for(int z=0; z<NZONES; z++){
+		rates1->Print(Form("img/conf-%s_zone-%s_plot-zvertex_region-%d.%s", sconf[CONF].c_str(), SZONE[z].c_str(),  REG+1, PRINT.c_str() ) );
+	}
+
+
+
 }
 
 
@@ -220,7 +243,7 @@ void show_vertex()
 	lab.SetTextFont(32);
 	lab.SetNDC(1);
 	
-	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 800);
+	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
 	gPad->SetLogz();
 	
 	dc_ver[ENERGY][CONF][ZONE][REG]->Draw("colz");
@@ -258,7 +281,8 @@ void show_vertex()
 
 	
 	if(PRINT != "")
-		rates1->Print(Form("img/vertex_%s_r%d_zone%d.%s", sconf[CONF].c_str(), REG+1, ZONE+1, PRINT.c_str() ) );
+		rates1->Print(Form("img/conf-%s_zone-%s_plot-vertex_region-%d.%s", sconf[CONF].c_str(),  SZONE[ZONE].c_str(), REG+1, PRINT.c_str() ) );
+
 }
 
 

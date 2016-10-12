@@ -55,12 +55,13 @@ void change_zone()
 
 void print_all()
 {
+	PRINT = "png";
 	for(int c=0; c<NCONF; c++)
 	{
 		CONF = c;
 
-		show_dc_int_occ();
 		show_dc_occ();
+		show_dc_int_occ();
 
 		for(int r=0; r<NREG; r++)
 		{
@@ -74,5 +75,6 @@ void print_all()
 			}
 		}
 	}
+	PRINT = "";
 }
 

@@ -15,23 +15,34 @@
 	int NHITS; // number of events
 	
 	
-	const int NCONF      = 12;
-	string sconf[NCONF]  = {
-		"clas12_00",
-		"clas12_05",
-		"clas12_10",
-		"clas12_100",
-		"clas12_20",
-		"clas12_30",
-		"clas12_40",
-		"clas12_50",
-		"clas12_60",
-		"clas12_70",
-		"clas12_80",
-		"clas12_90"}
+//	const int NCONF      = 12;
+//	string sconf[NCONF]  = {
+//		"field00",
+//		"field05",
+//		"field10",
+//		"field100",
+//		"field20",
+//		"field30",
+//		"field40",
+//		"field50",
+//		"field60",
+//		"field70",
+//		"field80",
+//		"field90"}
+//
+//	double factor[NCONF] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};  // additional factor to scale the different configurations
 
-	double factor[NCONF] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};  // additional factor to scale the different configurations
-	
+
+	const int NCONF      = 3;
+	string sconf[NCONF]  = {
+		"field080",
+		"field090",
+	"field100"}
+
+	double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
+
+
+
 //	const int NCONF      = 1;
 //	string sconf[NCONF]  = {"realityNoFT"};
 //	double factor[NCONF] = {1};  // additional factor to scale the different configurations
@@ -91,7 +102,7 @@
 	zlimits[2][0][3] = -2000;   zlimits[2][1][3] = 9000;
 	
 	
-	string PRINT = "png";   // Print on Image File
+	string PRINT = "";   // Print on Image File
 	
 	// 2D occupancy histos: 2D for each sector, wire vs layer
 	TH2F *dc_pro[NSECT][NENERGY][NCONF];

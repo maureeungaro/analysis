@@ -1,0 +1,14 @@
+#!/bin/csh -f
+
+# manually copying come pics
+
+
+
+rm imageslist.txt ; ls img/* > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=conf   -addColumnTableVariable=zone \
+-addSelectableVariable=plot -addSelectableVariable=region \
+-defaultPlot=img/cut-09uvw_sector-all.png -imagesSize="1000 1000"
+
+mv page.html dc.html
+
