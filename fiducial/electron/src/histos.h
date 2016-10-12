@@ -2,17 +2,13 @@
 #define HISTOS_H
 
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
 #include "utilities.h"
 #include "common_info.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <vector>
 using namespace std;
 

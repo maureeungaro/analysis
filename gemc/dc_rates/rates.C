@@ -15,38 +15,24 @@
 	int NHITS; // number of events
 	
 	
-//	const int NCONF      = 12;
-//	string sconf[NCONF]  = {
-//		"field00",
-//		"field05",
-//		"field10",
-//		"field100",
-//		"field20",
-//		"field30",
-//		"field40",
-//		"field50",
-//		"field60",
-//		"field70",
-//		"field80",
-//		"field90"}
-//
-//	double factor[NCONF] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};  // additional factor to scale the different configurations
-
-
-	const int NCONF      = 3;
+	const int NCONF      = 12;
 	string sconf[NCONF]  = {
+		"field000",
+		"field005",
+		"field010",
+		"field020",
+		"field030",
+		"field040",
+		"field050",
+		"field060",
+		"field070",
 		"field080",
 		"field090",
-	"field100"}
+		"field100"};
 
-	double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
+	double factor[NCONF] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};  // additional factor to scale the different configurations
 
 
-
-//	const int NCONF      = 1;
-//	string sconf[NCONF]  = {"realityNoFT"};
-//	double factor[NCONF] = {1};  // additional factor to scale the different configurations
-	
 	int CONF             = 0;
 	
 	// deposited energy cut

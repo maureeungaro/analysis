@@ -1,11 +1,7 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "fiducial_cut.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <sstream>
 #include <fstream>
 #include <cstdlib>

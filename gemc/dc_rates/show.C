@@ -54,18 +54,18 @@ void show_dc_int_occ()
 	
 	// get max
 	int whicmax = 0;
-	double max  = 100;
+	double max  = 1;
 	for(int r=0; r<3; r++)
 	{
 		dc_occ_summary[r][ENERGY][CONF]->SetMarkerStyle(20 + r);
 		dc_occ_summary[r][ENERGY][CONF]->SetMarkerSize(1.5);
 		dc_occ_summary[r][ENERGY][CONF]->SetMinimum(0);
-//		if(dc_occ_summary[r][ENERGY][CONF]->GetMaximum()*1.2>max)
-//		{
-//			whicmax = r;
-//			max = dc_occ_summary[r][ENERGY][CONF]->GetMaximum()*1.2;
-//		}
-		
+		if(dc_occ_summary[r][ENERGY][CONF]->GetMaximum()*1.5>max)
+		{
+			whicmax = r;
+			max = dc_occ_summary[r][ENERGY][CONF]->GetMaximum()*1.5;
+		}
+
 		// manually setting max
 		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(max);
 //		if(CONF==2)

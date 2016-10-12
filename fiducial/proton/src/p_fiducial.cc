@@ -1,19 +1,13 @@
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 using namespace std;
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%%%%%%
 // fiducial includes
-// %%%%%%%%%%%%%%%%%
 #include "histos.h"
 #include "fiducial_cut.h"
 

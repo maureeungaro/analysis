@@ -1,18 +1,13 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 #include <cmath>
 
-// %%%%%%%%%%
 // Histograms
-// %%%%%%%%%%
 chistos::chistos(string filename, int READ)
 {
 	string cut[4]    = {"no_cuts_on", "all_other_cuts_on", "all_other_cuts_neg", "all_cuts_on"};
@@ -445,7 +440,7 @@ cpars::cpars(string filename)
 	
 	addInfos.push_back(" > XY XMIN positions: ");
 	addinfo  = "";
-	for(unsigned int p=0; p<5; p++)
+	for(int p=0; p<5; p++)
 	{
 		addinfo += "   P" + stringify(p+1);
 		addinfo += ": "  + stringify(XMIN[p]);
@@ -457,7 +452,7 @@ cpars::cpars(string filename)
 	addInfos.push_back(" > XY parameters cuts: ");
 	addInfos.push_back("   left:   x = a + b_left*y + c_left*y2");
 	addInfos.push_back("   right:  x = a + b_rite*y + c_rite*y2");
-	for(unsigned int s=0; s<6; s++)
+	for(int s=0; s<6; s++)
 	{
 		addinfo  = "   > S" + stringify(s+1);
 		addinfo += "  R1 A left: "  + stringify(r1_a_left[s]);
