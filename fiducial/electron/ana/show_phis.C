@@ -15,7 +15,7 @@ void show_phis()
 	lab.SetTextFont(42);
 	
 	
-	TCanvas *CphisS = new TCanvas(Form("CphisS%d", s+1), Form("CphisS%d", s+1), 840, 1000);
+	TCanvas *CphisS = new TCanvas(Form("CphisS%d", s+1), Form("CphisS%d", s+1), 1000, 1000);
 	TPad    *PphisS = new TPad(Form("PphisS%d", s+1), Form("PphisS%d", s+1), 0.02, 0.05,  0.98, 0.92);
 	PphisS->Divide(3, 8);
 	PphisS->Draw();
@@ -72,9 +72,12 @@ void show_phis()
 	
 	
 	if(PRINT != "") 
-	{
-		CphisS->Print( Form("phi_m%d_sect%d.%s", m+1, s+1, PRINT.c_str()) );
+	if(m>=9) {
+		CphisS->Print( Form("img/mom-%d_sect-%d_plot-phi.%s", m+1, s+1, PRINT.c_str()) );
+	} else {
+		CphisS->Print( Form("img/mom-0%d_sect-%d_plot-phi.%s", m+1, s+1, PRINT.c_str()) );
 	}
+
 }
 
 

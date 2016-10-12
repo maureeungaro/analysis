@@ -78,6 +78,8 @@
 	bar->AddButton("","");
 	bar->AddButton("Write Parameters",              "Pars.write_vars(pars_file)");
 	bar->AddButton("","");
+	bar->AddButton("Print All",                     "print_all()");
+	bar->AddButton("","");
 	bar->Show();
 }
 

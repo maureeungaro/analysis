@@ -326,35 +326,35 @@ void switch_logz()
 
 void print_all()
 {
-	PRINT = "jpg";
+	PRINT = "png";
 	for(int s=0; s<6; s++)
 	{
 		SECTOR = s+1;
 		for(int p=0; p<H.NDIV_P; p++)
 		{
 			MOM = p+1;
-			show_phi_theta();
+//			show_phi_theta();
 			show_phis();
-			for(int pl=1; pl<6; pl++)
-			{
-				if(pl == 4) continue;
-				PLANE = pl;
-				show_plane();
-			}
+//			for(int pl=1; pl<6; pl++)
+//			{
+//				if(pl == 4) continue;
+//				PLANE = pl;
+//				show_plane();
+//			}
 		}
-		show_phi_thetas(0);
-		show_phi_thetas(1);
-		for(int pl=1; pl<6; pl++)
-		{
-			if(pl == 4) continue;
-			PLANE = pl;
-			show_planes();
-			show_integrated_plane();
+//		show_phi_thetas(0);  // all phi vs theta before
+//		show_phi_thetas(1);
+//		for(int pl=1; pl<6; pl++)
+//		{
+//			if(pl == 4) continue;
+//			PLANE = pl;
+//			show_planes();
+//			show_integrated_plane();
 /*			for(int y=2; y<12; y++)
 			{
 				DrawFit(s, pl-1, y);
 			}*/
-		}
+//		}
 	}
 	PRINT = "";
 }
