@@ -13,11 +13,11 @@ set OPT = $1
 # Parameters set by user
 # ----------------------
 
-set GCARDSD = ~/projects/analysis/farm/gemc/studies/ddvcs
+set GCARDSD = ~/projects/analysis/farm/gemc/studies/solenoid
 set INPUTD  = /work/clas/clas12/ungaro/clas12  # location of evio files (inside each gcard title)
 set OUTPUTD = $INPUTD/root                     # output directory
-set EXACT   = 50                               # number of expected events
-set MINP    = 50                               # minimum number of events required for the sim to be processed
+set EXACT   = 100                               # number of expected events
+set MINP    = 100                               # minimum number of events required for the sim to be processed
 set BANKS   = "dc"                             # banks to be included in rootification
 
 # End of user parameter
@@ -104,8 +104,8 @@ while ($w <= $#titles)
 					if($OPT == "root" || $OPT == "rootr") then
 
 						\echo " > Last good event for simulation $SIMU is $LASTE. Good. Start Event is $EVN"
-						set exc = `evio2root -B=\"$BANKS\" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
-
+						set exc = `evio2root -B="$BANKS" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
+						
 						# evio2root failed
 						if( (`\echo $exc` != "" || `ls | grep "core\." | wc | awk '{print $1}'` == "1" ) && $OPT == "rootr") then
 							\echo "simu_$SIMU gave error $exc , deleting directory"
