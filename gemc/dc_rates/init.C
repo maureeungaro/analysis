@@ -299,7 +299,9 @@ void init_dc_histos(string filename, int cindex)
 			{
 				// 2D occupancy histos: 2D for each sector, wire vs layer
 				dc_occ[s][e][cindex] = (TH2F*) f.Get(Form("dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str()));
+				dc_occ[s][e][cindex]->Scale(0.02);
 				dc_occ[s][e][cindex]->SetDirectory(0);
+
 			}
 			
 			// vertex histos
@@ -308,6 +310,7 @@ void init_dc_histos(string filename, int cindex)
 				for(int z=0; z<NZONES; z++)
 				{
 					dc_ver[e][cindex][z][r] = (TH2F*) f.Get(Form("dc_ver_E%s_%s_z%s_r%d", SEDEP[e].c_str(), sconf[cindex].c_str(), SZONE[z].c_str(), r+1) );
+
 					dc_ver[e][cindex][z][r]->SetDirectory(0);
 				}
 				
@@ -319,6 +322,7 @@ void init_dc_histos(string filename, int cindex)
 				
 				
 				dc_occ_summary[r][e][cindex] = (TH1F*) f.Get(Form("dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str()));
+				//dc_occ_summary[r][e][cindex]->Scale(0.02);
 				dc_occ_summary[r][e][cindex]->SetDirectory(0);
 				
 			}

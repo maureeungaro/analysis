@@ -30,6 +30,7 @@
 		"field090",
 		"field100"};
 
+//	double factor[NCONF] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};  // additional factor to scale the different configurations
 	double factor[NCONF] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};  // additional factor to scale the different configurations
 
 
