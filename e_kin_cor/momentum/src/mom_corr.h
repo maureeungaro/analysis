@@ -6,7 +6,7 @@
 // %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 #include "common_info.h"
 
 // %%%%%%%%%%%%

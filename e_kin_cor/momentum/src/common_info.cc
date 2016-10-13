@@ -2,6 +2,7 @@
 // MU includes
 // %%%%%%%%%%%
 #include "common_info.h"
+#include "utilities.h"
 
 // %%%%%%%%%%%%
 // C++ includes

@@ -10,7 +10,7 @@ using namespace std;
 // %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 
 // %%%%%%%%%%%%%%%%%
 // mom_corr includes
