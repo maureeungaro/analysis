@@ -1,0 +1,3 @@
+PHI_LIMITS: 177.976 182.165                # Phi Limits (degrees)
+DTH1_LIMITS: -0.361804 0.295859            # DTH1 Limits (degrees)
+DTH2_LIMITS: 0.183698 -0.0644923 0.166562  # DTH2 Limits parameters: mean = a+bW

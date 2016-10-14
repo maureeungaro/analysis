@@ -1,0 +1,13 @@
+import os
+from util import scanFiles
+env = Environment(ENV=os.environ)
+
+pdf = env.PDF(target  = 'pi0_selection.pdf',  source = 'pi0_selection.tex')
+#html = env.Command('pi0_selection.html', 'pi0_selection.tex', "go_htlatex $SOURCE");
+
+#Depends(html, pdf)
+
+#cleans = scanFiles('.', accept=["pi0_selection*", "*.aux"], reject=[".tex"])
+#rint "to remove: ", cleans;
+
+#Clean('pi0_selection.html', cleans)
