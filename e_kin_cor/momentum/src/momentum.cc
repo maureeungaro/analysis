@@ -1,20 +1,14 @@
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 using namespace std;
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
 #include "utilities.h"
 
-// %%%%%%%%%%%%%%%%%
 // mom_corr includes
-// %%%%%%%%%%%%%%%%%
 #include "histos.h"
 #include "mom_corr.h"
 

@@ -1,16 +1,12 @@
 #ifndef INFO_H
 #define INFO_H
  
-// %%%%%%%%%%%%%
 // ROOT includes
-// %%%%%%%%%%%%%
 #include "TFile.h"
 #include "TH1.h"
 #include "TH2.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 #include <iostream>
 using namespace std;
@@ -50,29 +46,4 @@ class cpars
 };
 
 #endif
-
-#ifndef UTILS_H
-#define UTILS_H
-
-#include <sstream>
-inline string stringify(double x)
-{
-	ostringstream o;
-	o << x;
-	return o.str();
-}
-
-inline string stringify(int x)
-{
-	ostringstream o;
-	o << x;
-	return o.str();
-}
-
-#endif
-
-
-
-
-
 

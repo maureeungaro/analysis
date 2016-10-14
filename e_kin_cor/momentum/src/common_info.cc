@@ -1,18 +1,12 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
 #include "utilities.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 
-// %%%%%%%%%%
 // Histograms
-// %%%%%%%%%%
 chistos::chistos(string filename, int READ)
 {
 	string what[4] = {"W", "eP_mm_inpi0", "epip_mm", "eP_mm_ineta"};
