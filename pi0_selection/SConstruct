@@ -7,8 +7,8 @@ incpath = ['src']
 env.Append(CPPPATH = incpath)
 
 pi0_selection_sources = Split("""src/pi0_selection.cc
-                          src/common_info.cc
-                          src/histos.cc
-                          src/pi0_sel.cc""")
+                                 src/common_info.cc
+                                 src/histos.cc
+                                 src/pi0_sel.cc""")
 
 pi0_selection = env.Program(source = pi0_selection_sources, target = 'pi0_selection')

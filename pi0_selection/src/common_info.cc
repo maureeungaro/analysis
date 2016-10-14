@@ -1,17 +1,12 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 
-// %%%%%%%%%%
 // Histograms
-// %%%%%%%%%%
 chistos::chistos(string filename, int READ)
 {
 	const int STAGES = 5;
@@ -48,41 +43,41 @@ chistos::chistos(string filename, int READ)
 			{
 				double W = 1.1 + dw*w + 0.5*dw;
 				epXmm2s[c][w] = new TH1F(Form("epXmm2s_%s_w%3.2f", cut[c].c_str(), W),
-																 Form("epXmm2s_%s_w%3.2f", cut[c].c_str(), W), 100, -0.08, 0.12);
+												 Form("epXmm2s_%s_w%3.2f", cut[c].c_str(), W), 100, -0.08, 0.12);
 				dth1[c][w]  = new TH1F(Form("dth1_%s_w%3.2f", cut[c].c_str(), W),
-															 Form("dth1_%s_w%3.2f", cut[c].c_str(), W),  100, -5.0-w/1.5, 15.0+w*1.5);
+											  Form("dth1_%s_w%3.2f", cut[c].c_str(), W),  100, -5.0-w/1.5, 15.0+w*1.5);
 				dth2[c][w]  = new TH1F(Form("dth2_%s_w%3.2f", cut[c].c_str(), W),
-															 Form("dth2_%s_w%3.2f", cut[c].c_str(), W),  100, -3.0, 15.0+w*2);
+											  Form("dth2_%s_w%3.2f", cut[c].c_str(), W),  100, -3.0, 15.0+w*2);
 				dphi[c][w]  = new TH1F(Form("dphi_%s_w%3.2f", cut[c].c_str(), W),
-														   Form("dphi_%s_w%3.2f", cut[c].c_str(), W),  100, 160.0-9*w, 200.0+9*w);
+											  Form("dphi_%s_w%3.2f", cut[c].c_str(), W),  100, 160.0-9*w, 200.0+9*w);
 				dth1z[c][w] = new TH1F(Form("dth1z_%s_w%3.2f", cut[c].c_str(), W),
-															 Form("dth1z_%s_w%3.2f", cut[c].c_str(), W), 100, -2, 2);
+											  Form("dth1z_%s_w%3.2f", cut[c].c_str(), W), 100, -2, 2);
 				dth2z[c][w] = new TH1F(Form("dth2z_%s_w%3.2f", cut[c].c_str(), W),
-															 Form("dth2z_%s_w%3.2f", cut[c].c_str(), W), 100, -3, 5);
+											  Form("dth2z_%s_w%3.2f", cut[c].c_str(), W), 100, -3, 5);
 				dphiz[c][w] = new TH1F(Form("dphiz_%s_w%3.2f", cut[c].c_str(), W),
-														   Form("dphiz_%s_w%3.2f", cut[c].c_str(), W), 100, 174, 186);
+											  Form("dphiz_%s_w%3.2f", cut[c].c_str(), W), 100, 174, 186);
 				dth1_epXmm2[c][w] = new TH2F(Form("dth1_epXmm2_%s_w%3.2f", cut[c].c_str(), W),
-																		 Form("dth1_epXmm2_%s_w%3.2f", cut[c].c_str(), W),    100, -0.05, 0.1,  100, -5.0-w/1.5, 15.0+w*1.5  );
+												     Form("dth1_epXmm2_%s_w%3.2f", cut[c].c_str(), W),    100, -0.05, 0.1,  100, -5.0-w/1.5, 15.0+w*1.5  );
 				dth2_epXmm2[c][w] = new TH2F(Form("dth2_epXmm2_%s_w%3.2f", cut[c].c_str(), W),
-																		 Form("dth2_epXmm2_%s_w%3.2f", cut[c].c_str(), W),    100, -0.05, 0.1,  100, -3.0,  15.0+w*2    );
+													  Form("dth2_epXmm2_%s_w%3.2f", cut[c].c_str(), W),    100, -0.05, 0.1,  100, -3.0,  15.0+w*2    );
 				dphi_epXmm2[c][w] = new TH2F(Form("dphi_epXmm2_%s_w%3.2f", cut[c].c_str(), W),
-																		 Form("dphi_epXmm2_%s_w%3.2f", cut[c].c_str(), W),    100, -0.05, 0.1,  100, 160.0-9*w, 200.0+9*w );
+													  Form("dphi_epXmm2_%s_w%3.2f", cut[c].c_str(), W),    100, -0.05, 0.1,  100, 160.0-9*w, 200.0+9*w );
 				dth1_epXmm2z[c][w] = new TH2F(Form("dth1_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),
-																			Form("dth1_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),  100, -0.05, 0.1,  100, -2, 2   );
+														Form("dth1_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),  100, -0.05, 0.1,  100, -2, 2   );
 				dth2_epXmm2z[c][w] = new TH2F(Form("dth2_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),
-																			Form("dth2_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),  100, -0.05, 0.1,  100, -3, 5   );
+														Form("dth2_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),  100, -0.05, 0.1,  100, -3, 5   );
 				dphi_epXmm2z[c][w] = new TH2F(Form("dphi_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),
-																		  Form("dphi_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),  100, -0.05, 0.1,  100, 160.0, 200.0 );
+														Form("dphi_epXmm2z_%s_w%3.2f", cut[c].c_str(), W),  100, -0.05, 0.1,  100, 160.0, 200.0 );
 				
 				for(int t=0; t<CTBINS; t++)
 				{
 					double ct = 0.1 + t*dt;
-					ct_dth1_epXmm2[c][t][w] = new TH2F(Form("ct_dth1_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), t, W),
-																						 Form("ct_dth1_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), t, W),    100, -0.05, 0.1,  100, -5.0-w/1.5, 15.0+w*1.5  );
-					ct_dth2_epXmm2[c][t][w] = new TH2F(Form("ct_dth2_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), t, W),
-																						 Form("ct_dth2_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), t, W),    100, -0.05, 0.1,  100, -3.0,  15.0+w*2    );
-					ct_dphi_epXmm2[c][t][w] = new TH2F(Form("ct_dphi_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), t, W),
-																						 Form("ct_dphi_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), t, W),    100, -0.05, 0.1,  100, 160.0-9*w, 200.0+9*w );
+					ct_dth1_epXmm2[c][t][w] = new TH2F(Form("ct_dth1_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), ct, W),
+																  Form("ct_dth1_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), ct, W),    100, -0.05, 0.1,  100, -5.0-w/1.5, 15.0+w*1.5  );
+					ct_dth2_epXmm2[c][t][w] = new TH2F(Form("ct_dth2_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), ct, W),
+																  Form("ct_dth2_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), ct, W),    100, -0.05, 0.1,  100, -3.0,  15.0+w*2    );
+					ct_dphi_epXmm2[c][t][w] = new TH2F(Form("ct_dphi_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), ct, W),
+																  Form("ct_dphi_epXmm2_%s_ct%2.1f_w%3.2f", cut[c].c_str(), ct, W),    100, -0.05, 0.1,  100, 160.0-9*w, 200.0+9*w );
 				}														
 																			
 			}
@@ -163,9 +158,7 @@ void chistos::write_and_close()
 	}
 }
 
-// %%%%%%%%%%%%%%%%%%%%%%%%
 // Reads Parameters and functions
-// %%%%%%%%%%%%%%%%%%%%%%%%
 cpars::cpars(string filename)
 {
 	ifstream parfile(filename.c_str(), ios::in);

@@ -1,6 +1,6 @@
 {
  	string pars_file = "pi0_selection_pars.txt";
-	string root_file = "nobh.root";
+	string root_file = "pass4.root";
 	int GSIM         = 0;
 
 	// dont need a different pars file for GSIM... (unless we generate elastic events)
@@ -10,6 +10,9 @@
 // 	int GSIM         = 1;
 
 	string datatype[2] = {"data", "MC"};
+
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
+	#include "utilities.h"
 	gROOT->LoadMacro("src/common_info.cc");
 
 	
@@ -41,7 +44,8 @@
 	
 	string PRINT   = "";
 		
-	
+
+
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("pi0 Selection", "");
 	bar->AddButton("","");

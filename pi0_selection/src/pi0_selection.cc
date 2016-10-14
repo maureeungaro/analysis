@@ -1,21 +1,15 @@
 // ./pi0_selection -PARS_FILE=pi0_selection_pars.txt -ROOT_OUTPUT=data.root -BEAM_E=5.754 -TARGET=proton /enkil/e1-6/e_corr/3105*.mu
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 using namespace std;
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%%
 // vertex includes
-// %%%%%%%%%%%%%
 #include "histos.h"
 #include "pi0_sel.h"
 

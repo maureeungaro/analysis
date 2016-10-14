@@ -152,9 +152,7 @@ void chistos::write_and_close()
 	}
 }
 
-// %%%%%%%%%%%%%%%%%%%%%%%%
 // Reads Parameters and functions
-// %%%%%%%%%%%%%%%%%%%%%%%%
 cpars::cpars(string filename)
 {
 	// DC are at 6 degrees, but projected slope is somehow less than tan(6) = 0.1051

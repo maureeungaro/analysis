@@ -1,11 +1,7 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "pi0_sel.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <sstream>
 #include <fstream>
 #include <cstdlib>

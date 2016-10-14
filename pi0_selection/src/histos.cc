@@ -1,11 +1,7 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "histos.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 #include <iostream>
 using namespace std;
@@ -36,7 +32,8 @@ void histos::fill(V4 e, V4 P, CLAS_Event_opts Opts, map<string, int> passed)
 	double dth1v = atan(1/(tan(e.theta()/2.)*( 1 + b.t/proton_mass)))/degree - P.theta()/degree;
 	double dth2v = atan(1/(tan(e.theta()/2.)*(1+(proton_mass*e.t/(proton_mass-e.t+e.t*cos(e.theta()))/proton_mass))))/degree - P.theta()/degree;
 	double dphiv = ( e.phi() - P.phi() )/degree;
-	double ct    = cos(X.theta()/rad);
+
+	//double ct    = cos(X.theta()/rad);
 	
 	// check on calculation of dphi
 	double aaa   = X.phi()/degree;
@@ -74,7 +71,7 @@ void histos::fill(V4 e, V4 P, CLAS_Event_opts Opts, map<string, int> passed)
 			dth2_epXmm2z[0][w]->Fill(X.mass()/GeV/GeV, dth2v);
 			dphi_epXmm2z[0][w]->Fill(X.mass()/GeV/GeV, dphiv);
 			
-			int it = floor( (ct-0.1)/0.2 );
+			// int it = floor( (ct-0.1)/0.2 );
 			
 			
 		}
