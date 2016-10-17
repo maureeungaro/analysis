@@ -1,0 +1,9 @@
+from init_env import init_environment
+
+env = init_environment("clhep mu root clas mysql")
+
+pa_source = Split("""pseudo_acc.cc
+                     generator.cc""")
+
+env.Program(source = pa_source, target = 'pseudo_acc')
+

@@ -1,0 +1,19 @@
+11                ! Physics model (1=AO, 4=MAID, 11=dvmp)
+0				  | 1 for polarized electron, 0 for unpolarized electron 
+.20 .12 .20 .20   ! the sizes of the integration regions
+4                 ! npart
+5                 ! 1: pi0 , 3:pi+, 5:eta
+.6                ! a limit on the error in (mm)**2
+5.0               ! target cell length (cm)
+.775              ! radius of target cyclinder
+.090              ! x-coord of beam position
+-.345             ! y-coord of beam position
+-4.0              ! z-coord of beam positio
+5.7542            ! beam energy
+1.5 7.0           ! Q2_min, Q2_max
+0.5 5.0           ! scattered electron momentum min and max
+.001              ! minimum photon energy for integration
+20000             ! number of events
+0.                ! a multiplication factor for sigr_max
+0.03               ! sigr_max
+1.8		          ! minimum W (GeV) only for physics model 11

@@ -1,0 +1,6 @@
+The old directory contains the command line input version
+of elast_gen.  I prefer flat files for fortran since the 
+success of cc language wrappers is strongly platform 
+dependent.
+
+C Smith 
