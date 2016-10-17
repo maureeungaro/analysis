@@ -19,7 +19,7 @@ set dir   = $1
 set type  = $2
 set origd = `pwd`
 
-source /u/home/ungaro/projects/analysis/acceptance/gsim/farm/set_env_e16simulation
+source /u/home/ungaro/analysis/farm/clas6/gsim/set_env_e16simulation
 
 set NEXIST = `ls $dir/ | wc | awk '{print $1}'`
 @ NMAX = $NEXIST + 10                          

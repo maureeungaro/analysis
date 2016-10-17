@@ -1,10 +1,10 @@
 #!/bin/csh 
 
-set dir   = /work/clas/disk5/ungaro/acceptance/gsim_elastic
-set fromd = /u/home/ungaro/projects/analysis/acceptance/gsim/farm
+set dir   = /lustre/expphy/volatile/clas/clas12/ungaro/gsim
+set fromd = /u/home/ungaro/projects/analysis/farm/clas6/gsim
 
 
-set NMAX = (750)
+set NMAX = (50)
 
 set N = 0
 if($1 == "batch") then
@@ -29,12 +29,12 @@ while ($i <= $REM)
 	echo  OTHER_FILES: $fromd/elas_5.7.inp         >> gsim.jsub
 	echo  OTHER_FILES: $fromd/gsim_simue16.ffread  >> gsim.jsub
 	echo  OTHER_FILES: $fromd/recsis_simue16.tcl   >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/aao_rad         >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/elast_gen       >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/gsim_bat        >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/gpp             >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/user_ana        >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/bos2mu          >> gsim.jsub
+#	echo  OTHER_FILES: $fromd/bins/elast_gen       >> gsim.jsub
+	echo  OTHER_FILES: /home/clasg11/top_dir/bin/LinuxRHEL6/aao_rad                  >> gsim.jsub
+	echo  OTHER_FILES: /lustre/expphy/work/hallb/clase1f/clase16/mc_dvcs/gsim_bat    >> gsim.jsub
+	echo  OTHER_FILES: /home/clasg11/top_dir/bin/LinuxRHEL6/gpp                      >> gsim.jsub
+	echo  OTHER_FILES: /home/clase1-6/recook/executables/user_ana                    >> gsim.jsub
+	echo  OTHER_FILES: /home/clase1-6/recook/executables/bos2mu                      >> gsim.jsub
 	echo
 	
 	/site/bin/jsub gsim.jsub

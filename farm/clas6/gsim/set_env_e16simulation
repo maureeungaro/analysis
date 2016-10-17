@@ -2,11 +2,12 @@
 # enviroment variables for e16
 # to use with source
 
-source /site/common_environment/set_environment /home/ungaro/mysettings.dat /site/common_environment/jlab_default_settings.dat clas
-setenv CLAS_CALDB_RUNINDEX calib_user.RunIndexe1_6 
+source /site/12gev_phys/production.csh 1.3
+source /home/clase1-6/recook/cookEnvironment
+
 setenv CLAS_PARMS /home/ungaro/CLAS_PARMS
-setenv CLAS_PACK ~markov/analysis/e1e_2GeV/release4-9
-setenv CLAS_LIB ~markov/lib/LinuxRH8/
+setenv CLAS_PACK /home/clasg11/top_dir
+setenv CLAS_LIB /home/clasg11/top_dir/bin/LinuxRHEL6
 setenv CLAS_CMS $CLAS_PACK/cms
-setenv OS_NAME LinuxRH8
-setenv OS_CLAS LinuxRH8
+setenv OS_NAME LinuxRHEL6
+setenv OS_CLAS LinuxRHEL6
