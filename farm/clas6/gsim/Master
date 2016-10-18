@@ -22,8 +22,10 @@ while ($i <= $REM)
 	echo  PROJECT: e1-6a                           >> gsim.jsub
 	echo  MAIL:    ungaro@jlab.org                 >> gsim.jsub
 	echo  TRACK:   simulation                      >> gsim.jsub
-	echo  COMMAND: go_MC $dir elast_gen            >> gsim.jsub
+	echo  COMMAND: go_MC $dir aao_rad              >> gsim.jsub
 	echo  OS:      centos65                        >> gsim.jsub
+	echo  MEMORY:  2000 MB                         >> gsim.jsub
+	echo  TIME: 300                                >> gsim.jsub
 	echo  OTHER_FILES: $fromd/go_MC                >> gsim.jsub
 	echo  OTHER_FILES: $fromd/input.aao            >> gsim.jsub
 	echo  OTHER_FILES: $fromd/elas_5.7.inp         >> gsim.jsub

@@ -19,7 +19,7 @@ set dir   = $1
 set type  = $2
 set origd = `pwd`
 
-source /u/home/ungaro/analysis/farm/clas6/gsim/set_env_e16simulation
+source /u/home/ungaro/projects/analysis/farm/clas6/gsim/set_env_e16simulation
 
 set NEXIST = `ls $dir/ | wc | awk '{print $1}'`
 @ NMAX = $NEXIST + 10                          
@@ -104,8 +104,8 @@ while ($SIMU < $NMAX)
 		echo Starting gpp
 		echo
 		mv $origd/gpp .
-		ln -s ../gsim/gsim.bos.A00 .
-		./gpp -P0x1f -ogpp.bos -R1 -a1.5 -b1.5 -c1.5 -f1.35 -Y gsim.bos.A00 >& log
+		ln -s ../gsim/gsim.bos .
+		./gpp -P0x1f -ogpp.bos -R1 -a1.5 -b1.5 -c1.5 -f1.35 -Y gsim.bos >& log
 		ls -alp
 		echo gpp done.
   
