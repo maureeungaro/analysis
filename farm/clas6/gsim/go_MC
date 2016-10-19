@@ -124,6 +124,7 @@ while ($SIMU < $NMAX)
 		mv $origd/recsis_simue16.tcl  .
 		ln -s ../GPP/gpp.bos          .
 		./user_ana -t recsis_simue16.tcl >& log
+		mv outfile1 recsis.A00
 		ls -alp
 		echo user_ana done.
  	
