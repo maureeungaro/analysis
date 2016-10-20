@@ -32,7 +32,7 @@ while ($i <= $REM)
 	echo  OTHER_FILES: $fromd/gsim_simue16.ffread  >> gsim.jsub
 	echo  OTHER_FILES: $fromd/recsis_simue16.tcl   >> gsim.jsub
 #	echo  OTHER_FILES: $fromd/bins/elast_gen       >> gsim.jsub
-	echo  OTHER_FILES: /home/clasg11/top_dir/bin/LinuxRHEL6/aao_rad                  >> gsim.jsub
+	echo  OTHER_FILES: /lustre/expphy/work/hallb/clas12/ungaro/bin/LinuxRHEL6        >> gsim.jsub
 	echo  OTHER_FILES: /lustre/expphy/work/hallb/clase1f/clase16/mc_dvcs/gsim_bat    >> gsim.jsub
 	echo  OTHER_FILES: /home/clasg11/top_dir/bin/LinuxRHEL6/gpp                      >> gsim.jsub
 	echo  OTHER_FILES: /home/clase1-6/recook/executables/user_ana                    >> gsim.jsub
