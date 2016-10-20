@@ -1,0 +1,21 @@
+#!/bin/csh -f
+
+# This script will copy the remote farm directory on the local disk and rename
+# files in order to be ready to be concatenated
+
+set remote = /lustre/expphy/volatile/clas/clas12/ungaro/mce16
+set localr = /Volumes/e1-6Proc/gsim
+set mce16  = $localr/mce16
+set dest   = /Volumes/e1-6Proc/gsim/raw
+mkdir -p $dest
+
+if(`ls $mce16 | wc | awk '{print $1}'` != "0") then
+	echo Error: directory $mce16 not empty!
+	exit
+endif
+
+rm -rf $mce16
+
+scp -r ftp:$remote $localr
+
+
