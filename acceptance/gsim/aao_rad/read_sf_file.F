@@ -41,7 +41,10 @@ C Begin reading the file.
          do jvar2=1,nvar2      ! W
            read(iunit,FMT=15,err=1000) dummyX,  var2(jvar2), 
      1                                 dummyY,  var1(jvar1)   ! w,q2
+C			print *, 'iw= ',jvar2,' W= ',var2(jvar2),  ' iq2= ', jvar1, ' q2 = ' , var1(jvar1)
  15        format(A8,f4.2,A7,f7.5)
+
+
 	   if (jvar1.eq.1)     var1tmp1=var1(jvar1)
 	   if (jvar1.eq.nvar1) var1tmp2=var1(jvar1)
 	   if (jvar2.eq.1)     var2tmp1=var2(jvar2)

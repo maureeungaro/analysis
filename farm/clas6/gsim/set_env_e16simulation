@@ -11,3 +11,4 @@ setenv CLAS_LIB /home/clasg11/top_dir/bin/LinuxRHEL6
 setenv CLAS_CMS $CLAS_PACK/cms
 setenv OS_NAME LinuxRHEL6
 setenv OS_CLAS LinuxRHEL6
+setenv OSNAME LinuxRHEL6
