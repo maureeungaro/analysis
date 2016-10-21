@@ -46,12 +46,15 @@ while ($SIMU < $NMAX)
 			cd generator
 			echo
 			echo Starting aao
+			echo `date`
 			echo
 			mv $origd/input.aao .
 			mv $origd/aao_rad   .
 			./aao_rad < input.aao >& log
 			ls -alp
 			echo aao done.
+			echo `date`
+			echo
 			mv aao_rad.evt generated.evt
 		endif
 
@@ -65,12 +68,15 @@ while ($SIMU < $NMAX)
 			cd generator
 			echo
 			echo Starting elast_gen
+			echo `date`
 			echo
 			mv $origd/elas_5.7.inp .
 			mv $origd/elast_gen   .
 			./elast_gen < elas_5.7.inp >& log
 			ls -alp
 			echo elast_gen done.
+			echo `date`
+			echo
 			mv elast_gen.evt generated.evt
 		endif
 		
@@ -84,6 +90,7 @@ while ($SIMU < $NMAX)
 		cd gsim
 		echo
 		echo Starting gsim
+		echo `date`
 		echo
 		mv $origd/gsim_simue16.ffread .
 		mv $origd/gsim_bat            .
@@ -102,13 +109,16 @@ while ($SIMU < $NMAX)
 		cd GPP
 		echo
 		echo Starting gpp
+		echo `date`
 		echo
 		mv $origd/gpp .
 		ln -s ../gsim/gsim.bos .
 		./gpp -P0x1f -ogpp.bos -R1 -a1.5 -b1.5 -c1.5 -f1.35 -Y gsim.bos >& log
 		ls -alp
 		echo gpp done.
-  
+ 		echo `date`
+		echo
+
   
 		############
 		# USER_ANA #
@@ -119,6 +129,7 @@ while ($SIMU < $NMAX)
 		cd recsis
 		echo
 		echo Starting user_ana
+		echo `date`
 		echo
 		mv $origd/user_ana            .
 		mv $origd/recsis_simue16.tcl  .
@@ -127,7 +138,9 @@ while ($SIMU < $NMAX)
 		mv outfile1 recsis.A00
 		ls -alp
 		echo user_ana done.
- 	
+ 		echo `date`
+		echo
+
 	
 		##########
 		# BOS2MU #
@@ -138,13 +151,16 @@ while ($SIMU < $NMAX)
 		cd mu
 		echo
 		echo Starting bos2mu
+		echo `date`
 		echo
 		mv $origd/bos2mu              .
 		ln -s ../recsis/recsis.A00  .
 		./bos2mu -RUN_INDEX=$CLAS_CALDB_RUNINDEX -DC_PLANES=1 -INFOS="e16 MonteCarlo Simulation" -OUTPUT=e16mc.mu recsis.A00 >& log
 		ls -alp
 		echo bos2mu done.
-  	
+		echo `date`
+		echo
+
 	
 	
 	
