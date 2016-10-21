@@ -1,11 +1,12 @@
 {
-//	string pars_file = "proton_id_par_gsim.txt";
-//	string root_file = "protons_gsim2.root";
-//	int GSIM         = 1;
-	string pars_file = "proton_id_par.txt";
-	string root_file = "pass4.root";
-	int GSIM         = 0;
-	
+	string pars_file = "proton_id_par_gsim.txt";
+	string root_file = "gsim.root";
+	int GSIM         = 1;
+
+//	string pars_file = "proton_id_par.txt";
+//	string root_file = "pass4.root";
+//	int GSIM         = 0;
+
 	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
 	#include "utilities.h"
 

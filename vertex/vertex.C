@@ -1,12 +1,12 @@
 {
 	
-	string pars_file = "vertex_par.txt";
-	string root_file = "pass4.root";
-	int GSIM         = 0;
-
 //	string pars_file = "vertex_par.txt";
-//	string root_file = "vertex_gsim.root";
-//	int GSIM         = 1;
+//	string root_file = "pass4.root";
+//	int GSIM         = 0;
+
+	string pars_file = "vertex_par.txt";
+	string root_file = "gsim.root";
+	int GSIM         = 1;
 
 	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
 	#include "utilities.h"
