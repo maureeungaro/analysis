@@ -17,25 +17,26 @@ set N = `ls $dest  | wc | awk '{print $1}'`
 
 set SIMU = 1
 
-while ($SIMU < 200)
+while ($SIMU < 300)
+
 	if(`filetest -e  $dir/simu_$SIMU` == "1") then
 
+		# checking for any failure
 		set CORE    = (`ls -R $dir/simu_$SIMU | grep core | wc | awk '{print $1}'`)
 		if($CORE == "1") then
 			echo Core found! Removing dir $dir/simu_$SIMU
 			rm -rf $dir/simu_$SIMU   
 		endif
 
-		set EXIST = `filetest -e $dir/simu_$SIMU/mu/log`
 
-		if($EXIST == "1") then
+		# if mu/log exist, the job has been completed
+		if(`filetest -e $dir/simu_$SIMU/mu/log` == "1") then
 			if($OPT == "VERBOSE") then
 				echo  $dir/simu_$SIMU `grep bos2mu $dir/simu_$SIMU/mu/log | grep Total`
 			endif
 
-   
 			if($OPT == "copy") then 
-				
+
 				set DONE1 = `grep Closing $dir/simu_$SIMU/mu/log | wc | awk '{print $1}'`
 				set DONE2 = `grep Total   $dir/simu_$SIMU/mu/log | awk -F: '{print $2}'`
 
