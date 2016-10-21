@@ -10,7 +10,7 @@ set dir  = /lustre/expphy/volatile/clas/clas12/ungaro/gsim
 set dest = /lustre/expphy/volatile/clas/clas12/ungaro/mce16
 mkdir -p $dest
 
-set Nevents = 5001  # from input.aao
+set Nevents = 20000  # from input.aao
 
 set N = `ls $dest  | wc | awk '{print $1}'`
 @ N += 1
@@ -19,29 +19,29 @@ set SIMU = 1
 
 while ($SIMU < 200)
 	if(`filetest -e  $dir/simu_$SIMU` == "1") then
-		set CORE    = (`ls $dir/simu_$SIMU | grep core | wc | awk '{print $1}'`)
-  
-		if($OPT == "VERBOSE") then 
-			echo  $dir/simu_$SIMU `grep bos2mu $dir/simu_$SIMU/mu/log | grep Total`
-		endif
 
+		set CORE    = (`ls -R $dir/simu_$SIMU | grep core | wc | awk '{print $1}'`)
 		if($CORE == "1") then
 			echo Core found! Removing dir $dir/simu_$SIMU
 			rm -rf $dir/simu_$SIMU   
 		endif
 
-   
-		if($OPT == "copy") then 
-			set EXIST = `filetest -e $dir/simu_$SIMU/mu/log`
+		set EXIST = `filetest -e $dir/simu_$SIMU/mu/log`
 
-			if($EXIST == "1") then
+		if($EXIST == "1") then
+			if($OPT == "VERBOSE") then
+				echo  $dir/simu_$SIMU `grep bos2mu $dir/simu_$SIMU/mu/log | grep Total`
+			endif
+
+   
+			if($OPT == "copy") then 
 				
 				set DONE1 = `grep Closing $dir/simu_$SIMU/mu/log | wc | awk '{print $1}'`
 				set DONE2 = `grep Total   $dir/simu_$SIMU/mu/log | awk -F: '{print $2}'`
 
 				if( $DONE1 == "1") then
 					if( $DONE2 == "$Nevents") then
-						echo Directory $SIMU is done, with $DONE2 events. Copying to $dest to $N and removing it
+						echo Directory $SIMU is done, with $DONE2 events. Copying to $dest/e16mc_$N.mu to $N and removing it
 						mv $dir/simu_$SIMU/mu/e16mc.mu $dest/e16mc_$N.mu
 						@ N += 1
 						rm -rf $dir/simu_$SIMU
@@ -50,10 +50,10 @@ while ($SIMU < 200)
 						rm -rf $dir/simu_$SIMU
 					endif
 				endif
-			endif	 
-		 endif
-    
- 
+			endif
+		else
+			echo Directory $SIMU in progress. 
+		endif
 	endif
 	@ SIMU += 1
 end
