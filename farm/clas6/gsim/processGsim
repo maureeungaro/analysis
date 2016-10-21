@@ -4,14 +4,15 @@
 # and process GSIM data. The command retrieveFiles must be run
 # manually because of the password requirement
 
+set rd = /opt/projects/analysis/farm/clas6/muProcessing
 
-/opt/projects/analysis/farm/clas6/muProcessing/go_concatenate_gsim  /Volumes/e1-6Proc/gsim/raw /Volumes/e1-6Proc/gsim/full 20
-go_SEL /Volumes/e1-6Proc/gsim/full   /Volumes/e1-6Proc/gsim/e_pid   /opt/projects/analysis/pid/electron/e_pid            /opt/projects/analysis/pid/electron/electron_id_par_gsim.txt
-go_SEL /Volumes/e1-6Proc/gsim/e_pid  /Volumes/e1-6Proc/gsim/p_pid   /opt/projects/analysis/pid/proton/proton_pid         /opt/projects/analysis/pid/proton/proton_id_par_gsim.txt
-go_SEL /Volumes/e1-6Proc/gsim/p_pid  /Volumes/e1-6Proc/gsim/vertex  /opt/projects/analysis/vertex/vertex_corr_sel        /opt/projects/analysis/vertex/vertex_par.txt
-go_SEL /Volumes/e1-6Proc/gsim/vertex /Volumes/e1-6Proc/gsim/e_fid   /opt/projects/analysis/fiducial/electron/e_fiducial  /opt/projects/analysis/fiducial/electron/fiducial_par.txt
-go_SEL /Volumes/e1-6Proc/gsim/e_fid  /Volumes/e1-6Proc/gsim/p_fid   /opt/projects/analysis/fiducial/proton/p_fiducial    /opt/projects/analysis/fiducial/proton/fiducial_par.txt
-go_SEL /Volumes/e1-6Proc/gsim/p_fid  /Volumes/e1-6Proc/gsim/pi0s    /opt/projects/analysis/pi0_selection/pi0_selection   /opt/projects/analysis/pi0_selection/pi0_selection_pars.txt
+$rd/go_concatenate_gsim  /Volumes/e1-6Proc/gsim/raw /Volumes/e1-6Proc/gsim/full 20
+$rd/go_SEL /Volumes/e1-6Proc/gsim/full   /Volumes/e1-6Proc/gsim/e_pid   /opt/projects/analysis/pid/electron/e_pid            /opt/projects/analysis/pid/electron/electron_id_par_gsim.txt
+$rd/go_SEL /Volumes/e1-6Proc/gsim/e_pid  /Volumes/e1-6Proc/gsim/p_pid   /opt/projects/analysis/pid/proton/proton_pid         /opt/projects/analysis/pid/proton/proton_id_par_gsim.txt
+$rd/go_SEL /Volumes/e1-6Proc/gsim/p_pid  /Volumes/e1-6Proc/gsim/vertex  /opt/projects/analysis/vertex/vertex_corr_sel        /opt/projects/analysis/vertex/vertex_par.txt
+$rd/go_SEL /Volumes/e1-6Proc/gsim/vertex /Volumes/e1-6Proc/gsim/e_fid   /opt/projects/analysis/fiducial/electron/e_fiducial  /opt/projects/analysis/fiducial/electron/fiducial_par.txt
+$rd/go_SEL /Volumes/e1-6Proc/gsim/e_fid  /Volumes/e1-6Proc/gsim/p_fid   /opt/projects/analysis/fiducial/proton/p_fiducial    /opt/projects/analysis/fiducial/proton/fiducial_par.txt
+$rd/go_SEL /Volumes/e1-6Proc/gsim/p_fid  /Volumes/e1-6Proc/gsim/pi0s    /opt/projects/analysis/pi0_selection/pi0_selection   /opt/projects/analysis/pi0_selection/pi0_selection_pars.txt
 
 
 
