@@ -9,13 +9,24 @@ set mce16  = $localr/mce16
 set dest   = /Volumes/e1-6Proc/gsim/raw
 mkdir -p $dest
 
-if(`ls $mce16 | wc | awk '{print $1}'` != "0") then
-	echo Error: directory $mce16 not empty!
-	exit
+
+if($1 != "copyonly") then
+	if(`ls $mce16 | wc | awk '{print $1}'` != "0") then
+		echo Error: directory $mce16 not empty!
+		exit
+	endif
+
+	rm -rf $mce16
+	scp -r ftp:$remote $localr
 endif
 
-rm -rf $mce16
 
-scp -r ftp:$remote $localr
+set N = `\ls $dest | wc | awk '{print $1}'`
+
+foreach f(`\ls $mce16`)
+	echo moving $mce16/$f to $dest/e16mc_$N".mu"
+	mv $mce16/$f  $dest/e16mc_$N".mu"
+	@ N += 1
+end
 
 
