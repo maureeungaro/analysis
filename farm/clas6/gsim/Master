@@ -8,7 +8,7 @@
 set dir   = /lustre/expphy/volatile/clas/clas12/ungaro/gsim
 set fromd = /u/home/ungaro/projects/analysis/farm/clas6/gsim
 
-set NMAX = (300)
+set NMAX = (400)
 
 set N = 0
 if($1 == "batch") then
