@@ -158,10 +158,14 @@ void show_phi_thetas(int which)
 		H.phi_theta[which][s][m]->Draw("colz");
 		Cphi_thetaS->Update();
 		palette = (TPaletteAxis*)H.phi_theta[which][s][m]->FindObject("palette");
-		palette->SetLabelSize(0.08);
-		palette->SetLabelOffset(0.01);
-		palette->SetX1NDC(0.88);
-		palette->SetX2NDC(0.92);
+
+		if(palette) {
+			palette->SetLabelSize(0.08);
+			palette->SetLabelOffset(0.01);
+			palette->SetX1NDC(0.88);
+			palette->SetX2NDC(0.92);
+		}
+
 		lab.DrawLatex(0.28, 0.94,  Form("momentum: %3.2f #leq p #leq %3.2f GeV", H.mom[m]-H.dp/2, H.mom[m]+H.dp/2 ) );
 		
 	}

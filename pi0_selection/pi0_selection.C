@@ -1,13 +1,13 @@
 {
- 	string pars_file = "pi0_selection_pars.txt";
-	string root_file = "pass4.root";
-	int GSIM         = 0;
+// 	string pars_file = "pi0_selection_pars.txt";
+//	string root_file = "pass4.root";
+//	int GSIM         = 0;
 
 	// dont need a different pars file for GSIM... (unless we generate elastic events)
 // 	string pars_file = "pi0_selection_pars_GSIM.txt";
-// 	string root_file = "pi0_gsim.root";
-// 	string root_file = "elastic_gsim.root";
-// 	int GSIM         = 1;
+	string pars_file = "pi0_selection_pars.txt";
+ 	string root_file = "gsim.root";
+ 	int GSIM         = 1;
 
 	string datatype[2] = {"data", "MC"};
 
