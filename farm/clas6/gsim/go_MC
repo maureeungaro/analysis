@@ -22,7 +22,7 @@ set origd = `pwd`
 source /u/home/ungaro/projects/analysis/farm/clas6/gsim/set_env_e16simulation
 
 set NEXIST = `ls $dir/ | wc | awk '{print $1}'`
-@ NMAX = $NEXIST + 10                          
+@ NMAX = $NEXIST + 500
 
 
 # Look for first non existing dir
