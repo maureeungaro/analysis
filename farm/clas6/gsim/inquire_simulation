@@ -17,7 +17,7 @@ set N = `ls $dest  | wc | awk '{print $1}'`
 
 set SIMU = 1
 
-while ($SIMU < 300)
+while ($SIMU < 800)
 
 	if(`filetest -e  $dir/simu_$SIMU` == "1") then
 
