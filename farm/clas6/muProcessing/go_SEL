@@ -21,7 +21,9 @@ if($1 == "-h" || $1 == ""  || $#argv < 3) then
 
 	echo " "
 	echo " GSIM"
-	echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/full  /enkil/gsim_e1-6/q2_2.0-7.0/e_pid /opt/work/projects/analysis/pid/electron/e_pid           /opt/work/projects/analysis/pid/electron/electron_id_par_gsim.txt"
+	echo " go_SEL /Volumes/e1-6Proc/gsim/full  /Volumes/e1-6Proc/gsim/e_pid /opt/projects/analysis/pid/electron/e_pid           /opt/projects/analysis/pid/electron/electron_id_par_gsim.txt   "
+
+
 	echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/e_pid /enkil/gsim_e1-6/q2_2.0-7.0/p_pid /opt/work/projects/analysis/pid/proton/proton_pid        /opt/work/projects/analysis/pid/proton/proton_id_par_gsim.txt"
 	echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/p_pid /enkil/gsim_e1-6/q2_2.0-7.0/verte /opt/work/projects/analysis/vertex/vertex_corr_sel       /opt/work/projects/analysis/vertex/vertex_par.txt"
 	echo " go_SEL /enkil/gsim_e1-6/q2_2.0-7.0/verte /enkil/gsim_e1-6/q2_2.0-7.0/e_fid /opt/work/projects/analysis/fiducial/electron/e_fiducial /opt/work/projects/analysis/fiducial/electron/fiducial_par.txt"
