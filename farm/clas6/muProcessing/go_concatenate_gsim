@@ -10,8 +10,7 @@ if($1 == "-h" || $1 == ""  || $#argv != 3) then
 	echo " NFILES:   number of files to group together"
 	echo " "
 	echo "Example:"
-	echo " go_concatenate_gsim /enkil/gsim_e1-6/q2_2.0-7.0/raw /enkil/gsim_e1-6/q2_2.0-7.0/full 50"
-	echo " go_concatenate_gsim /akasha/gsim_e1-6/elastic/raw /akasha/gsim_e1-6/elastic/full 50"
+	echo " go_concatenate_gsim /Volumes/e1-6Proc/gsim/raw /Volumes/e1-6Proc/gsim/full 20"
 	exit 0
 endif
 
@@ -19,7 +18,7 @@ endif
 set ORIG_DIR = $1
 set DEST_DIR = $2
 set NFILES   = $3
-set COMMAND  = "/opt/work/projects/analysis/concatenate/concatenate"
+set COMMAND  = "/opt/projects/muEvent/bin/concatenate"
 mkdir -p $DEST_DIR
 
 if(`filetest -e $COMMAND` == 0) then
