@@ -15,9 +15,13 @@ set Nevents = 20000  # from input.aao
 set N = `ls $dest  | wc | awk '{print $1}'`
 @ N += 1
 
+set NEXISTD = `ls $dir | wc | awk '{print $1}'`  # number of existing directories to process
+
+@ NEXISTD += 100
+
 set SIMU = 1
 
-while ($SIMU < 800)
+while ($SIMU < $NEXISTD)
 
 	if(`filetest -e  $dir/simu_$SIMU` == "1") then
 
