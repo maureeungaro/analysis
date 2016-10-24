@@ -1,0 +1,11 @@
+#!/bin/csh -f
+
+
+rm imageslist.txt ; ls img/* > imageslist.txt
+
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=wbin -addColumnTableVariable=q2bin \
+-addSelectableVariable=plot -defaultPlot=imgs/slice-23_cut-03cctim_sector-2.png -imagesSize="1000 1000" -d=img
+
+mv page.html bin.html
+

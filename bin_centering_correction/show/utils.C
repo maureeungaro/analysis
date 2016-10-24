@@ -38,7 +38,7 @@ void show_theta()
 	lab.SetNDC();
 
 	
-	TCanvas *TH = new TCanvas("TH","Theta dependence of correction", 800, 800);
+	TCanvas *TH = new TCanvas("TH","Theta dependence of correction", 1000, 1000);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.06,.95, Form("Bin Correction  W = %3.2f  Q^{2} = %3.2f", Bin.wm_center[WW], Bin.q2_center[QQ]) );
 	
@@ -75,7 +75,7 @@ void show_theta()
 		 else   lab.DrawLatex(.28,.85, Form("#phi: %3.0f#divide%3.0f", Bin.ph_center[i] - Bin.dph[i]/2.0 , Bin.ph_center[i] + Bin.dph[i]/2.0) );
 	}
 	if(PRINT != "")
-		TH->Print(Form("binc_cor_all_theta_W_%3.2f_Q2_%3.2f%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		TH->Print(Form("img/wbin-%3.2f_q2bin-%3.2f_plot-thetas%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
 }
  
 void show_phi()
@@ -129,7 +129,8 @@ void show_phi()
 		lab.DrawLatex(.38,.85, Form("cos(#theta*): %2.1f#divide%2.1f", Bin.ct_center[i] - Bin.dct[i]/2.0 , Bin.ct_center[i] + Bin.dct[i]/2.0) );
 	}
 	if(PRINT != "")
-		PH->Print(Form("binc_cor_all_phi_W_%3.2f_Q2_%3.2f%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		PH->Print(Form("img/wbin-%3.2f_q2bin-%3.2f_plot-phis%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+
 }
 
 
@@ -183,7 +184,7 @@ void show_thetaphi()
 		else lab.DrawLatex(.10,.68, Form("%s", models[m].c_str()) );
 	}
 	if(PRINT != "")
-		TPH->Print(Form("binc_cor_thetaphi_W_%3.2f_Q2_%3.2f%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		TPH->Print(Form("img/wbin-%3.2f_q2bin-%3.2f_plot-thetaphis%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
 }
 
 void show_thetaphi_single()
@@ -235,7 +236,7 @@ void show_thetaphi_single()
 void print_all()
 {
 	bins Bin;
-	PRINT=".gif";
+	PRINT=".png";
  	for(int w=0; w<Bin.WMBIN; w++)
 	{
 		WW=w;

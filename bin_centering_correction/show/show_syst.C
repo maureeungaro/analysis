@@ -14,7 +14,7 @@ void show_syst_theta()
 	lab.SetNDC();
 
 	
-	TCanvas *THC = new TCanvas("THC","Theta dependence of correction", 800, 800);
+	TCanvas *THC = new TCanvas("THC","Theta dependence of correction", 1000, 1000);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.06,.95, Form("Bin Correction W = %3.2f  Q^{2} = %3.2f", Bin.wm_center[WW], Bin.q2_center[QQ]) );
 	
@@ -37,7 +37,8 @@ void show_syst_theta()
 		else    lab.DrawLatex(.28,.85, Form("#phi: %3.0f#divide%3.0f", Bin.ph_center[i] - Bin.dph[i]/2.0 , Bin.ph_center[i] + Bin.dph[i]/2.0) );
 	}
 	if(PRINT != "")
-		THC->Print(Form("binc_cor_syst_theta_W_%3.2f_Q2_%3.2f%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		THC->Print(Form("img/wbin-%3.2f_q2bin-%3.2f_plot-corrThetas%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+
 }
  
 void show_syst_phi()
@@ -77,14 +78,15 @@ void show_syst_phi()
 		lab.DrawLatex(.38,.85, Form("cos(#theta*): %2.1f#divide%2.1f", Bin.ct_center[i] - Bin.dct[i]/2.0 , Bin.ct_center[i] + Bin.dct[i]/2.0) );
 	}
 	if(PRINT != "")
-		PHC->Print(Form("binc_cor_syst_phi_W_%3.2f_Q2_%3.2f%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		PHC->Print(Form("img/wbin-%3.2f_q2bin-%3.2f_plot-corrPhiss%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+
 }
 
 
 void print_all_syst()
 {
 	bins Bin;
-	PRINT=".gif";
+	PRINT=".png";
 	for(int w=0; w<Bin.WMBIN; w++)
 	{
 		WW=w;

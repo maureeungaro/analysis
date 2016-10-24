@@ -1,7 +1,7 @@
 {
 
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/binning");
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/bin_centering_correction");
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/binning");
+	gInterpreter->AddIncludePath("/opt/projects/analysis/bin_centering_correction");
 	
 	#include "bin.cc"
 	#include "binc_histos.h"
@@ -18,13 +18,13 @@
 	for(int m=0; m<NMODELS; m++)
 	{
 		BH[m] = new binc_histos(models[m]);
-		BH[m]->init_histos(Form("/arena1/analysis_data/bin_correction/%s_binc_cor.root", models[m].c_str()));
+		BH[m]->init_histos(Form("/opt/root/analysis_data/bin_correction/%s_binc_cor.root", models[m].c_str()));
 		BH[m]->slice_histos();
 		BH[m]->style_histos();
 	}
 	
 	binc_histos *BHC = new binc_histos("systematic");
-	BHC->init_histos("/arena1/analysis_data/bin_correction.root");
+	BHC->init_histos("/opt/root/analysis_data/bin_correction/bin_correction.root");
 	BHC->slice_histos();
 	BHC->style_histos(5);
 	
