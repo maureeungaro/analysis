@@ -56,7 +56,7 @@ void show_syst_phi()
 	lab.SetTextColor(kBlue+2);
 	lab.SetNDC();
 	
-	TCanvas *PHC = new TCanvas("PHC","Phi dependence of correction", 800,800);
+	TCanvas *PHC = new TCanvas("PHC","Phi dependence of correction", 1000,1000);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.06,.95, Form("Bin Correction  W = %3.2f  Q^{2} = %3.2f", Bin.wm_center[WW], Bin.q2_center[QQ]) );
 	
