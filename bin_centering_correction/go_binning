@@ -1,0 +1,41 @@
+#!/bin/csh
+
+# Spp will always use the same table
+# linking different model table each time
+#
+# the spp_int_e1 is in CVS: aao/spp_int_e1 
+#
+# int_ctrl_4.F is to choose e1 kinematics (for the input file
+# int_ctrl_5.F is for bin averaging
+#
+
+setenv CLAS_PARMS `pwd`/CLAS_PARMS
+#attention, CLAS_PARMS need to be set outside this script or it wont work
+
+rm -rf $CLAS_PARMS
+mkdir -p $CLAS_PARMS/spp_tbl
+
+#set models = (dmt2001 maid2002 maid2003 maid2003woroper maid2007 said2008)
+set models = (maid2002 maid2003 maid2003woroper maid2007 said2008)
+
+set dir = /home/ungaro/spp_tbl
+set exe = /home/ungaro/top_dir/bin/LinuxRHFC8/spp_int_e1
+
+foreach m ($models)
+	
+	rm -f                   $CLAS_PARMS/spp_tbl/maid07-PPpi.tbl
+	ln -s $dir/$m-PPpi.tbl  $CLAS_PARMS/spp_tbl/maid07-PPpi.tbl
+	echo
+	foreach Q2 (input2.15.txt input2.40.txt input3.00.txt input3.50.txt input4.20.txt input5.00.txt)
+		echo Calculating $m table for q2 $Q2
+		$exe < $Q2 
+	end
+	echo
+
+	mkdir -p    models/$m/
+	mv out*.txt models/$m
+
+end 
+
+
+
