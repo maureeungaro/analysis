@@ -12,7 +12,8 @@
 	string models[NMODELS]  = {"dmt2001", "maid2002", "maid2003", "maid2003woroper", "maid2007"};
 	Color_t colors[NMODELS] = { kGreen+1,    kGray+3,      kBlue,              kRed,    kViolet};
 
-	string vcut = "0.04";
+	// maid2007 does not have 0.00 cut
+	string vcut = "0.08";
 	
 	rad_histos *RH[NMODELS+1];
 
@@ -60,6 +61,11 @@
 	bar->AddButton("","");
 	bar->Show();
 
+
+	// to print all pics, uncomment the lines below and run root
+	// in batch mode: root -b -q rad.C
+	print_all();
+	print_all_syst();
 
 
 }

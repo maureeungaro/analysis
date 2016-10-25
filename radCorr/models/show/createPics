@@ -1,11 +1,11 @@
 #!/bin/csh -f
 
 
-rm imageslist.txt ; ls img/* > imageslist.txt
+rm imageslist.txt ; ls img/ > imageslist.txt
 
 
 /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=wbin -addColumnTableVariable=q2bin \
--addSelectableVariable=plot -addSelectableVariable=vcut -defaultPlot=img/wbin-1.29_q2bin-3.00_plot-corrPhiss.png -imagesSize="1000 1000"
+-addSelectableVariable=plot -addSelectableVariable=vcut -defaultPlot=img/wbin-1.67_q2bin-3.00_plot-thetas_vcut-0.04.png -imagesSize="1000 1000"
 
 mv page.html radCor.html
 
