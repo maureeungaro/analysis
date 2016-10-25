@@ -28,6 +28,12 @@ void change_binning()
 	cout << endl << " Binning set to " << bindex[BIN] << endl << endl;
 }
 
+void change_hoption()
+{
+	HOPT++;
+	if(HOPT==3) HOPT=0;
+	cout << endl << " Histo option set to " << oindex[HOPT] << endl << endl;
+}
 
 void show_phi()
 {
@@ -46,7 +52,7 @@ void show_phi()
 	lab.SetTextColor(kBlue+3);
 	lab.SetNDC();
 	
-	TCanvas *PH = new TCanvas("PH","Phi dependence of correction", 800, 800);
+	TCanvas *PH = new TCanvas("PH","Phi dependence of correction", 1000, 1000);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.04,.94, Form("%s   W=%3.2f  Q^{2}=%3.2f", what[WHAT].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ]) );
 	
@@ -82,11 +88,14 @@ void show_phi()
 		AH->pi0_phi[WW][QQ][i][0][BIN]->Draw("");
 		gPad->Update();
 
+		string hopt     = oindex[HOPT];
+		string hoptsame = hopt + "same";
+
 		if(WHAT ==0)
 		{
-			AH->pi0_phi[WW][QQ][i][2][2]->Draw("hist 9c");
-			AH->pi0_phi[WW][QQ][i][2][1]->Draw("hist 9csame");
-			AH->pi0_phi[WW][QQ][i][2][0]->Draw("hist 9csame");
+			AH->pi0_phi[WW][QQ][i][2][2]->Draw(hopt.c_str());
+			AH->pi0_phi[WW][QQ][i][2][1]->Draw(hoptsame.c_str());
+			AH->pi0_phi[WW][QQ][i][2][0]->Draw(hoptsame.c_str());
 		}
 		
 		if(WHAT == 1)

@@ -10,7 +10,7 @@ using namespace std;
 // kinematics includes
 #include "histos.h"
 
-// ./acc_histos -BEAM_E=5.7542 -TARGET=proton -ROOT_OUTPUT=acc.root /Volumes/e1-6Proc/gsim/pi0s/e16mc_1.mu
+// ./acc_histos -BEAM_E=5.7542 -TARGET=proton -ROOT_OUTPUT=acc.root -OUTPUT=e16mc_1.mu /Volumes/e1-6Proc/gsim/pi0s/e16mc_1.mu
 
 int main(int argc, char **argv)
 {
@@ -27,7 +27,17 @@ int main(int argc, char **argv)
 	
 	// if ROOT output name is given, write out the ROOT histos
 	histos H(Opts.args["ROOT_OUTPUT"].args);
-	
+
+
+	ofstream ofile;
+	// if an output name is given, write out the mu filtered file
+	if(Opts.args["OUTPUT"].args != "none")
+	{
+		cout << hd_msg << " Opening Output File: " << Opts.args["OUTPUT"].args << endl;
+		ofile.open(Opts.args["OUTPUT"].args.c_str(), ios::out | ios::binary);
+	}
+	ofile << "dummy so that the script can keep a log of which runs have been processed " ;
+
 	for (unsigned int f=0; f<Opts.ifiles.size(); f++)
 	{
 		cout << hd_msg << " Opening Input File: " << Opts.ifiles[f] << endl;
@@ -69,7 +79,8 @@ int main(int argc, char **argv)
 	}
 	if(Opts.args["ROOT_OUTPUT"].args != "none")
 		H.write_and_close();
-	
+
+	ofile.close();
    cout << endl;
 	return 1;
 }

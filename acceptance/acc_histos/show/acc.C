@@ -14,7 +14,10 @@
 
 	string bindex[3] = {"b24", "b48", "b96"};
 	int BIN          = 0;  
-	
+
+	string oindex[3] = {"E", "hist 9c", "hist"};
+	int HOPT         = 0;
+
 	int WW       = 0;
 	int QQ       = 0;
 	string PRINT = "";
@@ -40,6 +43,8 @@
 	bar->AddButton("","");
 	bar->AddButton("Change Quantity",                              "change_what()");
 	bar->AddButton("Change Binning",                               "change_binning()");
+	bar->AddButton("","");
+	bar->AddButton("Change hist options",                          "change_hoption()");
 	bar->AddButton("","");
 	bar->AddButton("Print all",                                    "print_all()");
 	bar->AddButton("","");
