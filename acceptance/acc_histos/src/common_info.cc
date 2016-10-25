@@ -1,19 +1,13 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
+#include "utilities.h"
 #include "bin.h"
 
-
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 
-// %%%%%%%%%%
 // Histograms
-// %%%%%%%%%%
 acc_chistos::acc_chistos(string filename, int READ, int OACC)
 {
 	// Default: filename is output file

@@ -9,7 +9,6 @@ env.Append(CPPPATH = incpath)
 
 sources = Split("""acc_histos.cc
                    src/common_info.cc
-                   src/rebin.cc
                    src/histos.cc""")
 
 acc_histos = env.Program(source = sources, target = 'acc_histos')

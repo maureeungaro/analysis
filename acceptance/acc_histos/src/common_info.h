@@ -1,16 +1,12 @@
 #ifndef ACC_INFO_H
 #define ACC_INFO_H
  
-// %%%%%%%%%%%%%
 // ROOT includes
-// %%%%%%%%%%%%%
 #include "TFile.h"
 #include "TH1.h"
 #include "TH2.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 #include <iostream>
 using namespace std;

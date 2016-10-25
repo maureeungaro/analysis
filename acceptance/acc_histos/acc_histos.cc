@@ -1,22 +1,16 @@
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 using namespace std;
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%%%%%%%%
 // kinematics includes
-// %%%%%%%%%%%%%%%%%%%
 #include "histos.h"
 
-// ./acc_histos -BEAM_E=5.7542 -TARGET=proton -ROOT_OUTPUT=a.root /enkil/gsim_e1-6/q2_2.0-7.0/pi0/e16mc_163.mu
+// ./acc_histos -BEAM_E=5.7542 -TARGET=proton -ROOT_OUTPUT=acc.root /Volumes/e1-6Proc/gsim/pi0s/e16mc_1.mu
 
 int main(int argc, char **argv)
 {

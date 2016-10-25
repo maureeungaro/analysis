@@ -1,6 +1,7 @@
 {
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/binning");
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/acceptance/acc_histos/src");
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/binning");
+	gInterpreter->AddIncludePath("/opt/projects/analysis/acceptance/acc_histos/src");
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
 	#include "bin.cc"
 	#include "common_info.cc"
 
@@ -25,7 +26,7 @@
 	
 	gROOT->LoadMacro("utils.C");
 	
-	acc_chistos *AH = new acc_chistos("/arena1/analysis_data/acceptance.root", 1);
+	acc_chistos *AH = new acc_chistos("acc.root", 1);
 	AH->calc_acc();
 	AH->slice();
 	AH->style();
