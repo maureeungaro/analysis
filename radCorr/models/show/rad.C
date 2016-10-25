@@ -1,7 +1,7 @@
 {
 
 	gInterpreter->AddIncludePath("/opt/projects/muEvent/binning");
-	gInterpreter->AddIncludePath("/opt/projects/analysis/radiative_correction/models");
+	gInterpreter->AddIncludePath("/opt/projects/analysis/radCorr/models");
 	
 	#include "bin.cc"
 	#include "rad_histos.h"
@@ -12,7 +12,7 @@
 	string models[NMODELS]  = {"dmt2001", "maid2002", "maid2003", "maid2003woroper", "maid2007"};
 	Color_t colors[NMODELS] = { kGreen+1,    kGray+3,      kBlue,              kRed,    kViolet};
 
-	string vcut = "0.08";
+	string vcut = "0.04";
 	
 	rad_histos *RH[NMODELS+1];
 
@@ -20,13 +20,13 @@
 	for(int m=0; m<NMODELS; m++)
 	{
 		RH[m] = new rad_histos();
-		RH[m]->init_histos(Form("/opt/root/analysis_data/exclurad_tables/%s_rad_cor_%s.root", models[m].c_str(), vcut.c_str()));
+		RH[m]->init_histos(Form("/opt/root/analysis_data/radiative_correction/%s_rad_cor_%s.root", models[m].c_str(), vcut.c_str()));
 		RH[m]->slice_histos();
 		RH[m]->style_histos(m);
 	}
 	
 	rad_histos *RHC = new rad_histos();
-	RHC->init_histos("/opt/root/analysis_data/radiative_correction.root");
+	RHC->init_histos("/opt/root/analysis_data/radiative_correction/radiative_correction.root");
 	RHC->slice_histos();
 	RHC->style_histos(5);
 	
