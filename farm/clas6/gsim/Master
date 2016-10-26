@@ -1,14 +1,14 @@
 #!/bin/csh 
 
 # crontab:
-# 42 * * * * ~/projects/analysis/farm/clas6/gsim/Master batch > ~/gsimLog
+# 42 * * * * ~/projects/analysis/farm/clas6/gsim/Master batch > ~/simLog
 
 
 
 set dir   = /lustre/expphy/volatile/clas/clas12/ungaro/gsim
 set fromd = /u/home/ungaro/projects/analysis/farm/clas6/gsim
 
-set NMAX = (800)
+set NMAX = (2000)
 
 set N = 0
 if($1 == "batch") then

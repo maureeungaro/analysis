@@ -9,7 +9,9 @@ if(`filetest -e ~/canBeDeleted.txt` == "1") then
 	set fileList = `cat ~/canBeDeleted.txt`
 	foreach f($fileList)
 		echo $f already processed, deleting it
+		rm $f
 	end
+	rm ~/canBeDeleted.txt
 else
 	echo
 	echo Nothing to delete
