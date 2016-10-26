@@ -18,13 +18,11 @@ set Nevents = 20000  # from input.aao
 set N = `ls $dest  | wc | awk '{print $1}'`
 @ N += 1
 
-set NEXISTD = `ls $dir | wc | awk '{print $1}'`  # number of existing directories to process
-
-@ NEXISTD += 2000
+set MAXD = `\ls $dir | awk -F\_ '{print $2}' | sort -g | tail -1`  # max sim to consider
 
 set SIMU = 1
 
-while ($SIMU < $NEXISTD)
+while ($SIMU < $MAXD)
 
 	if(`filetest -e  $dir/simu_$SIMU` == "1") then
 

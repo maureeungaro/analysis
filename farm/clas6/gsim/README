@@ -1,4 +1,14 @@
- elast_gen input parameters
+Cron Scheme
+
+*.15: (mauri) retrieve files, produce file to be deleted at jlab
+*.01, every 10 minutes: (jlab) delete files
+*.45: (jlab) inquire simulation (prepare files to be retrieved)
+*.00: (jlab) launch enough sim jobs
+
+
+
+
+elast_gen input parameters explanation
  
  
 1.0                 !fraction of events in elas peak
