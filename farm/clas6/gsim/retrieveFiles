@@ -22,6 +22,16 @@ if($1 != "copyonly") then
 	scp -r ftp:$remote $localr
 endif
 
+# making list of file that can be deleted
+rm canBeDeleted.txt ; touch canBeDeleted.txt
+cd $mce16
+set allFiles = `ls`
+cd -
+foreach f($allFiles)
+	echo $remote/$f >> canBeDeleted.txt
+end
+scp canBeDeleted.txt ftp:
+
 # now moving files to raw destination
 set N = `\ls $dest | wc | awk '{print $1}'`
 foreach f(`\ls $mce16`)
@@ -30,14 +40,5 @@ foreach f(`\ls $mce16`)
 	@ N += 1
 end
 
-
-# now deleting remote dir. We'll need password for this
-echo
-echo ENTER PASSWORD TO REMOVE REMOTE DIR
-echo
-echo MAKE SURE YOU RAN INQUIRESIMULATION REMOTELY FIRST
-echo
-echo
-ssh -Y -t -t -l ungaro login.jlab.org ssh -t -t ifarm65 'rm -rf /lustre/expphy/volatile/clas/clas12/ungaro/mce16'
 
 

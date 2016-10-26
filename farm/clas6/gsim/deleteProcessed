@@ -1,0 +1,17 @@
+#!/bin/csh -f
+
+# This script will check the existance of canBeDeleted.txt and if it's present will delete all
+# the files in the file
+#
+# It can be executed by a cronjob
+
+if(`filetest -e ~/canBeDeleted.txt` == "1") then
+	set fileList = `cat ~/canBeDeleted.txt`
+	foreach f($fileList)
+		echo $f already processed, deleting it
+	end
+else
+	echo
+	echo Nothing to delete
+	echo
+endif
