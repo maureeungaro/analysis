@@ -1,0 +1,25 @@
+#!/bin/csh -f
+
+# This script will execute various scripts to retrieve
+
+
+source /u/home/ungaro/projects/analysis/farm/clas6/gsim/set_env_e16simulation
+
+set dir  = /lustre/expphy/volatile/clas/clas12/ungaro/gsim
+cd $dir
+
+foreach d(`ls`)
+	# checking that the dir exist
+	if(`filetest -e $d/mu` == "1") then
+		echo checking $d/mu
+		cd $d/mu
+		# if the dir exist but the mu doesn't exist and the log exist, time to re-do the mu
+		if(`filetest -e e16mc.mu` == "0" && `filetest -e log` == "1") then
+			echo re-processing e16mc.mu
+			rm log
+			./bos2mu -RUN_INDEX=$CLAS_CALDB_RUNINDEX -DC_PLANES=1 -INFOS="e16 MonteCarlo Simulation" -OUTPUT=e16mc.mu recsis.A00 >& log
+			cd -
+		endif
+
+	endif
+end

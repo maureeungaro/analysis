@@ -19,3 +19,4 @@ fiducial/proton/p_fiducial
 e_kin_cor/momentum/e_mom_corr
 pi0_selection/pi0_selection
 vertex/vertex_corr_sel
+acceptance/acc_histos/acc_histos
