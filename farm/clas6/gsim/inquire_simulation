@@ -20,7 +20,7 @@ set N = `ls $dest  | wc | awk '{print $1}'`
 
 set NEXISTD = `ls $dir | wc | awk '{print $1}'`  # number of existing directories to process
 
-@ NEXISTD += 100
+@ NEXISTD += 2000
 
 set SIMU = 1
 
