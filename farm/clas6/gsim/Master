@@ -1,9 +1,7 @@
 #!/bin/csh 
 
-# crontab:
-# 42 * * * * ~/projects/analysis/farm/clas6/gsim/Master batch > ~/simLog
-
-
+# crontab (JLab)
+# 00 * * * * ~/projects/analysis/farm/clas6/gsim/Master batch > ~/simLog
 
 set dir   = /lustre/expphy/volatile/clas/clas12/ungaro/gsim
 set fromd = /u/home/ungaro/projects/analysis/farm/clas6/gsim

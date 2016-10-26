@@ -3,6 +3,9 @@
 # This script will copy the remote farm directory on the local disk and rename
 # files in order to be ready to be concatenated
 
+# crontab (mauri)
+# 15 * * * * /opt/projects/analysis/farm/clas6/gsim/retrieveFiles > /Users/ungaro/retrievedFiles
+
 set remote = /lustre/expphy/volatile/clas/clas12/ungaro/mce16
 set localr = /Volumes/e1-6Proc/gsim
 set mce16  = $localr/mce16

@@ -5,6 +5,14 @@
 #
 # It can be executed by a cronjob
 
+# crontab (JLab)
+# 01 * * * * ~/projects/analysis/farm/clas6/gsim/deleteProcessed > ~/deletedLog
+# 11 * * * * ~/projects/analysis/farm/clas6/gsim/deleteProcessed > ~/deletedLog
+# 21 * * * * ~/projects/analysis/farm/clas6/gsim/deleteProcessed > ~/deletedLog
+# 31 * * * * ~/projects/analysis/farm/clas6/gsim/deleteProcessed > ~/deletedLog
+# 41 * * * * ~/projects/analysis/farm/clas6/gsim/deleteProcessed > ~/deletedLog
+# 51 * * * * ~/projects/analysis/farm/clas6/gsim/deleteProcessed > ~/deletedLog
+
 if(`filetest -e ~/canBeDeleted.txt` == "1") then
 	set fileList = `cat ~/canBeDeleted.txt`
 	foreach f($fileList)

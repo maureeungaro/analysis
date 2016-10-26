@@ -3,6 +3,9 @@
 #./inquire_simulation VERBOSE
 #./inquire_simulation copy
 
+# crontab (JLab)
+# 45 * * * * ~/projects/analysis/farm/clas6/gsim/inquire_simulation copy > ~/inquireLog
+
 
 set OPT  = $1
 
