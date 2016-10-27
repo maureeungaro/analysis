@@ -140,9 +140,13 @@
    bar->AddButton("Show Process ID vs pid",      "show_procvspid()");
    bar->AddButton("Show Process ID vs Edep",     "show_procvsedep()");
    bar->AddButton("Show Process ID vs E",        "show_procvse()");
-
 	bar->Show();
-		
+
+	// to print all pics, uncomment the lines below and run root
+	// in batch mode: root -b -q rates.C
+	print_all();
+
+
 }
 
 
