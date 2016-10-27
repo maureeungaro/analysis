@@ -8,7 +8,7 @@ rm imageslist.txt ; ls img/* > imageslist.txt
 
 /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=conf   -addColumnTableVariable=zone \
 -addSelectableVariable=plot -addSelectableVariable=region \
--defaultPlot=img/cut-09uvw_sector-all.png -imagesSize="1000 1000"
+-defaultPlot=img/conf-field090_zone-all_plot-zvertex_region-3.png -imagesSize="1000 1000"
 
 mv page.html dc.html
 
