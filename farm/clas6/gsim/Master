@@ -1,4 +1,4 @@
-#!/bin/csh 
+#!/bin/csh -f
 
 # crontab (JLab)
 # 00 * * * * ~/projects/analysis/farm/clas6/gsim/Master batch > ~/simLog
