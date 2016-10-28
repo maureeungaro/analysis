@@ -4,6 +4,15 @@
 # and process GSIM data. The command retrieveFiles must be run
 # manually because of the password requirement
 
+# if a processGsim already exist, exit
+
+set exist = `\ps -ef | grep processGsim | grep -v grep | wc | awk '{print $1}'`
+
+if($exist != "0") then
+	echo process already running. Exiting.
+	exit
+endif
+
 set rd = /opt/projects/analysis/farm/clas6/muProcessing
 
 $rd/go_concatenate_gsim  /Volumes/e1-6Proc/gsim/raw /Volumes/e1-6Proc/gsim/full 20
