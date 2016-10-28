@@ -1,6 +1,7 @@
 Cron Scheme
 
 *.15: (mauri) retrieve files, produce file to be deleted at jlab
+*.35: (mauri) process files
 *.01, every 10 minutes: (jlab) delete files
 *.45: (jlab) inquire simulation (prepare files to be retrieved)
 *.00: (jlab) launch enough sim jobs

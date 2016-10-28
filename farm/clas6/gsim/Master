@@ -27,7 +27,7 @@ while ($i <= $REM)
 	echo  COMMAND: go_MC $dir aao_rad              >> gsim.jsub
 	echo  OS:      centos65                        >> gsim.jsub
 	echo  MEMORY:  2000 MB                         >> gsim.jsub
-	echo  TIME: 720                                >> gsim.jsub
+	echo  TIME: 780                                >> gsim.jsub
 	echo  OTHER_FILES: $fromd/go_MC                >> gsim.jsub
 	echo  OTHER_FILES: $fromd/input.aao            >> gsim.jsub
 	echo  OTHER_FILES: $fromd/elas_5.7.inp         >> gsim.jsub
