@@ -21,13 +21,11 @@ set origd = `pwd`
 
 source /u/home/ungaro/projects/analysis/farm/clas6/gsim/set_env_e16simulation
 
-set NEXIST = `ls $dir/ | wc | awk '{print $1}'`
-@ NMAX = $NEXIST + 500
-
+set MAXD = `\ls $dir | awk -F\_ '{print $2}' | sort -g | tail -1`  # max sim to consider
 
 # Look for first non existing dir
 set SIMU    = 1                  
-while ($SIMU < $NMAX)            
+while ($SIMU < $MAXD)
 
 	if(`filetest -e $dir/simu_$SIMU` == 0) then
 		echo
