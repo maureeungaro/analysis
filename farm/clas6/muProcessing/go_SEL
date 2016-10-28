@@ -77,6 +77,9 @@ rm -rf TOTA_SEL ; touch TOTA_SEL
 rm -rf TODO_SEL ; touch TODO_SEL
 
 # Making sure no 1/2 job left: deleting last run done
+set MAXD = `\ls $DEST_DIR | awk -F_ '{print $2}' | awk -F. '{print $1}' | sort -g | tail -1`  # max sim to consider
+
+
 set last_file = (`\ls -rt $DEST_DIR  | grep ".mu" | tail -1`)
 if(`filetest -e $DEST_DIR/$last_file` != 0 && $last_file != "") then
 	echo " "Removing $DEST_DIR/$last_file
