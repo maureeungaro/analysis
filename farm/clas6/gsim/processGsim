@@ -8,7 +8,7 @@
 
 set exist = `\ps -ef | grep processGsim | grep -v grep | wc | awk '{print $1}'`
 
-if($exist != "0") then
+if($exist != "1") then
 	echo process already running. Exiting.
 	exit
 endif
