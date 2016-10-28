@@ -6,9 +6,14 @@
 
 # if a processGsim already exist, exit
 
-set exist = `\ps -ef | grep processGsim | grep -v grep | wc | awk '{print $1}'`
+# saving previous log
+mv processcronLog processcronLog`date "+%Y-%m-%d-%H:%M"`
+
+set exist = `\ps -ef | grep processGsim | grep cronLog | grep -v grep | wc | awk '{print $1}'`
 
 if($exist != "1") then
+	\ps -ef | grep processGsim
+	echo exist: $exist
 	echo process already running. Exiting.
 	exit
 endif
