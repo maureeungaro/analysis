@@ -34,9 +34,9 @@ echo " Command line:            "  $COMMAND
 echo " "
 
 set nfiles = (`\ls $ORIG_DIR/*.mu  | head -$NFILES`)
+set next_sim = (`\ls $DEST_DIR | grep mu | wc | awk '{print $1}'`)
 
 while ($#nfiles == $NFILES)
-	set next_sim = (`\ls $DEST_DIR | grep mu | wc | awk '{print $1}'`)
 	@ next_sim += 1
 	echo Concatenating $nfiles into e16mc_$next_sim.mu
 	$COMMAND $nfiles -OUTPUT=$DEST_DIR/e16mc_$next_sim.mu
