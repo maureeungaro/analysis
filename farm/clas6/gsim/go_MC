@@ -23,6 +23,8 @@ source /u/home/ungaro/projects/analysis/farm/clas6/gsim/set_env_e16simulation
 
 set MAXD = `\ls $dir | awk -F\_ '{print $2}' | sort -g | tail -1`  # max sim to consider
 
+@ MAXD += 200
+
 # Look for first non existing dir
 set SIMU    = 1                  
 while ($SIMU < $MAXD)

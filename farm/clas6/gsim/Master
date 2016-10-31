@@ -6,7 +6,7 @@
 set dir   = /lustre/expphy/volatile/clas/clas12/ungaro/gsim
 set fromd = /u/home/ungaro/projects/analysis/farm/clas6/gsim
 
-set NMAX = (5000)
+set NMAX = (500)
 
 set N = 0
 if($1 == "batch") then
@@ -15,35 +15,35 @@ endif
 
 @ REM = $NMAX - $N
 
-echo $N process already running, $REM to launch to reach $NMAX ...
+\echo $N process already running, $REM to launch to reach $NMAX ...
 
 set i = (1)
 while ($i <= $REM)
 	rm -f gsim.jsub
-	echo  JOBNAME: e16 montecarlo                   > gsim.jsub
-	echo  PROJECT: e1-6a                           >> gsim.jsub
-	echo  MAIL:    ungaro@jlab.org                 >> gsim.jsub
-	echo  TRACK:   simulation                      >> gsim.jsub
-	echo  COMMAND: go_MC $dir aao_rad              >> gsim.jsub
-	echo  OS:      centos65                        >> gsim.jsub
-	echo  MEMORY:  2000 MB                         >> gsim.jsub
-	echo  TIME: 780                                >> gsim.jsub
-	echo  OTHER_FILES: $fromd/go_MC                >> gsim.jsub
-	echo  OTHER_FILES: $fromd/input.aao            >> gsim.jsub
-	echo  OTHER_FILES: $fromd/elas_5.7.inp         >> gsim.jsub
-	echo  OTHER_FILES: $fromd/gsim_simue16.ffread  >> gsim.jsub
-	echo  OTHER_FILES: $fromd/recsis_simue16.tcl   >> gsim.jsub
-#	echo  OTHER_FILES: $fromd/bins/elast_gen                       >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/aao_rad                         >> gsim.jsub
-	echo  OTHER_FILES: $fromd/bins/gsim_bat                        >> gsim.jsub
-	echo  OTHER_FILES: /home/clasg11/top_dir/bin/LinuxRHEL6/gpp    >> gsim.jsub
-	echo  OTHER_FILES: /home/clase1-6/recook/executables/user_ana  >> gsim.jsub
-	echo  OTHER_FILES: /home/clase1-6/recook/executables/bos2mu    >> gsim.jsub
-	echo
+	\echo  JOBNAME: e16 montecarlo                   > gsim.jsub
+	\echo  PROJECT: e1-6a                           >> gsim.jsub
+	\echo  MAIL:    ungaro@jlab.org                 >> gsim.jsub
+	\echo  TRACK:   simulation                      >> gsim.jsub
+	\echo  COMMAND: go_MC $dir aao_rad              >> gsim.jsub
+	\echo  OS:      centos65                        >> gsim.jsub
+	\echo  MEMORY:  2000 MB                         >> gsim.jsub
+	\echo  TIME: 780                                >> gsim.jsub
+	\echo  OTHER_FILES: $fromd/go_MC                >> gsim.jsub
+	\echo  OTHER_FILES: $fromd/input.aao            >> gsim.jsub
+	\echo  OTHER_FILES: $fromd/elas_5.7.inp         >> gsim.jsub
+	\echo  OTHER_FILES: $fromd/gsim_simue16.ffread  >> gsim.jsub
+	\echo  OTHER_FILES: $fromd/recsis_simue16.tcl   >> gsim.jsub
+#	\echo  OTHER_FILES: $fromd/bins/elast_gen                       >> gsim.jsub
+	\echo  OTHER_FILES: $fromd/bins/aao_rad                         >> gsim.jsub
+	\echo  OTHER_FILES: $fromd/bins/gsim_bat                        >> gsim.jsub
+	\echo  OTHER_FILES: /home/clasg11/top_dir/bin/LinuxRHEL6/gpp    >> gsim.jsub
+	\echo  OTHER_FILES: /home/clase1-6/recook/executables/user_ana  >> gsim.jsub
+	\echo  OTHER_FILES: /home/clase1-6/recook/executables/bos2mu    >> gsim.jsub
+	\echo
 	
 	/site/bin/jsub gsim.jsub
 
-	echo Launching simulation $i 
+	\echo Launching simulation $i 
 	@ i += 1
 end
 
