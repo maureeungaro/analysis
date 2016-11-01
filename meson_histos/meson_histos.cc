@@ -1,19 +1,13 @@
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 using namespace std;
 
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "CLAS_Event.h"
 #include "usage.h"
-#include "definitions.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%%%%%%%%
 // kinematics includes
-// %%%%%%%%%%%%%%%%%%%
 #include "histos.h"
 
 // ./meson_histos -BEAM_E=5.754 -TARGET=proton -ROOT_OUTPUT=meson_histos.root /enkil/e1-6/nobh/*.mu

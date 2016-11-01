@@ -1,19 +1,14 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
 #include "bin.h"
+#include "utilities.h"
 
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 
-// %%%%%%%%%%
 // Histograms
-// %%%%%%%%%%
 meson_chistos::meson_chistos(string filename, int READ)
 {
 	// Default: filename is output file

@@ -1,12 +1,8 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "histos.h"
 #include "bin.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <string>
 #include <iostream>
 using namespace std;

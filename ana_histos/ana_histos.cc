@@ -1,12 +1,8 @@
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 using namespace std;
 
-// %%%%%%%%%%%%%%%
 // histos includes
-// %%%%%%%%%%%%%%%
 #include "common_info.h"
 #include "meson_histos/src/common_info.h"
 #include "meson_histos/src/common_info.cc"
@@ -20,9 +16,7 @@ using namespace std;
 #include "models/cross_sections_tables/create_histos/mod_histos.cc"
 
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <iostream>
 using namespace std;
 

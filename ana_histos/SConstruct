@@ -5,7 +5,7 @@ env = init_environment("root mu")
 
 # Include Path
 # Hardcoding path to various corrections software
-incpath = ['src', '/opt/work/projects/analysis']
+incpath = ['src', '/opt/projects/analysis']
 
 env.Append(CPPPATH = incpath)
 
