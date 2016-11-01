@@ -10,7 +10,7 @@ using namespace std;
 // kinematics includes
 #include "histos.h"
 
-// ./meson_histos -BEAM_E=5.754 -TARGET=proton -ROOT_OUTPUT=meson_histos.root /enkil/e1-6/nobh/*.mu
+// ./meson_histos -BEAM_E=5.754 -TARGET=proton -ROOT_OUTPUT=meson_histos.root  /Volumes/e1-6Proc/pass4/pi0s/*.mu
 
 int main(int argc, char **argv)
 {

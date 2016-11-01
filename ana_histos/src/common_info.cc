@@ -1,12 +1,9 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
 #include "bin.h"
+#include "utilities.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 #include <cmath>

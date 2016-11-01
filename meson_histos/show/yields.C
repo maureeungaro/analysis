@@ -1,20 +1,20 @@
 {
 
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/binning");
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/meson_histos/src");
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/acceptance/acc_histos/src");
-	gInterpreter->AddIncludePath("/opt/work/projects/analysis/ana_histos/src");
+	gInterpreter->AddIncludePath("/opt/projects/analysis/binning");
+	gInterpreter->AddIncludePath("/opt/projects/analysis/meson_histos/src");
+	gInterpreter->AddIncludePath("/opt/projects/analysis/acceptance/acc_histos/src");
+	gInterpreter->AddIncludePath("/opt/projects/analysis/ana_histos/src");
 
 	string  what = "pi0";
 	string swhat = "#pi^{0}";
 	
 	#include "bin.cc"
-	#include "/opt/work/projects/analysis/meson_histos/src/common_info.h"
-	#include "/opt/work/projects/analysis/meson_histos/src/common_info.cc"
-	#include "/opt/work/projects/analysis/acceptance/acc_histos/src/common_info.h"
-	#include "/opt/work/projects/analysis/acceptance/acc_histos/src/common_info.cc"
-	#include "/opt/work/projects/analysis/ana_histos/src/common_info.cc"
-	#include "/opt/work/projects/analysis/ana_histos/src/rebin.cc"
+	#include "/opt/projects/analysis/meson_histos/src/common_info.h"
+	#include "/opt/projects/analysis/meson_histos/src/common_info.cc"
+	#include "/opt/projects/analysis/acceptance/acc_histos/src/common_info.h"
+	#include "/opt/projects/analysis/acceptance/acc_histos/src/common_info.cc"
+	#include "/opt/projects/analysis/ana_histos/src/common_info.cc"
+	#include "/opt/projects/analysis/ana_histos/src/rebin.cc"
 	
 	gROOT->LoadMacro("utils.C");
 	

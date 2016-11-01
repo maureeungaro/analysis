@@ -1,12 +1,8 @@
-// %%%%%%%%%%%
 // MU includes
-// %%%%%%%%%%%
 #include "common_info.h"
 #include "bin.h"
 
-// %%%%%%%%%%%%
 // C++ includes
-// %%%%%%%%%%%%
 #include <fstream>
 #include <cstdlib>
 #include <cmath>
@@ -21,7 +17,7 @@ void ana_chistos::fit_phis()
 			for(int s=0; s<3; s++)
 			{
 				pi0_sf[w][q][s] = new TH1D(Form("pi0_sigma_%s_W_%4.3f_Q2_%4.3f", which[s].c_str(), Bin.wm_center[w], Bin.q2_center[q]),
-																	 Form("pi0_sigma_%s_W_%4.3f_Q2_%4.3f", which[s].c_str(), Bin.wm_center[w], Bin.q2_center[q]), Bin.CTBIN, -1, 1);
+													Form("pi0_sigma_%s_W_%4.3f_Q2_%4.3f", which[s].c_str(), Bin.wm_center[w], Bin.q2_center[q]), Bin.CTBIN, -1, 1);
 			}
 	
 	double BEAM    = 5.7542 ;        // beam energy in GeV
