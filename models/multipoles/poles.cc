@@ -14,7 +14,7 @@ poles::poles(string m)
 	
 	cout << " Loading multipoles for " << model << endl;
 
-	string file = "/arena1/analysis_data/models/multipoles_tables/" + m + "-PPpi.tbl";
+	string file = "/opt/models/" + m + "-PPpi.tbl";
 	char tmp[20];
 
 	ifstream IN(file.c_str());

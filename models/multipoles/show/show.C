@@ -8,13 +8,13 @@ void show(int which)
 
 	string poles[3]   = {"S", "E", "M"};
 	string real_im[2] = {"Real", "Imag"};
-	string pm[2]      = {"+", "-"};
+	string pm[2]      = {"plus", "minus"};
    int ipm = PLUS_M > 0 ? 0 : 1;
 	
 	TLatex lab;
 	lab.SetNDC();
 
-	CMult = new TCanvas("CMult", "CMult", 700, 900);
+	CMult = new TCanvas("CMult", "CMult", 800, 1200);
 	PMult = new TPad("PMult", "PMult", 0.02, 0.00,  0.98, 0.90);
 	PMult->Divide(1, 2);
 	PMult->Draw();
@@ -45,10 +45,11 @@ void show(int which)
 
 	
 	if(PRINT==1)
-		CMult->Print(Form("%s_%s_%d_%s.gif", model[iMODEL].c_str(),
-						 								 poles[which-1].c_str(),
-														 ANGMOM,
-														 pm[ipm].c_str()
+		CMult->Print(Form("img/angmom-%d_multipole-%s_pm-%s_model-%s.png",
+								ANGMOM,
+								poles[which-1].c_str(),
+								pm[ipm].c_str(),
+								model[iMODEL].c_str()
 							  ));
 }
 

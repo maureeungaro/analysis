@@ -1,0 +1,11 @@
+#!/bin/csh -f
+
+
+rm imageslist.txt ; ls img/ > imageslist.txt
+
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=angmom -addColumnTableVariable=multipole \
+-addSelectableVariable=pm -addSelectableVariable=model  -defaultPlot=img/angmom-1_multipole-M_pm-plus_model-maid2007.png  -imagesSize="800 1200"
+
+mv page.html poles.html
+

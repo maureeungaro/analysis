@@ -37,7 +37,7 @@ void print_all()
 	PRINT = 1;
 	for(int l=0; l<6; l++)
 	{
-		for(int m=5; m<NMODELS-1; m++)
+		for(int m=0; m<NMODELS-1; m++)
 		{
 			iMODEL = m;
 			for(int p=0; p<2; p++)
