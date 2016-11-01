@@ -1,0 +1,14 @@
+from init_env import init_environment
+
+env = init_environment("clhep mu root")
+
+
+# Include Path
+incpath = ['src']
+env.Append(CPPPATH = incpath)
+
+sources = Split("""meson_histos.cc
+                   src/common_info.cc
+                   src/histos.cc""")
+
+meson_histos = env.Program(source = sources, target = 'meson_histos')
