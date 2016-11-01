@@ -1,0 +1,17 @@
+from init_env import init_environment
+
+env = init_environment("root mu")
+
+
+# Include Path
+# Hardcoding path to various corrections software
+incpath = ['src', '/opt/work/projects/analysis']
+
+env.Append(CPPPATH = incpath)
+
+sources = Split("""src/common_info.cc
+                   src/rebin.cc
+                   src/fit_phis.cc
+                   ana_histos.cc""")
+
+ana_histos = env.Program(source = sources, target = 'ana_histos')
