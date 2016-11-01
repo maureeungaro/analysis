@@ -1,0 +1,11 @@
+#!/bin/csh -f
+
+set models = (dmt2001  maid2002  maid2003  maid2003woroper  maid2007 said2008)
+set mdir   = /arena1/analysis_data/models/theory_cross_sections
+
+foreach m ($models)
+	ln -s $mdir/$m".dat" .
+	./make_histos $m
+	mv $m".root" $mdir
+	rm $m".dat"
+end

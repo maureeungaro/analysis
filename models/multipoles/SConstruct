@@ -1,0 +1,20 @@
+from init_env import init_environment
+
+env = init_environment("root")
+
+
+# Include Path
+incpath = ['.', 'src']
+env.Append(CPPPATH = incpath)
+
+# Sources
+poles_sources = Split("""poles.cc
+                         create_histos.cc""")
+
+Target = 'create_histos'
+env.Program(source = poles_sources, target = Target)
+
+
+
+
+

@@ -1,0 +1,10 @@
+from init_env import init_environment
+
+env = init_environment("mu root")
+
+sources = Split("""make_histos.cc
+                   mod_histos.cc""")
+
+
+env.Program(source = sources, target = 'make_histos')
+

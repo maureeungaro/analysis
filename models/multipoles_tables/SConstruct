@@ -1,0 +1,8 @@
+from init_env import init_environment
+
+env = init_environment("")
+
+
+env.Program(source = 'table.cc',     target = 'table')
+env.Program(source = 'eta_table.cc', target = 'eta_table')
+

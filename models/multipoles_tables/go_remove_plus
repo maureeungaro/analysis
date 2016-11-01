@@ -1,0 +1,12 @@
+#!/bin/tcsh
+
+sed "s/ +/  /" $1 > a
+sed "s/ +/  /" a  > b
+sed "s/ +/  /" b  > c
+sed "s/ +/  /" c  > d
+sed "s/ +/  /" d  > e
+sed "s/ +/  /" e  > f
+
+mv f $1
+rm a b c d e
+
