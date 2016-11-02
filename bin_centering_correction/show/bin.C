@@ -24,7 +24,7 @@
 	}
 	
 	binc_histos *BHC = new binc_histos("systematic");
-	BHC->init_histos("/opt/root/analysis_data/bin_correction/bin_correction.root");
+	BHC->init_histos("/opt/root/analysis_data/bin_correction.root");
 	BHC->slice_histos();
 	BHC->style_histos(5);
 	
@@ -58,6 +58,10 @@
 	bar->AddButton("","");
 	bar->Show();
 
+	// to print all pics, uncomment the lines below and run root
+	// in batch mode: root -b -q bin.C
+//	print_all();
+//	print_all_syst();
 
-
+	
 }

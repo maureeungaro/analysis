@@ -90,7 +90,7 @@ void print_all_syst()
 	for(int w=0; w<Bin.WMBIN; w++)
 	{
 		WW=w;
-		for(int q=0; q<Bin.Q2BIN-1; q++)
+		for(int q=6; q<Bin.Q2BIN; q++)
 		{
 			QQ=q;
 			show_syst_phi();

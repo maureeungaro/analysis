@@ -55,5 +55,5 @@
 	// in batch mode: root -b -q acc.C
 
 
-	print_all();
+//	print_all();
 }

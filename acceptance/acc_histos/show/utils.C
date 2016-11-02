@@ -2,7 +2,7 @@ void change_q2()
 {
 	bins Bin;
 	QQ++;
-	if(QQ==Bin.Q2BIN-1) QQ=0;
+	if(QQ==Bin.Q2BIN) QQ=0;
 	cout << endl << " W set to " << Bin.wm_center[WW] << "  Q2 set to " << Bin.q2_center[QQ] << endl << endl;
 }
 
@@ -124,7 +124,7 @@ void show_phi()
 		lab.DrawLatex(.37,.85, Form("cos(#theta*): %2.1f#divide%2.1f", Bin.ct_center[i] - Bin.dct[i]/2.0 , Bin.ct_center[i] + Bin.dct[i]/2.0) );
 	}
 	if(PRINT != "" && WHAT==0) // acceptance
-		PH->Print(Form("imga/wmass-%3.2f_q2-%3.2f_type-%s%s", Bin.wm_center[WW], Bin.q2_center[QQ], sindex[HOPT].c_str(), PRINT.c_str()));
+		PH->Print(Form("imga/wmass-%3.2f_q2-%3.2f_histo-%s%s", Bin.wm_center[WW], Bin.q2_center[QQ], sindex[HOPT].c_str(), PRINT.c_str()));
 
 	if(PRINT != "" && WHAT==1) // gen/rec
 		PH->Print(Form("imggr/wmass-%3.2f_q2-%3.2f_binning-%s%s", Bin.wm_center[WW], Bin.q2_center[QQ], bindex[BIN].c_str(), PRINT.c_str()));
@@ -138,10 +138,10 @@ void print_all()
 	bins Bin;
 	PRINT=".png";
 
-	for(int w=0; w<Bin.WMBIN-40; w++)
+	for(int w=0; w<Bin.WMBIN-43; w++)
 	{
 		WW=w;
-		for(int q=0; q<Bin.Q2BIN-1; q++)
+		for(int q=0; q<Bin.Q2BIN; q++)
 		{
 			QQ=q;
 			WHAT=1;
