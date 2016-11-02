@@ -13,7 +13,7 @@
 	
 	gROOT->LoadMacro("utils.C");
 	
-	acc_chistos *AH = new acc_chistos("/arena1/analysis_data/acceptance.root", 1);
+	acc_chistos *AH = new acc_chistos("/opt/root/analysis_data/acc.root", 1);
 	AH->calc_acc();
 	AH->slice();
 	AH->style();

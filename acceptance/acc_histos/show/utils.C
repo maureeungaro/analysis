@@ -52,7 +52,7 @@ void show_phi()
 	lab.SetTextColor(kBlue+3);
 	lab.SetNDC();
 	
-	TCanvas *PH = new TCanvas("PH","Phi dependence of correction", 1000, 1000);
+	TCanvas *PH = new TCanvas("PH","Phi dependence of correction", 1200, 1200);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.04,.94, Form("%s   W=%3.2f  Q^{2}=%3.2f", what[WHAT].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ]) );
 	
@@ -123,10 +123,12 @@ void show_phi()
 		lab.SetTextColor(kBlack);
 		lab.DrawLatex(.37,.85, Form("cos(#theta*): %2.1f#divide%2.1f", Bin.ct_center[i] - Bin.dct[i]/2.0 , Bin.ct_center[i] + Bin.dct[i]/2.0) );
 	}
-	if(PRINT != "" && WHAT==0)
-		PH->Print(Form("pi0_phi_%s_all_W_%3.2f_Q2_%3.2f%s", swhat[WHAT].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
-	if(PRINT != "" && WHAT==1)
-		PH->Print(Form("pi0_phi_%s_%s_W_%3.2f_Q2_%3.2f%s",  swhat[WHAT].c_str(), bindex[BIN].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+	if(PRINT != "" && WHAT==0) // acceptance
+		PH->Print(Form("imga/wmass-%3.2f_q2-%3.2f_type-%s%s", Bin.wm_center[WW], Bin.q2_center[QQ], sindex[HOPT].c_str(), PRINT.c_str()));
+
+	if(PRINT != "" && WHAT==1) // gen/rec
+		PH->Print(Form("imggr/wmass-%3.2f_q2-%3.2f_binning-%s%s", Bin.wm_center[WW], Bin.q2_center[QQ], bindex[BIN].c_str(), PRINT.c_str()));
+
 }
 
 
@@ -134,22 +136,29 @@ void show_phi()
 void print_all()
 {
 	bins Bin;
-	PRINT=".gif";
-	for(int w=0; w<Bin.WMBIN; w++)
+	PRINT=".png";
+
+	for(int w=0; w<Bin.WMBIN-40; w++)
 	{
 		WW=w;
 		for(int q=0; q<Bin.Q2BIN-1; q++)
 		{
 			QQ=q;
 			WHAT=1;
-			for(int b=0; b<3; b++)
-			{
+
+			// show gen/rec
+			for(int b=0; b<3; b++) {
 				BIN = b;
 				show_phi();
 			}
-			
+
+			// show acceptance
 			WHAT=0;
+			for(int b=0; b<3; b++) {
+				HOPT = b;
 				show_phi();
+			}
+
 		}
 	}
 	

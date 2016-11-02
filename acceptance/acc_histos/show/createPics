@@ -1,0 +1,23 @@
+#!/bin/csh -f
+
+
+# acceptance as a function of phi
+# table is W,Q2
+
+rm imageslist.txt ; ls imga/ > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=wmass -addColumnTableVariable=q2 \
+ -addSelectableVariable=type -defaultPlot=imga/wmass-1.19_q2-4.20_style-line.png    -d=imga -imagesSize="1200 1200"
+
+mv page.html acc.html
+
+# gen/rec as a function of phi
+# table is W,Q2
+
+rm imageslist.txt ; ls imggr/ > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=wmass -addColumnTableVariable=q2 \
+-addSelectableVariable=binning -defaultPlot=imggr/wmass-1.19_q2-4.20_binning-b96.png   -d=imggr -imagesSize="1200 1200"
+
+mv page.html genrec.html
+

@@ -15,7 +15,8 @@
 	string bindex[3] = {"b24", "b48", "b96"};
 	int BIN          = 0;  
 
-	string oindex[3] = {"E", "hist 9c", "hist"};
+	string oindex[3] = {     "E", "hist 9c", "hist"};
+	string sindex[3] = {"errors",    "line", "hist"};
 	int HOPT         = 0;
 
 	int WW       = 0;
@@ -29,7 +30,7 @@
 	
 	gROOT->LoadMacro("utils.C");
 	
-	acc_chistos *AH = new acc_chistos("acc.root", 1);
+	acc_chistos *AH = new acc_chistos("/opt/root/analysis_data/acc.root", 1);
 	AH->calc_acc();
 	AH->slice();
 	AH->style();
@@ -49,4 +50,10 @@
 	bar->AddButton("Print all",                                    "print_all()");
 	bar->AddButton("","");
 	bar->Show();
+
+	// to print all pics, uncomment the lines below and run root
+	// in batch mode: root -b -q acc.C
+
+
+	print_all();
 }
