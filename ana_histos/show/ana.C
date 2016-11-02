@@ -87,7 +87,9 @@
 	// to print all pics, uncomment the lines below and run root
 	// in batch mode: root -b -q ana.C
 	// print_all_cs();
-	print_all_cs_W();
+	// print_all_cs_W();
+	print_all_sf();
+	print_all_sf_W();
 
 }
 

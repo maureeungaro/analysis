@@ -83,7 +83,7 @@ void print_all_sf()
 void print_all_sf_W()
 {
 	bins Bin;
-	PRINT=".gif";
+	PRINT=".png";
 	WHAT = 0;
 	for(int q=0; q<Bin.Q2BIN-1; q++)
 	{

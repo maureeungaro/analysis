@@ -4,12 +4,15 @@ void show_sf(int which)
 	string sigma[3]  = {"#sigma_{L}+#epsilon#sigma_{T}", "#sigma_{TT}", "#sigma_{LT}"};
 	string ssigma[3] = {"LPT", "TT", "LT"};
 	
-	gStyle->SetPadLeftMargin(0.18);
-	gStyle->SetPadRightMargin(0.04);
-	gStyle->SetPadTopMargin(0.20);
+	gStyle->SetPadLeftMargin(0.13);
+	gStyle->SetPadRightMargin(0.0);
+	gStyle->SetPadTopMargin(0.02);
 	gStyle->SetPadBottomMargin(0.14);
 	gStyle->SetFrameFillColor(kWhite);
-	
+
+	gStyle->SetPadGridX(0);
+	gStyle->SetPadGridY(0);
+
 	bins Bin;
 
 	TLatex lab;
@@ -17,7 +20,7 @@ void show_sf(int which)
 	lab.SetTextColor(kBlue+2);
 	lab.SetNDC();
 
-	TCanvas *TH = new TCanvas("TH","Theta dependence of SF", 800, 800);
+	TCanvas *TH = new TCanvas("TH","Theta dependence of SF", 1000, 1200);
 
 	lab.SetTextSize(0.045);
 	lab.DrawLatex(.1,.92, Form("%s %s for Q^{2} = %3.2f", what[WHAT].c_str(), sigma[which].c_str(), Bin.q2_center[QQ]) );
@@ -27,7 +30,7 @@ void show_sf(int which)
 
 	TPad *TTH   = new TPad("TTH","Theta dependence of SF", 0.01, 0.06, 0.99, 0.86);
 	TTH->Draw();
-	TTH->Divide(5, 6);
+	TTH->Divide(5, 9);
 
 
 	double min_limits[3][6];
@@ -65,8 +68,9 @@ void show_sf(int which)
 	tmodels->SetBorderSize(0);
 	tmodels->SetFillColor(0);
 	tmodels->Draw();
-	
-	for(int i=0; i<30; i++)
+
+
+	for(int i=0; i<Bin.WMBIN; i++)
 	{
 		TTH->cd(i+1);
 		if(WHAT == 0)
@@ -83,9 +87,9 @@ void show_sf(int which)
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.21);
 		lab.SetTextColor(kBlack);
-		lab.DrawLatex(.38,.83, Form("W: %3.2f", Bin.wm_center[i] ) );
+		lab.DrawLatex(.38,.8, Form("W: %3.2f", Bin.wm_center[i] ) );
 	}
 	if(PRINT != "")
-		TH->Print(Form("%s_%s_Q2_%3.2f%s", swhat[WHAT].c_str(), ssigma[which].c_str(), Bin.q2_center[QQ], PRINT.c_str()));
+		TH->Print(Form("imgsf/q2-%3.2f_sf-%s_runningvar-ctheta%s", Bin.q2_center[QQ],  ssigma[which].c_str(), PRINT.c_str()));
 }
  

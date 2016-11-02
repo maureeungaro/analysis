@@ -20,3 +20,15 @@ rm imageslist.txt ; ls imgcsw/ > imageslist.txt
 -defaultPlot=imgcs/wmass-1.79_q2-3.00_xaxis-phi.png  -d=imgcsw -imagesSize="1000 1000"
 
 mv page.html csw.html
+
+
+# structure functions
+# table is Q2, structure function
+# can choose W as running variable, or cos(theta)
+
+rm imageslist.txt ; ls imgsf/ > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=q2 -addColumnTableVariable=sf \
+-addSelectableVariable=runningvar -defaultPlot=imgcs/wmass-1.79_q2-3.00_xaxis-phi.png  -d=imgsf -imagesSize="1000 1200"
+
+mv page.html sf.html

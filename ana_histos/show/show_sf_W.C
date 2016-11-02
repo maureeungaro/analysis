@@ -11,7 +11,10 @@ void show_sf_W(int which)
 	gStyle->SetPadTopMargin(0.17);
 	gStyle->SetPadBottomMargin(0.14);
 	gStyle->SetFrameFillColor(kWhite);
-	
+
+	gStyle->SetPadGridX(0);
+	gStyle->SetPadGridY(true);
+
 	bins Bin;
 
 	TLatex lab;
@@ -19,7 +22,7 @@ void show_sf_W(int which)
 	lab.SetTextColor(kBlue+2);
 	lab.SetNDC();
 
-	TCanvas *TH = new TCanvas("TH","W dependence of SF", 800, 800);
+	TCanvas *TH = new TCanvas("TH","W dependence of SF", 1000, 1200);
 
 	lab.SetTextSize(0.045);
 	lab.DrawLatex(.1,.92, Form("%s %s for Q^{2} = %3.2f", what[WHAT].c_str(), sigma[which].c_str(), Bin.q2_center[QQ]) );
@@ -63,7 +66,7 @@ void show_sf_W(int which)
 	}
 	
 	if(PRINT != "")
-		TH->Print(Form("%s_%s_W_Q2_%3.2f%s", swhat[WHAT].c_str(), ssigma[which].c_str(), Bin.q2_center[QQ], PRINT.c_str()));
+		TH->Print(Form("imgsf/q2-%3.2f_sf-%s_runningvar-wmass%s", Bin.q2_center[QQ],  ssigma[which].c_str(), PRINT.c_str()));
 }
 
 
