@@ -75,8 +75,8 @@
 	bar->AddButton("Change Quantity",                            "change_what()");
 	bar->AddButton("","");
 	bar->AddButton("Print all CS",                               "print_all_cs()");
-	bar->AddButton("Print all SF",                               "print_all_sf()");
 	bar->AddButton("Print all CS vs W",                          "print_all_cs_W()");
+	bar->AddButton("Print all SF",                               "print_all_sf()");
 	bar->AddButton("Print all SF vs W",                          "print_all_sf_W()");
 	bar->AddButton("","");
 	bar->AddButton("Change Quantity",                            "change_what()");
@@ -84,5 +84,13 @@
 	bar->Show();
 
 
+	// to print all pics, uncomment the lines below and run root
+	// in batch mode: root -b -q ana.C
+	// print_all_cs();
+	print_all_cs_W();
 
 }
+
+
+
+

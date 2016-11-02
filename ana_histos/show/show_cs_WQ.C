@@ -14,7 +14,7 @@ void show_cs_WQ()
 	lab.SetTextColor(kBlue+2);
 	lab.SetNDC();
 
-	TCanvas *TH = new TCanvas("TH","W dependence of CS", 800, 800);
+	TCanvas *TH = new TCanvas("TH","W dependence of CS", 1000, 1000);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.04,.92, Form("%s Cross Sections for  #phi^{*}=%3.2f  Q^{2}=%3.2f", what[WHAT].c_str(), Bin.ph_center[PH], Bin.q2_center[QQ]) );
 	
@@ -50,7 +50,8 @@ void show_cs_WQ()
 	}
 	
 	if(PRINT != "")
-		TH->Print(Form("%s_W_cs_PH_%3.2f_Q2_%3.2f%s", swhat[WHAT].c_str(), Bin.ph_center[PH], Bin.q2_center[QQ], PRINT.c_str()));
+		TH->Print(Form("imgcsw/phi-%3.2f_q2-%3.2f%s", Bin.ph_center[PH], Bin.q2_center[QQ], PRINT.c_str()));
+
 }
  
 

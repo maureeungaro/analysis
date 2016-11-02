@@ -78,7 +78,6 @@ void show_sf(int which)
 			for(int m=0; m<4; m++)
 				tH[m]->pi0_sf_model[i][QQ][which]->Draw("LCsame");
 			
-			
 		}
 			
 		lab.SetTextFont(42);

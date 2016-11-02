@@ -1,11 +1,22 @@
 #!/bin/csh -f
 
 
-rm imageslist.txt ; ls img/ > imageslist.txt
+# cross sections as a function of theta or phi
+# table is W,Q2
 
+rm imageslist.txt ; ls imgcs/ > imageslist.txt
 
-/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=angmom -addColumnTableVariable=multipole \
--addSelectableVariable=pm -addSelectableVariable=model  -defaultPlot=img/angmom-1_multipole-M_pm-plus_model-maid2007.png  -imagesSize="800 1200"
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=wmass -addColumnTableVariable=q2 \
+-addSelectableVariable=xaxis   -defaultPlot=imgcs/wmass-1.79_q2-3.00_xaxis-phi.png  -d=imgcs -imagesSize="1000 1000"
 
-mv page.html poles.html
+mv page.html cs.html
 
+# cross sections as a function of W
+# table is W,Q2
+
+rm imageslist.txt ; ls imgcsw/ > imageslist.txt
+
+/opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=phi -addColumnTableVariable=q2 \
+-defaultPlot=imgcs/wmass-1.79_q2-3.00_xaxis-phi.png  -d=imgcsw -imagesSize="1000 1000"
+
+mv page.html csw.html

@@ -52,7 +52,7 @@ void show_theta_cs()
 		 else   lab.DrawLatex(.28,.85, Form("#phi: %3.0f#divide%3.0f", Bin.ph_center[i] - Bin.dph[i]/2.0 , Bin.ph_center[i] + Bin.dph[i]/2.0) );
 	}
 	if(PRINT != "")
-		TH->Print(Form("%s_the_cs_W_%3.2f_Q2_%3.2f%s", swhat[WHAT].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		TH->Print(Form("imgcs/wmass-%3.2f_q2-%3.2f_xaxis-theta%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
 }
  
 void show_phi_cs()
@@ -122,7 +122,7 @@ void show_phi_cs()
 		lab.DrawLatex(.15,.83, Form("cos(#theta*): %2.1f#divide%2.1f", Bin.ct_center[i] - Bin.dct[i]/2.0 , Bin.ct_center[i] + Bin.dct[i]/2.0) );
 	}
 	if(PRINT != "")
-		PH->Print(Form("%s_phi_cs_W_%3.2f_Q2_%3.2f%s",  swhat[WHAT].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		PH->Print(Form("imgcs/wmass-%3.2f_q2-%3.2f_xaxis-phi%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
 }
 
 

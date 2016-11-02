@@ -33,7 +33,7 @@ void change_what()
 void print_all_cs()
 {
 	bins Bin;
-	PRINT=".gif";
+	PRINT=".png";
 	for(int ww=0; ww<1; ww++)
 	{
 		WHAT = ww;
@@ -50,26 +50,10 @@ void print_all_cs()
 	}
 }
 
-
-void print_all_sf()
-{
-	bins Bin;
-	PRINT=".gif";
-	for(int q=0; q<Bin.Q2BIN-1; q++)
-	{
-		QQ=q;
-		show_sf(0);
-		show_sf(1);
-		show_sf(2);
-	}
-	
-}
-
-
 void print_all_cs_W()
 {
 	bins Bin;
-	PRINT=".gif";
+	PRINT=".png";
 	WHAT = 0;
 	for(int p=0; p<Bin.PHBIN; p++)
 	{
@@ -80,9 +64,21 @@ void print_all_cs_W()
 			show_cs_WQ();
 		}
 	}
-	
 }
 
+void print_all_sf()
+{
+	bins Bin;
+	PRINT=".png";
+	for(int q=0; q<Bin.Q2BIN-1; q++)
+	{
+		QQ=q;
+		show_sf(0);
+		show_sf(1);
+		show_sf(2);
+	}
+	
+}
 
 void print_all_sf_W()
 {
@@ -95,8 +91,7 @@ void print_all_sf_W()
 		show_sf_W(0);
 		show_sf_W(1);
 		show_sf_W(2);
-	}
-	
+	}	
 }
 
 
