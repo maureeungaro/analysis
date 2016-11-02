@@ -13,7 +13,7 @@ void show_theta_cs()
 	lab.SetTextColor(kBlue+2);
 	lab.SetNDC();
 
-	TCanvas *TH = new TCanvas("TH","Theta dependence of CS", 800, 800);
+	TCanvas *TH = new TCanvas("TH","Theta dependence of CS", 1000, 1000);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.06,.95, Form("%s Cross Sections for W=%3.2f  Q^{2}=%3.2f", what[WHAT].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ]) );
 	lab.DrawLatex(.07,.9, "as a function of cos(#theta^{*}), in #mub/srad" );
@@ -70,7 +70,7 @@ void show_phi_cs()
 	lab.SetTextColor(kBlue+2);
 	lab.SetNDC();
 	
-	TCanvas *PH = new TCanvas("PH","Phi dependence of CS", 800, 800);
+	TCanvas *PH = new TCanvas("PH","Phi dependence of CS", 1000, 1000);
 	lab.SetTextSize(0.032);
 	lab.DrawLatex(.06,.95, Form("%s Cross Sections for W=%3.2f  Q^{2}=%3.2f", what[WHAT].c_str(), Bin.wm_center[WW], Bin.q2_center[QQ]) );
 	lab.DrawLatex(.1,.9, "as a function of #phi^{*}, in #mub/srad" );

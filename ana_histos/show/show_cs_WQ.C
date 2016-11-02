@@ -36,7 +36,7 @@ void show_cs_WQ()
 	for(int i=0; i<Bin.CTBIN; i++)
 	{
 		TTH->cd(i+1);
-		ANA_H->pi0_cs_W[QQ][i][PH]->GetXaxis()->SetRangeUser(1.0, 1.7);
+		ANA_H->pi0_cs_W[QQ][i][PH]->GetXaxis()->SetRangeUser(1.0, 2.1);
 		ANA_H->pi0_cs_W[QQ][i][PH]->Draw("E1");
 		
 		for(int m=0; m<4; m++)

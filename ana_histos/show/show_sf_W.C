@@ -44,7 +44,7 @@ void show_sf_W(int which)
 	{
 		TTH->cd(c+1);
 		ANA_H->pi0_sf_W[QQ][c][which]->GetYaxis()->UnZoom();
-		ANA_H->pi0_sf_W[QQ][c][which]->GetXaxis()->SetRangeUser(1.0, 1.7);
+		ANA_H->pi0_sf_W[QQ][c][which]->GetXaxis()->SetRangeUser(1.0, 2.1);
 		
 		if(which==0)
 			ANA_H->pi0_sf_W[QQ][c][which]->SetMinimum(0);
