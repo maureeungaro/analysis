@@ -320,7 +320,7 @@ void ana_chistos::slice_and_style(int also)
 				for(unsigned int w=0; w<BinA[b]->WMBIN; w++)
 					for(unsigned int q=0; q<BinA[b]->Q2BIN; q++)
 					{
-						double pmax = find_max_phi(w, q, 0);
+						// double pmax = find_max_phi(w, q, 0);
 						
 						for(unsigned int c=0; c<BinA[b]->CTBIN; c++)
 						{
@@ -604,7 +604,8 @@ void ana_chistos::write_sf_table()
 	// sid=1,2,3 for sig(T+L) sigTT sigLT
 	int sid[3] = {1, 2, 3};
 	
-	
+	bins Bin;
+
 	ofstream ot("sf_tables.dat");
 		
 	for(int s=0; s<3; s++)

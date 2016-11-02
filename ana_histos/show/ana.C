@@ -1,6 +1,7 @@
 {
 
-	gInterpreter->AddIncludePath("/opt/projects/analysis/binning");
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/binning");
+	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
 	
 	string  what[2]  = {"#pi^{0}", "#pi^{0} data and MC"};
 	string  swhat[2] = {"pi0",      "pi0MC"             };
@@ -31,7 +32,7 @@
 	bins Bin;
 
 	// cross sections
-	ana_chistos *ANA_H = new ana_chistos("/arena/analysis/pi0/analysis_data/ana_histos.root");
+	ana_chistos *ANA_H = new ana_chistos("/opt/root/analysis_data/ana_histos.root");
 	ANA_H->slice_and_style();
 	ANA_H->fill_WQ2_histos();
 	ANA_H->fill_WQ2_sfhistos();
@@ -42,7 +43,7 @@
 	for(int m=0; m<4; m++)
 	{
 		tH[m] = new mod_histos(models[m]);
-		tH[m]->define_histos(Form("/arena/analysis/pi0/analysis_data/models/theory_cross_sections/%s.root", models[m].c_str()));
+		tH[m]->define_histos(Form("/opt/root/analysis_data/theory_cross_sections/%s.root", models[m].c_str()));
 		tH[m]->slice_histos();
 		tH[m]->fill_WQ2_histos();
 		tH[m]->fit_phis();
