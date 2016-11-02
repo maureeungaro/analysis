@@ -13,7 +13,7 @@
 	Color_t colors[NMODELS] = { kGreen+1,    kGray+3,      kBlue,              kRed,    kViolet};
 
 	// maid2007 does not have 0.00 cut
-	string vcut = "0.08";
+	string vcut = "0.04";
 	
 	rad_histos *RH[NMODELS+1];
 
@@ -27,7 +27,7 @@
 	}
 	
 	rad_histos *RHC = new rad_histos();
-	RHC->init_histos("/opt/root/analysis_data/radiative_correction/radiative_correction.root");
+	RHC->init_histos("/opt/root/analysis_data/radiative_correction.root");
 	RHC->slice_histos();
 	RHC->style_histos(5);
 	
@@ -64,8 +64,8 @@
 
 	// to print all pics, uncomment the lines below and run root
 	// in batch mode: root -b -q rad.C
-	print_all();
-	print_all_syst();
+//	print_all();
+//	print_all_syst();
 
 
 }

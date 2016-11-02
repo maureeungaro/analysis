@@ -2,7 +2,7 @@ void change_q2()
 {
 	bins Bin;
 	QQ++;
-	if(QQ==Bin.Q2BIN-1) QQ=0;
+	if(QQ==Bin.Q2BIN) QQ=0;
 	cout << endl << " W set to " << Bin.wm_center[WW] << "  Q2 set to " << Bin.q2_center[QQ] << endl << endl;
 }
 
@@ -245,7 +245,7 @@ void print_all()
  	for(int w=0; w<Bin.WMBIN; w++)
 	{
 		WW=w;
-		for(int q=0; q<Bin.Q2BIN-1; q++)
+		for(int q=0; q<Bin.Q2BIN; q++)
 		{
 			QQ=q;
 			show_phi();
