@@ -138,7 +138,7 @@ void print_all()
 	bins Bin;
 	PRINT=".png";
 
-	for(int w=0; w<Bin.WMBIN-43; w++)
+	for(int w=0; w<Bin.WMBIN; w++)
 	{
 		WW=w;
 		for(int q=0; q<Bin.Q2BIN; q++)
