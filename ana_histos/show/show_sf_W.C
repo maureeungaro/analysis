@@ -42,12 +42,44 @@ void show_sf_W(int which)
 	tmodels->SetFillColor(0);
 	tmodels->Draw();
 	
+	double min_limits[3][7];
+	double max_limits[3][7];
 	
+	// LPT
+	min_limits[0][0] = -0.1; max_limits[0][0] = 1.5;
+	min_limits[0][1] = -0.1; max_limits[0][1] = 1.8;
+	min_limits[0][2] = -0.1; max_limits[0][2] = 1.2;
+	min_limits[0][3] = -0.1; max_limits[0][3] = 0.7;
+	min_limits[0][4] = -0.1; max_limits[0][4] = 0.4;
+	min_limits[0][5] = -0.1; max_limits[0][5] = 0.4;
+	min_limits[0][6] = -0.1; max_limits[0][6] = 0.4;
+	
+	// TT
+	min_limits[1][0] = -1.0; max_limits[1][0] = 1.0;
+	min_limits[1][1] = -1.0; max_limits[1][1] = 1.0;
+	min_limits[1][2] = -1.0; max_limits[1][2] = 1.0;
+	min_limits[1][3] = -0.5; max_limits[1][3] = 0.5;
+	min_limits[1][4] = -0.4; max_limits[1][4] = 0.4;
+	min_limits[1][5] = -0.3; max_limits[1][5] = 0.3;
+	min_limits[1][6] = -0.3; max_limits[1][6] = 0.3;
+	
+	
+	// LT
+	min_limits[2][0] = -0.5; max_limits[2][0] = 0.5;
+	min_limits[2][1] = -0.5; max_limits[2][1] = 0.5;
+	min_limits[2][2] = -0.5; max_limits[2][2] = 0.5;
+	min_limits[2][3] = -0.3; max_limits[2][3] = 0.3;
+	min_limits[2][4] = -0.3; max_limits[2][4] = 0.3;
+	min_limits[2][5] = -0.2; max_limits[2][5] = 0.2;
+	min_limits[2][6] = -0.3; max_limits[2][6] = 0.3;
+
 	for(int c=0; c<Bin.CTBIN; c++)
 	{
 		TTH->cd(c+1);
 		ANA_H->pi0_sf_W[QQ][c][which]->GetYaxis()->UnZoom();
 		ANA_H->pi0_sf_W[QQ][c][which]->GetXaxis()->SetRangeUser(1.0, 2.1);
+		ANA_H->pi0_sf_W[QQ][c][which]->GetYaxis()->SetRangeUser(min_limits[which][QQ], max_limits[which][QQ]);
+		
 		
 		if(which==0)
 			ANA_H->pi0_sf_W[QQ][c][which]->SetMinimum(0);

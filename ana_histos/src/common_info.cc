@@ -259,7 +259,7 @@ void ana_chistos::slice_and_style(int also)
 						for(unsigned int c=0; c<BinA[b]->CTBIN; c++)
 						{
 							pi0_l2_phi[w][q][c][b] = pi0_l2[w][q][b]->ProjectionY(Form("pi0_l2_phi_%s_W_%4.3f_Q2_%4.3f_th_%4.3f",
-																																				 bindex[b].c_str(), BinA[b]->wm_center[w], BinA[b]->q2_center[q], BinA[b]->ct_center[c]), c+1, c+1);
+																			      bindex[b].c_str(), BinA[b]->wm_center[w], BinA[b]->q2_center[q], BinA[b]->ct_center[c]), c+1, c+1);
 							pi0_l2_phi[w][q][c][b]->SetDirectory(0);
 						}
 					}

@@ -2,7 +2,7 @@ void change_q2()
 {
 	bins Bin;
 	QQ++;
-	if(QQ==Bin.Q2BIN-1) QQ=0;
+	if(QQ==Bin.Q2BIN) QQ=0;
 	cout << endl << " W set to " << Bin.wm_center[WW] << "  Q2 set to " << Bin.q2_center[QQ] << endl << endl;
 }
 
@@ -40,7 +40,7 @@ void print_all_cs()
 		for(int w=0; w<Bin.WMBIN; w++)
 		{
 			WW=w;
-			for(int q=0; q<Bin.Q2BIN-1; q++)
+			for(int q=0; q<Bin.Q2BIN; q++)
 			{
 				QQ=q;
 				show_phi_cs();
@@ -58,7 +58,7 @@ void print_all_cs_W()
 	for(int p=0; p<Bin.PHBIN; p++)
 	{
 		PH=p;
-		for(int q=0; q<Bin.Q2BIN-1; q++)
+		for(int q=0; q<Bin.Q2BIN; q++)
 		{
 			QQ=q;
 			show_cs_WQ();
@@ -70,7 +70,7 @@ void print_all_sf()
 {
 	bins Bin;
 	PRINT=".png";
-	for(int q=0; q<Bin.Q2BIN-1; q++)
+	for(int q=0; q<Bin.Q2BIN; q++)
 	{
 		QQ=q;
 		show_sf(0);
@@ -85,7 +85,7 @@ void print_all_sf_W()
 	bins Bin;
 	PRINT=".png";
 	WHAT = 0;
-	for(int q=0; q<Bin.Q2BIN-1; q++)
+	for(int q=0; q<Bin.Q2BIN; q++)
 	{
 		QQ=q;
 		show_sf_W(0);

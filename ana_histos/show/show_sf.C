@@ -33,8 +33,8 @@ void show_sf(int which)
 	TTH->Divide(5, 9);
 
 
-	double min_limits[3][6];
-	double max_limits[3][6];
+	double min_limits[3][7];
+	double max_limits[3][7];
 
 	// LPT
 	min_limits[0][0] = -0.1; max_limits[0][0] = 1.5;
@@ -42,7 +42,8 @@ void show_sf(int which)
 	min_limits[0][2] = -0.1; max_limits[0][2] = 1.2;
 	min_limits[0][3] = -0.1; max_limits[0][3] = 0.7;
 	min_limits[0][4] = -0.1; max_limits[0][4] = 0.4;
-	min_limits[0][5] = -0.1; max_limits[0][5] = 0.2;
+	min_limits[0][5] = -0.1; max_limits[0][5] = 0.4;
+	min_limits[0][6] = -0.1; max_limits[0][6] = 0.4;
 	
 	// TT
 	min_limits[1][0] = -1.0; max_limits[1][0] = 1.0;
@@ -51,6 +52,7 @@ void show_sf(int which)
 	min_limits[1][3] = -0.5; max_limits[1][3] = 0.5;
 	min_limits[1][4] = -0.4; max_limits[1][4] = 0.4;
 	min_limits[1][5] = -0.3; max_limits[1][5] = 0.3;
+	min_limits[1][6] = -0.3; max_limits[1][6] = 0.3;
 
 
 	// LT
@@ -60,6 +62,7 @@ void show_sf(int which)
 	min_limits[2][3] = -0.3; max_limits[2][3] = 0.3;
 	min_limits[2][4] = -0.3; max_limits[2][4] = 0.3;
 	min_limits[2][5] = -0.2; max_limits[2][5] = 0.2;
+	min_limits[2][6] = -0.3; max_limits[2][6] = 0.3;
 	
 	TLegend *tmodels  = new TLegend(0.74, 0.88, 1.00, 0.99);
 	for(int m=0; m<4; m++)
@@ -77,6 +80,8 @@ void show_sf(int which)
 		{
 			ANA_H->pi0_sf[i][QQ][which]->SetMinimum(min_limits[which][QQ]);
 			ANA_H->pi0_sf[i][QQ][which]->SetMaximum(max_limits[which][QQ]);
+			if(i==1 || i==2) ANA_H->pi0_sf[i][QQ][which]->SetMaximum(2*max_limits[which][QQ]);
+			if(i==0) ANA_H->pi0_sf[i][QQ][which]->SetMaximum(3*max_limits[which][QQ]);
 			ANA_H->pi0_sf[i][QQ][which]->Draw("E1");
 
 			for(int m=0; m<4; m++)
