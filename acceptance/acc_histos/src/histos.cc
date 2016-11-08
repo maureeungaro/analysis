@@ -55,7 +55,7 @@ void histos::fill(CLAS_Event Ev, CLAS_Event_opts Opts)
 
 	// generated pi0s
 	// do I need the cut for generated events?
-	// 	if(gen_X.mass()/GeV/GeV < 0.08)
+	if(gen_X.mass()/GeV/GeV < 0.08)
 	for(int b=0; b<3; b++)
 	{
 		unsigned int wb = Bin[b].wmbin(sqrt(gen_H.mass())/GeV);
