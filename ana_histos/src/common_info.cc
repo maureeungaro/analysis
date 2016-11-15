@@ -19,14 +19,14 @@ ana_chistos::ana_chistos(TH2D *pi0[45][7][3])
 
 	min_acceptance = 0.005;
 
-	phifit  = new TF1("phifit", "[0] + [1]*cos(x*0.017453288889) + [2]*cos(2*x*0.017453288889)",                               0, 360);
+	phifit  = new TF1("phifit", "[0] + [1]*cos(x*0.017453288889) + [2]*cos(2*x*0.017453288889)", 0, 360);
 	phifit->SetLineWidth(1);
-	phifit->SetLineColor(kBlue+1);
+	phifit->SetLineColor(kBlue+3);
 
 	
 	for(unsigned int q=0; q<Bin[0]->Q2BIN; q++)
 		chi2s_ctr[q] = new TH1D(Form("chi2_phifit_Q2%4.3f", Bin[0]->q2_center[q]),
-														Form("chi2_phifit_Q2%4.3f", Bin[0]->q2_center[q]), 40, 0.0, 4.0);
+										Form("chi2_phifit_Q2%4.3f", Bin[0]->q2_center[q]), 40, 0.0, 4.0);
 
 	
 	for(unsigned int w=0; w<Bin[0]->WMBIN; w++)
@@ -205,12 +205,14 @@ void ana_chistos::write(string filename)
 		for(unsigned int q=0; q<Bin.Q2BIN; q++)
 		{
 			pi0_cs[w][q]->Write();
-			for(int b=0; b<3; b++)
-			{
+			for(int b=0; b<3; b++) {
 				pi0_l1[w][q][b]->Write();
 				pi0_l2[w][q][b]->Write();
 			}
-			
+
+			for(unsigned int c=0; c<Bin.CTBIN; c++)
+				pi0_cs_phi[w][q][c]->Write();
+
 			for(int s=0; s<3; s++)
 				pi0_sf[w][q][s]->Write();
 		}
@@ -229,16 +231,16 @@ void ana_chistos::slice_and_style(int also)
 	for(unsigned int w=0; w<Bin.WMBIN; w++)
 		for(unsigned int q=0; q<Bin.Q2BIN; q++)
 		{
-			for(unsigned int c=0; c<Bin.CTBIN; c++)
+			for(unsigned int c=0; c<Bin.CTBIN && also; c++)
 			{
 				pi0_cs_phi[w][q][c] = pi0_cs[w][q]->ProjectionY(Form("pi0_cs_phi_W_%4.3f_Q2_%4.3f_th_%4.3f",
-																												Bin.wm_center[w], Bin.q2_center[q], Bin.ct_center[c]), c+1, c+1);
+																				Bin.wm_center[w], Bin.q2_center[q], Bin.ct_center[c]), c+1, c+1);
 				pi0_cs_phi[w][q][c]->SetDirectory(0);
 			}
 			for(unsigned int p=0; p<Bin.PHBIN; p++)
 			{
 				pi0_cs_the[w][q][p] = pi0_cs[w][q]->ProjectionX(Form("pi0_cs_the_W_%4.3f_Q2_%4.3f_ph_%4.3f",
-																												Bin.wm_center[w], Bin.q2_center[q], Bin.ph_center[p]), p+1, p+1);
+																						Bin.wm_center[w], Bin.q2_center[q], Bin.ph_center[p]), p+1, p+1);
 				pi0_cs_the[w][q][p]->SetDirectory(0);
 			}
 		}
@@ -310,8 +312,6 @@ void ana_chistos::slice_and_style(int also)
 			}
 
 		// corrected yields, if requested
-		
-		
 		if(also != 0)
 		{
 			Color_t cols[3] = {kBlack, kRed+1, kBlue+2};
@@ -435,15 +435,13 @@ void ana_chistos::normalize()
 	double J[Bin.WMBIN][Bin.Q2BIN];          // Jacobian fron E,Omega to W,Q2
 	
 
-	for(unsigned int q=0; q<Bin.Q2BIN; q++)
-	{
+	for(unsigned int q=0; q<Bin.Q2BIN; q++) {
 		scale[q] = ne*np*Bin.dwm[0]*Bin.dq2[q]*Bin.dct[0]*dphi/CMB;
 		norma[q] = 1.0/(2*PI*scale[q]);
 	}
 
 	for(unsigned int w=0; w<Bin.WMBIN; w++)
-		for(unsigned int q=0; q<Bin.Q2BIN; q++)
-		{
+		for(unsigned int q=0; q<Bin.Q2BIN; q++) {
 			nu[w][q]      = ( Bin.wm_center[w]*Bin.wm_center[w] + Bin.q2_center[q]  - MP*MP ) / ( 2.0*MP );
 			ep[w][q]      = BEAM - nu[w][q];
 			theta[w][q]   = acos( 1.0 - Bin.q2_center[q] / ( 2*BEAM*ep[w][q] ) );
@@ -485,23 +483,29 @@ ana_chistos::ana_chistos(string filename, int bin)
 	Bin[1] = new bins(45, 10, 48);
 	Bin[2] = new bins(45, 10, 96);
 	string bindex[3] = {"b24", "b48", "b96"};
-	
 
-	
 	TFile f(filename.c_str());
 	cout << " Loading histos from: " << filename << endl;
 	for(unsigned int w=0; w<Bin[bin]->WMBIN; w++)
 		for(unsigned int q=0; q<Bin[bin]->Q2BIN; q++)
 		{
 			if(w==0) cout << " Q2: " << Bin[bin]->q2_center[q] << endl;
+
 			// cross sections
 			pi0_cs[w][q] = (TH2D*) f.Get(Form("pi0_cs_W_%4.3f_Q2_%4.3f", Bin[bin]->wm_center[w], Bin[bin]->q2_center[q]));
-				if(pi0_cs[w][q])
-					pi0_cs[w][q]->SetDirectory(0);
-				
+			if(pi0_cs[w][q])
+				pi0_cs[w][q]->SetDirectory(0);
+
+			// as a function of phi
+			for(unsigned int c=0; c<Bin[bin]->CTBIN; c++) {
+				pi0_cs_phi[w][q][c] = (TH1D*) f.Get(Form("pi0_cs_phi_W_%4.3f_Q2_%4.3f_th_%4.3f",
+																 Bin[bin]->wm_center[w], Bin[bin]->q2_center[q], Bin[bin]->ct_center[c]));
+
+				pi0_cs_phi[w][q][c]->SetDirectory(0);
+			}
+
 			// corrected yields
-			for(int b=0; b<3; b++)
-			{
+			for(int b=0; b<3; b++) {
 				pi0_l1[w][q][b] = (TH2D*) f.Get(Form("pi0_l1_%s_W_%4.3f_Q2_%4.3f", bindex[b].c_str(), Bin[b]->wm_center[w], Bin[b]->q2_center[q]));
 				pi0_l2[w][q][b] = (TH2D*) f.Get(Form("pi0_l2_%s_W_%4.3f_Q2_%4.3f", bindex[b].c_str(), Bin[b]->wm_center[w], Bin[b]->q2_center[q]));
 				if(pi0_l1[w][q])
@@ -509,10 +513,9 @@ ana_chistos::ana_chistos(string filename, int bin)
 				if(pi0_l2[w][q])
 					pi0_l2[w][q][b]->SetDirectory(0);
 			}
-			
+
 			// structure functions
-			for(int s=0; s<3; s++)
-			{
+			for(int s=0; s<3; s++){
 				pi0_sf[w][q][s] = (TH1D*) f.Get(Form("pi0_sigma_%s_W_%4.3f_Q2_%4.3f", which[s].c_str(), Bin[bin]->wm_center[w], Bin[bin]->q2_center[q]));
 				if(pi0_sf[w][q][s])
 					pi0_sf[w][q][s]->SetDirectory(0);
@@ -528,14 +531,12 @@ void ana_chistos::fill_WQ2_histos()
 
 	for(unsigned int c=0; c<Bin.CTBIN; c++)
 		for(unsigned int p=0; p<Bin.PHBIN; p++)
-			for(unsigned int q=0; q<Bin.Q2BIN; q++)
-			{
+			for(unsigned int q=0; q<Bin.Q2BIN; q++){
 				pi0_cs_W[q][c][p] = new TH1D(Form("pi0_cs_W_Q2_%4.3f_th_%3.2f_ph_%3.2f",  Bin.q2_center[q], Bin.ct_center[c], Bin.ph_center[p]),
-															       Form("pi0_cs_W_Q2_%4.3f_th_%3.2f_ph_%3.2f",  Bin.q2_center[q], Bin.ct_center[c], Bin.ph_center[p]),
-																		       Bin.WMBIN, 1.1, 2.0);
+													  Form("pi0_cs_W_Q2_%4.3f_th_%3.2f_ph_%3.2f",  Bin.q2_center[q], Bin.ct_center[c], Bin.ph_center[p]),
+													 Bin.WMBIN, 1.1, 2.0);
 																		 
-				for(unsigned int w=0; w<Bin.WMBIN; w++)
-				{
+				for(unsigned int w=0; w<Bin.WMBIN; w++){
 					pi0_cs_W[q][c][p]->SetBinContent(w+1, pi0_cs_the[w][q][p]->GetBinContent(c+1));
 					pi0_cs_W[q][c][p]->SetBinError(  w+1, pi0_cs_the[w][q][p]->GetBinError(c+1));
 				}
@@ -569,31 +570,29 @@ void ana_chistos::fill_WQ2_sfhistos()
 	
 	for(int s=0; s<3; s++)
 		for(unsigned int c=0; c<Bin.CTBIN; c++)
-			for(unsigned int q=0; q<Bin.Q2BIN; q++)
-			{
+			for(unsigned int q=0; q<Bin.Q2BIN; q++) {
 				pi0_sf_W[q][c][s] = new TH1D(Form("pi0_sigma_%s_W_Q2_%4.3f_th_%3.2f", which[s].c_str(), Bin.q2_center[q], Bin.ct_center[c] ),
-																		 Form("pi0_sigma_%s_W_Q2_%4.3f_th_%3.2f", which[s].c_str(), Bin.q2_center[q], Bin.ct_center[c] ), Bin.WMBIN, 1.1, 2.0);
+													  Form("pi0_sigma_%s_W_Q2_%4.3f_th_%3.2f", which[s].c_str(), Bin.q2_center[q], Bin.ct_center[c] ), Bin.WMBIN, 1.1, 2.0);
 																 
-				for(unsigned int w=0; w<Bin.WMBIN; w++)
-				{
+				for(unsigned int w=0; w<Bin.WMBIN; w++) {
 					pi0_sf_W[q][c][s]->SetBinContent(w+1, pi0_sf[w][q][s]->GetBinContent(c+1));
 					pi0_sf_W[q][c][s]->SetBinError(  w+1, pi0_sf[w][q][s]->GetBinError(c+1));
 				}
 				
-			pi0_sf_W[q][c][s]->SetMarkerStyle(21);
-			pi0_sf_W[q][c][s]->SetMarkerSize(0.65);
-			pi0_sf_W[q][c][s]->SetMarkerColor(kBlue+3);
-			pi0_sf_W[q][c][s]->SetLineColor(kBlue+3);
-			pi0_sf_W[q][c][s]->SetLineWidth(2);
-			pi0_sf_W[q][c][s]->GetXaxis()->SetNdivisions(508);
-			pi0_sf_W[q][c][s]->GetYaxis()->SetNdivisions(805);
-			pi0_sf_W[q][c][s]->SetMinimum(0.0);
-			pi0_sf_W[q][c][s]->GetXaxis()->SetLabelSize(0.14);
-			pi0_sf_W[q][c][s]->GetYaxis()->SetLabelSize(0.14);
-			pi0_sf_W[q][c][s]->GetXaxis()->SetLabelOffset(0.03);
-			pi0_sf_W[q][c][s]->GetYaxis()->SetLabelOffset(0.04);
-			pi0_sf_W[q][c][s]->SetDirectory(0);
-
+				pi0_sf_W[q][c][s]->SetMarkerStyle(21);
+				pi0_sf_W[q][c][s]->SetMarkerSize(0.65);
+				pi0_sf_W[q][c][s]->SetMarkerColor(kBlue+3);
+				pi0_sf_W[q][c][s]->SetLineColor(kBlue+3);
+				pi0_sf_W[q][c][s]->SetLineWidth(2);
+				pi0_sf_W[q][c][s]->GetXaxis()->SetNdivisions(508);
+				pi0_sf_W[q][c][s]->GetYaxis()->SetNdivisions(805);
+				pi0_sf_W[q][c][s]->SetMinimum(0.0);
+				pi0_sf_W[q][c][s]->GetXaxis()->SetLabelSize(0.14);
+				pi0_sf_W[q][c][s]->GetYaxis()->SetLabelSize(0.14);
+				pi0_sf_W[q][c][s]->GetXaxis()->SetLabelOffset(0.03);
+				pi0_sf_W[q][c][s]->GetYaxis()->SetLabelOffset(0.04);
+				pi0_sf_W[q][c][s]->SetDirectory(0);
+				
 		}
 		
 		cout << " done. " << endl ;
@@ -611,15 +610,13 @@ void ana_chistos::write_sf_table()
 	for(int s=0; s<3; s++)
 		for(unsigned int c=0; c<Bin.CTBIN; c++)
 			for(unsigned int q=0; q<Bin.Q2BIN; q++)
-				for(unsigned int w=0; w<Bin.WMBIN; w++)
-				{
+				for(unsigned int w=0; w<Bin.WMBIN; w++) {
 					ot << 5.7542 << " " << Bin.q2_center[q] << " " << Bin.wm_center[w] << " " << epsl[w][q] << " " << Bin.ct_center[c] << " " 
 					   << pi0_sf[w][q][s]->GetBinContent(c+1) << " " << pi0_sf[w][q][s]->GetBinError(c+1) << " " 
 						 << 0 << " " 
 						 << sid[s] << " " 
 						 << 1 << endl;
 				}
-	
 }
 
 

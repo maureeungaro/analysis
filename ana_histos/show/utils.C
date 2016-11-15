@@ -43,8 +43,9 @@ void print_all_cs()
 			for(int q=0; q<Bin.Q2BIN; q++)
 			{
 				QQ=q;
-				show_phi_cs();
-				show_theta_cs();
+				show_phi_cs(0);
+				show_phi_cs(1);
+			//	show_theta_cs();
 			}
 		}
 	}

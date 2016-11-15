@@ -55,12 +55,12 @@ void show_theta_cs()
 		TH->Print(Form("imgcs/wmass-%3.2f_q2-%3.2f_xaxis-theta%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
 }
  
-void show_phi_cs()
+void show_phi_cs(int withModel)
 {
 	gStyle->SetPadLeftMargin(0.16);
 	gStyle->SetPadRightMargin(0.04);
 	gStyle->SetPadTopMargin(0.2);
-	gStyle->SetPadBottomMargin(0.14);
+	gStyle->SetPadBottomMargin(0.15);
 	gStyle->SetFrameFillColor(kWhite);
 	
 	bins Bin;
@@ -82,14 +82,22 @@ void show_phi_cs()
 	TPad *PPH   = new TPad("PPH","Phi dependence of CS", 0.01, 0.06, 0.99, 0.86);
 	PPH->Draw();
 	PPH->Divide(2, 5);
-	TLegend *tmodels  = new TLegend(0.74, 0.88, 1.00, 0.99);
+
+	TLegend *tmodels  = new TLegend(0.74, 0.86, 1.00, 0.99);
+	tmodels->AddEntry(ANA_H->pi0_cs_phi[WW][QQ][0], "A + B cos(\phi) + C cos(2\phi)", "L");
 	for(int m=0; m<4; m++)
 		tmodels->AddEntry(tH[m]->phi_model[WW][QQ][m], tH[m]->model.c_str(), "L");
-	
+
+	// add fit function to the tlegend
+
 	tmodels->SetBorderSize(0);
 	tmodels->SetFillColor(0);
-	tmodels->Draw();
-	
+
+	if(withModel) {
+		tmodels->Draw();
+	}
+
+
 	for(int i=0; i<Bin.CTBIN; i++)
 	{
 		PPH->cd(i+1);
@@ -99,13 +107,15 @@ void show_phi_cs()
 			ANA_H->pi0_cs_phi[WW][QQ][i]->SetMinimum(0.0001);
 			ANA_H->pi0_cs_phi[WW][QQ][i]->Draw("E1");
 
-			for(int m=0; m<4; m++)
-				tH[m]->phi_model[WW][QQ][i]->Draw("LCsame");
+			if(withModel) {
+				for(int m=0; m<4; m++)
+					tH[m]->phi_model[WW][QQ][i]->Draw("LCsame");
+			}
 
 			lab.SetTextFont(42);
 			lab.SetTextSize(0.16);
 			lab.SetTextColor(kBlue+3);
-/*			double chi2 = 0;
+			double chi2 = 0;
 			double  ndf = 1;
 			if(ANA_H->pi0_cs_phi[WW][QQ][i]->GetFunction("phifit"))
 			{
@@ -113,7 +123,7 @@ void show_phi_cs()
 				ndf  = ANA_H->pi0_cs_phi[WW][QQ][i]->GetFunction("phifit")->GetNumberFitPoints() - 3;
 			}
 			if(ndf==0) ndf=1;
-			lab.DrawLatex(.65,.83, Form("#chi^{2}/ndf. = %3.2f", chi2/ndf ));*/
+			lab.DrawLatex(.7,.83, Form("#chi^{2}/%d = %3.2f", (int) ndf, chi2/ndf ));
 		}
 		
 		lab.SetTextFont(42);
@@ -121,8 +131,14 @@ void show_phi_cs()
 		lab.SetTextColor(kBlack);
 		lab.DrawLatex(.15,.83, Form("cos(#theta*): %2.1f#divide%2.1f", Bin.ct_center[i] - Bin.dct[i]/2.0 , Bin.ct_center[i] + Bin.dct[i]/2.0) );
 	}
-	if(PRINT != "")
-		PH->Print(Form("imgcs/wmass-%3.2f_q2-%3.2f_xaxis-phi%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+	if(PRINT != ""){
+		if(withModel) {
+			PH->Print(Form("imgcs/wmass-%3.2f_q2-%3.2f_xaxis-phim%s",  Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+		} else {
+			PH->Print(Form("imgcs/wmass-%3.2f_q2-%3.2f_xaxis-phi%s", Bin.wm_center[WW], Bin.q2_center[QQ], PRINT.c_str()));
+
+		}
+	}
 }
 
 

@@ -30,7 +30,8 @@
 	
 	gROOT->LoadMacro("utils.C");
 	
-	acc_chistos *AH = new acc_chistos("/opt/root/analysis_data/acc.root", 1);
+	acc_chistos *AH = new acc_chistos("acc.root", 1);
+//	acc_chistos *AH = new acc_chistos("/opt/root/analysis_data/acc.root", 1);
 	AH->calc_acc();
 	AH->slice();
 	AH->style();
@@ -55,5 +56,5 @@
 	// in batch mode: root -b -q acc.C
 
 
-	print_all();
+	// print_all();
 }

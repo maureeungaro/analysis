@@ -69,15 +69,13 @@ void ana_chistos::fit_phis()
 			for(unsigned int c=0; c<Bin.CTBIN; c++)
 			{
 				phifit->SetParameters(0, 0, 0);
-				if(pi0_cs_phi[w][q][c]->GetEntries()>1)
-				{
+				if(pi0_cs_phi[w][q][c]->GetEntries()>1){
 					pi0_cs_phi[w][q][c]->Fit("phifit", "0QEM");
 					phifit->SetParameters(phifit->GetParameter(0), phifit->GetParameter(1), phifit->GetParameter(2));
 					pi0_cs_phi[w][q][c]->Fit("phifit",  "QEM+");
 				}
 
-
-				chi2s_ctr[q]->Fill(phifit->GetChisquare()/21);
+				chi2s_ctr[q]->Fill(phifit->GetChisquare()/ (phifit->GetNumberFitPoints() - 3) );
 
 				sint  = sin(acos(Bin.ct_center[c]));
 				sin2t = pow(sint, 2);

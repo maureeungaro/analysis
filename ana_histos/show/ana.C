@@ -33,7 +33,7 @@
 
 	// cross sections
 	ana_chistos *ANA_H = new ana_chistos("/opt/root/analysis_data/ana_histos.root");
-	ANA_H->slice_and_style();
+	ANA_H->slice_and_style(0);
 	ANA_H->fill_WQ2_histos();
 	ANA_H->fill_WQ2_sfhistos();
 	
@@ -49,7 +49,7 @@
 		tH[m]->fit_phis();
 		tH[m]->fill_WQ2_sfhistos();
 	}
-	
+
 	// writing SF table 
 	ANA_H->write_sf_table();
 
@@ -60,7 +60,8 @@
 	bar->AddButton("Change PH", "change_ph()");
 	bar->AddButton("","");
 	bar->AddButton("Show cross sections as function of theta",   "show_theta_cs()");
-	bar->AddButton("Show cross sections as function of phi",     "show_phi_cs()");
+	bar->AddButton("Show cross sections as function of phi",              "show_phi_cs(0)");
+	bar->AddButton("Show cross sections as function of phi with models",  "show_phi_cs(1)");
 	bar->AddButton("","");
 	bar->AddButton("Show cross sections as function of W",       "show_cs_WQ()");
 	bar->AddButton("","");
@@ -72,7 +73,6 @@
 	bar->AddButton("Show structure function TT vs W",            "show_sf_W(1)");
 	bar->AddButton("Show structure function LT vs W",            "show_sf_W(2)");
 	bar->AddButton("","");
-	bar->AddButton("Change Quantity",                            "change_what()");
 	bar->AddButton("","");
 	bar->AddButton("Print all CS",                               "print_all_cs()");
 	bar->AddButton("Print all CS vs W",                          "print_all_cs_W()");
@@ -86,10 +86,10 @@
 
 	// to print all pics, uncomment the lines below and run root
 	// in batch mode: root -b -q ana.C
-	print_all_cs();
-	print_all_cs_W();
-	print_all_sf();
-	print_all_sf_W();
+//	print_all_cs();
+//	print_all_cs_W();
+//	print_all_sf();
+//	print_all_sf_W();
 
 }
 
