@@ -24,10 +24,11 @@ ana_chistos::ana_chistos(TH2D *pi0[45][7][3])
 	phifit->SetLineColor(kBlue+3);
 
 	
-	for(unsigned int q=0; q<Bin[0]->Q2BIN; q++)
+	for(unsigned int q=0; q<Bin[0]->Q2BIN; q++) {
 		chi2s_ctr[q] = new TH1D(Form("chi2_phifit_Q2%4.3f", Bin[0]->q2_center[q]),
 										Form("chi2_phifit_Q2%4.3f", Bin[0]->q2_center[q]), 40, 0.0, 4.0);
-
+		chi2s_ctr[q]->SetDirectory(0);
+	}
 	
 	for(unsigned int w=0; w<Bin[0]->WMBIN; w++)
 		for(unsigned int q=0; q<Bin[0]->Q2BIN; q++)
@@ -216,6 +217,11 @@ void ana_chistos::write(string filename)
 			for(int s=0; s<3; s++)
 				pi0_sf[w][q][s]->Write();
 		}
+
+	for(unsigned int q=0; q<Bin.Q2BIN; q++) {
+		chi2s_ctr[q]->Write();
+	}
+
 
 	cout << "done. " << endl ;
 	output.Close();
@@ -521,6 +527,13 @@ ana_chistos::ana_chistos(string filename, int bin)
 					pi0_sf[w][q][s]->SetDirectory(0);
 			}
 		}
+
+	for(unsigned int q=0; q<Bin[0]->Q2BIN; q++) {
+		chi2s_ctr[q] = (TH1D*) f.Get(Form("chi2_phifit_Q2%4.3f", Bin[0]->q2_center[q]));
+		chi2s_ctr[q]->SetDirectory(0);
+	}
+
+
 	cout << " done. " << endl ;
 }
 

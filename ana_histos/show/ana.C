@@ -20,7 +20,8 @@
 	gROOT->LoadMacro("show_cs_WQ.C");
 	gROOT->LoadMacro("show_sf.C");
 	gROOT->LoadMacro("show_sf_W.C");
-	
+	gROOT->LoadMacro("showChi2.C");
+
 	gStyle->SetPadGridX(1);
 	gStyle->SetPadGridY(1);
 	int WW    = 0;
@@ -38,17 +39,17 @@
 	ANA_H->fill_WQ2_sfhistos();
 	
 	// models
-	string models[4] = {"maid2003", "maid2003woroper", "maid2007", "said2008"};
-	mod_histos  *tH[4];
-	for(int m=0; m<4; m++)
-	{
-		tH[m] = new mod_histos(models[m]);
-		tH[m]->define_histos(Form("/opt/root/analysis_data/theory_cross_sections/%s.root", models[m].c_str()));
-		tH[m]->slice_histos();
-		tH[m]->fill_WQ2_histos();
-		tH[m]->fit_phis();
-		tH[m]->fill_WQ2_sfhistos();
-	}
+//	string models[4] = {"maid2003", "maid2003woroper", "maid2007", "said2008"};
+//	mod_histos  *tH[4];
+//	for(int m=0; m<4; m++)
+//	{
+//		tH[m] = new mod_histos(models[m]);
+//		tH[m]->define_histos(Form("/opt/root/analysis_data/theory_cross_sections/%s.root", models[m].c_str()));
+//		tH[m]->slice_histos();
+//		tH[m]->fill_WQ2_histos();
+//		tH[m]->fit_phis();
+//		tH[m]->fill_WQ2_sfhistos();
+//	}
 
 	// writing SF table 
 	ANA_H->write_sf_table();
@@ -73,11 +74,12 @@
 	bar->AddButton("Show structure function TT vs W",            "show_sf_W(1)");
 	bar->AddButton("Show structure function LT vs W",            "show_sf_W(2)");
 	bar->AddButton("","");
-	bar->AddButton("","");
 	bar->AddButton("Print all CS",                               "print_all_cs()");
 	bar->AddButton("Print all CS vs W",                          "print_all_cs_W()");
 	bar->AddButton("Print all SF",                               "print_all_sf()");
 	bar->AddButton("Print all SF vs W",                          "print_all_sf_W()");
+	bar->AddButton("","");
+	bar->AddButton("Show chi2",                                  "show_chi2(0)");
 	bar->AddButton("","");
 	bar->AddButton("Change Quantity",                            "change_what()");
 	bar->AddButton("","");

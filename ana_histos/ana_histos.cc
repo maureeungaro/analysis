@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 	ANA_H->normalize();
 	
 	// slices, style
-	ANA_H->slice_and_style();
+	ANA_H->slice_and_style(1);
 	ANA_H->fit_phis();
 	
 	ANA_H->write(filename);
