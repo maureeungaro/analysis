@@ -4,11 +4,11 @@
 # ----------------------
 
 set NEVENTS    = 100                              # number of events / job
-set MULTI_JOBS = 5                              # number of jobs to be launched per gcard
+set MULTI_JOBS = 500                              # number of jobs to be launched per gcard
 set GCARDSD    = ~/projects/analysis/farm/gemc/studies/clas12beamyields      # collection of gcards. One job / gcard will be launched
-set OUTPUTD    = /work/clas/clas12/ungaro/clas12                  # output directory
+set OUTPUTD    = /work/clas12/ungaro/clas12                  # output directory
 set DEBUG      = no                              # "yes" will print out the jsub file instead of submitting it
-set EXPSD      = ~/       # directory containing the detector definition
+set EXPSD      = ~/experiments       # directory containing the detector definition
 set INPUTFILES = none                            # directory containing the input files. Can be "none" for internal generator
                                                  # The files must be of the format "gemcInput_#.dat" where # (file number) will match the job number
 
