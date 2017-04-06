@@ -1,0 +1,68 @@
+void init_histos(string filename)
+{
+	if(recalc == 1) {
+		TFile f(filename.c_str());
+		TCanvas *c1 = new TCanvas("c1", "c1", 100,100);
+		
+		NHITS           = generated->GetEntries();
+		double TWINDOW  = 250.0e-9;
+		double TOT_TIME = NHITS*TWINDOW;
+		
+		
+		cout << " Initializing Flux histos with " << NHITS << " entries in " << TOT_TIME << " total time...";
+		
+		for(int p=0; p<NPART; p++) {
+			pflux[p] = new TH2F(Form("pflux_%s", SPART[p].c_str()),
+								Form("pflux_%s", SPART[p].c_str()),
+								200, -200, 200, 200, -200, 200);
+		}
+		
+		cout << " done. " << endl;
+		
+		for(int p=0; p<NPART; p++) {
+			cout << " Now making the histos for particle : " << SPART[p] << endl;
+			
+			string hist = Form("sqrt(avg_x*avg_x + avg_y*avg_y) >> pflux_%s", SPART[p].c_str());
+			string momCut = "sqrt(px*px + py*py + pz*pz) > 10"
+			
+			string hitCut = momCut + " && " + pcut[p];
+			
+			flux->Draw(hist.c_str(), hitCutRP.c_str());
+		}
+		
+		
+		c1->Close();
+		f.Close();
+		
+		// writing out to file1
+		string ofname = "fluxHistos.root";
+		cout << " Opening file for writing: " << ofname << endl;
+		TFile of(ofname.c_str(), "RECREATE");
+		for(int p=0; p<NPART; p++) {
+			pflux[p]->Write();
+		}
+		
+	} else {
+		string fname = "fluxHistos.root";
+		cout << " Opening file " << fname << endl;
+		TFile f(fname.c_str());
+		
+		
+		for(int p=0; p<NPART; p++) {
+			pflux[p] = (TH2F*) f.Get(Form("pflux_%s", SPART[p].c_str()));
+		}
+
+		cout << " done. " << endl;
+		f.Close();
+
+	}
+}
+
+
+
+
+
+
+
+
+
