@@ -1,0 +1,21 @@
+from init_env import init_environment
+
+env = init_environment("root")
+
+# evio-root includes
+env.Append(CPPPATH = 'evio-root')
+
+
+# analysis library
+anaSources = Split("""
+	options.cc
+	""")
+anaLibrary = env.Library(source = anaSources, target = "lib/ana")
+
+# executable
+env.Append(LIBPATH = ['lib'])
+env.Prepend(LIBS = ['ana',])
+rates = env.Program(source = Split("""rates.cc"""), target = 'rates' )
+
+
+Depends(rates, anaLibrary)

@@ -1,7 +1,12 @@
-#include "options.C"
+#include "options.h"
+
+#include "TStyle.h"
+#include "TROOT.h"
+#include "TApplication.h"
+#include "TControlBar.h"
 
 
-void rates()
+int main(int argc, char** argv)
 {
 	gROOT->SetStyle("Plain");
 
@@ -10,26 +15,13 @@ void rates()
 	gStyle->SetPalette(57);
 	gStyle->SetOptTitle(0);
 
-//	gStyle->SetPalette(1);
-//	gStyle->SetOptTitle(kWhite);
-//	gStyle->SetOptStat(kWhite);
-//	gStyle->SetOptFit(kWhite);
-//	gStyle->SetCanvasColor(kWhite);
-//	gStyle->SetPadColor(kWhite);
-//	
-//	gStyle->SetNumberContours(80);
-//	gStyle->SetCanvasBorderMode(0);
-//	gStyle->SetFrameBorderMode(0);
-//	gStyle->SetPadBorderMode(0);
+	// root app
+	TApplication *rootApp = new TApplication("ROOT Application", &argc, argv);
 
 
-//	gROOT->LoadMacro("init.C");
-//	gROOT->LoadMacro("show.C");
+	anaOption analysis(true);
 
-//gROOT->Macro("init.C++(flux.root)");
-
-//	init_histos(Form("flux.root"));
-		
+	// bar to control functions
 	TControlBar *bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("Flux Rates",  "");
 	bar->AddButton("","");
@@ -39,9 +31,12 @@ void rates()
 	bar->AddButton("","");
 	bar->Show();
 
+	rootApp->Run();
+
 	// to print all pics, uncomment the lines below and run root
 	// in batch mode: root -b -q rates.C
 	// print_all();
 }
+
 
 

@@ -16,8 +16,8 @@ public:
 
 public:
 	int NHITS;
-	int pIndex, nParticles; // particle index
-	string PRINT;           // Print on Image File
+	int pIndex;      // particle index
+	string PRINT;    // Print on Image File
 
 
 //private:
@@ -25,13 +25,13 @@ public:
 
 	// histograms
 	// 2D flux histos:
-	vector<TH2F*> *pflux;
+	vector<TH2F*> pflux;
 
 	// Vertex histos
 	vector<TH1F*> *pzver;
 
 	vector<string> partTit;
-	vector<string> partCut;
+	vector<int>    partiID;
 
 };
 
