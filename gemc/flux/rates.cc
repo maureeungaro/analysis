@@ -5,37 +5,40 @@
 #include "TApplication.h"
 #include "TControlBar.h"
 
+#include <iostream>
+using namespace std;
+
 
 int main(int argc, char** argv)
 {
-	gROOT->SetStyle("Plain");
+//	gROOT->SetStyle("Plain");
+//
+//	gROOT->SetStyle("Plain");
+//	gStyle->SetOptFit(1111);
+//	gStyle->SetPalette(57);
+//	gStyle->SetOptTitle(0);
+//
+//	// root app
+//	TApplication *rootApp = new TApplication("ROOT Application", &argc, argv);
 
-	gROOT->SetStyle("Plain");
-	gStyle->SetOptFit(1111);
-	gStyle->SetPalette(57);
-	gStyle->SetOptTitle(0);
 
-	// root app
-	TApplication *rootApp = new TApplication("ROOT Application", &argc, argv);
-
-
-	anaOption analysis(true);
 
 	// bar to control functions
-	TControlBar *bar = new TControlBar("vertical", "  Maurizio Ungaro");
-	bar->AddButton("Flux Rates",  "");
-	bar->AddButton("","");
-	bar->AddButton("Show 2D Flux",  "show_flux()");
-	bar->AddButton("","");
-	bar->AddButton("Show Vertex",   "show_vertex()");
-	bar->AddButton("","");
-	bar->Show();
+//	TControlBar *bar = new TControlBar("vertical", "  Maurizio Ungaro");
+	anaOption analysis(true);
 
-	rootApp->Run();
 
-	// to print all pics, uncomment the lines below and run root
-	// in batch mode: root -b -q rates.C
-	// print_all();
+//	bar->AddButton("Flux Rates",  "");
+//	bar->AddButton("","");
+//	bar->AddButton("Show 2D Flux",  "analysis.showFlux()");
+//	bar->AddButton("","");
+//	bar->AddButton("Show Vertex",   "gROOT->ProcessLine(\"show_vertex()\")");
+//	bar->AddButton("","");
+//	bar->AddButton("","");
+//	bar->AddButton("Exit",          "gROOT->ProcessLine(\".q\")");
+//	bar->Show();
+//
+//	rootApp->Run();
 }
 
 

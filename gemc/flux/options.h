@@ -20,19 +20,23 @@ public:
 	string PRINT;    // Print on Image File
 
 
-//private:
+private:
 	bool recalc;
 
 	// histograms
 	// 2D flux histos:
 	vector<TH2F*> pflux;
 
-	// Vertex histos
-	vector<TH1F*> *pzver;
+	// 1D quantities
+	vector<TH1F*> pzver;
+	vector<TH1F*> pmom;
+	vector<TH1F*> pprocID;
 
 	vector<string> partTit;
 	vector<int>    partiID;
 
+public:
+	void showFlux();
 };
 
 #endif
