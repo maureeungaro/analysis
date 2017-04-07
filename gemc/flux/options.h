@@ -32,6 +32,12 @@ private:
 	vector<TH1F*> pmom;
 	vector<TH1F*> pprocID;
 
+	// 1D quantities for candidates electrons (mom > 200 MeV)
+	vector<TH1F*> cpzver;
+	vector<TH1F*> cpmom;
+	vector<TH1F*> cpprocID;
+
+
 	vector<string> partTit;
 	vector<int>    partiID;
 

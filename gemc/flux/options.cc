@@ -27,12 +27,15 @@ anaOption::anaOption(bool r) : recalc(r)
 	partTit.push_back("pi-");
 	partiID.push_back(-211);
 
+	partTit.push_back("pi0");
+	partiID.push_back(111);
+
 	partTit.push_back("protons");
 	partiID.push_back(2212);
 
 
 	if(recalc == 1) {
-		string filename = "flux.root";
+		string filename = "target.root";
 		TFile f(filename.c_str());
 
 		TTree *generated, *flux;
@@ -45,6 +48,7 @@ anaOption::anaOption(bool r) : recalc(r)
 
 		vector<double> *x      = 0;
 		vector<double> *y      = 0;
+		vector<double> *vz     = 0;
 		vector<double> *pid    = 0;
 		vector<double> *mpid   = 0;
 		vector<double> *procID = 0;
@@ -53,6 +57,7 @@ anaOption::anaOption(bool r) : recalc(r)
 		vector<double> *pz      = 0;
 		flux->SetBranchAddress("avg_x",  &x);
 		flux->SetBranchAddress("avg_y",  &y);
+		flux->SetBranchAddress("vz",     &vz);
 		flux->SetBranchAddress("pid",    &pid);
 		flux->SetBranchAddress("mpid",   &mpid);
 		flux->SetBranchAddress("procID", &procID);
@@ -72,14 +77,30 @@ anaOption::anaOption(bool r) : recalc(r)
 			pflux.push_back(new TH2F(Form("pflux_%s", p.c_str()),
 									 Form("pflux_%s", p.c_str()),
 									 200, -1100, 1100, 200, -1100, 1100));
+
+			pzver.push_back(new TH1F(Form("pzver_%s", p.c_str()),
+									 Form("pzver_%s", p.c_str()),
+									 200, -100, 1100));
+
 			pmom.push_back(new TH1F(Form("pmom_%s", p.c_str()),
 									Form("pmom_%s", p.c_str()),
-									200, 0, 3000));
+									200, 0, 10000));
 
 			pprocID.push_back(new TH1F(Form("pprocID_%s", p.c_str()),
 									   Form("pprocID_%s", p.c_str()),
-									   60, 0.5, 30.5));
+									   200, 0.5, 200.5));
 
+			cpzver.push_back(new TH1F(Form("cpzver_%s", p.c_str()),
+									  Form("cpzver_%s", p.c_str()),
+									 200, -100, 1100));
+
+			cpmom.push_back(new TH1F(Form("cpmom_%s", p.c_str()),
+									 Form("cpmom_%s", p.c_str()),
+									200, 0, 10000));
+
+			cpprocID.push_back(new TH1F(Form("cpprocID_%s", p.c_str()),
+										Form("cpprocID_%s", p.c_str()),
+									   200, 0.5, 200.5));
 
 		}
 
@@ -89,47 +110,78 @@ anaOption::anaOption(bool r) : recalc(r)
 			flux->GetEntry(i);
 
 
+			int thisPID     = 0;
+			int thismPID    = 0;
+			int thisProcID  = 0;
+
+			double thisX  = 0;
+			double thisY  = 0;
+			double thisVZ = 0;
+
+			double thisPx = 0;
+			double thisPy = 0;
+			double thisPz = 0;
+
+			double mom = 0;
+
 			for(unsigned d=0; d<(*x).size(); d++) {
-				int thisPID     = (*pid)[d];
-				int thismPID    = (*mpid)[d];
-				int thisProcID  = (*procID)[d];
 
-				double thisX = (*x)[d];
-				double thisY = (*y)[d];
+				thisPID     = (*pid)[d];
+				thismPID    = (*mpid)[d];
+				thisProcID  = (*procID)[d];
 
-				double thisPx = (*px)[d];
-				double thisPy = (*py)[d];
-				double thisPz = (*pz)[d];
+				thisX  = (*x)[d];
+				thisY  = (*y)[d];
+				thisVZ = (*vz)[d];
 
-				double mom = sqrt( thisPx*thisPx + thisPy*thisPy + thisPz*thisPz);
+				thisPx = (*px)[d];
+				thisPy = (*py)[d];
+				thisPz = (*pz)[d];
 
+				mom = sqrt( thisPx*thisPx + thisPy*thisPy + thisPz*thisPz);
+
+				// selecting specific mother particles
 				for(int p=0; p<partiID.size(); p++) {
 
-					if(thisPID == 11) {
+					if(thisPID == 11 && thismPID != 0) {
 						if(thismPID == partiID[p]) {
 							pflux[p]->Fill(thisX, thisY);
 							pmom[p]->Fill(mom);
 							pprocID[p]->Fill(thisProcID);
-
+							pzver[p]->Fill(thisVZ);
+							if(mom > 500) {
+								cpmom[p]->Fill(mom);
+								cpprocID[p]->Fill(thisProcID);
+								cpzver[p]->Fill(thisVZ);
+							}
 						}
-						pflux[0]->Fill((*x)[d], (*y)[d]);
-						pmom[0]->Fill(mom);
-						pprocID[0]->Fill(thisProcID);
+					}
+				}
 
+				// filling all particles
+				if(thisPID == 11) {
+					pflux[0]->Fill(thisX, thisY);
+					pmom[0]->Fill(mom);
+					pprocID[0]->Fill(thisProcID);
+					pzver[0]->Fill(thisVZ);
+
+					if(mom > 500) {
+						cout << i << " p: " <<  mom << "   mpid: " << thismPID << "   proc: " << thisProcID <<  "   vz: " << thisVZ << endl ;
+						cpmom[0]->Fill(mom);
+						cpprocID[0]->Fill(thisProcID);
+						cpzver[0]->Fill(thisVZ);
 					}
 				}
 			}
 		}
 
-		for(auto *h: pflux) {
-			h->SetDirectory(0);
-		}
-		for(auto *h: pmom) {
-			h->SetDirectory(0);
-		}
-		for(auto *h: pprocID) {
-			h->SetDirectory(0);
-		}
+		for(auto *h: pflux)    { h->SetDirectory(0); }
+		for(auto *h: pmom)     { h->SetDirectory(0); }
+		for(auto *h: pprocID)  { h->SetDirectory(0); }
+		for(auto *h: pzver)    { h->SetDirectory(0); }
+		for(auto *h: cpmom)    { h->SetDirectory(0); }
+		for(auto *h: cpprocID) { h->SetDirectory(0); }
+		for(auto *h: cpzver)   { h->SetDirectory(0); }
 
 		c1->Close();
 
@@ -141,15 +193,13 @@ anaOption::anaOption(bool r) : recalc(r)
 		cout << " Opening file for writing: " << ofname << endl;
 		TFile of(ofname.c_str(), "RECREATE");
 
-		for(auto *h: pflux) {
-			h->Write();
-		}
-		for(auto *h: pmom) {
-			h->Write();
-		}
-		for(auto *h: pprocID) {
-			h->Write();
-		}
+		for(auto *h: pflux)    { h->Write(); }
+		for(auto *h: pmom)     { h->Write(); }
+		for(auto *h: pprocID)  { h->Write(); }
+		for(auto *h: pzver)    { h->Write(); }
+		for(auto *h: cpmom)    { h->Write(); }
+		for(auto *h: cpprocID) { h->Write(); }
+		for(auto *h: cpzver)   { h->Write(); }
 
 	} else {
 		string fname = "fluxHistos.root";
