@@ -9,7 +9,7 @@
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
         <option name="INTEGRATEDRAW"  value="flux"/>
 
-	<option name="FIELD_PROPERTIES" value="clas12-solenoid, 1.5*mm, G4HelixSimpleRunge, linear"/>
+	<option name="FIELD_PROPERTIES" value="clas12-solenoid, 0.5*mm, G4HelixSimpleRunge, linear"/>
 
 
 	<!-- beam conditions -->
