@@ -4,75 +4,44 @@
 
 #include "TFile.h"
 #include "TCanvas.h"
-#include "TTree.h"
 
-anaOption::anaOption(bool r) : recalc(r)
+anaOption::anaOption(bool recalc, vector<string> configurations) : conf(configurations)
 {
-	pIndex     = 0;
-
-	PRINT = "";
-
-	partTit.push_back("all");
-	partiID.push_back(0);
-
-	partTit.push_back("electrons");
-	partiID.push_back(11);
-
-	partTit.push_back("gammas");
-	partiID.push_back(22);
-
-	partTit.push_back("pi+");
-	partiID.push_back(211);
-
-	partTit.push_back("pi-");
-	partiID.push_back(-211);
-
-	partTit.push_back("pi0");
-	partiID.push_back(111);
-
-	partTit.push_back("protons");
-	partiID.push_back(2212);
-
+	pIndex = 0;
+	PRINT  = "";
 
 	if(recalc == 1) {
-		string filename = "target.root";
-		TFile f(filename.c_str());
-
-		TTree *generated, *flux;
-		f.GetObject("generated", generated);
-		f.GetObject("flux",      flux);
-
 
 		TCanvas *c1 = new TCanvas("c1", "c1", 100,100);
 
 
-		vector<double> *x      = 0;
-		vector<double> *y      = 0;
-		vector<double> *vz     = 0;
-		vector<double> *pid    = 0;
-		vector<double> *mpid   = 0;
-		vector<double> *procID = 0;
-		vector<double> *px      = 0;
-		vector<double> *py      = 0;
-		vector<double> *pz      = 0;
-		flux->SetBranchAddress("avg_x",  &x);
-		flux->SetBranchAddress("avg_y",  &y);
-		flux->SetBranchAddress("vz",     &vz);
-		flux->SetBranchAddress("pid",    &pid);
-		flux->SetBranchAddress("mpid",   &mpid);
-		flux->SetBranchAddress("procID", &procID);
-		flux->SetBranchAddress("px",     &px);
-		flux->SetBranchAddress("py",     &py);
-		flux->SetBranchAddress("pz",     &pz);
+		for(auto p: configurations) {
+
+			
+			string filename = "/opt/root/" + p;
+
+			TFile f(filename.c_str());
+			f.GetObject("generated", generated);
+			f.GetObject("flux",      flux);
+
+			cout << " File " << filename << " opened. " << endl;
+			initLeafs();
+
+			int NHITS       = generated->GetEntries();
+			double TWINDOW  = 250.0e-9;
+			double TOT_TIME = NHITS*TWINDOW;
+
+			cout << " Initializing Flux histos with " << NHITS << " entries in " << TOT_TIME << " total time...";
 
 
-		NHITS           = generated->GetEntries();
-		double TWINDOW  = 250.0e-9;
-		double TOT_TIME = NHITS*TWINDOW;
+		}                                                                                                                                
 
-		cout << " Initializing Flux histos with " << NHITS << " entries in " << TOT_TIME << " total time...";
+		c1->Close();
+		f.Close();
+		writeHistos();
 
-		for(auto p: partTit) {
+
+		for(auto p: configurations) {
 			cout << " Defining " << p << " histo." << endl;
 			pflux.push_back(new TH2F(Form("pflux_%s", p.c_str()),
 									 Form("pflux_%s", p.c_str()),
@@ -175,31 +144,10 @@ anaOption::anaOption(bool r) : recalc(r)
 			}
 		}
 
-		for(auto *h: pflux)    { h->SetDirectory(0); }
-		for(auto *h: pmom)     { h->SetDirectory(0); }
-		for(auto *h: pprocID)  { h->SetDirectory(0); }
-		for(auto *h: pzver)    { h->SetDirectory(0); }
-		for(auto *h: cpmom)    { h->SetDirectory(0); }
-		for(auto *h: cpprocID) { h->SetDirectory(0); }
-		for(auto *h: cpzver)   { h->SetDirectory(0); }
-
-		c1->Close();
 
 
-		f.Close();
 
-		// writing out to file1
-		string ofname = "fluxHistos.root";
-		cout << " Opening file for writing: " << ofname << endl;
-		TFile of(ofname.c_str(), "RECREATE");
 
-		for(auto *h: pflux)    { h->Write(); }
-		for(auto *h: pmom)     { h->Write(); }
-		for(auto *h: pprocID)  { h->Write(); }
-		for(auto *h: pzver)    { h->Write(); }
-		for(auto *h: cpmom)    { h->Write(); }
-		for(auto *h: cpprocID) { h->Write(); }
-		for(auto *h: cpzver)   { h->Write(); }
 
 	} else {
 		string fname = "fluxHistos.root";
@@ -218,10 +166,92 @@ anaOption::anaOption(bool r) : recalc(r)
 	
 }
 
-void anaOption::showFlux() {
-	cout << " ASD " << endl;
+void anaOption::setParticles() {
+	partTit.push_back("all");
+	partiID.push_back(0);
+
+	partTit.push_back("electrons");
+	partiID.push_back(11);
+
+	partTit.push_back("gammas");
+	partiID.push_back(22);
+
+	partTit.push_back("pi+");
+	partiID.push_back(211);
+
+	partTit.push_back("pi-");
+	partiID.push_back(-211);
+
+	partTit.push_back("pi0");
+	partiID.push_back(111);
+
+	partTit.push_back("protons");
+	partiID.push_back(2212);
 }
 
+void anaOption::defineHistos() {
+}
+
+void anaOption::setDirHistos() {
+	cout << " Setting dir to 0 for all histos." << endl;
+
+	for(auto *h: pflux)    { h->SetDirectory(0); }
+	for(auto *h: pmom)     { h->SetDirectory(0); }
+	for(auto *h: pprocID)  { h->SetDirectory(0); }
+	for(auto *h: pzver)    { h->SetDirectory(0); }
+	for(auto *h: cpmom)    { h->SetDirectory(0); }
+	for(auto *h: cpprocID) { h->SetDirectory(0); }
+	for(auto *h: cpzver)   { h->SetDirectory(0); }
+}
+
+void anaOption::writeHistos() {
+
+	string ofname = "fluxHistos.root";
+
+	cout << " Writing all histos to file : " << ofname << endl;
+	TFile of(ofname.c_str(), "RECREATE");
+
+	for(auto *h: pflux)    { h->Write(); }
+	for(auto *h: pmom)     { h->Write(); }
+	for(auto *h: pprocID)  { h->Write(); }
+	for(auto *h: pzver)    { h->Write(); }
+	for(auto *h: cpmom)    { h->Write(); }
+	for(auto *h: cpprocID) { h->Write(); }
+	for(auto *h: cpzver)   { h->Write(); }
+
+	of.Close()
+}
+
+void anaOption::initLeafs() {
+
+	cout << " Leafs Initialized " << endl;
+
+	cout << " x " << x << endl;
+
+	x       = nullptr;
+	y       = nullptr;
+	vz      = nullptr;
+	pid     = nullptr;
+	mpid    = nullptr;
+	procID  = nullptr;
+	px      = nullptr;
+	py      = nullptr;
+	pz      = nullptr;
+
+	cout << " x " << x << endl;
+
+	flux->SetBranchAddress("avg_x",  &x);
+	flux->SetBranchAddress("avg_y",  &y);
+	flux->SetBranchAddress("vz",     &vz);
+	flux->SetBranchAddress("pid",    &pid);
+	flux->SetBranchAddress("mpid",   &mpid);
+	flux->SetBranchAddress("procID", &procID);
+	flux->SetBranchAddress("px",     &px);
+	flux->SetBranchAddress("py",     &py);
+	flux->SetBranchAddress("pz",     &pz);
+
+
+}
 
 
 

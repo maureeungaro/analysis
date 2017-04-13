@@ -21,11 +21,13 @@ int main(int argc, char** argv)
 //	// root app
 //	TApplication *rootApp = new TApplication("ROOT Application", &argc, argv);
 
+	vector<string> confs = {"EMY", "EMZ"}
+	anaOption analysis(true, confs);
+
 
 
 	// bar to control functions
 //	TControlBar *bar = new TControlBar("vertical", "  Maurizio Ungaro");
-	anaOption analysis(true);
 
 
 //	bar->AddButton("Flux Rates",  "");

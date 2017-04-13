@@ -1,9 +1,11 @@
 #ifndef ANAHISTOS_H
 #define ANAHISTOS_H
 
-
+// root
 #include "TH2F.h"
+#include "TTree.h"
 
+// c++
 #include <string>
 #include <vector>
 using namespace std;
@@ -15,15 +17,14 @@ public:
 	anaOption(bool r);
 
 public:
-	int NHITS;
 	int pIndex;      // particle index
+	int cIndex;      // cofiguration index
 	string PRINT;    // Print on Image File
 
 
 private:
-	bool recalc;
-
 	// histograms
+	// index is configuration
 	// 2D flux histos:
 	vector<TH2F*> pflux;
 
@@ -32,17 +33,31 @@ private:
 	vector<TH1F*> pmom;
 	vector<TH1F*> pprocID;
 
-	// 1D quantities for candidates electrons (mom > 200 MeV)
-	vector<TH1F*> cpzver;
-	vector<TH1F*> cpmom;
-	vector<TH1F*> cpprocID;
-
-
-	vector<string> partTit;
+	vector<string> partTit;  // not used
+	vector<string> confs;
 	vector<int>    partiID;
 
-public:
-	void showFlux();
+	// root trees
+	TTree *generated, *flux;
+
+	// flux tree
+	vector<double> *x;
+	vector<double> *y;
+	vector<double> *vz;
+	vector<double> *pid;
+	vector<double> *mpid;
+	vector<double> *procID;
+	vector<double> *px;
+	vector<double> *py;
+	vector<double> *pz;
+
+
+private:
+	void setParticles();
+	void defineHistos();
+	void setDirHistos();
+	void writeHistos();
+	void initLeafs();
 };
 
 #endif
