@@ -14,7 +14,7 @@ using namespace std;
 class anaOption {
 
 public:
-	anaOption(bool r);
+	anaOption(bool r, vector<string> configs);
 
 public:
 	int pIndex;      // particle index
@@ -23,6 +23,9 @@ public:
 
 
 private:
+	// normalization
+	vector<double> TOT_TIME;
+
 	// histograms
 	// index is configuration
 	// 2D flux histos:
@@ -32,6 +35,10 @@ private:
 	vector<TH1F*> pzver;
 	vector<TH1F*> pmom;
 	vector<TH1F*> pprocID;
+
+	// summary rate plot
+	TH1F* summaryRate;
+	TH1F* summaryTime;
 
 	vector<string> partTit;  // not used
 	vector<string> confs;
@@ -54,10 +61,12 @@ private:
 
 private:
 	void setParticles();
-	void defineHistos();
-	void setDirHistos();
-	void writeHistos();
+	void defineHistos(string c);
 	void initLeafs();
+	void fillHistos(int index);
+	void setDirHistos(int index);
+	void writeHistos();
+	void setSummaryHistos();
 };
 
 #endif

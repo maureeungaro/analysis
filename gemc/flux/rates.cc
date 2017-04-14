@@ -21,8 +21,12 @@ int main(int argc, char** argv)
 //	// root app
 //	TApplication *rootApp = new TApplication("ROOT Application", &argc, argv);
 
-	vector<string> confs = {"EMY", "EMZ"}
-	anaOption analysis(true, confs);
+	vector<string> confs = {"EMY", "EMZ", "LIV", "PEN", "FTFP_BERT_HP", "FTFP_BERT_TRV", "FTF_BIC", "QGSP_BERT", "QGSP_FTFP_BERT", "standard" };
+//	vector<string> confs = {"EMZ", "FTFP_BERT_HP", "FTFP_BERT_TRV", "FTF_BIC", "PEN", "standard"};
+
+
+//	anaOption analysis(true, confs);
+	anaOption analysis(false, confs);
 
 
 
