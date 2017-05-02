@@ -46,7 +46,7 @@ anaOption::anaOption(bool recalc, vector<string> configurations) : confs(configu
 
 		}
 
-
+		setSummaryHisto();
 		c1->Close();
 		writeHistos();
 
@@ -64,9 +64,8 @@ anaOption::anaOption(bool recalc, vector<string> configurations) : confs(configu
 
 		cout << " done. " << endl;
 		f.Close();
-
 	}
-
+	
 }
 
 void anaOption::setParticles() {
@@ -207,7 +206,7 @@ void anaOption::fillHistos(int cindex) {
 			mom = sqrt( thisPx*thisPx + thisPy*thisPy + thisPz*thisPz);
 
 			// filling all particles
-			if(thisPID == 11 && mom > 500) {
+			if(thisPID == 11 && mom > 1000) {
 				pflux[cindex]->Fill(thisX, thisY);
 				pmom[cindex]->Fill(mom);
 				pprocID[cindex]->Fill(thisProcID);
@@ -215,10 +214,9 @@ void anaOption::fillHistos(int cindex) {
 			}
 		}
 	}
-	
 }
 
-void anaOption::setSummaryHisto {
+void anaOption::setSummaryHisto() {
 
 	for(int i=0; i<pmom.size(); i++) {
 		summaryRate->SetBinContent(i+1, pmom[i]->GetEntries() / TOT_TIME[i]);

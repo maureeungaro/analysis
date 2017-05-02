@@ -66,7 +66,8 @@ private:
 	void fillHistos(int index);
 	void setDirHistos(int index);
 	void writeHistos();
-	void setSummaryHistos();
+	void setSummaryHisto();
+	
 };
 
 #endif

@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 
 
 //	anaOption analysis(true, confs);
-	anaOption analysis(false, confs);
+	anaOption analysis(true, confs);
 
 
 
