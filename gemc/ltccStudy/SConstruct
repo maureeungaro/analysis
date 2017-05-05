@@ -12,7 +12,7 @@ anaLibrary = env.Library(source = anaSources, target = "lib/ana")
 # executable
 env.Append(LIBPATH = ['lib'])
 env.Prepend(LIBS = ['ana',])
-rates = env.Program(source = Split("""rates.cc"""), target = 'rates' )
+rates = env.Program(source = Split("""mom.cc"""), target = 'mom' )
 
 
 Depends(rates, anaLibrary)
