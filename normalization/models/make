@@ -1,0 +1,15 @@
+#!/bin/csh
+
+
+#g77 -c elaslib.f
+#g77 -c brasse.f
+#g77 -c keppel.f
+
+set ROOTL = (`root-config --libs`)
+
+g++ -c -I/opt/programs/root/include -o inclusive.o inclusive.C
+
+
+g++ -o inclusive elaslib.o brasse.o keppel.o inclusive.o -lg2c $ROOTL
+
+
