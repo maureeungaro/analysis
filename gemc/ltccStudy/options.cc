@@ -135,6 +135,7 @@ void anaOption::initLeafs() {
 void anaOption::fillHistos(int cindex) {
 
 	int scale = 0;
+	int nevents = ftof->GetEntries();
 
 	for(int i=0; i<ftof->GetEntries(); i++){
 //	for(int i=0; i<4000; i++){
@@ -191,7 +192,8 @@ void anaOption::fillHistos(int cindex) {
 
 			// filling all particles
 			if(thisPID == 11 && thismPID == 0 && thisSector == 1 && thisLayer == 2) {
-				dmom[cindex]->Fill(thisX, thisY, deltaMom);
+//				dmom[cindex]->Fill(thisX, thisY, deltaMom);
+				dmom[cindex]->Fill(thisX, thisY);
 				deMom[cindex]->Fill(deltaMom);
 				deMomTheta[cindex]->Fill(thisTheta, deltaMom);
 
@@ -203,8 +205,10 @@ void anaOption::fillHistos(int cindex) {
 		}
 	}
 	cout << "scale " << scale << endl;
-	dmom[cindex]->Scale(1.0/scale);
-	deMom[cindex]->Scale(1.0/scale);
+//	dmom[cindex]->Scale(1.0/scale);
+//	deMom[cindex]->Scale(1.0/scale);
+	dmom[cindex]->Scale(1.0/nevents);
+	deMom[cindex]->Scale(1.0/nevents);
 }
 
 

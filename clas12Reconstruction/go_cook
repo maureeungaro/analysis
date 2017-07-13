@@ -1,0 +1,60 @@
+#!/bin/csh -f
+
+hostname
+
+
+# Usage:
+set coatdir  = $1
+set infile   = $2
+set decdir   = $3
+set outdir   = $4
+set logdir   = $5
+set torus    = $6
+set nevent   = $7
+
+# set coat environment
+setenv COATJAVA $coatdir
+echo COATJAVA set to $COATJAVA
+
+# create out directory if not existing
+if(`filetest -e $decdir` == 0) then
+   mkdir -p $decdir
+endif
+if(`filetest -e $outdir` == 0) then
+   mkdir -p $outdir
+endif
+if(`filetest -e $logdir` == 0) then
+   mkdir -p $logdir
+endif
+
+# get run and file number
+set runno  = (`echo $infile | awk -F_ '{print $2}' | awk -F. '{print $1}'`)
+set fileno = (`echo $infile | awk -F_ '{print $2}' | awk -F. '{print $3}'`)
+echo run and file number are $runno/$fileno
+echo
+
+# define outfile name
+set decfile = clas_$runno.$fileno.hipo
+set outfile = clas_$runno.$fileno.rec.hipo
+set logfile = clas_$runno.$fileno.log
+
+# decode file
+echo Decoding file $infile with command line $COATJAVA/bin/decoder -t $torus -s 0 -i $infile -o $decfile -n $nevent > $logdir/$logfile
+if ($nevent >0 ) then
+	$COATJAVA/bin/decoder -t $torus -s 0 -i $infile -o $decfile -n $nevent >> $logdir/$logfile
+echo aaa
+else
+	$COATJAVA/bin/decoder -t $torus -s 0 -i $infile -o $decfile >> $logdir/$logfile
+echo bbb
+endif
+
+# cook file
+echo Cooking file $decfile with command line $COATJAVA/bin/notsouseful-util -i $decfile -o $outfile -c 2 >> $logdir/$logfile
+$COATJAVA/bin/notsouseful-util -i $decfile -o $outfile -c 1 >> $logdir/$logfile
+
+#save output
+ls -la
+mv $decfile $decdir
+mv $outfile $outdir
+#mv $logfile $logdir
+
