@@ -1,9 +1,17 @@
 #!/bin/csh -f
 
-# environment
-setenv JLAB_ROOT /site/12gev_phys
-setenv JLAB_VERSION devel
-source $JLAB_ROOT/$JLAB_VERSION/ce/jlab.csh
+# user setup: environment
+# -----------------------
+#setenv JLAB_ROOT /site/12gev_phys
+#setenv JLAB_VERSION devel
+#source $JLAB_ROOT/$JLAB_VERSION/ce/jlab.csh
+
+source /group/clas12/gemc/environment.csh 4a.2.1
+
+# -----------------
+# end of user setup
+
+
 
 # Usage:
 # go_simulate title workdir nevents experimentsdir inputfdir
