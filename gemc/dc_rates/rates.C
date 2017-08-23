@@ -15,23 +15,13 @@
 	int NHITS; // number of events
 	
 	
-	const int NCONF      = 12;
+	const int NCONF      = 3;
 	string sconf[NCONF]  = {
-		"field000",
-		"field005",
-		"field010",
-		"field020",
-		"field030",
-		"field040",
-		"field050",
-		"field060",
-		"field070",
-		"field080",
-		"field090",
-		"field100"};
+		"clas12New1",
+	"clas12New2",
+	"clas12v"};
 
-//	double factor[NCONF] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};  // additional factor to scale the different configurations
-	double factor[NCONF] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};  // additional factor to scale the different configurations
+	double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
 
 
 	int CONF             = 0;
@@ -135,11 +125,11 @@
 	bar->AddButton("Change Region",              "change_region()");
 	bar->AddButton("","");
 	bar->AddButton("Show Process ID",             "show_procID()");
-   bar->AddButton("Show Process ID vs SL",       "show_procvsL()");
-   bar->AddButton("Show Process ID vs Z",        "show_procvsZ()");
-   bar->AddButton("Show Process ID vs pid",      "show_procvspid()");
-   bar->AddButton("Show Process ID vs Edep",     "show_procvsedep()");
-   bar->AddButton("Show Process ID vs E",        "show_procvse()");
+	bar->AddButton("Show Process ID vs SL",       "show_procvsL()");
+	bar->AddButton("Show Process ID vs Z",        "show_procvsZ()");
+	bar->AddButton("Show Process ID vs pid",      "show_procvspid()");
+	bar->AddButton("Show Process ID vs Edep",     "show_procvsedep()");
+	bar->AddButton("Show Process ID vs E",        "show_procvse()");
 	bar->Show();
 
 	// to print all pics, uncomment the lines below and run root

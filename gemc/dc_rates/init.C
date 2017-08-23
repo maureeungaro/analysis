@@ -19,7 +19,7 @@ void init_dc_histos(string filename, int cindex)
 		NHR[2] = r3->GetEntries();
 		
 		
-		double TWINDOWR[3] = {250.0e-9, 500.0e-9, 500.0e-9};
+		double TWINDOWR[3] = {250.0e-9, 250.0e-9, 500.0e-9};
 		
 		twindscale = new TH2F("twindscale", "twindscale", 112, 0.5, 112.5, 36, 0.5, 36.5);
 		for(int l=0; l<36; l++)
