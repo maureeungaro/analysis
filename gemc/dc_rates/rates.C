@@ -11,7 +11,7 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	int NHITS; // number of events
 	
 	
@@ -107,7 +107,7 @@
 	gROOT->LoadMacro("show.C");
 	
 	for(int c=0; c<NCONF; c++)
-		init_dc_histos(Form("%s.root", sconf[c].c_str()), c);
+		init_dc_histos(Form("/work/clas12/ungaro/%s.root", sconf[c].c_str()), c);
 		
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("DC Occupancy Rates",  "");
