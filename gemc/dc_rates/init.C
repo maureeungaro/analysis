@@ -111,7 +111,7 @@ void init_dc_histos(string filename, int cindex)
 				
 				// 2D occupancy histos: 2D for each sector, wire vs layer
 				// layer is from 1 to 36
-				string hist = Form("(layer:wire >> dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str());
+				string hist = Form("layer:wire >> dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str());
 				dc->Draw(hist.c_str(), allCuts.c_str());
 				
 				dc_pro[s][e][cindex]->Scale(100*factor[cindex]/NHITS);
