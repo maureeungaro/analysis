@@ -26,7 +26,7 @@ set INPUTD  = /work/clas12/ungaro/clas12  # location of evio files (inside each 
 set OUTPUTD = $INPUTD/root                # output directory
 set EXACT   = 20                          # number of expected events
 set MINP    = 20                          # minimum number of events required for the sim to be processed
-set BANKS   = "dc"                          # banks to be included in rootification
+set BANKSM  = "dc"                          # banks to be included in rootification
 
 # End of user parameter
 # ---------------------
@@ -112,7 +112,7 @@ while ($w <= $#titles)
 					if($OPT == "root" || $OPT == "rootr") then
 
 						\echo " > Last good event for simulation $SIMU is $LASTE. Good. Start Event is $EVN"
-						set exc = `evio2root -B="$BANKS" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
+						set exc = `evio2root -B="$BANKSM" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
 						
 						# evio2root failed
 						if( (`\echo $exc` != "" || `ls | grep "core\." | wc | awk '{print $1}'` == "1" ) && $OPT == "rootr") then
