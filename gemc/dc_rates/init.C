@@ -161,7 +161,7 @@ void init_dc_histos(string filename, int cindex)
 			double nlayers = 12.0;
 			for(int r=0; r<3; r++)
 			{
-				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*r+1);
+				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*(r+1) + 1);
 				string allCuts    = hitCut + "  && " + regionCut;
 				string histSum   = Form("sector - 0.5 >> dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str());
 				dc->Draw(histSum.c_str(), allCuts.c_str());
@@ -169,66 +169,66 @@ void init_dc_histos(string filename, int cindex)
 				dc_occ_summary[r][e][cindex]->Scale(100*factor[cindex]*(TWINDOWR[r]/TWINDOW)/(NHITS*nwires*nlayers));
 				dc_occ_summary[r][e][cindex]->SetDirectory(0);
 			}
-		
-		
-			// procID. Attention: assuming NENERGY = 1 otherwise we'd have to be in external loop
-			dc->Draw(Form("procID>>dc_procID_%s",                   sconf[cindex].c_str()), hitCut.c_str());
-			dc->Draw(Form("procID:layer>>dc_procIDvsLayer_%s", sconf[cindex].c_str()), hitCut.c_str());
-			
-			for(int r=0; r<3; r++)
-			{
-				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*r+1);
-				string allCuts   = hitCut + "  && " + regionCut;
-            string histSum   = Form("procID:vz>>dc_procIDvsZ_r%d_%s", r+1, sconf[cindex].c_str());
 
-				dc->Draw(histSum.c_str(), allCuts.c_str());
-			}
 
-			dc->Draw(Form("procID:pid>>dc_procIDvspid_%s",      sconf[cindex].c_str()), hitCut.c_str());
-			dc->Draw(Form("procID:totEdep>>dc_procIDvsEdep_%s", sconf[cindex].c_str()), hitCut.c_str());
-			
-			dc->Draw(Form("procID:trackE>>dc_procIDvsTrackE1_%s", sconf[cindex].c_str()), hitCut.c_str());
-			dc->Draw(Form("procID:trackE>>dc_procIDvsTrackE2_%s", sconf[cindex].c_str()), hitCut.c_str());
-			dc->Draw(Form("procID:trackE>>dc_procIDvsTrackE3_%s", sconf[cindex].c_str()), hitCut.c_str());
-			
-			
-         dc_procID[cindex]->Scale(factor[cindex]/NHITS);
-         dc_procID[cindex]->SetDirectory(0);
-         dc_procIDvsLayer[cindex]->Scale(factor[cindex]/NHITS);
-         dc_procIDvsLayer[cindex]->SetDirectory(0);
-         
-         for(int r=0; r<NREG; r++)
-         {
-            dc_procIDvsZ[r][cindex]->Scale(factor[cindex]/NHITS);
-            dc_procIDvsZ[r][cindex]->SetDirectory(0);
-         }
-         // process ID vs pid
-         dc_procIDvspid[cindex]->Scale(factor[cindex]/NHITS);
-         dc_procIDvspid[cindex]->SetDirectory(0);
-         
-         // process ID vs Edep
-         dc_procIDvsEdep[cindex]->Scale(factor[cindex]/NHITS);
-         dc_procIDvsEdep[cindex]->SetDirectory(0);
-         
-         // process ID vs track energy
-         // different track energy ranges
-         dc_procIDvsTrackE[0][cindex]->Scale(factor[cindex]/NHITS);
-         dc_procIDvsTrackE[1][cindex]->Scale(factor[cindex]/NHITS);
-         dc_procIDvsTrackE[2][cindex]->Scale(factor[cindex]/NHITS);
-         
-         dc_procIDvsTrackE[0][cindex]->SetDirectory(0);
-         dc_procIDvsTrackE[1][cindex]->SetDirectory(0);
-         dc_procIDvsTrackE[2][cindex]->SetDirectory(0);
-         
+//			// procID. Attention: assuming NENERGY = 1 otherwise we'd have to be in external loop
+//			dc->Draw(Form("procID>>dc_procID_%s",                   sconf[cindex].c_str()), hitCut.c_str());
+//			dc->Draw(Form("procID:layer>>dc_procIDvsLayer_%s", sconf[cindex].c_str()), hitCut.c_str());
+//
+//			for(int r=0; r<3; r++)
+//			{
+//				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*r+1);
+//				string allCuts   = hitCut + "  && " + regionCut;
+//				string histSum   = Form("procID:vz>>dc_procIDvsZ_r%d_%s", r+1, sconf[cindex].c_str());
+//
+//				dc->Draw(histSum.c_str(), allCuts.c_str());
+//			}
+//
+//			dc->Draw(Form("procID:pid>>dc_procIDvspid_%s",      sconf[cindex].c_str()), hitCut.c_str());
+//			dc->Draw(Form("procID:totEdep>>dc_procIDvsEdep_%s", sconf[cindex].c_str()), hitCut.c_str());
+//
+//			dc->Draw(Form("procID:trackE>>dc_procIDvsTrackE1_%s", sconf[cindex].c_str()), hitCut.c_str());
+//			dc->Draw(Form("procID:trackE>>dc_procIDvsTrackE2_%s", sconf[cindex].c_str()), hitCut.c_str());
+//			dc->Draw(Form("procID:trackE>>dc_procIDvsTrackE3_%s", sconf[cindex].c_str()), hitCut.c_str());
+//
+//
+//			dc_procID[cindex]->Scale(factor[cindex]/NHITS);
+//			dc_procID[cindex]->SetDirectory(0);
+//			dc_procIDvsLayer[cindex]->Scale(factor[cindex]/NHITS);
+//			dc_procIDvsLayer[cindex]->SetDirectory(0);
+//
+//			for(int r=0; r<NREG; r++)
+//			{
+//				dc_procIDvsZ[r][cindex]->Scale(factor[cindex]/NHITS);
+//				dc_procIDvsZ[r][cindex]->SetDirectory(0);
+//			}
+//			// process ID vs pid
+//			dc_procIDvspid[cindex]->Scale(factor[cindex]/NHITS);
+//			dc_procIDvspid[cindex]->SetDirectory(0);
+//
+//			// process ID vs Edep
+//			dc_procIDvsEdep[cindex]->Scale(factor[cindex]/NHITS);
+//			dc_procIDvsEdep[cindex]->SetDirectory(0);
+//
+//			// process ID vs track energy
+//			// different track energy ranges
+//			dc_procIDvsTrackE[0][cindex]->Scale(factor[cindex]/NHITS);
+//			dc_procIDvsTrackE[1][cindex]->Scale(factor[cindex]/NHITS);
+//			dc_procIDvsTrackE[2][cindex]->Scale(factor[cindex]/NHITS);
+//
+//			dc_procIDvsTrackE[0][cindex]->SetDirectory(0);
+//			dc_procIDvsTrackE[1][cindex]->SetDirectory(0);
+//			dc_procIDvsTrackE[2][cindex]->SetDirectory(0);
 
-			
+
+
 		}
-		
-		
+
+
 		c1->Close();
 		f.Close();
-		
-		
+
+
 		// writing out to file1
 		string ofname =   sconf[cindex] + ".root";
 		cout << " Opening file for writing: " << ofname << endl;
