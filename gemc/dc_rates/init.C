@@ -293,7 +293,7 @@ void init_dc_histos(string filename, int cindex)
 				dc_occ[s][e][cindex]->SetDirectory(0);
 
 			}
-			
+
 			// vertex histos
 			for(int r=0; r<NREG; r++)
 			{
@@ -303,59 +303,59 @@ void init_dc_histos(string filename, int cindex)
 
 					dc_ver[e][cindex][z][r]->SetDirectory(0);
 				}
-				
+
 				for(int p=0; p<NPART; p++)
 				{
 					dc_zver[e][cindex][r][p] = (TH1F*) f.Get(Form("dc_zver_E%s_%s_r%d_%s", SEDEP[e].c_str(), sconf[cindex].c_str(), r+1, SPART[p].c_str()) );
 					dc_zver[e][cindex][r][p]->SetDirectory(0);
 				}
-				
-				
+
+
 				dc_occ_summary[r][e][cindex] = (TH1F*) f.Get(Form("dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str()));
 				//dc_occ_summary[r][e][cindex]->Scale(0.02);
 				dc_occ_summary[r][e][cindex]->SetDirectory(0);
-				
+
 			}
 		}
-      
-      // process ID histos
-      dc_procID[cindex] = (TH1F*) f.Get(Form("dc_procID_%s", sconf[cindex].c_str()));
-	 	dc_procID[cindex]->SetDirectory(0);
-      
-      // process ID vs Layer
-      dc_procIDvsLayer[cindex] = (TH2F*) f.Get(Form("dc_procIDvsLayer_%s", sconf[cindex].c_str()));
-      dc_procIDvsLayer[cindex]->SetDirectory(0);
 
-      // process ID vs Z
-      for(int r=0; r<NREG; r++)
-      {
-         dc_procIDvsZ[r][cindex] = (TH2F*) f.Get(Form("dc_procIDvsZ_r%d_%s", r+1, sconf[cindex].c_str()));
-         dc_procIDvsZ[r][cindex]->SetDirectory(0);
-      }
-      // process ID vs pid
-      dc_procIDvspid[cindex] = (TH2F*) f.Get(Form("dc_procIDvspid_%s", sconf[cindex].c_str()));
-      dc_procIDvspid[cindex]->SetDirectory(0);
+		// process ID histos
+//		dc_procID[cindex] = (TH1F*) f.Get(Form("dc_procID_%s", sconf[cindex].c_str()));
+//		dc_procID[cindex]->SetDirectory(0);
+//
+//		// process ID vs Layer
+//		dc_procIDvsLayer[cindex] = (TH2F*) f.Get(Form("dc_procIDvsLayer_%s", sconf[cindex].c_str()));
+//		dc_procIDvsLayer[cindex]->SetDirectory(0);
+//
+//		// process ID vs Z
+//		for(int r=0; r<NREG; r++)
+//		{
+//			dc_procIDvsZ[r][cindex] = (TH2F*) f.Get(Form("dc_procIDvsZ_r%d_%s", r+1, sconf[cindex].c_str()));
+//			dc_procIDvsZ[r][cindex]->SetDirectory(0);
+//		}
+//		// process ID vs pid
+//		dc_procIDvspid[cindex] = (TH2F*) f.Get(Form("dc_procIDvspid_%s", sconf[cindex].c_str()));
+//		dc_procIDvspid[cindex]->SetDirectory(0);
+//
+//		// process ID vs Edep
+//		dc_procIDvsEdep[cindex] = (TH2F*) f.Get(Form("dc_procIDvsEdep_%s", sconf[cindex].c_str()));
+//		dc_procIDvsEdep[cindex]->SetDirectory(0);
+//
+//		// process ID vs track energy
+//		// different track energy ranges
+//		dc_procIDvsTrackE[0][cindex] = (TH2F*) f.Get(Form("dc_procIDvsTrackE1_%s", sconf[cindex].c_str()));
+//		dc_procIDvsTrackE[1][cindex] = (TH2F*) f.Get(Form("dc_procIDvsTrackE2_%s", sconf[cindex].c_str()));
+//		dc_procIDvsTrackE[2][cindex] = (TH2F*) f.Get(Form("dc_procIDvsTrackE3_%s", sconf[cindex].c_str()));
+//
+//		dc_procIDvsTrackE[0][cindex]->SetDirectory(0);
+//		dc_procIDvsTrackE[1][cindex]->SetDirectory(0);
+//		dc_procIDvsTrackE[2][cindex]->SetDirectory(0);
 
-      // process ID vs Edep
-      dc_procIDvsEdep[cindex] = (TH2F*) f.Get(Form("dc_procIDvsEdep_%s", sconf[cindex].c_str()));
-      dc_procIDvsEdep[cindex]->SetDirectory(0);
-
-      // process ID vs track energy
-      // different track energy ranges
-      dc_procIDvsTrackE[0][cindex] = (TH2F*) f.Get(Form("dc_procIDvsTrackE1_%s", sconf[cindex].c_str()));
-      dc_procIDvsTrackE[1][cindex] = (TH2F*) f.Get(Form("dc_procIDvsTrackE2_%s", sconf[cindex].c_str()));
-      dc_procIDvsTrackE[2][cindex] = (TH2F*) f.Get(Form("dc_procIDvsTrackE3_%s", sconf[cindex].c_str()));
-
-      dc_procIDvsTrackE[0][cindex]->SetDirectory(0);
-      dc_procIDvsTrackE[1][cindex]->SetDirectory(0);
-      dc_procIDvsTrackE[2][cindex]->SetDirectory(0);
-      
 		cout << " done. " << endl;
 		f.Close();
 
 	}
-	
-	
+
+
 }
 
 
