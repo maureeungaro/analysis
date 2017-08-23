@@ -8,7 +8,15 @@
 # rootr:   will rootify and remove simulation dir
 # clear:   will remove unfinished directories
 
+
+# making sure evio2root exists
+if(`filetest -e $BANKS/bin/evio2rot` == 0) then
+	echo evio2root not found, check environment
+	exit
+endif
+
 set OPT = $1
+
 
 # Parameters set by user
 # ----------------------
