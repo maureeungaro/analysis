@@ -126,7 +126,7 @@ void init_dc_histos(string filename, int cindex)
 			for(int r=0; r<NREG; r++)
 			{
 				string hitCutR;
-				if(r==0) hitCutR = hitCut + "               && layer < 13)";
+				if(r==0) hitCutR = hitCut + "               && layer < 13";
 				if(r==1) hitCutR = hitCut + " && layer > 12 && layer < 25";
 				if(r==2) hitCutR = hitCut + " && layer > 24 ";
 
