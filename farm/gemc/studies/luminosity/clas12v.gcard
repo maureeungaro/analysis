@@ -53,7 +53,6 @@
     <!-- hall field  -->
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
 	<option name="INTEGRATEDRAW"  value="dc"/>
-	<option name="SAVE_ALL_MOTHERS" value="1"/>
 
 	<!-- fields, precise mode -->
 	<option name="FIELD_PROPERTIES" value="clas12-torus-big, 2*mm, G4ClassicalRK4, linear"/>

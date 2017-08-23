@@ -52,7 +52,6 @@
 
     <!-- hall field  -->
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
-	<option name="INTEGRATEDRAW"  value="dc"/>
 	<option name="SAVE_ALL_MOTHERS" value="1"/>
 
 	<!-- fields, precise mode -->
