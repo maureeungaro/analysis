@@ -239,7 +239,7 @@ void init_dc_histos(string filename, int cindex)
 			{
 				dc_occ[s][e][cindex]->Write();
 			}
-			
+
 			for(int r=0; r<NREG; r++)
 			{
 				for(int z=0; z<NZONES; z++)
@@ -248,33 +248,33 @@ void init_dc_histos(string filename, int cindex)
 				}
 
 				for(int p=0; p<NPART; p++)
-					dc_zver[e][cindex][r][p]->Write();
-				
+				dc_zver[e][cindex][r][p]->Write();
+
 				dc_occ_summary[r][e][cindex]->Write();
 			}
 		}
-      
-      
-		dc_procID[cindex]->Write();
-      dc_procIDvsLayer[cindex]->Write();
-      
-      for(int r=0; r<NREG; r++)
-      {
-         dc_procIDvsZ[r][cindex]->Write();
-      }
-      // process ID vs pid
-      dc_procIDvspid[cindex]->Write();
-      
-      // process ID vs Edep
-      dc_procIDvsEdep[cindex]->Write();
-      
-      // process ID vs track energy
-      // different track energy ranges
-      dc_procIDvsTrackE[0][cindex]->Write();
-      dc_procIDvsTrackE[1][cindex]->Write();
-      dc_procIDvsTrackE[2][cindex]->Write();
 
-      
+
+//		dc_procID[cindex]->Write();
+//		dc_procIDvsLayer[cindex]->Write();
+//
+//		for(int r=0; r<NREG; r++)
+//		{
+//			dc_procIDvsZ[r][cindex]->Write();
+//		}
+//		// process ID vs pid
+//		dc_procIDvspid[cindex]->Write();
+//
+//		// process ID vs Edep
+//		dc_procIDvsEdep[cindex]->Write();
+//
+//		// process ID vs track energy
+//		// different track energy ranges
+//		dc_procIDvsTrackE[0][cindex]->Write();
+//		dc_procIDvsTrackE[1][cindex]->Write();
+//		dc_procIDvsTrackE[2][cindex]->Write();
+
+
 		of.Close();
 		cout << " done. "  << endl;
 	}
