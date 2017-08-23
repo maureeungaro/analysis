@@ -10,7 +10,7 @@
 
 
 # making sure evio2root exists
-if(`filetest -e $BANKS/bin/evio2rot` == 0) then
+if(`where evio2root` == "") then
 	echo evio2root not found, check environment
 	exit
 endif
