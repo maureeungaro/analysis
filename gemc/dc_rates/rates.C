@@ -59,8 +59,6 @@
 	const int NREG     = 3;
 	string sreg[NREG] = {"reg1", "reg2", "reg3"}
 	int REG = 0;
-	// number of hits in each region
-	int NHR[NREG];
 	
 	// near target
 	zlimits[0][0][0] = -10;    zlimits[0][1][0] =  150;

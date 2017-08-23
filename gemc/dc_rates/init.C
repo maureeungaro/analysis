@@ -8,16 +8,7 @@ void init_dc_histos(string filename, int cindex)
 		NHITS           = generated->GetEntries();
 		double TWINDOW  = 250.0e-9;
 		double TOT_TIME = NHITS*TWINDOW;
-		
-		
-		// getting total number of hits in each region
-		dc->Draw("superlayer>>r1", "superlayer==1 || superlayer==2");
-		dc->Draw("superlayer>>r2", "superlayer==3 || superlayer==4");
-		dc->Draw("superlayer>>r3", "superlayer==5 || superlayer==6");
-		NHR[0] = r1->GetEntries();
-		NHR[1] = r2->GetEntries();
-		NHR[2] = r3->GetEntries();
-		
+
 		
 		double TWINDOWR[3] = {250.0e-9, 250.0e-9, 500.0e-9};
 		
@@ -119,8 +110,7 @@ void init_dc_histos(string filename, int cindex)
 				string allCuts    = hitCut + "  && " + sectcut;
 				
 				// 2D occupancy histos: 2D for each sector, wire vs layer
-				// superlayer is from 1 to 6
-				// layer is from 1 to 6
+				// layer is from 1 to 36
 				string hist = Form("(layer:wire >> dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str());
 				dc->Draw(hist.c_str(), allCuts.c_str());
 				
@@ -171,7 +161,7 @@ void init_dc_histos(string filename, int cindex)
 			double nlayers = 12.0;
 			for(int r=0; r<3; r++)
 			{
-				string regionCut = Form("(superlayer == %d || superlayer == %d)", 2*r+1, 2*r+2);
+				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*r+1);
 				string allCuts    = hitCut + "  && " + regionCut;
 				string histSum   = Form("sector - 0.5 >> dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str());
 				dc->Draw(histSum.c_str(), allCuts.c_str());
@@ -183,11 +173,11 @@ void init_dc_histos(string filename, int cindex)
 		
 			// procID. Attention: assuming NENERGY = 1 otherwise we'd have to be in external loop
 			dc->Draw(Form("procID>>dc_procID_%s",                   sconf[cindex].c_str()), hitCut.c_str());
-			dc->Draw(Form("procID:superlayer>>dc_procIDvsLayer_%s", sconf[cindex].c_str()), hitCut.c_str());
+			dc->Draw(Form("procID:layer>>dc_procIDvsLayer_%s", sconf[cindex].c_str()), hitCut.c_str());
 			
 			for(int r=0; r<3; r++)
 			{
-				string regionCut = Form("(superlayer == %d || superlayer == %d)", 2*r+1, 2*r+2);
+				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*r+1);
 				string allCuts   = hitCut + "  && " + regionCut;
             string histSum   = Form("procID:vz>>dc_procIDvsZ_r%d_%s", r+1, sconf[cindex].c_str());
 
