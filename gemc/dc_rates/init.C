@@ -121,7 +121,7 @@ void init_dc_histos(string filename, int cindex)
 				// 2D occupancy histos: 2D for each sector, wire vs layer
 				// superlayer is from 1 to 6
 				// layer is from 1 to 6
-				string hist = Form("((superlayer-1)*6+layer):wire >> dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str());
+				string hist = Form("(layer:wire >> dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str());
 				dc->Draw(hist.c_str(), allCuts.c_str());
 				
 				dc_pro[s][e][cindex]->Scale(100*factor[cindex]/NHITS);
@@ -136,9 +136,9 @@ void init_dc_histos(string filename, int cindex)
 			for(int r=0; r<NREG; r++)
 			{
 				string hitCutR;
-				if(r==0) hitCutR = hitCut + " && (superlayer == 1 || superlayer == 2)";
-				if(r==1) hitCutR = hitCut + " && (superlayer == 3 || superlayer == 4)";
-				if(r==2) hitCutR = hitCut + " && (superlayer == 5 || superlayer == 6)";
+				if(r==0) hitCutR = hitCut + "               && layer < 13)";
+				if(r==1) hitCutR = hitCut + " && layer > 12 && layer < 25";
+				if(r==2) hitCutR = hitCut + " && layer > 24 ";
 
 				// 2D vertex histos
 				for(int z=0; z<NZONES; z++)
