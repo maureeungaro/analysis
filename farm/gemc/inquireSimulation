@@ -74,7 +74,7 @@ while ($w <= $#titles)
 	set SIMU = 1
 	set EVN  = `cat nevents_$thisJob.dat`
 	set ADDEVN = 0
-	set NEXISTD = `ls $thisInputD              | wc | awk '{print $1}'`  # number of existing directories to process
+	set NEXISTD = `ls $thisInputD  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`  # number of existing directories to process
 	set NRFILES = `ls $thisOutputD | grep root | wc | awk '{print $1}'`  # number of processed files
 
 	\echo " > -------------------"
