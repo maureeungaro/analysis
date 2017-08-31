@@ -9,14 +9,7 @@
 # clear:   will remove unfinished directories
 
 
-# making sure evio2root exists
-if(`where evio2root` == "") then
-	echo evio2root not found, check environment
-	exit
-endif
-
 set OPT = $1
-
 
 # Parameters set by user
 # ----------------------
@@ -26,10 +19,24 @@ set INPUTD  = /work/clas12/ungaro/clas12  # location of evio files (inside each 
 set OUTPUTD = $INPUTD/root                # output directory
 set EXACT   = 20                          # number of expected events
 set MINP    = 20                          # minimum number of events required for the sim to be processed
-set BANKSM  = "dc"                          # banks to be included in rootification
+set BANKSM  = "dc"                        # bank to be included in rootification
 
 # End of user parameter
 # ---------------------
+
+
+# making sure evio2root exists
+if(`where evio2root` == "") then
+	echo evio2root not found, check environment
+	exit
+endif
+
+# making sure the bank exists
+set bankFile = $BANKSM"__bank.txt"
+if( ! -f $bankfile) then
+	echo $bankFile not found, make sure the bank defs exist
+	exit
+endif
 
 
 # title of the jobs to be launched
