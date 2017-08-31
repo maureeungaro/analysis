@@ -1,5 +1,6 @@
 void init_dc_histos(string filename, int cindex)
 {
+	int NHITS; // number of events
 	if(recalc == 1)
 	{
 		TFile f(filename.c_str());
