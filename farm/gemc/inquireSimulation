@@ -33,7 +33,7 @@ endif
 
 # making sure the bank exists
 set bankFile = $BANKSM"__bank.txt"
-if( ! -f $bankfile) then
+if( ! -f $bankFile) then
 	echo $bankFile not found, make sure the bank defs exist
 	exit
 endif

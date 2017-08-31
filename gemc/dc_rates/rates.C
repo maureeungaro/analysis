@@ -11,17 +11,16 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	int NHITS; // number of events
 	
 	
-	const int NCONF      = 3;
+	const int NCONF      = 2;
 	string sconf[NCONF]  = {
 		"clas12New1",
-	"clas12New2",
-	"clas12v"};
+	"clas12NewTarget"};
 
-	double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
+	double factor[NCONF] = {1, 1};  // additional factor to scale the different configurations
 
 
 	int CONF             = 0;
