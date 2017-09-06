@@ -45,7 +45,7 @@ void init_dc_histos(string filename, int cindex)
 				{
 					dc_ver[e][cindex][z][r] = new TH2F(Form("dc_ver_E%s_%s_z%s_r%d", SEDEP[e].c_str(), sconf[cindex].c_str(), SZONE[z].c_str(), r+1),
 													           Form("dc_ver_E%s_%s_z%s_r%d", SEDEP[e].c_str(), sconf[cindex].c_str(), SZONE[z].c_str(), r+1),
-													           200, zlimits[2][0][z], zlimits[2][1][z], 200, zlimits[0][0][z], zlimits[0][1][z]);
+													           200, zlimits[2][0][z], zlimits[2][1][z]+r*2000, 200, zlimits[0][0][z], zlimits[0][1][z]+r*500);
 				}
 				// 1D vertex histos
 				double hzend = 8000;

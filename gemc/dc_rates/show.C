@@ -12,6 +12,7 @@ void show_dc_occ()
 	lab.SetNDC(1);
 	
 	TCanvas *rates1  = new TCanvas("rates1", "DC Occupancy", 1000, 1000);
+        dc_occ[SECT][ENERGY][CONF]->SetMaximum(10);
 	dc_occ[SECT][ENERGY][CONF]->Draw("colz");
 	
 	lab.SetTextSize(0.05);
@@ -160,6 +161,8 @@ void show_zvertex()
 	lab.SetNDC(1);
 	
 	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
+	gPad->SetLogy();
+
 	
 	dc_zver[ENERGY][CONF][REG][0]->SetLineColor(kBlack);
 	dc_zver[ENERGY][CONF][REG][1]->SetLineColor(kRed);
@@ -167,6 +170,9 @@ void show_zvertex()
 	dc_zver[ENERGY][CONF][REG][3]->SetLineColor(kGreen+2);
 	dc_zver[ENERGY][CONF][REG][4]->SetLineColor(kOrange);
 	dc_zver[ENERGY][CONF][REG][5]->SetLineColor(kYellow-3);
+
+        dc_zver[ENERGY][CONF][REG][0]->SetMaximum(40);
+
 	
 	dc_zver[ENERGY][CONF][REG][0]->Draw("");
 	dc_zver[ENERGY][CONF][REG][1]->Draw("same");
@@ -245,6 +251,13 @@ void show_vertex()
 	
 	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
 	gPad->SetLogz();
+	
+	if(REG==0) {
+                if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(800);
+                if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(200);
+                if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(500);
+
+        }
 	
 	dc_ver[ENERGY][CONF][ZONE][REG]->Draw("colz");
 	

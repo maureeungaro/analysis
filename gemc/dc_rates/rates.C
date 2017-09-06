@@ -15,12 +15,10 @@
 	int NHITS; // number of events
 	
 	
-	const int NCONF      = 2;
-	string sconf[NCONF]  = {
-		"clas12New1",
-	"clas12NewTarget"};
+	const int NCONF      = 3;
+	string sconf[NCONF]  = { "clas12New1", "clas12Target1", "clas12Target2"};
 
-	double factor[NCONF] = {1, 1};  // additional factor to scale the different configurations
+	double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
 
 
 	int CONF             = 0;
@@ -61,19 +59,19 @@
 	
 	// near target
 	zlimits[0][0][0] = -10;    zlimits[0][1][0] =  150;
-	zlimits[2][0][0] = -100;   zlimits[2][1][0] = 400;
+	zlimits[2][0][0] = -100;   zlimits[2][1][0] = 900;
 	
 	// beampipe
 	zlimits[0][0][1] = -100;   zlimits[0][1][1] = 1400;
-	zlimits[2][0][1] = 200;   zlimits[2][1][1] = 3100;
+	zlimits[2][0][1] = -100;   zlimits[2][1][1] = 1600;
 	
 	// torus
 	zlimits[0][0][2] = -200;    zlimits[0][1][2] = 1500;
-	zlimits[2][0][2] = 4000;   zlimits[2][1][2] = 8000;
+	zlimits[2][0][2] = 2500;   zlimits[2][1][2] = 5500;
 	
 	// all
-	zlimits[0][0][3] = -200;    zlimits[0][1][3] = 2500;
-	zlimits[2][0][3] = -2000;   zlimits[2][1][3] = 9000;
+	zlimits[0][0][3] = -100;   zlimits[0][1][3] = 2000;
+	zlimits[2][0][3] = -100;   zlimits[2][1][3] = 3000;
 	
 	
 	string PRINT = "";   // Print on Image File
