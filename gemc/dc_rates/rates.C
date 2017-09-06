@@ -14,10 +14,11 @@
 	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
-	const int NCONF      = 3;
-	string sconf[NCONF]  = { "clas12New1", "clas12Target1", "clas12Target2"};
+	const int NCONF      = 2;
+//	string sconf[NCONF]  = { "clas12New1", "clas12Target1", "clas12Target2"};
+	string sconf[NCONF]  = { "oldTarget", "newTarget"};
 
-	double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
+	double factor[NCONF] = {1, 1};  // additional factor to scale the different configurations
 
 
 	int CONF             = 0;
