@@ -12,7 +12,6 @@
 	gStyle->SetPadBorderMode(0);
 
 	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
-	int NHITS; // number of events
 	
 	
 	const int NCONF      = 3;

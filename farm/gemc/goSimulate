@@ -30,9 +30,9 @@ set gcard = $title".gcard"
 mkdir -p $dir
 
 # checking how many directories already exist
-# the loop will check for all of those + 100
-set NEXIST = `ls $dir/ | wc | awk '{print $1}'`
-@ NMAX = $NEXIST + 100
+# the loop will check for all of those + 10
+set NEXIST = `ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`
+@ NMAX = $NEXIST + 10
 
 # Look for first non existing dir
 set SIMU = 1
