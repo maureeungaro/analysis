@@ -12,7 +12,7 @@ void show_dc_occ()
 	lab.SetNDC(1);
 	
 	TCanvas *rates1  = new TCanvas("rates1", "DC Occupancy", 1000, 1000);
-        dc_occ[SECT][ENERGY][CONF]->SetMaximum(10);
+	dc_occ[SECT][ENERGY][CONF]->SetMaximum(10);
 	dc_occ[SECT][ENERGY][CONF]->Draw("colz");
 	
 	lab.SetTextSize(0.05);
@@ -70,6 +70,8 @@ void show_dc_int_occ()
 
 		// manually setting max
 		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(max);
+		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(9);
+
 //		if(CONF==2)
 //			dc_occ_summary[r][ENERGY][CONF]->SetMaximum(2);
 
@@ -253,24 +255,27 @@ void show_vertex()
 	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
 	gPad->SetLogz();
 
-	dc_ver[ENERGY][CONF][ZONE][REG]->SetMinimum(0);
+	dc_ver[ENERGY][CONF][ZONE][REG]->SetMinimum(1);
 
 	if(REG==0) {
 		if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(8);
 		if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
 		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(5);
+		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(1);
 
 	}
 	if(REG==1) {
 		if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(3);
 		if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
 		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
+		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(0.02);
 
 	}
 	if(REG==2) {
 		if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(8);
 		if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
 		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(5);
+		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(0.02);
 
 	}
 

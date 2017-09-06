@@ -66,7 +66,7 @@
 	
 	// torus
 	zlimits[0][0][2] = -200;    zlimits[0][1][2] = 1500;
-	zlimits[2][0][2] = 2500;   zlimits[2][1][2] = 5500;
+	zlimits[2][0][2] = 2500;   zlimits[2][1][2] = 6000;
 	
 	// all
 	zlimits[0][0][3] = -100;   zlimits[0][1][3] = 2000;
