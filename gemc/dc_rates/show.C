@@ -171,9 +171,10 @@ void show_zvertex()
 	dc_zver[ENERGY][CONF][REG][4]->SetLineColor(kOrange);
 	dc_zver[ENERGY][CONF][REG][5]->SetLineColor(kYellow-3);
 
-        dc_zver[ENERGY][CONF][REG][0]->SetMaximum(40);
+	dc_zver[ENERGY][CONF][REG][0]->SetMaximum(40);
+	dc_zver[ENERGY][CONF][REG][0]->SetMinimum(0.005);
 
-	
+
 	dc_zver[ENERGY][CONF][REG][0]->Draw("");
 	dc_zver[ENERGY][CONF][REG][1]->Draw("same");
 	dc_zver[ENERGY][CONF][REG][2]->Draw("same");
@@ -251,14 +252,28 @@ void show_vertex()
 	
 	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
 	gPad->SetLogz();
-	
-	if(REG==0) {
-                if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(800);
-                if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(200);
-                if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(500);
 
-        }
-	
+	dc_ver[ENERGY][CONF][ZONE][REG]->SetMinimum(0);
+
+	if(REG==0) {
+		if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(8);
+		if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
+		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(5);
+
+	}
+	if(REG==1) {
+		if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(3);
+		if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
+		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
+
+	}
+	if(REG==2) {
+		if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(8);
+		if(ZONE==0) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(2);
+		if(ZONE==1) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(5);
+
+	}
+
 	dc_ver[ENERGY][CONF][ZONE][REG]->Draw("colz");
 	
 	lab.SetTextSize(0.045);

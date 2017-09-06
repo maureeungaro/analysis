@@ -58,7 +58,7 @@
 	
 	// near target
 	zlimits[0][0][0] = -10;    zlimits[0][1][0] =  150;
-	zlimits[2][0][0] = -100;   zlimits[2][1][0] = 900;
+	zlimits[2][0][0] = -100;   zlimits[2][1][0] = 1000;
 	
 	// beampipe
 	zlimits[0][0][1] = -100;   zlimits[0][1][1] = 1400;
