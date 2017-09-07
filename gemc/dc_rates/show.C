@@ -255,7 +255,7 @@ void show_vertex()
 	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
 	gPad->SetLogz();
 
-	dc_ver[ENERGY][CONF][ZONE][REG]->SetMinimum(0.01);
+	dc_ver[ENERGY][CONF][ZONE][REG]->SetMinimum(0.001);
 
 	if(REG==0) {
 		if(ZONE==3) dc_ver[ENERGY][CONF][ZONE][REG]->SetMaximum(8);

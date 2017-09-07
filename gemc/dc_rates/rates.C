@@ -11,7 +11,7 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
 	const int NCONF      = 2;
