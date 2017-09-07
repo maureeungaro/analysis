@@ -12,7 +12,7 @@ void show_dc_occ()
 	lab.SetNDC(1);
 	
 	TCanvas *rates1  = new TCanvas("rates1", "DC Occupancy", 1000, 1000);
-	dc_occ[SECT][ENERGY][CONF]->SetMaximum(10);
+	dc_occ[SECT][ENERGY][CONF]->SetMaximum(0.1);
 	dc_occ[SECT][ENERGY][CONF]->Draw("colz");
 	
 	lab.SetTextSize(0.05);
