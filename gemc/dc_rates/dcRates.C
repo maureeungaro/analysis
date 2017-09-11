@@ -5,7 +5,7 @@ const bool recalc = 1; // 1 will refill all histos - 0 will open the outputf fil
 
 const int NCONF      = 2;
 const string sconf[NCONF]  = {
-	"clas12NewTarget1",
+	"cadTarget",
 	"clas12NewTarget2"};
 
 const double factor[NCONF] = {1, 1};  // additional factor to scale the different configurations
