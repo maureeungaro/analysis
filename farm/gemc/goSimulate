@@ -44,7 +44,7 @@ sleep $x
 
 while ($SIMU < $NMAX)
 
-	echo scanning $SIMU >> $logFile
+	echo scanning $SIMU
 
 	if(`filetest -e $dir/simu_$SIMU` == 0) then
 
