@@ -6,7 +6,7 @@
 #setenv JLAB_VERSION devel
 #source $JLAB_ROOT/$JLAB_VERSION/ce/jlab.csh
 
-source /group/clas12/gemc/environment.csh 4a.2.1
+source /group/clas12/gemc/environment.csh 4a.2.2
 
 # -----------------
 # end of user setup

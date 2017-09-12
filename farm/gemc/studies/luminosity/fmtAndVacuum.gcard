@@ -37,9 +37,9 @@
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/ltcc"          factory="TEXT" variation="original"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad_cone/"     factory="CAD"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad/"          factory="CAD"/>
-	<detector name="FMT">
-		<existence exist="no" />
-	</detector>
+	<option name="HALL_MATERIAL" value="Vacuum"/>
+	<option name="CHANGEVOLUMEMATERIALTO" value="airPipe, Vacuum"/>
+
 
 
 	<!-- you can scale the fields here. Remember torus -1 means e- INBENDING  -->
