@@ -1,7 +1,5 @@
 
 
-// global application settings
-const bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 
 const int NCONF      = 2;
 const string sconf[NCONF]  = {
@@ -11,8 +9,11 @@ const string sconf[NCONF]  = {
 const double factor[NCONF] = {1, 1};  // additional factor to scale the different configurations
 
 
-void dcRates()
+void dcRates(bool recalc)
 {
+
+	if(recalc) cout << " Re-defining histograms." << endl;
+	else       cout << " Loading histos definitions." << endl;
 
 	gStyle->SetPalette(1);
 	gStyle->SetOptTitle(kWhite);
@@ -25,10 +26,6 @@ void dcRates()
 	gStyle->SetCanvasBorderMode(0);
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
-
-
-
-
 
 
 	TControlBar* bar =
