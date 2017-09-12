@@ -31,20 +31,23 @@ mkdir -p $dir
 
 # checking how many directories already exist
 # the loop will check for all of those + 10
-set NEXIST = `ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`
-@ NMAX = $NEXIST + 10
+set NEXIST = `\ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`
+@ NMAX = $NEXIST * 2
 
-# Look for first non existing dir
-set SIMU = 1
+echo $NEXIST > localLog
 
 # sleeping a random amount of time (max 100 seconds)
 # to prevent to use the same directory
 set x = `perl -e 'srand; print int(rand(100)+1)'`
-sleep $x
 
+echo sleeping for $x seconds
+sleep $x >> localLog
+
+# Look for first non existing dir
+set SIMU = 1
 while ($SIMU < $NMAX)
 
-	echo scanning $SIMU
+	echo scanning $SIMU  >> localLog
 
 	if(`filetest -e $dir/simu_$SIMU` == 0) then
 
@@ -66,7 +69,7 @@ while ($SIMU < $NMAX)
 		endif
 	
 		set logFile = $runDir/gemc.log
-		touch $logFile
+		cat localLog > $logFile
 
 		# log before running
 		./logConditions pre-run $SIMU $x            
