@@ -44,6 +44,8 @@ sleep $x
 
 while ($SIMU < $NMAX)
 
+	echo scanning $SIMU >> $logFile
+
 	if(`filetest -e $dir/simu_$SIMU` == 0) then
 
 		set runDir =  $dir/simu_$SIMU
