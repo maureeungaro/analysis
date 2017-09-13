@@ -11,14 +11,13 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
-	const int NCONF      = 2;
-//	string sconf[NCONF]  = { "clas12New1", "clas12Target1", "clas12Target2"};
-	string sconf[NCONF]  = { "oldTarget", "newTarget"};
+	const int NCONF      = 4;
+	string sconf[NCONF]  = { "nofmt", "fmtNominal", "fmtShifted", "fmtAndVacuum"};
 
-	double factor[NCONF] = {1, 1};  // additional factor to scale the different configurations
+	double factor[NCONF] = {1, 1, 1, 1};  // additional factor to scale the different configurations
 
 
 	int CONF             = 0;
