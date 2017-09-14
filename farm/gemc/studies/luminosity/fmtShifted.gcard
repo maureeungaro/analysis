@@ -52,7 +52,11 @@
 
 	<!-- fields, precise mode -->
 	<option name="FIELD_PROPERTIES" value="clas12-torus-big, 2*mm, G4ClassicalRK4, linear"/>
-	<option name="FIELD_PROPERTIES" value="clas12-solenoid,  1*mm, G4HelixSimpleRunge, linear"/>
+	<option name="FIELD_PROPERTIES" value="clas12-solenoid,  2*mm, G4HelixSimpleRunge, linear"/>
+
+	<option name="MAX_X_POS" value="6000"/>
+	<option name="MAX_Y_POS" value="6000"/>
+	<option name="MAX_Z_POS" value="10000"/>
 
 	<!-- beam conditions -->
 	<option name="BEAM_P"   value="e-, 10.6*GeV, 0.0*deg, 0*deg"/>

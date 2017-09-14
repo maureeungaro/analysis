@@ -2,7 +2,7 @@
 
 
 
-dcHistos::dcHistos(string filename)
+dcHistos::dcHistos(vector<string> confs, int recalc)
 {
 	// zone limits
 	// -----------

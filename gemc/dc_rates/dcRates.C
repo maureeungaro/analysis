@@ -5,18 +5,12 @@ const string rootFilePath = "/opt/root";
 // configurations
 const vector<string> confs = { "cadTarget", "clas12NewTarget2"};
 const vector<double> conff = {           1,                  1};  // additional factor to scale the different configurations
+
+
 int CONFINDEX = 0;
-
-// region
-const vector<string> regs = {"reg1", "reg2", "reg3"};
-int REGINDEX = 0;
-
-// sectors
-const int NSECT = 6;
-
-// vertex locations
-const vector<string> zones = {"target", "beampipe", "torus", "all"};
+int REGINDEX  = 0;
 int ZONEINDEX = 0;
+
 
 
 void dcRates(bool recalc, bool recompile=false)
@@ -54,8 +48,7 @@ void dcRates(bool recalc, bool recompile=false)
 
 
 
-	TControlBar* bar =
-	new TControlBar("vertical", "DC Rates - Maurizio Ungaro");
+	TControlBar* bar = new TControlBar("vertical", "DC Rates - Maurizio Ungaro");
 	bar->AddButton("DC Occupancy Rates",  "");
 	bar->AddButton("", "");
 	bar->AddButton("", "");
