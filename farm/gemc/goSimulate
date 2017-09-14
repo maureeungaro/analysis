@@ -32,7 +32,7 @@ mkdir -p $dir
 # checking how many directories already exist
 # the loop will check for all of those + 10
 set NEXIST = `\ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`
-@ NMAX = $NEXIST * 2
+@ NMAX = $NEXIST * 2 + 10
 
 echo $NEXIST > localLog
 
