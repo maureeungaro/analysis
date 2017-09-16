@@ -101,7 +101,7 @@
 	gROOT->LoadMacro("show.C");
 	
 	for(int c=0; c<NCONF; c++)
-		init_dc_histos(Form("/work/clas12/ungaro/%s.root", sconf[c].c_str()), c);
+		init_dc_histos(Form("/volatile/clas12/ungaro/%s.root", sconf[c].c_str()), c);
 		
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("DC Occupancy Rates",  "");

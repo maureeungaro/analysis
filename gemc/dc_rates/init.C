@@ -299,7 +299,7 @@ void init_dc_histos(string filename, int cindex)
 			{
 				// 2D occupancy histos: 2D for each sector, wire vs layer
 				dc_occ[s][e][cindex] = (TH2F*) f.Get(Form("dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str()));
-				dc_occ[s][e][cindex]->Scale(0.02);
+				//dc_occ[s][e][cindex]->Scale(0.02);
 				dc_occ[s][e][cindex]->SetDirectory(0);
 
 			}
