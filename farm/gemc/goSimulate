@@ -29,12 +29,6 @@ set gcard = $title".gcard"
 # making sure top directory exist
 mkdir -p $dir
 
-# checking how many directories already exist
-# the loop will check for all of those + 10
-set NEXIST = `\ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`
-@ NMAX = $NEXIST * 2 + 10
-
-echo $NEXIST > localLog
 
 # sleeping a random amount of time (max 100 seconds)
 # to prevent to use the same directory
@@ -42,6 +36,15 @@ set x = `perl -e 'srand; print int(rand(100)+1)'`
 
 echo sleeping for $x seconds
 sleep $x >> localLog
+
+# checking how many directories already exist
+# the loop will check for all of those + 10
+# giving 200 buffer as many jobs could start at the same time 
+set NEXIST = `\ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`
+@ NMAX = $NEXIST * 2 + 200
+
+echo $NEXIST > localLog
+
 
 # Look for first non existing dir
 set SIMU = 1
