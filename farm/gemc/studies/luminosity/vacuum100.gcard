@@ -37,10 +37,9 @@
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/ltcc"          factory="TEXT" variation="original"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad_cone/"     factory="CAD"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad/"          factory="CAD"/>
-	<detector name="FMT">
-		<position x="0*cm"  y="0*cm"  z="8*mm"  />
-	</detector>
-
+	<option name="HALL_MATERIAL" value="Vacuum"/>
+	<option name="CHANGEVOLUMEMATERIALTO" value="airPipe, Vacuum"/>
+	<option name="CHANGEVOLUMEMATERIALTO" value="airPipe2, Vacuum"/>
 
 	<!-- you can scale the fields here. Remember torus -1 means e- INBENDING  -->
 	<option name="SCALE_FIELD" value="clas12-torus-big, -1"/>
@@ -51,7 +50,7 @@
 	<option name="INTEGRATEDRAW"  value="dc"/>
 
 	<!-- fields, precise mode -->
-	<option name="FIELD_PROPERTIES" value="clas12-torus-big, 2*mm, G4ClassicalRK4, linear"/>
+	<option name="FIELD_PROPERTIES" value="clas12-torus-big, 2*mm, G4HelixSimpleRunge, linear"/>
 	<option name="FIELD_PROPERTIES" value="clas12-solenoid,  2*mm, G4HelixSimpleRunge, linear"/>
 
 	<option name="MAX_X_POS" value="6000"/>

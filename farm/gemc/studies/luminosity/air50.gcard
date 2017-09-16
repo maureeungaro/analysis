@@ -37,21 +37,21 @@
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/ltcc"          factory="TEXT" variation="original"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad_cone/"     factory="CAD"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad/"          factory="CAD"/>
-	<detector name="FMT">
-		<existence exist="no" />
-	</detector>
+
+
+
 
 
 	<!-- you can scale the fields here. Remember torus -1 means e- INBENDING  -->
 	<option name="SCALE_FIELD" value="clas12-torus-big, -1"/>
-	<option name="SCALE_FIELD" value="clas12-solenoid, 1"/>
+	<option name="SCALE_FIELD" value="clas12-solenoid, 0.5"/>
 
 	<!-- hall field  -->
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
 	<option name="INTEGRATEDRAW"  value="dc"/>
 
 	<!-- fields, precise mode -->
-	<option name="FIELD_PROPERTIES" value="clas12-torus-big, 2*mm, G4ClassicalRK4, linear"/>
+	<option name="FIELD_PROPERTIES" value="clas12-torus-big, 2*mm, G4HelixSimpleRunge, linear"/>
 	<option name="FIELD_PROPERTIES" value="clas12-solenoid,  2*mm, G4HelixSimpleRunge, linear"/>
 
 	<option name="MAX_X_POS" value="6000"/>
