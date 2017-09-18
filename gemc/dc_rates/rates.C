@@ -11,13 +11,23 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
-	const int NCONF      = 4;
-	string sconf[NCONF]  = { "nofmt", "fmtNominal", "fmtShifted", "fmtAndVacuum"};
+//	const int NCONF      = 14;
+//	string sconf[NCONF]  = { "air040", "air050", "air060", "air070", "air080", "air090", "vacuum100", "vacuum030", "vacuum040", "vacuum050", "vacuum060", "vacuum070", "vacuum080", "vacuum090"};
+//	double factor[NCONF] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};  // additional factor to scale the different configurations
 
-	double factor[NCONF] = {1, 1, 1, 1};  // additional factor to scale the different configurations
+        const int NCONF      = 16;
+        string sconf[NCONF]  = { "air100", "air030", "air040", "air050", "air060", "air070", "air080", "air090", "vacuum100", "vacuum030", "vacuum040", "vacuum050", "vacuum060", "vacuum070", "vacuum080", "vacuum090"};
+        double factor[NCONF] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};  // additional factor to scale the different configurations
+
+      	
+//	const int NCONF      = 1;
+//       string sconf[NCONF]  = { "vacuum90"};
+//        double factor[NCONF] = {1};  // additional factor to scale the different configurations
+
+
 
 
 	int CONF             = 0;

@@ -15,7 +15,7 @@ void show_dc_occ()
 
 
 	// TEMP SCALE TO 100 SO WE DO NOT HAVE TO RECALC
-	dc_occ[SECT][ENERGY][CONF]->SetMaximum(5);
+	dc_occ[SECT][ENERGY][CONF]->SetMaximum(8);
 
 	dc_occ[SECT][ENERGY][CONF]->Draw("colz");
 	
@@ -74,7 +74,7 @@ void show_dc_int_occ()
 
 		// manually setting max
 		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(max);
-		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(9);
+		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(20);
 
 //		if(CONF==2)
 //			dc_occ_summary[r][ENERGY][CONF]->SetMaximum(2);
@@ -177,7 +177,7 @@ void show_zvertex()
 	dc_zver[ENERGY][CONF][REG][4]->SetLineColor(kOrange);
 	dc_zver[ENERGY][CONF][REG][5]->SetLineColor(kYellow-3);
 
-	dc_zver[ENERGY][CONF][REG][0]->SetMaximum(40);
+	dc_zver[ENERGY][CONF][REG][0]->SetMaximum(100);
 	dc_zver[ENERGY][CONF][REG][0]->SetMinimum(0.005);
 
 
