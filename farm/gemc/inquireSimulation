@@ -123,7 +123,8 @@ while ($w <= $#titles)
 						
 						# evio2root failed
 						if( (`\echo $exc` != "" || `ls | grep "core\." | wc | awk '{print $1}'` == "1" ) && $OPT == "rootr") then
-							\echo "simu_$SIMU gave error $exc , deleting directory"
+							\echo "simu_$SIMU gave error >$exc<, or core is found. Deleting directory"
+							rm core*
 							rm -rf $thisDir
 						else
 						# evio2root was succesful
