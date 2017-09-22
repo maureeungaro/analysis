@@ -15,7 +15,7 @@ void show_dc_occ()
 
 
 	// TEMP SCALE TO 100 SO WE DO NOT HAVE TO RECALC
-	dc_occ[SECT][ENERGY][CONF]->SetMaximum(8);
+	dc_occ[SECT][ENERGY][CONF]->SetMaximum(4);
 
 	dc_occ[SECT][ENERGY][CONF]->Draw("colz");
 	
@@ -74,7 +74,7 @@ void show_dc_int_occ()
 
 		// manually setting max
 		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(max);
-		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(20);
+		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(6);
 
 //		if(CONF==2)
 //			dc_occ_summary[r][ENERGY][CONF]->SetMaximum(2);
