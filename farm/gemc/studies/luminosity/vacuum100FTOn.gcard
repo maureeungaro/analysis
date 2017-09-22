@@ -23,9 +23,9 @@
 
 
 	<!-- Beamline configuration: FT is used -->
-	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ft/ft"                      factory="TEXT" variation="FTOff"/>
-	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/beamline/cadBeamlineFTOFF/" factory="CAD"/>
-	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/beamline/beamline"          factory="TEXT" variation="FTOff"/>
+	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ft/ft"                      factory="TEXT" variation="FTOn"/>
+	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/beamline/cadBeamline/"      factory="CAD"/>
+	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/beamline/beamline"          factory="TEXT" variation="FTOn"/>
 
 	<!-- forward carriage -->
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/fc/forwardCarriage" factory="TEXT" variation="original"/>
@@ -37,14 +37,13 @@
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/ltcc"          factory="TEXT" variation="original"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad_cone/"     factory="CAD"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad/"          factory="CAD"/>
-
-
-
-
+	<option name="HALL_MATERIAL" value="Vacuum"/>
+	<option name="CHANGEVOLUMEMATERIALTO" value="airPipe, Vacuum"/>
+	<option name="CHANGEVOLUMEMATERIALTO" value="airPipe2, Vacuum"/>
 
 	<!-- you can scale the fields here. Remember torus -1 means e- INBENDING  -->
 	<option name="SCALE_FIELD" value="clas12-torus-big, -1"/>
-	<option name="SCALE_FIELD" value="clas12-solenoid, 0.7"/>
+	<option name="SCALE_FIELD" value="clas12-solenoid, 1"/>
 
 	<!-- hall field  -->
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
