@@ -11,17 +11,17 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
-	const int NCONF      = 4;
-	string sconf[NCONF]  = { "air100FTOff", "air100FTOn", "vacuum100FTOff", "vacuum100FTOn"};
-	double factor[NCONF] = {   1, 1, 1, 1};  // additional factor to scale the different configurations
+//	const int NCONF      = 4;
+//	string sconf[NCONF]  = { "air100FTOff", "air100FTOn", "vacuum100FTOff", "vacuum100FTOn"};
+//	double factor[NCONF] = {   1, 1, 1, 1};  // additional factor to scale the different configurations
 
       	
-//	const int NCONF      = 1;
-//       string sconf[NCONF]  = { "vacuum90"};
-//        double factor[NCONF] = {1};  // additional factor to scale the different configurations
+	const int NCONF      = 3;
+       string sconf[NCONF]  = { "air100FTOff", "air100FTOn", "air100FTOnNewBeamline"};
+        double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
 
 
 

@@ -120,6 +120,7 @@ while ($w <= $#titles)
 
 						\echo " > Last good event for simulation $SIMU is $LASTE. Good. Start Event is $EVN"
 						set exc = `evio2root -B="$BANKSM" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
+                                                #set exc = `evio2root -B="dc ftof htcc" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
 						
 						# evio2root failed
 						if( (`\echo $exc` != "" || `ls | grep "core\." | wc | awk '{print $1}'` == "1" ) && $OPT == "rootr") then
