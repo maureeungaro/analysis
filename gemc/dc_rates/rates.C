@@ -11,7 +11,7 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
 //	const int NCONF      = 4;
@@ -19,9 +19,9 @@
 //	double factor[NCONF] = {   1, 1, 1, 1};  // additional factor to scale the different configurations
 
       	
-	const int NCONF      = 3;
-       string sconf[NCONF]  = { "air100FTOff", "air100FTOn", "air100FTOnNewBeamline"};
-        double factor[NCONF] = {1, 1, 1};  // additional factor to scale the different configurations
+	const int NCONF      = 7;
+       string sconf[NCONF]  = { "field060", "field080", "field100", "field120", "field140", "field160", "field180", };
+        double factor[NCONF] = {1, 1, 1, 1, 1, 1, 1};  // additional factor to scale the different configurations
 
 
 
@@ -107,7 +107,7 @@
 	gROOT->LoadMacro("show.C");
 	
 	for(int c=0; c<NCONF; c++)
-		init_dc_histos(Form("/volatile/clas12/ungaro/%s.root", sconf[c].c_str()), c);
+		init_dc_histos(Form("/volatile/clas12/ungaro/clas12/root/%s.root", sconf[c].c_str()), c);
 		
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("DC Occupancy Rates",  "");
