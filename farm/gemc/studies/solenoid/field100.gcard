@@ -39,10 +39,6 @@
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad_cone/"     factory="CAD"/>
 	<detector name="/group/clas12/gemc/4a.2.2/experiments/clas12/ltcc/cad/"          factory="CAD"/>
 
-	<option name="RECORD_MIRRORS"     value="1"/>
-	<option name="RECORD_PASSBY"     value="1"/>
-
-
 
 	<!-- you can scale the fields here. Remember torus -1 means e- INBENDING  -->
 	<option name="SCALE_FIELD" value="clas12-torus-big, -1"/>
@@ -50,7 +46,7 @@
 
 	<!-- hall field  -->
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
-	<option name="INTEGRATEDRAW"  value="dc, ftof, htcc"/>
+	<option name="INTEGRATEDRAW"  value="dc"/>
 
 	<!-- fields, precise mode -->
 	<option name="FIELD_PROPERTIES" value="clas12-torus-big, 2*mm, G4HelixSimpleRunge, linear"/>
