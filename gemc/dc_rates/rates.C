@@ -11,7 +11,7 @@
 	gStyle->SetFrameBorderMode(0);
 	gStyle->SetPadBorderMode(0);
 
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
 //	const int NCONF      = 4;
@@ -21,7 +21,7 @@
       	
 	const int NCONF      = 5;
        string sconf[NCONF]  = {"beamXM0.5TargetNominal", "beamXM1.0TargetNominal", "beamXM1.5TargetNominal", "beamXM2.0TargetNominal", "beamXP0.0TargetNominal", "beamXP0.5TargetNominal", "beamXP1.0TargetNominal", "beamXP1.5TargetNominal", "beamXP2.0TargetNominal", "beamXP2.5TargetNominal", "beamXP3.0TargetNominal", "beamXP3.5TargetNominal", "beamXP4.0TargetNominal", "beamXP4.5TargetNominal", "beamXP5.0TargetNominal", "beamXP5.5TargetNominal", "beamXP6.0TargetNominal", "beamXP7.0TargetNominal"};
-        double factor[NCONF] = {1, 1, 1, 1, 1};  // additional factor to scale the different configurations
+        double factor[NCONF] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};  // additional factor to scale the different configurations
 
 
 
