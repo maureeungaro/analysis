@@ -4,7 +4,7 @@
 # ----------------------
 
 set GCARDSD    = ~/projects/analysis/farm/gemc/studies/bstShield      # collection of gcards. One job / gcard will be launched
-set NEVENTS    = 20                              # number of events / job
+set NEVENTS    = 50                              # number of events / job
 set MULTI_JOBS = 100                             # number of jobs to be launched per gcard
 set OUTPUTD    = /volatile/clas12/ungaro/clas12      # output directory
 set DEBUG      = no                              # "yes" will print out the jsub file instead of submitting it
