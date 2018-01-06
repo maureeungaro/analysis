@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<style type="text/css" media="all">
+			@import "dist.css";
+		</style>
+	
+	<script>
+		var TARGET = 'protons';
+	
+		function freeze()
+		{
+			frozen  = window.open(document.DIST.src, document.DIST.src,  'statusbar=no, scrollbars=auto, status=no, resizable=no, width=700, height=550');
+		}
+		function change_dist(layer, variable, on_off)
+		{
+			var dist = "img/Edep_vs_";
+			dist += variable;
+			dist += "_";
+			dist += TARGET;
+			dist += "_l";
+			dist += layer;
+			dist += ".gif";
+			//alert(particle);
+			document.DIST.src = dist;
+
+			if(on_off=='0') document.getElementById(particle).className = '';
+			if(on_off=='1') document.getElementById(particle).className = 'hovered';
+
+			if(document.getElementsByTagName)
+			{
+				(function()
+				{
+					var className = 'hovered',
+					pattern = new RegExp('(^|\\s+)' + className + '(\\s+|$)'),
+					rows = document.getElementById('indextable').getElementsByTagName('tr');
+
+					for(var i = 0, n = rows.length; i < n; ++i)
+					{
+						rows[i].onmouseover = function()
+						{
+							this.className += ' ' + className;
+						};
+						rows[i].onmouseout = function()
+						{
+							this.className = this.className.replace(pattern, ' ');
+						};
+					}
+				})();
+			}
+		}
+	</script>
+	</head>
+
+	<body>
+		<center>
+			<table border="0" cellspacing="10" cellpadding="7"><font size="5"> 
+				<br><br>CLAS12 BST Simulation </a> <br /> <br />
+					Energy deposited versus momentum, theta, phi for background and signal hadrons </font> <br /> <br />
+				<tr>
+				<td>
+				<table style="font-size:0.9em; " align="center" border="0" cellspacing="2" cellpadding="5"><b>Particle </b> <br />
+					<tr>
+						<td align="right">  protons               <input  name="WT" type="radio" onclick="javascrip:TARGET='protons'"   checked="TRUE"  />  </td>
+						<td align="right">  kaons                 <input  name="WT" type="radio" onclick="javascrip:TARGET='kaons'"                     />  </td>
+						<td align="right">  pions                 <input  name="WT" type="radio" onclick="javascrip:TARGET='pions'"                     />  </td>
+						<td align="right">  e.m. Background       <input  name="WT" type="radio" onclick="javascrip:TARGET='em'"                        />  </td>
+						<td align="right">  hadronic Background   <input  name="WT" type="radio" onclick="javascrip:TARGET='ha'"                        />  </td>
+					<tr>
+				</table> 
+				<br /><br />
+				
+				
+				<table id="indextable" border="1" cellspacing="0" cellpadding="1" class="indextable">
+				<tr>
+					<td style="font-size:1.3em;" > <sub>Layer</sub>   \    <sup>Variable</sup></td>
+					<td></td>
+					<td >Energy</td>
+					<td >Theta</td>
+					<td >phi</td>
+				</tr>
+					<tr>
+					<td> 1a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', 'mom',  '1');"  onmouseout="change_dist('1a', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', 'the',  '1');"  onmouseout="change_dist('1a', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', 'phi',  '1');"  onmouseout="change_dist('1a', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', 'mom',  '1');"  onmouseout="change_dist('1b', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', 'the',  '1');"  onmouseout="change_dist('1b', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', 'phi',  '1');"  onmouseout="change_dist('1b', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', 'mom',  '1');"  onmouseout="change_dist('2a', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', 'the',  '1');"  onmouseout="change_dist('2a', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', 'phi',  '1');"  onmouseout="change_dist('2a', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', 'mom',  '1');"  onmouseout="change_dist('2b', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', 'the',  '1');"  onmouseout="change_dist('2b', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', 'phi',  '1');"  onmouseout="change_dist('2b', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', 'mom',  '1');"  onmouseout="change_dist('3a', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', 'the',  '1');"  onmouseout="change_dist('3a', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', 'phi',  '1');"  onmouseout="change_dist('3a', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', 'mom',  '1');"  onmouseout="change_dist('3b', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', 'the',  '1');"  onmouseout="change_dist('3b', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', 'phi',  '1');"  onmouseout="change_dist('3b', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 4a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', 'mom',  '1');"  onmouseout="change_dist('4a', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', 'the',  '1');"  onmouseout="change_dist('4a', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', 'phi',  '1');"  onmouseout="change_dist('4a', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 4b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', 'mom',  '1');"  onmouseout="change_dist('4b', 'mom',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', 'the',  '1');"  onmouseout="change_dist('4b', 'the',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', 'phi',  '1');"  onmouseout="change_dist('4b', 'phi',  '0');"  width="20px"/></td>
+				</tr>
+			</table>
+			<br />
+			<font style="font-size: 0.8em"> Hover on the above table to select the plot of interest.<br />
+			Click on any red square to open the image in a new window. <br /><br />
+			</font>
+			</td>
+			<td align="center" >
+				<img name = "DIST"   src="img/Edep_vs_mom_protons_l1a.gif" width="550px"/><br>
+			</td>
+			</tr>
+			</table>
+		</center>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,222 @@
+<html>
+	<head>
+		<style type="text/css" media="all">
+			@import "dist.css";
+		</style>
+	
+	<script>
+		var TARGET = 'lh2';
+	
+		function freeze()
+		{
+			frozen  = window.open(document.DIST.src, document.DIST.src,  'statusbar=no, scrollbars=auto, status=no, resizable=no, width=700, height=550');
+		}
+		function change_dist(layer, energy, on_off)
+		{
+			var dist = "img/";
+			dist += TARGET;
+			dist += "_event_layer_";
+			dist += layer;
+			dist += "_";
+			dist += energy;
+			dist += ".gif";
+			//alert(particle);
+			document.DIST.src = dist;
+
+			if(on_off=='0') document.getElementById(particle).className = '';
+			if(on_off=='1') document.getElementById(particle).className = 'hovered';
+
+			if(document.getElementsByTagName)
+			{
+				(function()
+				{
+					var className = 'hovered',
+					pattern = new RegExp('(^|\\s+)' + className + '(\\s+|$)'),
+					rows = document.getElementById('indextable').getElementsByTagName('tr');
+
+					for(var i = 0, n = rows.length; i < n; ++i)
+					{
+						rows[i].onmouseover = function()
+						{
+							this.className += ' ' + className;
+						};
+						rows[i].onmouseout = function()
+						{
+							this.className = this.className.replace(pattern, ' ');
+						};
+					}
+				})();
+			}
+		}
+	</script>
+	</head>
+
+	<body>
+		<center>
+			<table border="0" cellspacing="10" cellpadding="7"><font size="5"> 
+				<br><br>CLAS12 BST Simulation </a> <br /> <br />
+					Background One Event Rates for different layers, targets </font> <br /> <br />
+				<tr>
+				<td>
+				<table style="font-size:0.9em; " align="center" border="0" cellspacing="2" cellpadding="5"><b>Target </b> <br />
+					<tr>
+						<td align="right">  lh2    <input  name="WT" type="radio" onclick="javascrip:TARGET='lh2'"  checked="TRUE"   />  </td>
+						<td align="right">  ld2    <input  name="WT" type="radio" onclick="javascrip:TARGET='ld2'"                   />  </td>
+						<td align="right">  carbon <input  name="WT" type="radio" onclick="javascrip:TARGET='carbon'"                />  </td>
+						<td align="right">  iron   <input  name="WT" type="radio" onclick="javascrip:TARGET='iron'"                  />  </td>
+						<td align="right">  lead   <input  name="WT" type="radio" onclick="javascrip:TARGET='lead'"                  />  </td>
+					<tr>
+				</table> 
+				<br /><br />
+				
+				
+				<table id="indextable" border="1" cellspacing="0" cellpadding="1" class="indextable">
+				<tr>
+					<td style="font-size:1.3em;" > <sub>Layer</sub>   \    <sup>Energy Cut</sup></td>
+					<td></td>
+					<td >no cut</td>
+					<td >10 KeV</td>
+					<td >20 KeV</td>
+					<td >30 KeV</td>
+					<td >40 KeV</td>
+				</tr>
+					<tr>
+					<td> 1a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', 'nocut',  '1');"  onmouseout="change_dist('1a', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '10KeV',  '1');"  onmouseout="change_dist('1a', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '20KeV',  '1');"  onmouseout="change_dist('1a', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '30KeV',  '1');"  onmouseout="change_dist('1a', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '40KeV',  '1');"  onmouseout="change_dist('1a', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', 'nocut',  '1');"  onmouseout="change_dist('1b', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '10KeV',  '1');"  onmouseout="change_dist('1b', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '20KeV',  '1');"  onmouseout="change_dist('1b', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '30KeV',  '1');"  onmouseout="change_dist('1b', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '40KeV',  '1');"  onmouseout="change_dist('1b', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', 'nocut',  '1');"  onmouseout="change_dist('2a', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '10KeV',  '1');"  onmouseout="change_dist('2a', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '20KeV',  '1');"  onmouseout="change_dist('2a', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '30KeV',  '1');"  onmouseout="change_dist('2a', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '40KeV',  '1');"  onmouseout="change_dist('2a', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', 'nocut',  '1');"  onmouseout="change_dist('2b', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '10KeV',  '1');"  onmouseout="change_dist('2b', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '20KeV',  '1');"  onmouseout="change_dist('2b', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '30KeV',  '1');"  onmouseout="change_dist('2b', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '40KeV',  '1');"  onmouseout="change_dist('2b', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', 'nocut',  '1');"  onmouseout="change_dist('3a', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '10KeV',  '1');"  onmouseout="change_dist('3a', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '20KeV',  '1');"  onmouseout="change_dist('3a', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '30KeV',  '1');"  onmouseout="change_dist('3a', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '40KeV',  '1');"  onmouseout="change_dist('3a', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', 'nocut',  '1');"  onmouseout="change_dist('3b', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '10KeV',  '1');"  onmouseout="change_dist('3b', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '20KeV',  '1');"  onmouseout="change_dist('3b', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '30KeV',  '1');"  onmouseout="change_dist('3b', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '40KeV',  '1');"  onmouseout="change_dist('3b', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 4a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', 'nocut',  '1');"  onmouseout="change_dist('4a', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '10KeV',  '1');"  onmouseout="change_dist('4a', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '20KeV',  '1');"  onmouseout="change_dist('4a', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '30KeV',  '1');"  onmouseout="change_dist('4a', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '40KeV',  '1');"  onmouseout="change_dist('4a', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 4b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', 'nocut',  '1');"  onmouseout="change_dist('4b', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '10KeV',  '1');"  onmouseout="change_dist('4b', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '20KeV',  '1');"  onmouseout="change_dist('4b', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '30KeV',  '1');"  onmouseout="change_dist('4b', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '40KeV',  '1');"  onmouseout="change_dist('4b', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> chip_r1</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r1', 'nocut',  '1');"  onmouseout="change_dist('chip_r1', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r1', '10KeV',  '1');"  onmouseout="change_dist('chip_r1', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r1', '20KeV',  '1');"  onmouseout="change_dist('chip_r1', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r1', '30KeV',  '1');"  onmouseout="change_dist('chip_r1', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r1', '40KeV',  '1');"  onmouseout="change_dist('chip_r1', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> chip_r2</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r2', 'nocut',  '1');"  onmouseout="change_dist('chip_r2', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r2', '10KeV',  '1');"  onmouseout="change_dist('chip_r2', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r2', '20KeV',  '1');"  onmouseout="change_dist('chip_r2', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r2', '30KeV',  '1');"  onmouseout="change_dist('chip_r2', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r2', '40KeV',  '1');"  onmouseout="change_dist('chip_r2', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> chip_r3</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r3', 'nocut',  '1');"  onmouseout="change_dist('chip_r3', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r3', '10KeV',  '1');"  onmouseout="change_dist('chip_r3', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r3', '20KeV',  '1');"  onmouseout="change_dist('chip_r3', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r3', '30KeV',  '1');"  onmouseout="change_dist('chip_r3', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r3', '40KeV',  '1');"  onmouseout="change_dist('chip_r3', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> chip_r4</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r4', 'nocut',  '1');"  onmouseout="change_dist('chip_r4', 'nocut',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r4', '10KeV',  '1');"  onmouseout="change_dist('chip_r4', '10KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r4', '20KeV',  '1');"  onmouseout="change_dist('chip_r4', '20KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r4', '30KeV',  '1');"  onmouseout="change_dist('chip_r4', '30KeV',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('chip_r4', '40KeV',  '1');"  onmouseout="change_dist('chip_r4', '40KeV',  '0');"  width="20px"/></td>
+				</tr>
+			</table>
+			<br />
+			<font style="font-size: 0.8em"> Hover on the above table to select the plot of interest.<br />
+			Click on any red square to open the image in a new window. <br /><br />
+			</font>
+			</td>
+			<td align="center" >
+				<img name = "DIST"   src="img/lh2_event_layer_1a_30KeV.gif" width="550px"/><br>
+			</td>
+			</tr>
+			</table>
+		</center>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

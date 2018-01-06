@@ -1,0 +1,262 @@
+<html>
+	<head>
+		<style type="text/css" media="all">
+			@import "dist.css";
+		</style>
+	
+	<script>
+	
+		function freeze()
+		{
+			frozen  = window.open(document.DIST.src, document.DIST.src,  'statusbar=no, scrollbars=auto, status=no, resizable=no, width=700, height=550');
+		}
+		function change_dist(momemtum, what, on_off)
+		{
+			var dist = "img/";
+			dist += what
+			dist += "_p";
+			dist += momemtum;
+			dist += ".gif";
+			//alert(particle);
+			document.DIST.src = dist;
+
+			if(on_off=='0') document.getElementById(particle).className = '';
+			if(on_off=='1') document.getElementById(particle).className = 'hovered';
+
+			if(document.getElementsByTagName)
+			{
+				(function()
+				{
+					var className = 'hovered',
+					pattern = new RegExp('(^|\\s+)' + className + '(\\s+|$)'),
+					rows = document.getElementById('indextable').getElementsByTagName('tr');
+
+					for(var i = 0, n = rows.length; i < n; ++i)
+					{
+						rows[i].onmouseover = function()
+						{
+							this.className += ' ' + className;
+						};
+						rows[i].onmouseout = function()
+						{
+							this.className = this.className.replace(pattern, ' ');
+						};
+					}
+				})();
+			}
+		}
+	</script>
+	</head>
+
+	<body>
+		<center>
+			<table border="0" cellspacing="10" cellpadding="7"><font size="5"> 
+				<br><br>CLAS12 BST Simulation </a> <br /> <br />
+					Energy Distributions, Rejection Factors </font> <br /> <br />
+				<tr>
+				<td>
+				<br /><br />
+				
+				
+				<table id="indextable" border="1" cellspacing="0" cellpadding="1" class="indextable">
+				<tr>
+					<td style="font-size:1.1em;" > Signal Momentum (MeV) </td>
+					<td></td>
+					<td >Back. Energy</td>
+					<td >Energy</td>
+					<td >Rej. Factor</td>
+					<td >Rej. Factor (log)</td>
+				</tr>
+				<tr>
+					<td> 200&lt;p&lt;400</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('1', 'benergy',          '1');"  onmouseout="change_dist('1', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1', 'energy',          '1');"  onmouseout="change_dist('1', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1', 'rejection',       '1');"  onmouseout="change_dist('1', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1', 'rejection_logy',  '1');"  onmouseout="change_dist('1', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 400&lt;p&lt;600</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('2', 'benergy',          '1');"  onmouseout="change_dist('2', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2', 'energy',          '1');"  onmouseout="change_dist('2', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2', 'rejection',       '1');"  onmouseout="change_dist('2', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2', 'rejection_logy',  '1');"  onmouseout="change_dist('2', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 600&lt;p&lt;800</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('3', 'benergy',          '1');"  onmouseout="change_dist('3', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3', 'energy',          '1');"  onmouseout="change_dist('3', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3', 'rejection',       '1');"  onmouseout="change_dist('3', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3', 'rejection_logy',  '1');"  onmouseout="change_dist('3', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 800&lt;p&lt;1000</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('4', 'benergy',          '1');"  onmouseout="change_dist('4', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4', 'energy',          '1');"  onmouseout="change_dist('4', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4', 'rejection',       '1');"  onmouseout="change_dist('4', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4', 'rejection_logy',  '1');"  onmouseout="change_dist('4', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1000&lt;p&lt;1200</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('5', 'benergy',          '1');"  onmouseout="change_dist('5', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('5', 'energy',          '1');"  onmouseout="change_dist('5', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('5', 'rejection',       '1');"  onmouseout="change_dist('5', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('5', 'rejection_logy',  '1');"  onmouseout="change_dist('5', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1200&lt;p&lt;1400</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('6', 'benergy',          '1');"  onmouseout="change_dist('6', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('6', 'energy',          '1');"  onmouseout="change_dist('6', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('6', 'rejection',       '1');"  onmouseout="change_dist('6', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('6', 'rejection_logy',  '1');"  onmouseout="change_dist('6', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1400&lt;p&lt;1600</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('7', 'benergy',          '1');"  onmouseout="change_dist('7', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('7', 'energy',          '1');"  onmouseout="change_dist('7', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('7', 'rejection',       '1');"  onmouseout="change_dist('7', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('7', 'rejection_logy',  '1');"  onmouseout="change_dist('7', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1600&lt;p&lt;1800</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('8', 'benergy',          '1');"  onmouseout="change_dist('8', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('8', 'energy',          '1');"  onmouseout="change_dist('8', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('8', 'rejection',       '1');"  onmouseout="change_dist('8', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('8', 'rejection_logy',  '1');"  onmouseout="change_dist('8', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1800&lt;p&lt;2000</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('9', 'benergy',          '1');"  onmouseout="change_dist('9', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('9', 'energy',          '1');"  onmouseout="change_dist('9', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('9', 'rejection',       '1');"  onmouseout="change_dist('9', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('9', 'rejection_logy',  '1');"  onmouseout="change_dist('9', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2000&lt;p&lt;2200</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('10', 'benergy',          '1');"  onmouseout="change_dist('10', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('10', 'energy',          '1');"  onmouseout="change_dist('10', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('10', 'rejection',       '1');"  onmouseout="change_dist('10', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('10', 'rejection_logy',  '1');"  onmouseout="change_dist('10', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2200&lt;p&lt;2400</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('11', 'benergy',          '1');"  onmouseout="change_dist('11', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('11', 'energy',          '1');"  onmouseout="change_dist('11', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('11', 'rejection',       '1');"  onmouseout="change_dist('11', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('11', 'rejection_logy',  '1');"  onmouseout="change_dist('11', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2400&lt;p&lt;2600</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('12', 'benergy',          '1');"  onmouseout="change_dist('12', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('12', 'energy',          '1');"  onmouseout="change_dist('12', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('12', 'rejection',       '1');"  onmouseout="change_dist('12', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('12', 'rejection_logy',  '1');"  onmouseout="change_dist('12', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2600&lt;p&lt;2800</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('13', 'benergy',          '1');"  onmouseout="change_dist('13', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('13', 'energy',          '1');"  onmouseout="change_dist('13', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('13', 'rejection',       '1');"  onmouseout="change_dist('13', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('13', 'rejection_logy',  '1');"  onmouseout="change_dist('13', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2800&lt;p&lt;3000</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('14', 'benergy',          '1');"  onmouseout="change_dist('14', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('14', 'energy',          '1');"  onmouseout="change_dist('14', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('14', 'rejection',       '1');"  onmouseout="change_dist('14', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('14', 'rejection_logy',  '1');"  onmouseout="change_dist('14', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3000&lt;p&lt;3200</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('15', 'benergy',          '1');"  onmouseout="change_dist('15', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('15', 'energy',          '1');"  onmouseout="change_dist('15', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('15', 'rejection',       '1');"  onmouseout="change_dist('15', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('15', 'rejection_logy',  '1');"  onmouseout="change_dist('15', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3200&lt;p&lt;3400</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('16', 'benergy',          '1');"  onmouseout="change_dist('16', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('16', 'energy',          '1');"  onmouseout="change_dist('16', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('16', 'rejection',       '1');"  onmouseout="change_dist('16', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('16', 'rejection_logy',  '1');"  onmouseout="change_dist('16', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3400&lt;p&lt;3600</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('17', 'benergy',          '1');"  onmouseout="change_dist('17', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('17', 'energy',          '1');"  onmouseout="change_dist('17', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('17', 'rejection',       '1');"  onmouseout="change_dist('17', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('17', 'rejection_logy',  '1');"  onmouseout="change_dist('17', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3600&lt;p&lt;3800</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('18', 'benergy',          '1');"  onmouseout="change_dist('18', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('18', 'energy',          '1');"  onmouseout="change_dist('18', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('18', 'rejection',       '1');"  onmouseout="change_dist('18', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('18', 'rejection_logy',  '1');"  onmouseout="change_dist('18', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3800&lt;p&lt;4000</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('19', 'benergy',          '1');"  onmouseout="change_dist('19', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('19', 'energy',          '1');"  onmouseout="change_dist('19', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('19', 'rejection',       '1');"  onmouseout="change_dist('19', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('19', 'rejection_logy',  '1');"  onmouseout="change_dist('19', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 4000&lt;p&lt;4200</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('20', 'benergy',          '1');"  onmouseout="change_dist('20', 'benergy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('20', 'energy',          '1');"  onmouseout="change_dist('20', 'energy',          '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('20', 'rejection',       '1');"  onmouseout="change_dist('20', 'rejection',       '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('20', 'rejection_logy',  '1');"  onmouseout="change_dist('20', 'rejection_logy',  '0');"  width="20px"/></td>
+				</tr>
+				
+			</table>
+			<br />
+			<font style="font-size: 0.8em"> Hover on the above table to select the plot of interest.<br />
+			Click on any red square to open the image in a new window. <br /><br />
+			</font>
+			</td>
+			<td align="center" >
+				<img name = "DIST"   src="img/energy_p1.gif" width="550px"/><br>
+			</td>
+			</tr>
+			</table>
+		</center>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,176 @@
+<html>
+	<head>
+		<style type="text/css" media="all">
+			@import "dist.css";
+		</style>
+	
+	<script>
+		var WHAT = 'y_vs_z';
+	
+		function freeze()
+		{
+			frozen  = window.open(document.DIST.src, document.DIST.src,  'statusbar=no, scrollbars=auto, status=no, resizable=no, width=700, height=550');
+		}
+		function change_dist(layer, energy, on_off)
+		{
+			var dist = "img/";
+			dist += WHAT;
+			dist += "_l";
+			dist += layer;
+			dist += "_Egt";
+			dist += energy;
+			dist += "KeV.gif";
+			//alert(particle);
+			document.DIST.src = dist;
+
+			if(on_off=='0') document.getElementById(particle).className = '';
+			if(on_off=='1') document.getElementById(particle).className = 'hovered';
+
+			if(document.getElementsByTagName)
+			{
+				(function()
+				{
+					var className = 'hovered',
+					pattern = new RegExp('(^|\\s+)' + className + '(\\s+|$)'),
+					rows = document.getElementById('indextable').getElementsByTagName('tr');
+
+					for(var i = 0, n = rows.length; i < n; ++i)
+					{
+						rows[i].onmouseover = function()
+						{
+							this.className += ' ' + className;
+						};
+						rows[i].onmouseout = function()
+						{
+							this.className = this.className.replace(pattern, ' ');
+						};
+					}
+				})();
+			}
+		}
+	</script>
+	</head>
+
+	<body>
+		<center>
+			<table border="0" cellspacing="10" cellpadding="7"><font size="5"> 
+				<br><br>CLAS12 BST Simulation </a> <br /> <br />
+					Longitudinal rates for different layers, energy thresholds </font> <br /> <br />
+				<tr>
+				<td>
+				<table style="font-size:0.9em; " align="center" border="0" cellspacing="2" cellpadding="5"><b>Target </b> <br />
+					<tr>
+						<td align="right">  Y vs Z           <input  name="WT" type="radio" onclick="javascrip:WHAT='y_vs_z'"  checked="TRUE"   />  </td>
+						<td align="right">  Y vs Theta       <input  name="WT" type="radio" onclick="javascrip:WHAT='y_vs_th'"                  />  </td>
+						<td align="right">  Sensor Occupancy <input  name="WT" type="radio" onclick="javascrip:WHAT='modules'"                  />  </td>
+						<td align="right">  Z Distribution   <input  name="WT" type="radio" onclick="javascrip:WHAT='z'"                        />  </td>
+					<tr>
+				</table> 
+				<br /><br />
+				
+				
+				<table id="indextable" border="1" cellspacing="0" cellpadding="1" class="indextable">
+				<tr>
+					<td style="font-size:1.3em;" > <sub>Layer</sub>   \    <sup>Energy Cut</sup></td>
+					<td></td>
+					<td >0</td>
+					<td >20</td>
+					<td >40</td>
+					<td >60</td>
+				</tr>
+					<tr>
+					<td> 1a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '0',  '1');"  onmouseout="change_dist('1a', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '20',  '1');"  onmouseout="change_dist('1a', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '40',  '1');"  onmouseout="change_dist('1a', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1a', '60',  '1');"  onmouseout="change_dist('1a', '60',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 1b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '0',  '1');"  onmouseout="change_dist('1b', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '20',  '1');"  onmouseout="change_dist('1b', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '40',  '1');"  onmouseout="change_dist('1b', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('1b', '60',  '1');"  onmouseout="change_dist('1b', '60',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '0',  '1');"  onmouseout="change_dist('2a', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '20',  '1');"  onmouseout="change_dist('2a', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '40',  '1');"  onmouseout="change_dist('2a', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2a', '60',  '1');"  onmouseout="change_dist('2a', '60',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 2b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '0',  '1');"  onmouseout="change_dist('2b', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '20',  '1');"  onmouseout="change_dist('2b', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '40',  '1');"  onmouseout="change_dist('2b', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('2b', '60',  '1');"  onmouseout="change_dist('2b', '60',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '0',  '1');"  onmouseout="change_dist('3a', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '20',  '1');"  onmouseout="change_dist('3a', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '40',  '1');"  onmouseout="change_dist('3a', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3a', '60',  '1');"  onmouseout="change_dist('3a', '60',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 3b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '0',  '1');"  onmouseout="change_dist('3b', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '20',  '1');"  onmouseout="change_dist('3b', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '40',  '1');"  onmouseout="change_dist('3b', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('3b', '60',  '1');"  onmouseout="change_dist('3b', '60',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 4a</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '0',  '1');"  onmouseout="change_dist('4a', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '20',  '1');"  onmouseout="change_dist('4a', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '40',  '1');"  onmouseout="change_dist('4a', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4a', '60',  '1');"  onmouseout="change_dist('4a', '60',  '0');"  width="20px"/></td>
+				</tr>
+				<tr>
+					<td> 4b</sup></td>
+					<td></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '0',  '1');"  onmouseout="change_dist('4b', '0',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '20',  '1');"  onmouseout="change_dist('4b', '20',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '40',  '1');"  onmouseout="change_dist('4b', '40',  '0');"  width="20px"/></td>
+					<td onclick="freeze()" onmouseover="change_dist('4b', '60',  '1');"  onmouseout="change_dist('4b', '60',  '0');"  width="20px"/></td>
+				</tr>
+			</table>
+			<br />
+			<font style="font-size: 0.8em"> Hover on the above table to select the plot of interest.<br />
+			Click on any red square to open the image in a new window. <br /><br />
+			</font>
+			</td>
+			<td align="center" >
+				<img name = "DIST"   src="img/y_vs_z_l1a_Egt0KeV.gif" width="550px"/><br>
+			</td>
+			</tr>
+			</table>
+		</center>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
