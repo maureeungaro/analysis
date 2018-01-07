@@ -21,7 +21,7 @@
 	// That's 222.2 electrons / KeV
 	// Qnoise is 4000 electrons
 	const int NENERGY    = 3;
-	string EDEP[NENERGY]  = {"Edep >= 0.00", "Edep > 0.015", "Edep > 0.03"};
+	string EDEP[NENERGY]  = {"totEdep >= 0.00", "totEdep > 0.015", "totEdep > 0.03"};
 	string SEDEP[NENERGY] = {    "nocut"   ,    "15KeV"   ,   "30KeV"    };
 	double  Qth[NENERGY] = {        0      ,     2220     ,     4440     };
 	const double Qn      = 2400;
