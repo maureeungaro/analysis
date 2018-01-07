@@ -8,15 +8,11 @@
 	TH1F *HNHITS;  // contains the number of hits
 	int NHITS ;
 					
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
-									 // convention: filename is target.root
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
+				     // convention: filename is target.root
 	
-//	const int NTARGET     = 5;
-//	string starget[NTARGET] = { "lh2"   ,  "ld2", "carbon"  , "iron"   , "lead"};
-//	Color_t colors[NTARGET] = { kBlue-7 ,  kRed+1, kOrange+1 , kGreen-8 ,  kBlue};
-//	int TARGET = 0;
-	const int NTARGET     = 2;
-	string starget[NTARGET] = { "bst_shells", "bst_noshells" };
+	const int NTARGET       = 1;
+	string starget[NTARGET] = { "noShield" };
 	Color_t colors[NTARGET] = { kBlue-7 };
 	int TARGET = 0;
 
@@ -25,17 +21,11 @@
 	// That's 222.2 electrons / KeV
 	// Qnoise is 4000 electrons
 	const int NENERGY    = 3;
-	string EDEP[NENERGY]  = {"Edep >= 0.00", "Edep > 0.01", "Edep > 0.02"};
-	string SEDEP[NENERGY] = {    "nocut"   ,    "10KeV"   ,   "20KeV"    };
+	string EDEP[NENERGY]  = {"Edep >= 0.00", "Edep > 0.015", "Edep > 0.03"};
+	string SEDEP[NENERGY] = {    "nocut"   ,    "15KeV"   ,   "30KeV"    };
 	double  Qth[NENERGY] = {        0      ,     2220     ,     4440     };
 	const double Qn      = 2400;
 	int ENERGY           = 0;
-//	const int NENERGY    = 5;
-//	string EDEP[NENERGY]  = {"Edep >= 0.00", "Edep > 0.01", "Edep > 0.02", "Edep > 0.03", "Edep > 0.04"};
-//	string SEDEP[NENERGY] = {    "nocut"   ,    "10KeV"   ,   "20KeV"    ,   "30KeV"    ,   "40KeV"    };
-//	double  Qth[NENERGY] = {        0      ,     2220     ,     4440     ,     6660     ,    8880      };
-//	const double Qn      = 2400;
-//	int ENERGY           = 0;
 
 	// layers
 	// last layer represents one chip in one layer
@@ -43,9 +33,6 @@
 	const int nbstl = 2*nreg + nreg + nreg;  // 2 layers of silicon for each region. Only one region considered for the chips and the regulators 
 	string  lname[nbstl]   = { "1a", "1b", "2a", "2b", "3a", "3b", "chip_r1", "chip_r2", "chip_r3", "reg_r1", "reg_r2", "reg_r3"};
 	int nmodules[nbstl]    = {  10 ,  10 ,  14 ,  14 ,  18 ,  18 ,       20 ,       28 ,       36 ,      20 ,      28 ,      36};
-//	const int nbstl = 2; 
-//	string  lname[nbstl]   = { "1a", "chip"};
-//	int nmodules[nbstl] = {10, 0};
 	
 	
 	
@@ -53,22 +40,21 @@
 	
 	// CHIP NUMBERS:
 	// weight = 2.33 g/cm^3 * 0.5 cm * 0.75 cm * 0.03 cm = 26 mg
-  // area = 0.5 cm * 0.75 cm = 0.375 cm^2
-  double chip_area   = 0.375;   // chip size in cm2
-	double chip_weight = 0.026;   // chip weight in grams 
-  // these dimensions are used to identify the region for the chips
-	double chip_minz[nreg] = {-240, -200, -160}; 
-	double chip_maxz[nreg] = {-220, -180, -140}; 
-
+	// area = 0.5 cm * 0.75 cm = 0.375 cm^2
+	double chip_area   = 0.375;   // chip size in cm2
+	double chip_weight = 0.026;   // chip weight in grams
+	// these dimensions are used to identify the region for the chips
+	double chip_minz[nreg] = {-240, -200, -160};
+	double chip_maxz[nreg] = {-220, -180, -140};
+	
 	// Regulators NUMBERS:
 	// weight = 2.33 g/cm^3 * 0.3 cm * 0.3 cm * 0.1 cm = 21 mg
-  // area = 0.3 cm * 0.3 cm = 0.09 cm^2
-  double reg_area   = 0.09;    // reg size in cm2
-	double reg_weight = 0.021;   // reg weight in grams 
-  // these dimensions are used to identify the region for the regulators
-	double reg_minz[nreg] = {-460, -420, -380}; 
-	double reg_maxz[nreg] = {-450, -410, -370}; 
-
+	// area = 0.3 cm * 0.3 cm = 0.09 cm^2
+	double reg_area   = 0.09;    // reg size in cm2
+	double reg_weight = 0.021;   // reg weight in grams
+	// these dimensions are used to identify the region for the regulators
+	double reg_minz[nreg] = {-460, -420, -380};
+	double reg_maxz[nreg] = {-450, -410, -370};
 
 
 	// particles
@@ -101,7 +87,6 @@
 	TH1F *bst_edep[nbstl][pnum][NENERGY][NTARGET];
 	TH1F *edep[2][NTARGET];  // 0 = e.m. 1 = hadronic
 
-	
 	// rates histos
 	TH1F *bst_pr[nbstl][NENERGY][NTARGET];
 
@@ -137,7 +122,7 @@
 	init_induced_damage();
 	
 	for(int t=0; t<NTARGET; t++)
-		init_bst_histos(Form("/arena/bst/%s.root", starget[t].c_str()), t);
+		init_bst_histos(Form("/opt/data/%s.root", starget[t].c_str()), t);
 	
 
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
