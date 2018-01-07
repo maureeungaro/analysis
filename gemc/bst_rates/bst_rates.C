@@ -54,7 +54,7 @@ void init_bst_histos(string filename, int tindex)
 						string bstcut;
 						bstcut = Form("z > %4.3f && z < %4.3f", chip_minz[l-2*nreg], chip_maxz[l-2*nreg]);
 						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
-						string hist = Form("Edep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
+						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
 						fluxT->Draw(hist.c_str(), cut.c_str());
 					}
 					
@@ -65,7 +65,7 @@ void init_bst_histos(string filename, int tindex)
 						string bstcut;
 						bstcut = Form("z > %4.3f && z < %4.3f", reg_minz[l-3*nreg], reg_maxz[l-3*nreg]);
 						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
-						string hist = Form("Edep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
+						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
 						fluxT->Draw(hist.c_str(), cut.c_str());
 					}
 					
@@ -84,12 +84,12 @@ void init_bst_histos(string filename, int tindex)
 								   Form("edep_ha_%s", starget[tindex].c_str()), Nbins, 0, 0.5);
 		
 		// electromagnetic energy (sensors only)
-		string hist = Form("Edep >> edep_em_%s", starget[tindex].c_str());
+		string hist = Form("totEdep >> edep_em_%s", starget[tindex].c_str());
 		string cut  = "pid==11 || pid==22 || pid==-11";
 		bst->Draw(hist.c_str(), cut.c_str());
 		
 		// hadronic energy (sensors only)
-		hist = Form("Edep >> edep_ha_%s", starget[tindex].c_str());
+		hist = Form("totEdep >> edep_ha_%s", starget[tindex].c_str());
 		cut  = "pid!=11 && pid!=22 && pid!=-11";
 		bst->Draw(hist.c_str(), cut.c_str());
 		
@@ -110,13 +110,13 @@ void init_bst_histos(string filename, int tindex)
 												NEbins, 0, 2000);
 				
 				
-				string hist  = Form("E - %5.4f >> bst_E_l%d_%s_%s", fmass[fp], l+1, fpname[fp].c_str(), starget[tindex].c_str());
+				string hist  = Form("trackE - %5.4f >> bst_E_l%d_%s_%s", fmass[fp], l+1, fpname[fp].c_str(), starget[tindex].c_str());
 				
 				// sensors
 				if(l<2*nreg)
 				{
 					string layer = Form("layer == %d", l+1);
-					string cut   = layer + " && " + pcut[fpid[fp]] + " && Edep > 0.0 " ;
+					string cut   = layer + " && " + pcut[fpid[fp]] + " && totEdep > 0.0 " ;
 					
 					bst->Draw(hist.c_str(), cut.c_str());
 				}
@@ -125,7 +125,7 @@ void init_bst_histos(string filename, int tindex)
 				if(l>=2*nreg && l<3*nreg)
 				{
 					string layer = Form(" && z > %4.3f && z < %4.3f", chip_minz[l-2*nreg], chip_maxz[l-2*nreg]);
-					string cut   = "ID==22 && " + pcut[fpid[fp]] + " && Edep > 0.0 " + layer;
+					string cut   = "ID==22 && " + pcut[fpid[fp]] + " && totEdep > 0.0 " + layer;
 					fluxT->Draw(hist.c_str(), cut.c_str());
 				}
 				
@@ -133,7 +133,7 @@ void init_bst_histos(string filename, int tindex)
 				if(l>=3*nreg)
 				{
 					string layer = Form(" && z > %4.3f && z < %4.3f", reg_minz[l-3*nreg], reg_maxz[l-3*nreg]);
-					string cut   = "ID==23 && " + pcut[fpid[fp]] + " && Edep > 0.0 " + layer;
+					string cut   = "ID==23 && " + pcut[fpid[fp]] + " && totEdep > 0.0 " + layer;
 					fluxT->Draw(hist.c_str(), cut.c_str());
 				}
 				
