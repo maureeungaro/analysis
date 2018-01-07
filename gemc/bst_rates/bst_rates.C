@@ -47,27 +47,27 @@ void init_bst_histos(string filename, int tindex)
 						bst->Draw(hist.c_str(), cut.c_str());
 					}
 					
-					// chip
-					if(l>=2*nreg && l<3*nreg)
-					{
-						string hit    =  "ID==22 && " + EDEP[e];
-						string bstcut;
-						bstcut = Form("z > %4.3f && z < %4.3f", chip_minz[l-2*nreg], chip_maxz[l-2*nreg]);
-						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
-						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
-						fluxT->Draw(hist.c_str(), cut.c_str());
-					}
-					
-					// regulator
-					if(l>=3*nreg)
-					{
-						string hit    =  "ID==23 && " + EDEP[e];
-						string bstcut;
-						bstcut = Form("z > %4.3f && z < %4.3f", reg_minz[l-3*nreg], reg_maxz[l-3*nreg]);
-						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
-						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
-						fluxT->Draw(hist.c_str(), cut.c_str());
-					}
+//					// chip
+//					if(l>=2*nreg && l<3*nreg)
+//					{
+//						string hit    =  "ID==22 && " + EDEP[e];
+//						string bstcut;
+//						bstcut = Form("z > %4.3f && z < %4.3f", chip_minz[l-2*nreg], chip_maxz[l-2*nreg]);
+//						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
+//						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
+//						fluxT->Draw(hist.c_str(), cut.c_str());
+//					}
+//					
+//					// regulator
+//					if(l>=3*nreg)
+//					{
+//						string hit    =  "ID==23 && " + EDEP[e];
+//						string bstcut;
+//						bstcut = Form("z > %4.3f && z < %4.3f", reg_minz[l-3*nreg], reg_maxz[l-3*nreg]);
+//						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
+//						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
+//						fluxT->Draw(hist.c_str(), cut.c_str());
+//					}
 					
 					
 					bst_edep[l][p][e][tindex]->SetDirectory(0);
