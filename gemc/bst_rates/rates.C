@@ -122,7 +122,7 @@
 	init_induced_damage();
 	
 	for(int t=0; t<NTARGET; t++)
-		init_bst_histos(Form("/opt/data/%s.root", starget[t].c_str()), t);
+		init_bst_histos(Form("~/%s.root", starget[t].c_str()), t);
 	
 
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
