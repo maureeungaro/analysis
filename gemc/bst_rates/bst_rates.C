@@ -57,7 +57,7 @@ void init_bst_histos(string filename, int tindex)
 //						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
 //						fluxT->Draw(hist.c_str(), cut.c_str());
 //					}
-//					
+//
 //					// regulator
 //					if(l>=3*nreg)
 //					{
@@ -121,21 +121,21 @@ void init_bst_histos(string filename, int tindex)
 					bst->Draw(hist.c_str(), cut.c_str());
 				}
 				
-				// chip
-				if(l>=2*nreg && l<3*nreg)
-				{
-					string layer = Form(" && z > %4.3f && z < %4.3f", chip_minz[l-2*nreg], chip_maxz[l-2*nreg]);
-					string cut   = "ID==22 && " + pcut[fpid[fp]] + " && totEdep > 0.0 " + layer;
-					fluxT->Draw(hist.c_str(), cut.c_str());
-				}
-				
-				// regulator
-				if(l>=3*nreg)
-				{
-					string layer = Form(" && z > %4.3f && z < %4.3f", reg_minz[l-3*nreg], reg_maxz[l-3*nreg]);
-					string cut   = "ID==23 && " + pcut[fpid[fp]] + " && totEdep > 0.0 " + layer;
-					fluxT->Draw(hist.c_str(), cut.c_str());
-				}
+//				// chip
+//				if(l>=2*nreg && l<3*nreg)
+//				{
+//					string layer = Form(" && z > %4.3f && z < %4.3f", chip_minz[l-2*nreg], chip_maxz[l-2*nreg]);
+//					string cut   = "ID==22 && " + pcut[fpid[fp]] + " && totEdep > 0.0 " + layer;
+//					fluxT->Draw(hist.c_str(), cut.c_str());
+//				}
+//				
+//				// regulator
+//				if(l>=3*nreg)
+//				{
+//					string layer = Form(" && z > %4.3f && z < %4.3f", reg_minz[l-3*nreg], reg_maxz[l-3*nreg]);
+//					string cut   = "ID==23 && " + pcut[fpid[fp]] + " && totEdep > 0.0 " + layer;
+//					fluxT->Draw(hist.c_str(), cut.c_str());
+//				}
 				
 				bst_E[l][fp][tindex]->SetDirectory(0);
 				
