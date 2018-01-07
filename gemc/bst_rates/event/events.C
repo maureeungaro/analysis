@@ -5,9 +5,6 @@
 // TH2F *bstyx = new TH2F("bstyx", "bstyx", 2000, -200, 200, 2000, -200, 200);
 // bstT->Draw("x:y>>bstyx", "Edep>0", "")
 
-
-
-
 {
 
 	gStyle->SetPadLeftMargin(0.08);
@@ -68,20 +65,20 @@
 	
 //	TFile *ifile = new TFile(Form("bstn.root", part));
 	TFile *ifile = new TFile(Form("/arena/BST/root/%s.root", part));
-	TTree *genT  = (TTree*)ifile->Get("genT");
-	TTree *bstT  = (TTree*)ifile->Get("bstT");
-	genT->SetBranchAddress("evn",  &evn);
-	genT->SetBranchAddress("ngen", &ngen);
-	genT->SetBranchAddress("id",   id);
-	genT->SetBranchAddress("px",   px);
-	genT->SetBranchAddress("py",   py);
-	genT->SetBranchAddress("pz",   pz);
+	TTree *genT  = (TTree*)ifile->Get("generated");
+	TTree *bstT  = (TTree*)ifile->Get("bst");
+//	genT->SetBranchAddress("evn",  &evn);
+//	genT->SetBranchAddress("ngen", &ngen);
+//	genT->SetBranchAddress("id",   id);
+//	genT->SetBranchAddress("px",   px);
+//	genT->SetBranchAddress("py",   py);
+//	genT->SetBranchAddress("pz",   pz);
 	
 	
-	bstT->SetBranchAddress("nbsthit",   &nbsthit);
-	bstT->SetBranchAddress("x",         x);
-	bstT->SetBranchAddress("y",         y);
-	bstT->SetBranchAddress("Edep",      Edep);
+	bstT->SetBranchAddress("hitn",   &nbsthit);
+	bstT->SetBranchAddress("avg_x",         x);
+	bstT->SetBranchAddress("avg_y",         y);
+	bstT->SetBranchAddress("totEdep",      Edep);
 	bstT->SetBranchAddress("pid",       pid);
 	bstT->SetBranchAddress("strip",     strip);
 	bstT->SetBranchAddress("layer",     layer);
@@ -100,14 +97,6 @@
 	int evni = 0;
 
 	gROOT->LoadMacro("event_utils.C");
-		
-		
-		
-		
-		
-		
-		
-		
 
 }
 

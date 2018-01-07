@@ -2,7 +2,6 @@ void draw_next_event()
 {
 
 	//evni++;
-	
 	genT->GetEntry(evni);
 	bstT->GetEntry(evni);
 	bbstT->GetEntry(evni+1);
