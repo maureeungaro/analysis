@@ -11,7 +11,7 @@ void init_bst_histos(string filename, int tindex)
 		
 		// total number of entries
 		HNHITS = new TH1F("nhits", "nhits", 1, 0, 1);
-		NHITS  = genT->GetEntries();
+		NHITS  = generated->GetEntries();
 		HNHITS->SetBinContent(1, NHITS);
 		HNHITS->SetDirectory(0);
 
@@ -44,7 +44,7 @@ void init_bst_histos(string filename, int tindex)
 						bstcut = Form("layer == %d", l+1);
 						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
 						string hist = Form("Edep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
-						bstT->Draw(hist.c_str(), cut.c_str());
+						bst->Draw(hist.c_str(), cut.c_str());
 					}
 					
 					// chip
@@ -86,12 +86,12 @@ void init_bst_histos(string filename, int tindex)
 		// electromagnetic energy (sensors only)
 		string hist = Form("Edep >> edep_em_%s", starget[tindex].c_str());
 		string cut  = "pid==11 || pid==22 || pid==-11";
-		bstT->Draw(hist.c_str(), cut.c_str());
+		bst->Draw(hist.c_str(), cut.c_str());
 		
 		// hadronic energy (sensors only)
 		hist = Form("Edep >> edep_ha_%s", starget[tindex].c_str());
 		cut  = "pid!=11 && pid!=22 && pid!=-11";
-		bstT->Draw(hist.c_str(), cut.c_str());
+		bst->Draw(hist.c_str(), cut.c_str());
 		
 		edep[0][tindex]->SetDirectory(0);
 		edep[1][tindex]->SetDirectory(0);
@@ -118,7 +118,7 @@ void init_bst_histos(string filename, int tindex)
 					string layer = Form("layer == %d", l+1);
 					string cut   = layer + " && " + pcut[fpid[fp]] + " && Edep > 0.0 " ;
 					
-					bstT->Draw(hist.c_str(), cut.c_str());
+					bst->Draw(hist.c_str(), cut.c_str());
 				}
 				
 				// chip
