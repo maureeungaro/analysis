@@ -43,7 +43,7 @@ void init_bst_histos(string filename, int tindex)
 						string bstcut;
 						bstcut = Form("layer == %d", l+1);
 						string cut    = hit + " && " + pcut[p] + " && " + bstcut;
-						string hist = Form("Edep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
+						string hist = Form("totEdep >> bst_edep_l%d_%s_e%d_%s", l+1, pname[p].c_str(), e, starget[tindex].c_str());
 						bst->Draw(hist.c_str(), cut.c_str());
 					}
 					
