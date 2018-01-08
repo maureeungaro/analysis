@@ -8,12 +8,12 @@
 	TH1F *HNHITS;  // contains the number of hits
 	int NHITS ;
 					
-	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
 	const int NTARGET       = 7;
 	string starget[NTARGET] = { "noShield", "thick50", "thick100", "thick150", "thick200", "thick300", "thick500" };
-	Color_t colors[NTARGET] = {    kBlue-7,      kRed,      kBlue,     kGreen,     kRed+4,     kBlack, kGreen - 4 };
+	Color_t colors[NTARGET] = {    kBlue-7,      kRed,      kBlue,     kGreen+4,     kRed+4,     kBlue+5, kGreen - 4 };
 	int TARGET = 0;
 
 	// deposited energy cut
