@@ -186,7 +186,7 @@ void show_all_bst_rates()
 		bst_pr[layer][ENERGY][t]->SetBarWidth(0.12);
 		bst_pr[layer][ENERGY][t]->SetBarOffset(0.12+0.13*t);
 
-		if(LAYER>8)
+		//if(LAYER>8)
 			bst_pr[layer][ENERGY][t]->SetBinContent(2, 0);
 
 
@@ -258,7 +258,7 @@ void show_all_bst_rates()
 		
 	}
 
-	TLegend *tmodels  = new TLegend(0.46, 0.6, 0.85, 0.92);
+	TLegend *tmodels  = new TLegend(0.46, 0.5, 0.85, 0.82);
 	for(int t=0; t<NTARGET; t++)
 		tmodels->AddEntry(bst_pr[layer][ENERGY][t], Form("%s", starget[t].c_str()),     "F");
 	
