@@ -258,9 +258,9 @@ void show_all_bst_rates()
 		
 	}
 
-	TLegend *tmodels  = new TLegend(0.46, 0.5, 0.94, 0.92);
+	TLegend *tmodels  = new TLegend(0.46, 0.6, 0.85, 0.92);
 	for(int t=0; t<NTARGET; t++)
-		tmodels->AddEntry(bst_pr[layer][ENERGY][t], Form("%s", starget[t]),     "F");
+		tmodels->AddEntry(bst_pr[layer][ENERGY][t], Form("%s", starget[t].c_str()),     "F");
 	
 	
 	tmodels->SetBorderSize(0);

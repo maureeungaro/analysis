@@ -13,7 +13,7 @@
 	
 	const int NTARGET       = 7;
 	string starget[NTARGET] = { "noShield", "thick50", "thick100", "thick150", "thick200", "thick300", "thick500" };
-	Color_t colors[NTARGET] = {    kBlue-7,      kRed,      kBlue,     kGreen+4,     kRed+4,     kBlue+5, kGreen - 4 };
+	Color_t colors[NTARGET] = {    kBlue-7,      kRed,      kBlue,     kGreen+4,     kRed+2,     kBlue+2, kGreen - 3 };
 	int TARGET = 0;
 
 	// deposited energy cut
