@@ -1,10 +1,10 @@
 // runMonitor
-#include "beam.h"
+#include "rf.h"
 #include "../N.h"
 
-void initBeamGraphs()
+void initRFGraphs()
 {
-	cout << " Initializing BEAM graphs." << endl;
+	cout << " Initializing RF graphs." << endl;
 
 	char tmp[100];
 	double run[N];

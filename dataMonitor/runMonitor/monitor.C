@@ -22,7 +22,7 @@ void monitor() {
 	
 	setStyle();
 
-	initBeamGraphs();
+	initRFGraphs();
 
 //	TLatex la;
 //	la.SetTextFont(44);
