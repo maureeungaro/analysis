@@ -1,1 +1,2 @@
-#define N 385 
+// header to define number of events
+#define N 385
