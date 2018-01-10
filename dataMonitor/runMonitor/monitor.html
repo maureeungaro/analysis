@@ -1,0 +1,177 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <style type="text/css">
+  body
+  {
+   background: url(main/img/watta2.gif) no-repeat fixed center ;
+   background-color: #2a4781 ;
+   background-position: 200 160;
+   color: #CCFFFF;
+  }
+
+  .mytable
+  {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 9pt;
+   font-style: normal;
+   color: #DDFFFF;
+  }
+  </style>
+  <script>
+  var wpass = "pass1";
+   function show(what)
+   {
+    var dist = "img/";
+    dist += wpass;
+    dist += "/";
+    dist += what ;
+    dist += ".gif"
+    document.DIST.src=dist;
+   }
+
+
+   function freeze() {frozen  = window.open(document.DIST.src, "",  'statusbar=no, scrollbars=auto, status=no, resizable=yes, width=700, height=480');}
+
+  </script>
+ </head>
+
+<body  alink="#EEFFFF"  link="#EEFFFF" vlink="#EEFFFF">
+ <center>
+
+
+
+
+
+
+  <table border="0" cellspacing="0" cellpadding="10" class="mytable">
+
+  <tr><td>
+  <table align ="center" border="1" class="mytable"><caption class="mytable">Pass:</caption>
+   <tr>
+    <td> <font color="yellow"> pass02  </font> <input type="radio" name="Wpass" onclick="javascrip:wpass='pass02'" >               </td>
+    <td> <font color="yellow"> pass03  </font> <input type="radio" name="Wpass" onclick="javascrip:wpass='pass03'" >               </td>
+    <td> <font color="yellow"> pass04  </font> <input type="radio" name="Wpass" onclick="javascrip:wpass='pass04'" >               </td>
+    <td> <font color="yellow"> pass05  </font> <input type="radio" name="Wpass" onclick="javascrip:wpass='pass05'" >               </td>
+    <td> <font color="yellow"> pass06  </font> <input type="radio" name="Wpass" onclick="javascrip:wpass='pass06'" >               </td>
+    <td> <font color="yellow"> pass07  </font> <input type="radio" name="Wpass" onclick="javascrip:wpass='pass07'" >               </td>
+    
+  </tr>
+  <tr>
+   <th colspan="6"> <font color="red"> <br>pass1 <br> </font> <input type="radio" name="Wpass" onclick="javascrip:wpass='pass1'" checked="TRUE">   </th>
+  </tr>
+
+  </table>
+
+  </td></tr>
+
+
+  <tr>
+   <td>
+    <table align = "center"  border="0" cellspacing="4" cellpadding="3" class="mytable">
+     <tr> <td>   <hr align=left width=100%></td></tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('rf');      this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >RF offset (2 tracks vertex time - RF) </td> </tr>
+
+     <tr><td>
+      <table align = "center" border="0" cellspacing="0" cellpadding="6" class="mytable">
+      <tr align = "left">
+       <td> <font color="cyan">RF Offset: </font></td>
+       <td onclick = "freeze()" onmouseover = "show('srfP');    this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >Protons</td>
+       <td onclick = "freeze()" onmouseover = "show('srfpp');   this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >pi+    </td>
+       <td onclick = "freeze()" onmouseover = "show('srfpm');   this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >pi-    </td>
+      </tr>
+     </table>
+     </td></tr>
+     <tr><td>
+      <table align = "center" border="0" cellspacing="0" cellpadding="6" class="mytable">
+      <tr  align = "left">
+       <td> <font color="cyan">ST RF Offset: </font></td>
+       <td onclick = "freeze()" onmouseover = "show('stsrfpp'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >pi+                      </td>
+       <td onclick = "freeze()" onmouseover = "show('stsrfpm'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  > pi-                      </td>
+      </tr>
+     </table>
+     </td></tr>
+     <tr> <td>   <hr align=left width=100%></td></tr>
+     <tr align = "center" > <td ><font color="cyan"> Counts:</font></td> </tr>
+     <tr><td>
+      <table align = "center" border="0" cellspacing="0" cellpadding="6" class="mytable">
+      <tr align = "left">
+       <td> <font color="cyan">Tracking: </font></td>
+       <td onclick = "freeze()" onmouseover = "show('counts2'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >HB/Event </td>
+       <td onclick = "freeze()" onmouseover = "show('counts1'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >TB/Event </td>
+       <td onclick = "freeze()" onmouseover = "show('counts3'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >TB/HB    </td>
+      </tr>
+     </table>
+     </td></tr>
+     <tr><td>
+      <table align = "center" border="0" cellspacing="0" cellpadding="6" class="mytable">
+      <tr  align = "left">
+       <td onclick = "freeze()" onmouseover = "show('counts4'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >Protons/Event  </td>
+       <td onclick = "freeze()" onmouseover = "show('counts5'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >Total    </td>
+      </tr>
+     </table>
+     </td></tr>
+
+
+
+
+     <tr> <td>   <hr align=left width=100%></td></tr>
+     <tr align = "center" > <td ><font color="cyan"> DC Residuals for different sectors: </font></td> </tr>
+     <tr><td>
+      <table align = "center" border="1" cellspacing="5" cellpadding="3" class="mytable">
+      <tr>
+       <td>  </td>       <td>  </td>
+       <td> S1 </td>
+       <td> S2 </td>
+       <td> S3 </td>
+       <td> S4 </td>
+       <td> S5 </td>
+       <td> S6 </td>
+       <td> S1-6 </td>
+      </tr>
+      <tr> <td> Mean </td> <td>  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_mean_sec1');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__ </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_mean_sec2');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_mean_sec3');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_mean_sec4');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_mean_sec5');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_mean_sec6');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_mean_all');   this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+      </tr>
+      <tr> <td> Sigma </td> <td>  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_sigm_sec1');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_sigm_sec2');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_sigm_sec3');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_sigm_sec4');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_sigm_sec5');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_sigm_sec6');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >__  </td>
+       <td onclick = "freeze()" onmouseover = "show('dc_sigm_all');   this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  > __ </td>
+      </tr>
+    </table>
+    </td></tr>
+    <tr> <td>   <hr align=left width=100%></td></tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('cpu');    this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >Cput Time                      </td> </tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('ec');     this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >EC_t - SC_t                    </td> </tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('xb');     this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >Beam X position                </td> </tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('yb');     this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >Beam Y position                </td> </tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('mmPpp');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >P pi+ missing mass fit         </td> </tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('mmpppm'); this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >pi+ pi- missing mass fit       </td> </tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('mmkPl');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >P K missing mass fit (Lambda)  </td> </tr>
+     <tr align ="center"> <td onclick = "freeze()" onmouseover = "show('mmkPs');  this.style.backgroundColor='#7c0416'"  onmouseout = "this.style.backgroundColor='#2a4781'"  >P K missing mass fit (Sigma)   </td> </tr>
+
+
+
+    </table>
+   </td>
+   <td>    <img name = "DIST" src="img/pass1/rf.gif"  > <br>   <br><br>   </td></tr>
+   <tr>   <td>  </td> <td align = "center" > Click on link  to open image in new window </td></tr>
+  </table>
+ </center>
+</body>
+</html>
+
+
+
+
+
+

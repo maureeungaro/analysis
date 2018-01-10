@@ -1,0 +1,9 @@
+#!/bin/csh -f
+
+foreach r (`cat runs.dat | grep -v run`)
+ set x = (`cat BEAM.dat | grep $r | awk '{print $3}' | head -1`)
+ set y = (`cat BEAM.dat | grep $r | awk '{print $4}' | head -1`)
+ if($x != "0" && $y != "0") then
+  echo $x $y -10 > $r".dat"
+ endif
+end

@@ -1,0 +1,21 @@
+#!/bin/csh -f
+rm -rf $WORK/monitor/mysql/runs.dat
+/apps/bin/mysql -h $CSQL_DBHOST -u $CSQL_USER < $WORK/monitor/mysql/runs.sql  > $WORK/monitor/mysql/runs.dat
+
+set what = (RF DC DCd EC CPU COUNTS BEAM MM)
+#set what = (EC)
+
+foreach w ($what)
+ echo Processing $w"..."
+ rm -rf $WORK/monitor/mysql/$w".dat"
+ /apps/bin/mysql -h $CSQL_DBHOST -u $CSQL_USER < $WORK/monitor/mysql/$w".sql"  > $WORK/monitor/mysql/$w".dat"
+ $WORK/monitor/go_mysql_mostrecent mysql/$w".dat"
+end
+
+
+
+set N = (`cat $WORK/monitor/mysql/RF.dat | grep -v runno | wc | awk '{print $1}'`)
+rm $WORK/monitor/N.h ; touch $WORK/monitor/N.h
+printf "#define N %d" $N >>  $WORK/monitor/N.h
+echo " "                 >>  $WORK/monitor/N.h
+
