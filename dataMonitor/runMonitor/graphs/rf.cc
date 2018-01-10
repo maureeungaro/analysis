@@ -47,15 +47,7 @@ void initRFGraphs()
 
 void showRF(int whichParticle)
 {
-	TCanvas *RFCanvas = (TCanvas*) gROOT->FindObject("RFCanvas");
-
-	if(RFCanvas== nullptr) {
-		RFCanvas = new TCanvas("RFCanvas",  "RFCanvas", 1200, 800);
-		RFCanvas->SetFillColor(18);
-		RFCanvas->SetGridx();
-		RFCanvas->SetGridy();
-	}
-	RFCanvas->Clear();
+	TCanvas *RFCanvas = getOrCreateCanvas("RFCanvas", 1200, 800);
 
 	string gTitle[4]   = {"All Particles RF", "Protons RF", "#pi^{+}    RF", "#pi^{-}    RF"};
 	double minFrame[4] = {-0.06, -0.12, -0.3, -0.3};

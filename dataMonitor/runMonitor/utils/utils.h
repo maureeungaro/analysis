@@ -5,5 +5,7 @@ void setStyle();
 
 TLatex commonLabel();
 
+TCanvas *getOrCreateCanvas(string withName, double width, double height);
+
 #endif
 

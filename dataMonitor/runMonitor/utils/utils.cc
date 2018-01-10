@@ -43,3 +43,20 @@ TLatex commonLabel()
 
 	return la;
 }
+
+TCanvas *getOrCreateCanvas(string withName, double width, double height)
+{
+	TCanvas *Canvas = (TCanvas*) gROOT->FindObject(withName.c_str());
+
+	if(Canvas== nullptr) {
+		Canvas = new TCanvas(withName.c_str(), withName.c_str(), width, height);
+		Canvas->SetFillColor(18);
+		Canvas->SetGridx();
+		Canvas->SetGridy();
+	}
+	Canvas->Clear();
+
+	return Canvas;
+}
+
+
