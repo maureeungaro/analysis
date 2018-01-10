@@ -2,3 +2,4 @@
 #define N 385
 #define FIRST_RUN  43450
 #define LAST_RUN   44200
+#define PRINT      ".no"

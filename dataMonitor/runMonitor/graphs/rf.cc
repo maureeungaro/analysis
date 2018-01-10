@@ -50,6 +50,7 @@ void showRF(int whichParticle)
 	TCanvas *RFCanvas = getOrCreateCanvas("RFCanvas", 1200, 800);
 
 	string gTitle[4]   = {"All Particles RF", "Protons RF", "#pi^{+}    RF", "#pi^{-}    RF"};
+	string gPrint[4]   = {          "rf_all", "rf_protons",        "rf_pip",        "rf_pim"};
 	double minFrame[4] = {-0.06, -0.12, -0.3, -0.3};
 	double maxFrame[4] = { 0.35,  0.55,  0.3,  0.35};
 
@@ -87,5 +88,8 @@ void showRF(int whichParticle)
 	la.SetTextColor(2);
 	la.DrawLatex(.8,.91, "Sigma");
 
+	if(PRINT != ".no") RFCanvas->Print( "img/" + (gPrint[whichParticle-1] + PRINT).c_str() );
 
 }
+
+
