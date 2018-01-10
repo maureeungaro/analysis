@@ -6,9 +6,7 @@
 
 void setStyle()
 {
-	double run[N];
-
-	cout << " Setting ROOT Style..." << endl;
+	cout << " Setting ROOT Style." << endl;
 	
 	gStyle->SetOptStat(0);
 	gStyle->SetOptTitle(0);

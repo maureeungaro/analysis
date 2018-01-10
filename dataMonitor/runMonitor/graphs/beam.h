@@ -2,7 +2,13 @@
 #define RUNMONITOR_BEAM_H 1
 
 // ROOT
-TGraph *RF, *sRF, *RFP, *sRFP, *RFpp, *sRFpp, *RFpm, *sRFpm, *RFstpp, *sRFstpp, *RFstpm, *sRFstpm;
+TGraph *RF, *sRF;
+TGraph *RFP, *sRFP;
+TGraph *RFpp, *sRFpp;
+TGraph *RFpm, *sRFpm;
+
+
+void initBeamGraphs();
 
 
 #endif

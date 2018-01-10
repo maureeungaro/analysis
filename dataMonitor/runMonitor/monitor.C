@@ -2,17 +2,17 @@
 #include <TControlBar.h>
 
 // runMonitor
-#include "monitor.h"      // graph definitions
 #include "utils/utils.cc" // style
+#include "graphs/beam.cc" // beam
 
 // monitor macro
 // -------------
 //
 // To run:
 //
+// root monitor.C
+// or
 // root monitor.C+
-
-#define N 385
 
 void monitor() {
 	
@@ -22,18 +22,8 @@ void monitor() {
 	
 	setStyle();
 
-//	gROOT->LoadMacro("init_histos.C");
-//	gROOT->LoadMacro("mon_RF.C");
-//	gROOT->LoadMacro("mon_DC.C");
-//	gROOT->LoadMacro("mon_EC.C");
-//	gROOT->LoadMacro("mon_CPU.C");
-//	gROOT->LoadMacro("mon_COUNTS.C");
-//	gROOT->LoadMacro("mon_BEAM.C");
-//	gROOT->LoadMacro("mon_MM.C");
-//	init_histos();
-	
-	
-	
+	initBeamGraphs();
+
 //	TLatex la;
 //	la.SetTextFont(44);
 //	la.SetTextAlign(0);
@@ -41,16 +31,14 @@ void monitor() {
 //	la.SetNDC();
 //	la.SetTextColor(2);
 	
-	TControlBar *bar = new TControlBar("vertical", "  Data histograms visualizer   ");
+	TControlBar *bar = new TControlBar("vertical", "Data histograms visualizer", 2300, 40);
 	
 	bar->AddButton(" "," ");
 	bar->AddButton("Show RF offset",    "show_RF(1)");
 	bar->AddButton("Show RF protons",   "show_RF(2)");
 	bar->AddButton("Show RF pi+",       "show_RF(3)");
 	bar->AddButton("Show RF pi-",       "show_RF(4)");
-	bar->AddButton("Show ST RF pi+",    "show_RF(5)");
-	bar->AddButton("Show ST RF pi-",    "show_RF(6)");
-	
+
 	bar->AddButton(" "," ");
 	bar->AddButton("Show DC mean ",     "show_DC(1)");
 	bar->AddButton("Show DC sigma ",    "show_DC(2)");
