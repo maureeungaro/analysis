@@ -2,17 +2,7 @@ void init_histos()
 {
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	// DC
 
-	
 	// EC
 	ifstream IN("mysql/EC.dat");
 	double dECt[N], dsECt[N];
@@ -158,32 +148,6 @@ void init_histos()
 	
 	
 }
-
-void print_all()
-{
-	print=1;
-	for(int i=1; i<7; i++) show_RF(i);
-	
-	show_DC(1);
-	show_DC(2);
-	
-	for(int i=0; i<6; i++)
-	{
-		show_DC(10+i);
-		show_DC(20+i);
-	}
-	
-	show_CPU();
-	show_EC();
-	show_yelds();
-	show_beam(1);
-	show_beam(2);
-	show_mm();
-	
-	
-	print=0;
-}
-
 
 
 

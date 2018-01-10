@@ -1,10 +1,12 @@
 // runMonitor
-#include "rf.h"
+#include "dc.h"
 
 void initDCGraphs()
 {
 	cout << " Initializing DC graphs." << endl;
 
+	char tmp[100];
+	double run[N];
 	double DC_SA[6][N];
 	double DC_MA[6][N];
 	double DC_M[6][6][N];
@@ -41,7 +43,7 @@ void initDCGraphs()
 	}
 
 
-	ifstream IN("mysql/DCd.dat");
+	IN.open("mysql/DCd.dat");
 	for(int i=0; i<N; i++)
 	{
 		IN >> tmp >> run[i];
@@ -72,56 +74,126 @@ void initDCGraphs()
 			DC_sigm[s][l]->SetFillColor(18);
 			DC_sigm[s][l]->SetLineColor(18);
 		}
-
-
-
 }
 
 void showDC(int whichPlot)
 {
-	TCanvas *RFCanvas = getOrCreateCanvas("RFCanvas", 1200, 800);
+	TCanvas *DCCanvas = getOrCreateCanvas("DCCanvas", 1200, 800);
 
-	string gTitle[4]   = {"All Particles RF", "Protons RF", "#pi^{+}    RF", "#pi^{-}    RF"};
-	string gPrint[4]   = {          "rf_all", "rf_protons",        "rf_pip",        "rf_pim"};
-	double minFrame[4] = {-0.06, -0.12, -0.3, -0.3};
-	double maxFrame[4] = { 0.35,  0.55,  0.3,  0.35};
+	string SLLegend[6] = {"Superlayer1", "Superlayer2","Superlayer3","Superlayer4","Superlayer5","Superlayer6"};
+	string gPrint[2]   = { "dc_mean", "dc_sigm"};
 
-	gPad->DrawFrame(FIRST_RUN, minFrame[whichParticle-1], LAST_RUN, maxFrame[whichParticle-1]);
+	TLegend *SL = new TLegend(0.84, 0.75, 1, 0.98);
+	SL->SetFillColor(18);
+	SL->SetLineColor(18);
 
-	if(whichParticle == 1)
-	{
-		RF->Draw("P");
-		sRF->Draw("P");
-	}
+	double minFrame[4] = {-200, 180, -200, 180};
+	double maxFrame[4] = { 100, 340,  120, 360};
 
-	if(whichParticle == 2)
-	{
-		sRFP->Draw("P");
-		RFP->Draw("P");
-	}
+	int dcType = dcCase(whichPlot);
 
-	if(whichParticle == 3)
-	{
-		sRFpp->Draw("P");
-		RFpp->Draw("P");
-	}
-
-	if(whichParticle == 4)
-	{
-		sRFpm->Draw("P");
-		RFpm->Draw("P");
-	}
+	gPad->DrawFrame(FIRST_RUN, minFrame[dcType], LAST_RUN, maxFrame[dcType]);
 
 	TLatex la = commonLabel();
-	la.SetTextColor(1);
-	la.DrawLatex(.2,.91, gTitle[whichParticle-1].c_str());
 	la.SetTextColor(4);
-	la.DrawLatex(.65,.91, "Mean");
-	la.SetTextColor(2);
-	la.DrawLatex(.8,.91, "Sigma");
 
-	if(PRINT != ".no") RFCanvas->Print( "img/" + (gPrint[whichParticle-1] + PRINT).c_str() );
+	if(dcType == 0)
+	{
+		for(int l=0; l<6; l++)
+		{
+			DC_res_mean[l]->Draw("P");
+			SL->AddEntry(DC_res_mean[l], SLLegend[l].c_str());
+		}
+		la.DrawLatex(.16,.91, "DC Mean for different superlayers (all sectors)");
+	}
 
+	if(dcType == 1)
+	{
+		for(int l=0; l<6; l++)
+		{
+			DC_res_sigm[l]->Draw("P");
+			SL->AddEntry(DC_res_sigm[l], SLLegend[l].c_str());
+		}
+		la.DrawLatex(.16,.91, "DC Sigma for different superlayers (all sectors)");
+	}
+
+	if(dcType == 2)
+	{
+		int gIndex = graphIndex(whichPlot);
+
+		for(int l=0; l<6; l++)
+		{
+			DC_mean[gIndex][l]->Draw("P");
+			SL->AddEntry(DC_mean[gIndex][l], SLLegend[l].c_str());
+		}
+		la.DrawLatex(.18,.91, Form("DC Mean for different superlayers - sector %d", gIndex + 1));
+	}
+
+	if(dcType == 3)
+	{
+		int gIndex = graphIndex(whichPlot);
+
+		for(int l=0; l<6; l++)
+		{
+			DC_sigm[gIndex][l]->Draw("P");
+			SL->AddEntry(DC_sigm[gIndex][l], SLLegend[l].c_str());
+		}
+		la.DrawLatex(.18,.91, Form("DC Sigma for different superlayers - sector %d", gIndex + 1));
+	}
+
+	// draw legend
+	SL->Draw();
+
+	// print if necessary
+	int sector = whichPlot%10 + 1;
+	string sString =  "_sec" + to_string(sector);
+
+	if(dcType == 0 || dcType == 1) {
+		printCanvas("DCCanvas", gPrint[dcType] + "all");
+	} else if(dcType == 2) {
+		printCanvas("DCCanvas", gPrint[0] + sString);
+	} else if(dcType == 3) {
+		printCanvas("DCCanvas", gPrint[1] + sString);
+	}
 }
+
+
+// return index of the 4 cases, from 0 to 3
+int dcCase(int whichPlot)
+{
+	if(whichPlot < 10) {
+		return whichPlot - 1;
+	} else if(whichPlot >= 10 && whichPlot < 20) {
+		return 2;
+	} else {
+		return 3;
+	}
+}
+
+
+// return index of the graph
+int graphIndex(int whichPlot)
+{
+	if(whichPlot < 20) {
+		return whichPlot - 10;
+	} else {
+		return whichPlot - 20;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

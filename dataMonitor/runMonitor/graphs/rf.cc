@@ -88,8 +88,15 @@ void showRF(int whichParticle)
 	la.SetTextColor(2);
 	la.DrawLatex(.8,.91, "Sigma");
 
-	if(PRINT != ".no") RFCanvas->Print( "img/" + (gPrint[whichParticle-1] + PRINT).c_str() );
+	printCanvas("RFCanvas", gPrint[whichParticle-1]);
 
 }
+
+
+
+
+
+
+
 
 

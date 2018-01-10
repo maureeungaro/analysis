@@ -7,5 +7,9 @@ TLatex commonLabel();
 
 TCanvas *getOrCreateCanvas(string withName, double width, double height);
 
+void printCanvas(string withName, string withTitle);
+
+void printAll();
+
 #endif
 

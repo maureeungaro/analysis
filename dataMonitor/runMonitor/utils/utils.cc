@@ -3,6 +3,7 @@
 
 // runMonitor
 #include "utils.h"
+#include "../graphs/rf.h"
 
 void setStyle()
 {
@@ -58,5 +59,43 @@ TCanvas *getOrCreateCanvas(string withName, double width, double height)
 
 	return Canvas;
 }
+
+void printCanvas(string withName, string withTitle)
+{
+	if(PRINT != ".no") {
+		TCanvas *Canvas = (TCanvas*) gROOT->FindObject(withName.c_str());
+		
+		if(Canvas != nullptr) {
+			string imageName = "img/" + withTitle + PRINT;
+			Canvas->Print(imageName.c_str());
+		}
+	}
+}
+
+
+void printAll()
+{
+
+	// RF
+	for(int i=1; i<5; i++) {
+		showRF(i);
+	}
+
+	// DC
+	showDC(1);
+	showDC(2);
+
+	for(int i=0; i<6; i++) {
+		showDC(10+i);
+		showDC(20+i);
+	}
+
+}
+
+
+
+
+
+
 
 
