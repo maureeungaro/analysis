@@ -1,8 +1,5 @@
 // graph definitions
 
-TGraph *DC_res_mean[6], *DC_res_sigm[6];
-TGraph *DC_mean[6][6],  *DC_sigm[6][6];
-
 TGraph *cpu;
 TGraph *mECt, *sECt;
 TGraph *TB, *HB, *TH, *PR, *TOT;
