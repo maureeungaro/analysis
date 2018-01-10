@@ -32,3 +32,14 @@ void setStyle()
 	gStyle->SetPadColor(19);
 }
 
+TLatex commonLabel()
+{
+	TLatex la;
+	la.SetTextFont(44);
+	la.SetTextAlign(0);
+	la.SetTextSize(40);
+	la.SetTextColor(2);
+	la.SetNDC();
+
+	return la;
+}

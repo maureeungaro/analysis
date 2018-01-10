@@ -3,7 +3,7 @@
 
 void setStyle();
 
-
+TLatex commonLabel();
 
 #endif
 

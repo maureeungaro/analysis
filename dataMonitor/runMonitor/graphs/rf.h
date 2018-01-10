@@ -8,6 +8,7 @@ TGraph *RFpp, *sRFpp;
 TGraph *RFpm, *sRFpm;
 
 void initRFGraphs();
+void showRF(int whichParticle);
 
 #endif
 

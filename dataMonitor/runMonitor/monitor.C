@@ -2,8 +2,10 @@
 #include <TControlBar.h>
 
 // runMonitor
+#include "N.h"
+
 #include "utils/utils.cc" // style
-#include "graphs/beam.cc" // beam
+#include "graphs/rf.cc" // beam
 
 // monitor macro
 // -------------
@@ -16,28 +18,19 @@
 
 void monitor() {
 	
-	int print     = 0;
-	int LAST_RUN  = 44200;
-	int FIRST_RUN = 43450;
+	int print = 0;
 	
 	setStyle();
-
 	initRFGraphs();
 
-//	TLatex la;
-//	la.SetTextFont(44);
-//	la.SetTextAlign(0);
-//	la.SetTextSize(24);
-//	la.SetNDC();
-//	la.SetTextColor(2);
 	
 	TControlBar *bar = new TControlBar("vertical", "Data histograms visualizer", 2300, 40);
 	
 	bar->AddButton(" "," ");
-	bar->AddButton("Show RF offset",    "show_RF(1)");
-	bar->AddButton("Show RF protons",   "show_RF(2)");
-	bar->AddButton("Show RF pi+",       "show_RF(3)");
-	bar->AddButton("Show RF pi-",       "show_RF(4)");
+	bar->AddButton("Show RF offset",    "showRF(1)");
+	bar->AddButton("Show RF protons",   "showRF(2)");
+	bar->AddButton("Show RF pi+",       "showRF(3)");
+	bar->AddButton("Show RF pi-",       "showRF(4)");
 
 	bar->AddButton(" "," ");
 	bar->AddButton("Show DC mean ",     "show_DC(1)");
