@@ -12,7 +12,7 @@ TGraph *nKp[6];
 TGraph *nKm[6];
 
 
-void initRecoGraphs();
+void initReco();
 void showDC(int whichPlot);
 int dcCase(int whichPlot);
 int graphIndex(int whichPlot);

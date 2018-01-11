@@ -1,7 +1,7 @@
 // runMonitor
 #include "dc.h"
 
-void initDCGraphs()
+void initDC()
 {
 	cout << " Initializing DC graphs." << endl;
 
@@ -183,6 +183,26 @@ int graphIndex(int whichPlot)
 
 
 
+void addDCButtons(TControlBar *toBar)
+{
+	toBar->AddButton(" "," ");
+	toBar->AddButton("Show DC mean all sectors",  "showDC(1)");
+	toBar->AddButton("Show DC sigma all sectors", "showDC(2)");
+	toBar->AddButton(" "," ");
+	toBar->AddButton("Show DC mean Sector 1 ",    "showDC(10)");
+	toBar->AddButton("Show DC mean Sector 2 ",    "showDC(11)");
+	toBar->AddButton("Show DC mean Sector 3 ",    "showDC(12)");
+	toBar->AddButton("Show DC mean Sector 4 ",    "showDC(13)");
+	toBar->AddButton("Show DC mean Sector 5 ",    "showDC(14)");
+	toBar->AddButton("Show DC mean Sector 6 ",    "showDC(15)");
+	toBar->AddButton(" "," ");
+	toBar->AddButton("Show DC Sigma Sector 1 ",    "showDC(20)");
+	toBar->AddButton("Show DC Sigma Sector 2 ",    "showDC(21)");
+	toBar->AddButton("Show DC Sigma Sector 3 ",    "showDC(22)");
+	toBar->AddButton("Show DC Sigma Sector 4 ",    "showDC(23)");
+	toBar->AddButton("Show DC Sigma Sector 5 ",    "showDC(24)");
+	toBar->AddButton("Show DC Sigma Sector 6 ",    "showDC(25)");
+}
 
 
 

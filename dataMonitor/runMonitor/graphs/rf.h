@@ -7,8 +7,9 @@ TGraph *RFP, *sRFP;
 TGraph *RFpp, *sRFpp;
 TGraph *RFpm, *sRFpm;
 
-void initRFGraphs();
+void initRF();
 void showRF(int whichParticle);
+void addRFButtons(TControlBar *toBar);
 
 #endif
 

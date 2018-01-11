@@ -5,10 +5,11 @@
 TGraph *DC_res_mean[6], *DC_res_sigm[6];
 TGraph *DC_mean[6][6],  *DC_sigm[6][6];
 
-void initDCGraphs();
+void initDC();
 void showDC(int whichPlot);
 int dcCase(int whichPlot);
 int graphIndex(int whichPlot);
+void addDCButtons(TControlBar *toBar);
 
 #endif
 

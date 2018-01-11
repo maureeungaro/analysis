@@ -1,7 +1,7 @@
 // runMonitor
 #include "rf.h"
 
-void initRFGraphs()
+void initRF()
 {
 	cout << " Initializing RF graphs." << endl;
 
@@ -92,6 +92,14 @@ void showRF(int whichParticle)
 
 }
 
+void addRFButtons(TControlBar *toBar)
+{
+	toBar->AddButton(" "," ");
+	toBar->AddButton("Show RF offset",    "showRF(1)");
+	toBar->AddButton("Show RF protons",   "showRF(2)");
+	toBar->AddButton("Show RF pi+",       "showRF(3)");
+	toBar->AddButton("Show RF pi-",       "showRF(4)");
+}
 
 
 

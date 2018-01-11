@@ -4,6 +4,7 @@
 // runMonitor
 #include "utils.h"
 #include "../graphs/rf.h"
+#include "../graphs/dc.h"
 
 void setStyle()
 {
