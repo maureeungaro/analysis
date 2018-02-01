@@ -6,7 +6,7 @@
 
 	<!-- central detectors 	-->
     <detector name="/group/clas12/gemc/4a.2.3/experiments/clas12/bst/bst"        factory="TEXT" variation="java"/>
-	<detector name="/group/clas12/gemc/4a.2.3/experiments/clas12/bst/bstShield"  factory="TEXT" variation="thick200"/>
+	<detector name="/group/clas12/gemc/4a.2.3/experiments/clas12/bst/bstShield"  factory="TEXT" variation="lead_thick200"/>
 
     <!-- hall field  -->
 	<option name="HALL_FIELD"  value="clas12-solenoid"/>
