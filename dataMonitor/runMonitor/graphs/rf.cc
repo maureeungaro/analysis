@@ -56,26 +56,16 @@ void showRF(int whichParticle)
 
 	gPad->DrawFrame(FIRST_RUN, minFrame[whichParticle-1], LAST_RUN, maxFrame[whichParticle-1]);
 
-	if(whichParticle == 1)
-	{
+	       if(whichParticle == 1) {
 		RF->Draw("P");
 		sRF->Draw("P");
-	}
-
-	if(whichParticle == 2)
-	{
+	} else if(whichParticle == 2) {
 		sRFP->Draw("P");
 		RFP->Draw("P");
-	}
-
-	if(whichParticle == 3)
-	{
+	} else if(whichParticle == 3) {
 		sRFpp->Draw("P");
 		RFpp->Draw("P");
-	}
-
-	if(whichParticle == 4)
-	{
+	} else if(whichParticle == 4) {
 		sRFpm->Draw("P");
 		RFpm->Draw("P");
 	}
