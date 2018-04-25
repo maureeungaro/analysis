@@ -1,0 +1,22 @@
+#!/bin/csh
+#
+
+rm mean_region1.txt  mean_region2.txt  mean_region3.txt
+rm sigma_region1.txt sigma_region2.txt sigma_region3.txt
+ 
+cat pars.txt | awk '{print $1}' > mean_region1.txt
+cat pars.txt | awk '{print $2}' > mean_region2.txt
+cat pars.txt | awk '{print $3}' > mean_region3.txt
+
+cat pars.txt | awk '{print $4}' > sigma_region1.txt
+cat pars.txt | awk '{print $5}' > sigma_region2.txt
+cat pars.txt | awk '{print $6}' > sigma_region3.txt
+
+
+caldb_write_and_link.pl s=GPP ss=DC i=Reg1 min=1 max=10 ci="e16 doca parameters for montecarlo" f=sigma_region1.txt it=calib_user.RunIndexe1_6
+caldb_write_and_link.pl s=GPP ss=DC i=Reg2 min=1 max=10 ci="e16 doca parameters for montecarlo" f=sigma_region2.txt it=calib_user.RunIndexe1_6
+caldb_write_and_link.pl s=GPP ss=DC i=Reg3 min=1 max=10 ci="e16 doca parameters for montecarlo" f=sigma_region3.txt it=calib_user.RunIndexe1_6
+
+caldb_write_and_link.pl s=GPP ss=DC i=Reg1_mean min=1 max=10 ci="e16 doca parameters for montecarlo" f=mean_region1.txt it=calib_user.RunIndexe1_6
+caldb_write_and_link.pl s=GPP ss=DC i=Reg2_mean min=1 max=10 ci="e16 doca parameters for montecarlo" f=mean_region2.txt it=calib_user.RunIndexe1_6
+caldb_write_and_link.pl s=GPP ss=DC i=Reg3_mean min=1 max=10 ci="e16 doca parameters for montecarlo" f=mean_region3.txt it=calib_user.RunIndexe1_6

@@ -1,0 +1,33 @@
+#!/bin/csh -f
+
+
+set file      = $1
+set run_index = $2
+set min_run   = $3
+set max_run   = $4
+
+if($1 == "-h" || $1 == ""  || $#argv != 4) then
+ echo " "
+ echo "Usage:   "
+ echo  "  >> go_dcmap map_filename run_index run_min run_max"
+ echo " "
+ exit 0
+endif
+
+
+rm -f s1.txt ; cat $file | awk '{print $1}' > s1.txt 
+rm -f s2.txt ; cat $file | awk '{print $2}' > s2.txt 
+rm -f s3.txt ; cat $file | awk '{print $3}' > s3.txt 
+rm -f s4.txt ; cat $file | awk '{print $4}' > s4.txt 
+rm -f s5.txt ; cat $file | awk '{print $5}' > s5.txt 
+rm -f s6.txt ; cat $file | awk '{print $6}' > s6.txt 
+
+
+
+caldb_write_and_link.pl s=GPP ss=DC_WIRE i=sector1 min=$min_run max=$max_run ci="dvcs GPP wires for sector 1 (Maurizio, 1/5/11)" f=s1.txt it=$run_index hostname=clasdb.jlab.org
+caldb_write_and_link.pl s=GPP ss=DC_WIRE i=sector2 min=$min_run max=$max_run ci="dvcs GPP wires for sector 2 (Maurizio, 1/5/11)" f=s2.txt it=$run_index hostname=clasdb.jlab.org
+caldb_write_and_link.pl s=GPP ss=DC_WIRE i=sector3 min=$min_run max=$max_run ci="dvcs GPP wires for sector 3 (Maurizio, 1/5/11)" f=s3.txt it=$run_index hostname=clasdb.jlab.org
+caldb_write_and_link.pl s=GPP ss=DC_WIRE i=sector4 min=$min_run max=$max_run ci="dvcs GPP wires for sector 4 (Maurizio, 1/5/11)" f=s4.txt it=$run_index hostname=clasdb.jlab.org
+caldb_write_and_link.pl s=GPP ss=DC_WIRE i=sector5 min=$min_run max=$max_run ci="dvcs GPP wires for sector 5 (Maurizio, 1/5/11)" f=s5.txt it=$run_index hostname=clasdb.jlab.org
+caldb_write_and_link.pl s=GPP ss=DC_WIRE i=sector6 min=$min_run max=$max_run ci="dvcs GPP wires for sector 6 (Maurizio, 1/5/11)" f=s6.txt it=$run_index hostname=clasdb.jlab.org
+ 

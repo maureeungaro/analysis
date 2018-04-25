@@ -1,0 +1,16 @@
+from init_env import init_environment
+
+env = init_environment("qt4 root mysql clas")
+
+
+# Include Path
+incpath = ['.', 'src']
+env.Append(CPPPATH = incpath)
+
+env.Program(source = 'dc_eff.C', target = 'dc_eff')
+env.Program(source = 'groups.C', target = 'groups')
+
+
+
+
+
