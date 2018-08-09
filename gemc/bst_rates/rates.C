@@ -20,10 +20,10 @@
 	// An MIP releases 108 KeV - or 240000 electrons
 	// That's 222.2 electrons / KeV
 	// Qnoise is 4000 electrons
-	const int NENERGY    = 4;
-	string EDEP[NENERGY]  = {"totEdep >= 0.00", "totEdep > 0.015", "totEdep > 0.03", "totEdep > 0.04"};
-	string SEDEP[NENERGY] = {    "nocut"   ,        "15KeV"      ,     "30KeV"     ,    "40*KeV"  };
-	double  Qth[NENERGY] = {        0      ,         3330        ,       6660      ,        8880 };
+	const int NENERGY    = 3;
+	string EDEP[NENERGY]  = {"totEdep >= 0.00", "totEdep > 0.026", "totEdep > 0.039"};
+	string SEDEP[NENERGY] = {    "nocut"   ,    "26KeV"     ,      "39*KeV"  };
+	double  Qth[NENERGY] = {        0      ,     5772       ,        8658 };
 	const double Qn      = 2400;
 	int ENERGY           = 0;
 
