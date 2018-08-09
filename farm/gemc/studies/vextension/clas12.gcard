@@ -85,12 +85,10 @@
 	 For background studies use field in fast mode:
 	 -->
 	
-	<!--
 	 <option name="LUMI_EVENT"     value="124000, 248.5*ns, 4*ns" />
 	 <option name="LUMI_P"         value="e-, 10.6*GeV, 0*deg, 0*deg" />
 	 <option name="LUMI_V"         value="(0.0, 0.0, -10)cm" />
 	 <option name="LUMI_SPREAD_V"  value="(0.03, 0.03)cm" />
-	 -->
 	
 	<!-- production threshold for passive volumes -->
 	<!-- beamline shielding: 10cm-->
