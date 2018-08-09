@@ -1,0 +1,7 @@
+TO RUN On the farm:
+-------------------
+
+setenv ROOT_VERSION 5.34.36
+source /site/12gev_phys/softenv.csh 2.1 keepmine
+
+
