@@ -59,14 +59,14 @@
 	
 	
 	<option name="SAVE_ALL_MOTHERS" value="0"/>
-	<option name="RECORD_MIRRORS"   value="1"/>
+	<option name="RECORD_MIRRORS"   value="0"/>
 	
-	<option name="PHYSICS" value="FTFP_BERT + STD + Optical"/>
+	<option name="PHYSICS" value="FTFP_BERT + STD"/>
 	
 	<option name="OUTPUT"   value="evio, out.ev"/>
 	
 	<!--  Will print message every 10 events -->
-	<option name="PRINT_EVENT"    value="10" />
+	<option name="PRINT_EVENT"    value="1" />
 	
 	
 	<!--  Run Number 11, picked up by digitization routines -->
@@ -83,7 +83,7 @@
 	 <option name="LUMI_P"         value="e-, 10.6*GeV, 0*deg, 0*deg" />
 	 <option name="LUMI_V"         value="(0.0, 0.0, -10)cm" />
 	 <option name="LUMI_SPREAD_V"  value="(0.03, 0.03)cm" />
-		
+	 
 	<!--  FMT is removed in 4a.2.5 -->
 	 <detector name="FMT">
 	 	<existence exist="no" />
