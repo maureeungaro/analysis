@@ -57,8 +57,8 @@ void init_dc_histos(string filename, int cindex)
 				}
 				// 1D vertex histos
 				double hzend = 8000;
-				if(r==0) hzend = 3000;
-				if(r==1) hzend = 4100;
+				if(r==0) hzend = 1200;
+				if(r==1) hzend = 3000;
 				if(r==2) hzend = 6500;
 				for(int p=0; p<NPART; p++)
 					dc_zver[e][cindex][r][p] = new TH1F(Form("dc_zver_E%s_%s_r%d_%s", SEDEP[e].c_str(), sconf[cindex].c_str(), r+1, SPART[p].c_str()),

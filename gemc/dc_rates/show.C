@@ -74,7 +74,7 @@ void show_dc_int_occ()
 
 		// manually setting max
 		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(max);
-		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(6);
+		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(0.5);
 
 //		if(CONF==2)
 //			dc_occ_summary[r][ENERGY][CONF]->SetMaximum(2);
@@ -167,7 +167,7 @@ void show_zvertex()
 	lab.SetNDC(1);
 	
 	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
-	gPad->SetLogy();
+//	gPad->SetLogy();
 
 	
 	dc_zver[ENERGY][CONF][REG][0]->SetLineColor(kBlack);
@@ -177,7 +177,7 @@ void show_zvertex()
 	dc_zver[ENERGY][CONF][REG][4]->SetLineColor(kOrange);
 	dc_zver[ENERGY][CONF][REG][5]->SetLineColor(kYellow-3);
 
-	dc_zver[ENERGY][CONF][REG][0]->SetMaximum(100);
+	dc_zver[ENERGY][CONF][REG][0]->SetMaximum(1);
 	dc_zver[ENERGY][CONF][REG][0]->SetMinimum(0.005);
 
 
