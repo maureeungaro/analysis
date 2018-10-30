@@ -2,16 +2,9 @@
 
 # user setup: environment
 # -----------------------
-#setenv JLAB_ROOT /site/12gev_phys
-#setenv JLAB_VERSION devel
-#source $JLAB_ROOT/$JLAB_VERSION/ce/jlab.csh
-
 source /group/clas12/gemc/environment.csh 4a.2.5
-
 # -----------------
 # end of user setup
-
-
 
 # Usage:
 # go_simulate title workdir nevents experimentsdir inputfdir
@@ -44,7 +37,6 @@ set NEXIST = `\ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | 
 @ NMAX = $NEXIST * 2 + 200
 
 echo $NEXIST > localLog
-
 
 # Look for first non existing dir
 set SIMU = 1
