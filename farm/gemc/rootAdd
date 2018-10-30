@@ -1,0 +1,6 @@
+#!/bin/csh -f
+
+foreach d (`\ls`)
+	hadd $d.root $d
+end
+
