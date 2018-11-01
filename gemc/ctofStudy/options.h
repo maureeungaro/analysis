@@ -14,7 +14,7 @@ using namespace std;
 class anaOption {
 
 public:
-	anaOption(bool r, vector<string> configs);
+	anaOption(vector<string> configs);
 
 public:
 	int cIndex;      // cofiguration index

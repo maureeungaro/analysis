@@ -16,7 +16,7 @@ anaOption::anaOption(bool recalc, vector<string> configurations) : confs(configu
 		int cIndex = 0;
 		for(auto p: confs) {
 
-			string filename = "/opt/root/ctof/" + p + ".root";
+			string filename = "/opt/data/ctof/" + p + ".root";
 
 			TFile f(filename.c_str());
 			f.GetObject("generated", generated);
@@ -36,7 +36,6 @@ anaOption::anaOption(bool recalc, vector<string> configurations) : confs(configu
 			setDirHistos(cIndex++);
 
 			f.Close();
-
 		}
 
 		c1->Close();
@@ -58,8 +57,8 @@ anaOption::anaOption(bool recalc, vector<string> configurations) : confs(configu
 void anaOption::defineHistos(string c) {
 
 	cout << " Defining " << c << " histo." << endl;
-	ctofRatesTotal.push_back(new TH1F(Form("ctofRatesTotal_%s", c),
-												 Form("ctofRatesTotal_%s", c), 48, 0.5, 48.5));
+	ctofRatesTotal.push_back(new TH1F(Form("ctofRatesTotal_%s", c.c_str()),
+												 Form("ctofRatesTotal_%s", c.c_str()), 48, 0.5, 48.5));
 
 }
 
@@ -108,7 +107,6 @@ void anaOption::initLeafs() {
 
 void anaOption::fillHistos(int cindex) {
 
-	int scale = 0;
 	int nevents = ctof->GetEntries();
 
 	for(int i=0; i<ctof->GetEntries(); i++){
@@ -122,7 +120,7 @@ void anaOption::fillHistos(int cindex) {
 
 		double thisX  = 0;
 		double thisY  = 0;
-		double thisX  = 0;
+		double thisZ  = 0;
 
 		int thisPID     = 0;
 		int thismPID    = 0;
