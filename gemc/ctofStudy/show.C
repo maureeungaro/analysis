@@ -140,14 +140,11 @@ void setRates(int kind){
 
 void showPaddles() {
 
-	gStyle->SetPadLeftMargin(0.08);
+	gStyle->SetPadLeftMargin(0.1);
 	gStyle->SetPadRightMargin(0.04);
 	gStyle->SetPadTopMargin(0.2);
 	gStyle->SetPadBottomMargin(0.12);
 
-	TLatex lab;
-	lab.SetTextColor(kBlue+3);
-	lab.SetTextFont(32);
 
 	TCanvas *rates = new TCanvas("rates", "rates", 900, 650);
 
@@ -158,14 +155,40 @@ void showPaddles() {
 		histos[h]->Draw("same");
 	}
 
-	TLegend *tconfs  = new TLegend(0.7, 0.82, 0.99, 0.99);
+	// fitting and getting avg
+	vector<double> avg;
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(histos[h], confs[h].c_str(), "F");
+		histos[h]->Fit("pol0", "", "REM");
+		histos[h]->GetFunction("pol0")->SetLineColor(colors[h]);
+		avg.push_back(histos[h]->GetFunction("pol0")->GetParameter(0));
+	}
+
+	TLegend *tconfs  = new TLegend(0.6, 0.82, 0.99, 0.99);
+	for(unsigned h=0; h<confs.size(); h++) {
+		tconfs->AddEntry(histos[h], Form("%s: %3.2f MHz", confs[h].c_str(), avg[h] ), "F");
 	}
 
 	tconfs->SetBorderSize(0);
 	tconfs->SetFillColor(0);
 	tconfs->Draw();
+
+	TLatex lab;
+	lab.SetTextFont(42);
+	lab.SetTextSize(0.045);
+	lab.SetTextColor(kBlue+3);
+	lab.SetNDC(1);
+	lab.SetTextAngle(90);
+
+	lab.DrawLatex(0.06, 0.55,  "Rates (MHz)" );
+
+	lab.SetTextAngle(0);
+	lab.DrawLatex(0.6, 0.02,  "Paddle Number" );
+
+
+	lab.SetTextSize(0.05);
+	lab.SetTextColor(kRed+3);
+	lab.DrawLatex(0.1, 0.9,  Form("%s rate for different shielding", rateType.c_str()) );
+
 }
 
 

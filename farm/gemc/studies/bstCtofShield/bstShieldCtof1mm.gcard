@@ -36,7 +36,7 @@
 	<option name="PRINT_EVENT"    value="1" />
 	<option name="INTEGRATEDRAW"  value="bst, ctof"/>
 	
-	<option name="SAVE_ALL_MOTHERS" value="0"/>
+	<option name="SAVE_ALL_MOTHERS" value="1"/>
 	<option name="RECORD_MIRRORS"   value="0"/>
 	
 	<!--  Run Number 11, picked up by digitization routines -->
