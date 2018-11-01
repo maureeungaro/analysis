@@ -29,10 +29,20 @@ private:
 	vector<TH1F*> ctofRatesEm;
 	vector<TH1F*> ctofRatesGamma;
 
+	vector<TH1F*> ctofRatesTotalT;
+	vector<TH1F*> ctofRatesHadronicT;
+	vector<TH1F*> ctofRatesEmT;
+	vector<TH1F*> ctofRatesGammaT;
+
 	vector<TH1F*> ctofRatesTotalEdep;
 	vector<TH1F*> ctofRatesHadronicEdep;
 	vector<TH1F*> ctofRatesEmEdep;
 	vector<TH1F*> ctofRatesGammaEdep;
+
+	vector<TH1F*> ctofRatesTotalEdepZ;
+	vector<TH1F*> ctofRatesHadronicEdepZ;
+	vector<TH1F*> ctofRatesEmEdepZ;
+	vector<TH1F*> ctofRatesGammaEdepZ;
 
 	vector<string> confs;
 

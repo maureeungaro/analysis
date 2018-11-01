@@ -56,15 +56,33 @@ void anaOption::defineHistos(string c) {
 											 Form("ctofRatesEm_%s", c.c_str()), 48, 0.5, 48.5));
 	ctofRatesGamma.push_back(new TH1F(Form("ctofRatesGamma_%s", c.c_str()),
 												 Form("ctofRatesGamma_%s", c.c_str()), 48, 0.5, 48.5));
-	
+
+	ctofRatesTotalT.push_back(new TH1F(Form("ctofRatesTotalT_%s", c.c_str()),
+												  Form("ctofRatesTotalT_%s", c.c_str()), 48, 0.5, 48.5));
+	ctofRatesHadronicT.push_back(new TH1F(Form("ctofRatesHadronicT_%s", c.c_str()),
+													  Form("ctofRatesHadronicT_%s", c.c_str()), 48, 0.5, 48.5));
+	ctofRatesEmT.push_back(new TH1F(Form("ctofRatesEmT_%s", c.c_str()),
+											  Form("ctofRatesEmT_%s", c.c_str()), 48, 0.5, 48.5));
+	ctofRatesGammaT.push_back(new TH1F(Form("ctofRatesGammaT_%s", c.c_str()),
+												  Form("ctofRatesGammaT_%s", c.c_str()), 48, 0.5, 48.5));
+
 	ctofRatesTotalEdep.push_back(new TH1F(Form("ctofRatesTotalEdep_%s", c.c_str()),
-													  Form("ctofRatesTotalEdep_%s", c.c_str()), 200, 0, 1000));
+													  Form("ctofRatesTotalEdep_%s", c.c_str()), 200, 0, 100));
 	ctofRatesHadronicEdep.push_back(new TH1F(Form("ctofRatesHadronicEdep_%s", c.c_str()),
-														  Form("ctofRatesHadronicEdep_%s", c.c_str()), 200, 0, 1000));
+														  Form("ctofRatesHadronicEdep_%s", c.c_str()), 200, 0, 100));
 	ctofRatesEmEdep.push_back(new TH1F(Form("ctofRatesEmEdep_%s", c.c_str()),
-												  Form("ctofRatesEmEdep_%s", c.c_str()), 200, 0, 1000));
+												  Form("ctofRatesEmEdep_%s", c.c_str()), 200, 0, 100));
 	ctofRatesGammaEdep.push_back(new TH1F(Form("ctofRatesGammaEdep_%s", c.c_str()),
-													  Form("ctofRatesGammaEdep_%s", c.c_str()), 200, 0, 1000));
+													  Form("ctofRatesGammaEdep_%s", c.c_str()), 200, 0, 100));
+	
+	ctofRatesTotalEdepZ.push_back(new TH1F(Form("ctofRatesTotalEdepZ_%s", c.c_str()),
+														Form("ctofRatesTotalEdepZ_%s", c.c_str()), 200, 0, 0.2));
+	ctofRatesHadronicEdepZ.push_back(new TH1F(Form("ctofRatesHadronicEdepZ_%s", c.c_str()),
+															Form("ctofRatesHadronicEdepZ_%s", c.c_str()), 200, 0, 0.2));
+	ctofRatesEmEdepZ.push_back(new TH1F(Form("ctofRatesEmEdepZ_%s", c.c_str()),
+													Form("ctofRatesEmEdepZ_%s", c.c_str()), 200, 0, 0.2));
+	ctofRatesGammaEdepZ.push_back(new TH1F(Form("ctofRatesGammaEdepZ_%s", c.c_str()),
+														Form("ctofRatesGammaEdepZ_%s", c.c_str()), 200, 0, 0.2));
 	
 }
 
@@ -75,11 +93,21 @@ void anaOption::setDirHistos(int cIndex) {
 	ctofRatesHadronic[cIndex]->SetDirectory(0);
 	ctofRatesEm[cIndex]->SetDirectory(0);
 	ctofRatesGamma[cIndex]->SetDirectory(0);
-	
+
+	ctofRatesTotalT[cIndex]->SetDirectory(0);
+	ctofRatesHadronicT[cIndex]->SetDirectory(0);
+	ctofRatesEmT[cIndex]->SetDirectory(0);
+	ctofRatesGammaT[cIndex]->SetDirectory(0);
+
 	ctofRatesTotalEdep[cIndex]->SetDirectory(0);
 	ctofRatesHadronicEdep[cIndex]->SetDirectory(0);
 	ctofRatesEmEdep[cIndex]->SetDirectory(0);
 	ctofRatesGammaEdep[cIndex]->SetDirectory(0);
+	
+	ctofRatesTotalEdepZ[cIndex]->SetDirectory(0);
+	ctofRatesHadronicEdepZ[cIndex]->SetDirectory(0);
+	ctofRatesEmEdepZ[cIndex]->SetDirectory(0);
+	ctofRatesGammaEdepZ[cIndex]->SetDirectory(0);
 	
 }
 
@@ -95,11 +123,21 @@ void anaOption::writeHistos() {
 	for(auto *h: ctofRatesHadronic) { h->Write(); }
 	for(auto *h: ctofRatesEm)       { h->Write(); }
 	for(auto *h: ctofRatesGamma)    { h->Write(); }
-	
+
+	for(auto *h: ctofRatesTotalT)    { h->Write(); }
+	for(auto *h: ctofRatesHadronicT) { h->Write(); }
+	for(auto *h: ctofRatesEmT)       { h->Write(); }
+	for(auto *h: ctofRatesGammaT)    { h->Write(); }
+
 	for(auto *h: ctofRatesTotalEdep)    { h->Write(); }
 	for(auto *h: ctofRatesHadronicEdep) { h->Write(); }
 	for(auto *h: ctofRatesEmEdep)       { h->Write(); }
 	for(auto *h: ctofRatesGammaEdep)    { h->Write(); }
+	
+	for(auto *h: ctofRatesTotalEdepZ)    { h->Write(); }
+	for(auto *h: ctofRatesHadronicEdepZ) { h->Write(); }
+	for(auto *h: ctofRatesEmEdepZ)       { h->Write(); }
+	for(auto *h: ctofRatesGammaEdepZ)    { h->Write(); }
 	
 	of.Close();
 }
@@ -132,8 +170,10 @@ void anaOption::fillHistos(int cindex) {
 	int nevents = ctof->GetEntries();
 	
 	const double TWINDOW = 248E-9;
+	const double threshold = 1.0;
 	double totalTime = ((double) nevents)*TWINDOW;
-	
+
+
 	cout << " " << nevents << " number of ecents for a total of " << totalTime * 1000 << " milliseconds of beam on target." << endl;
 	
 	for(int i=0; i<ctof->GetEntries(); i++){
@@ -174,21 +214,37 @@ void anaOption::fillHistos(int cindex) {
 			
 			// filling all particles
 			ctofRatesTotal[cindex]->Fill(thisPaddle, weight);
+			if(thisEdep > threshold) {
+				ctofRatesTotalT[cindex]->Fill(thisPaddle, weight);
+			}
 			ctofRatesTotalEdep[cindex]->Fill(thisEdep, weight);
+			ctofRatesTotalEdepZ[cindex]->Fill(thisEdep, weight);
 			
 			// e.m.
 			if(thisPID ==11 || thisPID == -11 || thisPID == 22) {
 				ctofRatesEm[cindex]->Fill(thisPaddle, weight);
+				if(thisEdep > threshold) {
+					ctofRatesEmT[cindex]->Fill(thisPaddle, weight);
+				}
 				ctofRatesEmEdep[cindex]->Fill(thisEdep, weight);
+				ctofRatesEmEdepZ[cindex]->Fill(thisEdep, weight);
 			} else {
 				// hadronic
 				ctofRatesHadronic[cindex]->Fill(thisPaddle, weight);
+				if(thisEdep > threshold) {
+					ctofRatesHadronicT[cindex]->Fill(thisPaddle, weight);
+				}
 				ctofRatesHadronicEdep[cindex]->Fill(thisEdep, weight);
+				ctofRatesHadronicEdepZ[cindex]->Fill(thisEdep, weight);
 			}
 			// just gammas
 			if(thisPID == 22 || thismPID == 22) {
 				ctofRatesGamma[cindex]->Fill(thisPaddle, weight);
+				if(thisEdep > threshold) {
+					ctofRatesGammaT[cindex]->Fill(thisPaddle, weight);
+				}
 				ctofRatesGammaEdep[cindex]->Fill(thisEdep, weight);
+				ctofRatesGammaEdepZ[cindex]->Fill(thisEdep, weight);
 			}
 			
 		}
