@@ -117,32 +117,39 @@ while ($w <= $#titles)
 
 					# can do rootification
 					if($OPT == "root" || $OPT == "rootr") then
+					
+						# don't do anything if out.ev is not there
+						if ( -f $thisDir/out.ev ) then
 
-						\echo " > Last good event for simulation $SIMU is $LASTE. Good. Start Event is $EVN"
-						set exc = `evio2root -B="$BANKSM" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
-						#set exc = `evio2root -B="dc ftof htcc" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
+							\echo " > Last good event for simulation $SIMU is $LASTE. Good. Start Event is $EVN"
+							set exc = `evio2root -B="$BANKSM" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
+							#set exc = `evio2root -B="dc ftof htcc" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
 						
-						# evio2root failed
-						if( (`\echo $exc` != "" || `ls | grep "core\." | wc | awk '{print $1}'` == "1" ) && $OPT == "rootr") then
-							\echo "simu_$SIMU gave error >$exc<, or core is found. Deleting directory"
-							rm core*
-							rm -rf $thisDir
-						else
-						# evio2root was succesful
-							@ EVN += $LASTE
-							@ ADDEVN = $EVN 
-							@ ADDEVN -= 1
-							@ NRFILES += 1
-							mv $thisDir/out.root $thisOutputD/$NRFILES.root
-							rm -rf nevents_$thisJob.dat ; \echo $EVN >  nevents_$thisJob.dat
-							if($OPT == "rootr") then
-								\echo " > directory $SIMU is done, removing it"
+							# evio2root failed
+							if( (`\echo $exc` != "" || `ls | grep "core\." | wc | awk '{print $1}'` == "1" ) && $OPT == "rootr") then
+								\echo "simu_$SIMU gave error >$exc<, or core is found. Deleting directory"
+								rm core*
 								rm -rf $thisDir
 							else
-								\echo " > directory $SIMU is done"
+							# evio2root was succesful
+								@ EVN += $LASTE
+								@ ADDEVN = $EVN 
+								@ ADDEVN -= 1
+								@ NRFILES += 1
+								mv $thisDir/out.root $thisOutputD/$NRFILES.root
+								rm -rf nevents_$thisJob.dat ; \echo $EVN >  nevents_$thisJob.dat
+								if($OPT == "rootr") then
+									\echo " > directory $SIMU is done, removing it"
+									rm -rf $thisDir
+								else
+									\echo " > directory $SIMU is done but will not be removed"
+								endif
+							# end of successful evio2root
 							endif
-						# end of successful evio2root
-						endif
+						else
+							echo no $thisDir/out.ev present. Removing dir even if it has $LASTE events.
+							rm -rf $thisDir
+						endif	
 
 					# end of rootification
 					endif
