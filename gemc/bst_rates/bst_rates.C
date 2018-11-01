@@ -192,7 +192,7 @@ void init_bst_histos(string filename, int tindex)
 		for(int e=0; e<NENERGY; e++)
 		{
 			bst_pr[l][e][tindex] = new TH1F(Form("bst_rates_l%d_e%d_%s", l+1, e, starget[tindex].c_str()),
-											Form("bst_rates_l%d_e%d_%s", l+1, e, starget[tindex].c_str()), pnum+2, 0, pnum+2);
+											        Form("bst_rates_l%d_e%d_%s", l+1, e, starget[tindex].c_str()), pnum+2, 0, pnum+2);
 			bst_pr[l][e][tindex]->GetXaxis()->SetTickLength(0);
 			bst_pr[l][e][tindex]->GetXaxis()->SetLabelSize(0);
 			bst_pr[l][e][tindex]->SetFillStyle(2);
