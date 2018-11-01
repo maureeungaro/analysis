@@ -22,11 +22,8 @@ anaOption::anaOption(vector<string> configurations) : confs(configurations)
 		
 		cout << " File " << filename << " opened. " << endl;
 		
-		int NHITS = generated->GetEntries();
-		
-		
 		defineHistos(p);
-		cout << " Initializing ctof histos with " << NHITS << " entries..." << endl;
+		cout << " Initializing ctof histos with " << generated->GetEntries() << " entries..." << endl;
 		
 		initLeafs();
 		
@@ -48,67 +45,81 @@ void anaOption::defineHistos(string c) {
 	
 	cout << " Defining " << c << " histo." << endl;
 	
-	ctofRatesTotal.push_back(new TH1F(Form("ctofRatesTotal_%s", c.c_str()),
-												 Form("ctofRatesTotal_%s", c.c_str()), 48, 0.5, 48.5));
-	ctofRatesHadronic.push_back(new TH1F(Form("ctofRatesHadronic_%s", c.c_str()),
-													 Form("ctofRatesHadronic_%s", c.c_str()), 48, 0.5, 48.5));
-	ctofRatesEm.push_back(new TH1F(Form("ctofRatesEm_%s", c.c_str()),
-											 Form("ctofRatesEm_%s", c.c_str()), 48, 0.5, 48.5));
-	ctofRatesGamma.push_back(new TH1F(Form("ctofRatesGamma_%s", c.c_str()),
-												 Form("ctofRatesGamma_%s", c.c_str()), 48, 0.5, 48.5));
-
-	ctofRatesTotalT.push_back(new TH1F(Form("ctofRatesTotalT_%s", c.c_str()),
-												  Form("ctofRatesTotalT_%s", c.c_str()), 48, 0.5, 48.5));
-	ctofRatesHadronicT.push_back(new TH1F(Form("ctofRatesHadronicT_%s", c.c_str()),
-													  Form("ctofRatesHadronicT_%s", c.c_str()), 48, 0.5, 48.5));
-	ctofRatesEmT.push_back(new TH1F(Form("ctofRatesEmT_%s", c.c_str()),
-											  Form("ctofRatesEmT_%s", c.c_str()), 48, 0.5, 48.5));
-	ctofRatesGammaT.push_back(new TH1F(Form("ctofRatesGammaT_%s", c.c_str()),
-												  Form("ctofRatesGammaT_%s", c.c_str()), 48, 0.5, 48.5));
-
-	ctofRatesTotalEdep.push_back(new TH1F(Form("ctofRatesTotalEdep_%s", c.c_str()),
-													  Form("ctofRatesTotalEdep_%s", c.c_str()), 200, 0, 100));
-	ctofRatesHadronicEdep.push_back(new TH1F(Form("ctofRatesHadronicEdep_%s", c.c_str()),
-														  Form("ctofRatesHadronicEdep_%s", c.c_str()), 200, 0, 100));
-	ctofRatesEmEdep.push_back(new TH1F(Form("ctofRatesEmEdep_%s", c.c_str()),
-												  Form("ctofRatesEmEdep_%s", c.c_str()), 200, 0, 100));
-	ctofRatesGammaEdep.push_back(new TH1F(Form("ctofRatesGammaEdep_%s", c.c_str()),
-													  Form("ctofRatesGammaEdep_%s", c.c_str()), 200, 0, 100));
+	ratesTotal.push_back(new TH1F(Form("ratesTotal_%s", c.c_str()),
+											Form("ratesTotal_%s", c.c_str()), 48, 0.5, 48.5));
+	ratesHadronic.push_back(new TH1F(Form("ratesHadronic_%s", c.c_str()),
+												Form("ratesHadronic_%s", c.c_str()), 48, 0.5, 48.5));
+	ratesEm.push_back(new TH1F(Form("ratesEm_%s", c.c_str()),
+										Form("ratesEm_%s", c.c_str()), 48, 0.5, 48.5));
+	ratesGamma.push_back(new TH1F(Form("ratesGamma_%s", c.c_str()),
+											Form("ratesGamma_%s", c.c_str()), 48, 0.5, 48.5));
 	
-	ctofRatesTotalEdepZ.push_back(new TH1F(Form("ctofRatesTotalEdepZ_%s", c.c_str()),
-														Form("ctofRatesTotalEdepZ_%s", c.c_str()), 200, 0, 0.2));
-	ctofRatesHadronicEdepZ.push_back(new TH1F(Form("ctofRatesHadronicEdepZ_%s", c.c_str()),
-															Form("ctofRatesHadronicEdepZ_%s", c.c_str()), 200, 0, 0.2));
-	ctofRatesEmEdepZ.push_back(new TH1F(Form("ctofRatesEmEdepZ_%s", c.c_str()),
-													Form("ctofRatesEmEdepZ_%s", c.c_str()), 200, 0, 0.2));
-	ctofRatesGammaEdepZ.push_back(new TH1F(Form("ctofRatesGammaEdepZ_%s", c.c_str()),
-														Form("ctofRatesGammaEdepZ_%s", c.c_str()), 200, 0, 0.2));
+	ratesTotalT.push_back(new TH1F(Form("ratesTotalT_%s", c.c_str()),
+											 Form("ratesTotalT_%s", c.c_str()), 48, 0.5, 48.5));
+	ratesHadronicT.push_back(new TH1F(Form("ratesHadronicT_%s", c.c_str()),
+												 Form("ratesHadronicT_%s", c.c_str()), 48, 0.5, 48.5));
+	ratesEmT.push_back(new TH1F(Form("ratesEmT_%s", c.c_str()),
+										 Form("ratesEmT_%s", c.c_str()), 48, 0.5, 48.5));
+	ratesGammaT.push_back(new TH1F(Form("ratesGammaT_%s", c.c_str()),
+											 Form("ratesGammaT_%s", c.c_str()), 48, 0.5, 48.5));
 	
+	ratesTotalEdep.push_back(new TH1F(Form("ratesTotalEdep_%s", c.c_str()),
+												 Form("ratesTotalEdep_%s", c.c_str()), 100, 0, 50));
+	ratesHadronicEdep.push_back(new TH1F(Form("ratesHadronicEdep_%s", c.c_str()),
+													 Form("ratesHadronicEdep_%s", c.c_str()), 100, 0, 50));
+	ratesEmEdep.push_back(new TH1F(Form("ratesEmEdep_%s", c.c_str()),
+											 Form("ratesEmEdep_%s", c.c_str()), 100, 0, 50));
+	ratesGammaEdep.push_back(new TH1F(Form("ratesGammaEdep_%s", c.c_str()),
+												 Form("ratesGammaEdep_%s", c.c_str()), 100, 0, 50));
+	
+	ratesTotalEdepZ.push_back(new TH1F(Form("ratesTotalEdepZ_%s", c.c_str()),
+												  Form("ratesTotalEdepZ_%s", c.c_str()), 100, 0, 0.12));
+	ratesHadronicEdepZ.push_back(new TH1F(Form("ratesHadronicEdepZ_%s", c.c_str()),
+													  Form("ratesHadronicEdepZ_%s", c.c_str()), 100, 0, 0.12));
+	ratesEmEdepZ.push_back(new TH1F(Form("ratesEmEdepZ_%s", c.c_str()),
+											  Form("ratesEmEdepZ_%s", c.c_str()), 100, 0, 0.12));
+	ratesGammaEdepZ.push_back(new TH1F(Form("ratesGammaEdepZ_%s", c.c_str()),
+												  Form("ratesGammaEdepZ_%s", c.c_str()), 100, 0, 0.12));
+
+
+	vertexRZ.push_back(new TH2F(Form("vertexRZ_%s", c.c_str()),
+										 Form("vertexRZ_%s", c.c_str()), 400, -800, 1500, 400, -10, 600));
+
+	vertexR.push_back(new TH1F(Form("vertexR_%s", c.c_str()),
+										Form("vertexR_%s", c.c_str()), 400, -10, 600));
+
+	vertexZ.push_back(new TH1F(Form("vertexZ_%s", c.c_str()),
+										Form("vertexZ_%s", c.c_str()), 400, -800, 1500));
+
+
 }
 
 void anaOption::setDirHistos(int cIndex) {
 	cout << " Setting dir to index " << cIndex << " histos." << endl;
 	
-	ctofRatesTotal[cIndex]->SetDirectory(0);
-	ctofRatesHadronic[cIndex]->SetDirectory(0);
-	ctofRatesEm[cIndex]->SetDirectory(0);
-	ctofRatesGamma[cIndex]->SetDirectory(0);
-
-	ctofRatesTotalT[cIndex]->SetDirectory(0);
-	ctofRatesHadronicT[cIndex]->SetDirectory(0);
-	ctofRatesEmT[cIndex]->SetDirectory(0);
-	ctofRatesGammaT[cIndex]->SetDirectory(0);
-
-	ctofRatesTotalEdep[cIndex]->SetDirectory(0);
-	ctofRatesHadronicEdep[cIndex]->SetDirectory(0);
-	ctofRatesEmEdep[cIndex]->SetDirectory(0);
-	ctofRatesGammaEdep[cIndex]->SetDirectory(0);
+	ratesTotal[cIndex]->SetDirectory(0);
+	ratesHadronic[cIndex]->SetDirectory(0);
+	ratesEm[cIndex]->SetDirectory(0);
+	ratesGamma[cIndex]->SetDirectory(0);
 	
-	ctofRatesTotalEdepZ[cIndex]->SetDirectory(0);
-	ctofRatesHadronicEdepZ[cIndex]->SetDirectory(0);
-	ctofRatesEmEdepZ[cIndex]->SetDirectory(0);
-	ctofRatesGammaEdepZ[cIndex]->SetDirectory(0);
+	ratesTotalT[cIndex]->SetDirectory(0);
+	ratesHadronicT[cIndex]->SetDirectory(0);
+	ratesEmT[cIndex]->SetDirectory(0);
+	ratesGammaT[cIndex]->SetDirectory(0);
 	
+	ratesTotalEdep[cIndex]->SetDirectory(0);
+	ratesHadronicEdep[cIndex]->SetDirectory(0);
+	ratesEmEdep[cIndex]->SetDirectory(0);
+	ratesGammaEdep[cIndex]->SetDirectory(0);
+	
+	ratesTotalEdepZ[cIndex]->SetDirectory(0);
+	ratesHadronicEdepZ[cIndex]->SetDirectory(0);
+	ratesEmEdepZ[cIndex]->SetDirectory(0);
+	ratesGammaEdepZ[cIndex]->SetDirectory(0);
+
+	vertexRZ[cIndex]->SetDirectory(0);
+	vertexR[cIndex]->SetDirectory(0);
+	vertexZ[cIndex]->SetDirectory(0);
 }
 
 void anaOption::writeHistos() {
@@ -119,26 +130,30 @@ void anaOption::writeHistos() {
 	TFile of(ofname.c_str(), "RECREATE");
 	
 	// scaling so that the re
-	for(auto *h: ctofRatesTotal)    { h->Write(); }
-	for(auto *h: ctofRatesHadronic) { h->Write(); }
-	for(auto *h: ctofRatesEm)       { h->Write(); }
-	for(auto *h: ctofRatesGamma)    { h->Write(); }
-
-	for(auto *h: ctofRatesTotalT)    { h->Write(); }
-	for(auto *h: ctofRatesHadronicT) { h->Write(); }
-	for(auto *h: ctofRatesEmT)       { h->Write(); }
-	for(auto *h: ctofRatesGammaT)    { h->Write(); }
-
-	for(auto *h: ctofRatesTotalEdep)    { h->Write(); }
-	for(auto *h: ctofRatesHadronicEdep) { h->Write(); }
-	for(auto *h: ctofRatesEmEdep)       { h->Write(); }
-	for(auto *h: ctofRatesGammaEdep)    { h->Write(); }
+	for(auto *h: ratesTotal)    { h->Write(); }
+	for(auto *h: ratesHadronic) { h->Write(); }
+	for(auto *h: ratesEm)       { h->Write(); }
+	for(auto *h: ratesGamma)    { h->Write(); }
 	
-	for(auto *h: ctofRatesTotalEdepZ)    { h->Write(); }
-	for(auto *h: ctofRatesHadronicEdepZ) { h->Write(); }
-	for(auto *h: ctofRatesEmEdepZ)       { h->Write(); }
-	for(auto *h: ctofRatesGammaEdepZ)    { h->Write(); }
+	for(auto *h: ratesTotalT)    { h->Write(); }
+	for(auto *h: ratesHadronicT) { h->Write(); }
+	for(auto *h: ratesEmT)       { h->Write(); }
+	for(auto *h: ratesGammaT)    { h->Write(); }
 	
+	for(auto *h: ratesTotalEdep)    { h->Write(); }
+	for(auto *h: ratesHadronicEdep) { h->Write(); }
+	for(auto *h: ratesEmEdep)       { h->Write(); }
+	for(auto *h: ratesGammaEdep)    { h->Write(); }
+	
+	for(auto *h: ratesTotalEdepZ)    { h->Write(); }
+	for(auto *h: ratesHadronicEdepZ) { h->Write(); }
+	for(auto *h: ratesEmEdepZ)       { h->Write(); }
+	for(auto *h: ratesGammaEdepZ)    { h->Write(); }
+
+	for(auto *h: vertexRZ)   { h->Write(); }
+	for(auto *h: vertexR)    { h->Write(); }
+	for(auto *h: vertexZ)    { h->Write(); }
+
 	of.Close();
 }
 
@@ -154,7 +169,10 @@ void anaOption::initLeafs() {
 	pid     = nullptr;
 	mpid    = nullptr;
 	totEdep = nullptr;
-	
+	vx       = nullptr;
+	vy       = nullptr;
+	vz       = nullptr;
+
 	ctof->SetBranchAddress("paddle",  &paddle);
 	ctof->SetBranchAddress("avg_x",   &x);
 	ctof->SetBranchAddress("avg_y",   &y);
@@ -162,7 +180,10 @@ void anaOption::initLeafs() {
 	ctof->SetBranchAddress("pid",     &pid);
 	ctof->SetBranchAddress("mpid",    &mpid);
 	ctof->SetBranchAddress("totEdep", &totEdep);
-	
+	ctof->SetBranchAddress("vx",   &vx);
+	ctof->SetBranchAddress("vy",   &vy);
+	ctof->SetBranchAddress("vz",   &vz);
+
 }
 
 void anaOption::fillHistos(int cindex) {
@@ -172,8 +193,8 @@ void anaOption::fillHistos(int cindex) {
 	const double TWINDOW = 248E-9;
 	const double threshold = 1.0;
 	double totalTime = ((double) nevents)*TWINDOW;
-
-
+	
+	
 	cout << " " << nevents << " number of ecents for a total of " << totalTime * 1000 << " milliseconds of beam on target." << endl;
 	
 	for(int i=0; i<ctof->GetEntries(); i++){
@@ -193,7 +214,10 @@ void anaOption::fillHistos(int cindex) {
 		int thismPID    = 0;
 		
 		double thisEdep  = 0;
-		
+
+		double thisVR  = 0;
+		double thisVZ  = 0;
+
 		
 		// looping over hits
 		for(unsigned d=0; d<(*x).size(); d++) {
@@ -208,43 +232,51 @@ void anaOption::fillHistos(int cindex) {
 			thismPID   = (*mpid)[d];
 			
 			thisEdep  = (*totEdep)[d];
-			
+
+			thisVR = sqrt( (*vx)[d]*(*vx)[d] + (*vy)[d]*(*vy)[d] );
+			thisVZ = (*vz)[d];
+
 			// weight to give rates in MHz.
-			double weight = 1.0/(totalTime*1000000);
-			
+			double weight       = 1.0/(totalTime*1000000);
+			double weightPaddle = 1.0/(totalTime*1000000*48);
+
+			vertexRZ[cindex]->Fill(thisVZ, thisVR);
+			vertexR[cindex]->Fill(thisVR);
+			vertexZ[cindex]->Fill(thisVZ);
+
 			// filling all particles
-			ctofRatesTotal[cindex]->Fill(thisPaddle, weight);
+			ratesTotal[cindex]->Fill(thisPaddle, weight);
 			if(thisEdep > threshold) {
-				ctofRatesTotalT[cindex]->Fill(thisPaddle, weight);
+				ratesTotalT[cindex]->Fill(thisPaddle, weight);
 			}
-			ctofRatesTotalEdep[cindex]->Fill(thisEdep, weight);
-			ctofRatesTotalEdepZ[cindex]->Fill(thisEdep, weight);
+			ratesTotalEdep[cindex]->Fill(thisEdep, weightPaddle);
+			ratesTotalEdepZ[cindex]->Fill(thisEdep, weightPaddle);
 			
 			// e.m.
 			if(thisPID ==11 || thisPID == -11 || thisPID == 22) {
-				ctofRatesEm[cindex]->Fill(thisPaddle, weight);
+				ratesEm[cindex]->Fill(thisPaddle, weight);
 				if(thisEdep > threshold) {
-					ctofRatesEmT[cindex]->Fill(thisPaddle, weight);
+					ratesEmT[cindex]->Fill(thisPaddle, weight);
 				}
-				ctofRatesEmEdep[cindex]->Fill(thisEdep, weight);
-				ctofRatesEmEdepZ[cindex]->Fill(thisEdep, weight);
+				ratesEmEdep[cindex]->Fill(thisEdep, weightPaddle);
+				ratesEmEdepZ[cindex]->Fill(thisEdep, weightPaddle);
 			} else {
 				// hadronic
-				ctofRatesHadronic[cindex]->Fill(thisPaddle, weight);
+				ratesHadronic[cindex]->Fill(thisPaddle, weight);
 				if(thisEdep > threshold) {
-					ctofRatesHadronicT[cindex]->Fill(thisPaddle, weight);
+					ratesHadronicT[cindex]->Fill(thisPaddle, weight);
 				}
-				ctofRatesHadronicEdep[cindex]->Fill(thisEdep, weight);
-				ctofRatesHadronicEdepZ[cindex]->Fill(thisEdep, weight);
+				ratesHadronicEdep[cindex]->Fill(thisEdep, weightPaddle);
+				ratesHadronicEdepZ[cindex]->Fill(thisEdep, weightPaddle);
 			}
 			// just gammas
 			if(thisPID == 22 || thismPID == 22) {
-				ctofRatesGamma[cindex]->Fill(thisPaddle, weight);
+				ratesGamma[cindex]->Fill(thisPaddle, weight);
 				if(thisEdep > threshold) {
-					ctofRatesGammaT[cindex]->Fill(thisPaddle, weight);
+					ratesGammaT[cindex]->Fill(thisPaddle, weight);
 				}
-				ctofRatesGammaEdep[cindex]->Fill(thisEdep, weight);
-				ctofRatesGammaEdepZ[cindex]->Fill(thisEdep, weight);
+				ratesGammaEdep[cindex]->Fill(thisEdep, weightPaddle);
+				ratesGammaEdepZ[cindex]->Fill(thisEdep, weightPaddle);
 			}
 			
 		}

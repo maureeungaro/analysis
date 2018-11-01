@@ -24,25 +24,29 @@ public:
 private:
 
 	// rates as a function of paddle
-	vector<TH1F*> ctofRatesTotal;
-	vector<TH1F*> ctofRatesHadronic;
-	vector<TH1F*> ctofRatesEm;
-	vector<TH1F*> ctofRatesGamma;
+	vector<TH1F*> ratesTotal;
+	vector<TH1F*> ratesHadronic;
+	vector<TH1F*> ratesEm;
+	vector<TH1F*> ratesGamma;
 
-	vector<TH1F*> ctofRatesTotalT;
-	vector<TH1F*> ctofRatesHadronicT;
-	vector<TH1F*> ctofRatesEmT;
-	vector<TH1F*> ctofRatesGammaT;
+	vector<TH1F*> ratesTotalT;
+	vector<TH1F*> ratesHadronicT;
+	vector<TH1F*> ratesEmT;
+	vector<TH1F*> ratesGammaT;
 
-	vector<TH1F*> ctofRatesTotalEdep;
-	vector<TH1F*> ctofRatesHadronicEdep;
-	vector<TH1F*> ctofRatesEmEdep;
-	vector<TH1F*> ctofRatesGammaEdep;
+	vector<TH1F*> ratesTotalEdep;
+	vector<TH1F*> ratesHadronicEdep;
+	vector<TH1F*> ratesEmEdep;
+	vector<TH1F*> ratesGammaEdep;
 
-	vector<TH1F*> ctofRatesTotalEdepZ;
-	vector<TH1F*> ctofRatesHadronicEdepZ;
-	vector<TH1F*> ctofRatesEmEdepZ;
-	vector<TH1F*> ctofRatesGammaEdepZ;
+	vector<TH1F*> ratesTotalEdepZ;
+	vector<TH1F*> ratesHadronicEdepZ;
+	vector<TH1F*> ratesEmEdepZ;
+	vector<TH1F*> ratesGammaEdepZ;
+
+	vector<TH2F*> vertexRZ;
+	vector<TH1F*> vertexR;
+	vector<TH1F*> vertexZ;
 
 	vector<string> confs;
 
@@ -57,6 +61,9 @@ private:
 	vector<double> *pid;
 	vector<double> *mpid;
 	vector<double> *totEdep;
+	vector<double> *vx;
+	vector<double> *vy;
+	vector<double> *vz;
 
 private:
 	void defineHistos(string c);

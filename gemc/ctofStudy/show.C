@@ -1,23 +1,23 @@
 
-vector<TH1F*> ctofRatesTotal;
-vector<TH1F*> ctofRatesHadronic;
-vector<TH1F*> ctofRatesEm;
-vector<TH1F*> ctofRatesGamma;
+vector<TH1F*> ratesTotal;
+vector<TH1F*> ratesHadronic;
+vector<TH1F*> ratesEm;
+vector<TH1F*> ratesGamma;
 
-vector<TH1F*> ctofRatesTotalT;
-vector<TH1F*> ctofRatesHadronicT;
-vector<TH1F*> ctofRatesEmT;
-vector<TH1F*> ctofRatesGammaT;
+vector<TH1F*> ratesTotalT;
+vector<TH1F*> ratesHadronicT;
+vector<TH1F*> ratesEmT;
+vector<TH1F*> ratesGammaT;
 
-vector<TH1F*> ctofRatesTotalEdep;
-vector<TH1F*> ctofRatesHadronicEdep;
-vector<TH1F*> ctofRatesEmEdep;
-vector<TH1F*> ctofRatesGammaEdep;
+vector<TH1F*> ratesTotalEdep;
+vector<TH1F*> ratesHadronicEdep;
+vector<TH1F*> ratesEmEdep;
+vector<TH1F*> ratesGammaEdep;
 
-vector<TH1F*> ctofRatesTotalEdepZ;
-vector<TH1F*> ctofRatesHadronicEdepZ;
-vector<TH1F*> ctofRatesEmEdepZ;
-vector<TH1F*> ctofRatesGammaEdepZ;
+vector<TH1F*> ratesTotalEdepZ;
+vector<TH1F*> ratesHadronicEdepZ;
+vector<TH1F*> ratesEmEdepZ;
+vector<TH1F*> ratesGammaEdepZ;
 
 
 vector<string>   confs;
@@ -25,6 +25,7 @@ vector<Color_t> colors;
 
 string rateType;
 bool withThreshold;
+bool zoomed;
 
 void loadHistos() {
 	string fname = "ctofHistos.root";
@@ -35,108 +36,116 @@ void loadHistos() {
 	for(unsigned h=0; h<confs.size(); h++) {
 		cout << " Loading " << confs[h] << " configuration " << endl;
 
-		string name = "ctofRatesTotal_" + confs[h];
-		ctofRatesTotal.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesTotal.back()->SetMinimum(0);
-		ctofRatesTotal.back()->SetLineColor(colors[h]);
-		ctofRatesTotal.back()->SetDirectory(0);
+		string name = "ratesTotal_" + confs[h];
+		ratesTotal.push_back((TH1F*) f->Get(name.c_str()));
+		ratesTotal.back()->SetMinimum(0);
+		ratesTotal.back()->SetLineColor(colors[h]);
+		ratesTotal.back()->SetDirectory(0);
 
-		name = "ctofRatesHadronic_" + confs[h];
-		ctofRatesHadronic.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesHadronic.back()->SetMinimum(0);
-		ctofRatesHadronic.back()->SetLineColor(colors[h]);
-		ctofRatesHadronic.back()->SetDirectory(0);
+		name = "ratesHadronic_" + confs[h];
+		ratesHadronic.push_back((TH1F*) f->Get(name.c_str()));
+		ratesHadronic.back()->SetMinimum(0);
+		ratesHadronic.back()->SetLineColor(colors[h]);
+		ratesHadronic.back()->SetDirectory(0);
 
-		name = "ctofRatesEm_" + confs[h];
-		ctofRatesEm.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesEm.back()->SetMinimum(0);
-		ctofRatesEm.back()->SetLineColor(colors[h]);
-		ctofRatesEm.back()->SetDirectory(0);
+		name = "ratesEm_" + confs[h];
+		ratesEm.push_back((TH1F*) f->Get(name.c_str()));
+		ratesEm.back()->SetMinimum(0);
+		ratesEm.back()->SetLineColor(colors[h]);
+		ratesEm.back()->SetDirectory(0);
 
-		name = "ctofRatesGamma_" + confs[h];
-		ctofRatesGamma.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesGamma.back()->SetMinimum(0);
-		ctofRatesGamma.back()->SetLineColor(colors[h]);
-		ctofRatesGamma.back()->SetDirectory(0);
-
-
-		name = "ctofRatesTotalT_" + confs[h];
-		ctofRatesTotalT.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesTotalT.back()->SetMinimum(0);
-		ctofRatesTotalT.back()->SetLineColor(colors[h]);
-		ctofRatesTotalT.back()->SetDirectory(0);
-
-		name = "ctofRatesHadronicT_" + confs[h];
-		ctofRatesHadronicT.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesHadronicT.back()->SetMinimum(0);
-		ctofRatesHadronicT.back()->SetLineColor(colors[h]);
-		ctofRatesHadronicT.back()->SetDirectory(0);
-
-		name = "ctofRatesEmT_" + confs[h];
-		ctofRatesEmT.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesEmT.back()->SetMinimum(0);
-		ctofRatesEmT.back()->SetLineColor(colors[h]);
-		ctofRatesEmT.back()->SetDirectory(0);
-
-		name = "ctofRatesGammaT_" + confs[h];
-		ctofRatesGammaT.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesGammaT.back()->SetMinimum(0);
-		ctofRatesGammaT.back()->SetLineColor(colors[h]);
-		ctofRatesGammaT.back()->SetDirectory(0);
+		name = "ratesGamma_" + confs[h];
+		ratesGamma.push_back((TH1F*) f->Get(name.c_str()));
+		ratesGamma.back()->SetMinimum(0);
+		ratesGamma.back()->SetLineColor(colors[h]);
+		ratesGamma.back()->SetDirectory(0);
 
 
+		name = "ratesTotalT_" + confs[h];
+		ratesTotalT.push_back((TH1F*) f->Get(name.c_str()));
+		ratesTotalT.back()->SetMaximum(0.5);
+		ratesTotalT.back()->SetMinimum(0);
+		ratesTotalT.back()->SetLineColor(colors[h]);
+		ratesTotalT.back()->SetDirectory(0);
 
+		name = "ratesHadronicT_" + confs[h];
+		ratesHadronicT.push_back((TH1F*) f->Get(name.c_str()));
+		ratesHadronicT.back()->SetMaximum(0.25);
+		ratesHadronicT.back()->SetMinimum(0);
+		ratesHadronicT.back()->SetLineColor(colors[h]);
+		ratesHadronicT.back()->SetDirectory(0);
 
+		name = "ratesEmT_" + confs[h];
+		ratesEmT.push_back((TH1F*) f->Get(name.c_str()));
+		ratesEmT.back()->SetMaximum(0.3);
+		ratesEmT.back()->SetMinimum(0);
+		ratesEmT.back()->SetLineColor(colors[h]);
+		ratesEmT.back()->SetDirectory(0);
 
-		name = "ctofRatesTotalEdep_" + confs[h];
-		ctofRatesTotalEdep.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesTotalEdep.back()->SetMinimum(0);
-		ctofRatesTotalEdep.back()->SetLineColor(colors[h]);
-		ctofRatesTotalEdep.back()->SetDirectory(0);
-
-		name = "ctofRatesHadronicEdep_" + confs[h];
-		ctofRatesHadronicEdep.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesHadronicEdep.back()->SetMinimum(0);
-		ctofRatesHadronicEdep.back()->SetLineColor(colors[h]);
-		ctofRatesHadronicEdep.back()->SetDirectory(0);
-
-		name = "ctofRatesEmEdep_" + confs[h];
-		ctofRatesEmEdep.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesEmEdep.back()->SetMinimum(0);
-		ctofRatesEmEdep.back()->SetLineColor(colors[h]);
-		ctofRatesEmEdep.back()->SetDirectory(0);
-
-		name = "ctofRatesGammaEdep_" + confs[h];
-		ctofRatesGammaEdep.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesGammaEdep.back()->SetMinimum(0);
-		ctofRatesGammaEdep.back()->SetLineColor(colors[h]);
-		ctofRatesGammaEdep.back()->SetDirectory(0);
+		name = "ratesGammaT_" + confs[h];
+		ratesGammaT.push_back((TH1F*) f->Get(name.c_str()));
+		ratesGammaT.back()->SetMaximum(0.02);
+		ratesGammaT.back()->SetMinimum(0);
+		ratesGammaT.back()->SetLineColor(colors[h]);
+		ratesGammaT.back()->SetDirectory(0);
 
 
 
-		name = "ctofRatesTotalEdepZ_" + confs[h];
-		ctofRatesTotalEdepZ.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesTotalEdepZ.back()->SetMinimum(0);
-		ctofRatesTotalEdepZ.back()->SetLineColor(colors[h]);
-		ctofRatesTotalEdepZ.back()->SetDirectory(0);
 
-		name = "ctofRatesHadronicEdepZ_" + confs[h];
-		ctofRatesHadronicEdepZ.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesHadronicEdepZ.back()->SetMinimum(0);
-		ctofRatesHadronicEdepZ.back()->SetLineColor(colors[h]);
-		ctofRatesHadronicEdepZ.back()->SetDirectory(0);
 
-		name = "ctofRatesEmEdepZ_" + confs[h];
-		ctofRatesEmEdepZ.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesEmEdepZ.back()->SetMinimum(0);
-		ctofRatesEmEdepZ.back()->SetLineColor(colors[h]);
-		ctofRatesEmEdepZ.back()->SetDirectory(0);
+		name = "ratesTotalEdep_" + confs[h];
+		ratesTotalEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ratesTotalEdep.back()->SetMaximum(0.014);
+		ratesTotalEdep.back()->SetMinimum(0.000001);
+		ratesTotalEdep.back()->SetLineColor(colors[h]);
+		ratesTotalEdep.back()->SetDirectory(0);
 
-		name = "ctofRatesGammaEdepZ_" + confs[h];
-		ctofRatesGammaEdepZ.push_back((TH1F*) f->Get(name.c_str()));
-		ctofRatesGammaEdepZ.back()->SetMinimum(0);
-		ctofRatesGammaEdepZ.back()->SetLineColor(colors[h]);
-		ctofRatesGammaEdepZ.back()->SetDirectory(0);
+		name = "ratesHadronicEdep_" + confs[h];
+		ratesHadronicEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ratesHadronicEdep.back()->SetMaximum(0.014);
+		ratesHadronicEdep.back()->SetMinimum(0.000001);
+		ratesHadronicEdep.back()->SetLineColor(colors[h]);
+		ratesHadronicEdep.back()->SetDirectory(0);
+
+		name = "ratesEmEdep_" + confs[h];
+		ratesEmEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ratesEmEdep.back()->SetMaximum(0.014);
+		ratesEmEdep.back()->SetMinimum(0.000001);
+		ratesEmEdep.back()->SetLineColor(colors[h]);
+		ratesEmEdep.back()->SetDirectory(0);
+
+		name = "ratesGammaEdep_" + confs[h];
+		ratesGammaEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ratesGammaEdep.back()->SetMaximum(0.014);
+		ratesGammaEdep.back()->SetMinimum(0.000001);
+		ratesGammaEdep.back()->SetLineColor(colors[h]);
+		ratesGammaEdep.back()->SetDirectory(0);
+
+
+
+		name = "ratesTotalEdepZ_" + confs[h];
+		ratesTotalEdepZ.push_back((TH1F*) f->Get(name.c_str()));
+		ratesTotalEdepZ.back()->SetMinimum(0.000001);
+		ratesTotalEdepZ.back()->SetLineColor(colors[h]);
+		ratesTotalEdepZ.back()->SetDirectory(0);
+
+		name = "ratesHadronicEdepZ_" + confs[h];
+		ratesHadronicEdepZ.push_back((TH1F*) f->Get(name.c_str()));
+		ratesHadronicEdepZ.back()->SetMinimum(0.000001);
+		ratesHadronicEdepZ.back()->SetLineColor(colors[h]);
+		ratesHadronicEdepZ.back()->SetDirectory(0);
+
+		name = "ratesEmEdepZ_" + confs[h];
+		ratesEmEdepZ.push_back((TH1F*) f->Get(name.c_str()));
+		ratesEmEdepZ.back()->SetMinimum(0.000001);
+		ratesEmEdepZ.back()->SetLineColor(colors[h]);
+		ratesEmEdepZ.back()->SetDirectory(0);
+
+		name = "ratesGammaEdepZ_" + confs[h];
+		ratesGammaEdepZ.push_back((TH1F*) f->Get(name.c_str()));
+		ratesGammaEdepZ.back()->SetMinimum(0.000001);
+		ratesGammaEdepZ.back()->SetLineColor(colors[h]);
+		ratesGammaEdepZ.back()->SetDirectory(0);
 
 
 	}
@@ -149,28 +158,56 @@ void loadHistos() {
 vector<TH1F*> getRateHistos(string kind) {
 	if(        kind == "total") {
 		if(withThreshold) {
-			return ctofRatesTotalT;
+			return ratesTotalT;
 		}
-		return ctofRatesTotal;
+		return ratesTotal;
 	} else if (kind == "em") {
 		if(withThreshold) {
-			return ctofRatesEmT;
+			return ratesEmT;
 		}
-		return ctofRatesEm;
+		return ratesEm;
 	} else if (kind == "hadronic") {
 		if(withThreshold) {
-			return ctofRatesHadronicT;
+			return ratesHadronicT;
 		}
-		return ctofRatesHadronic;
+		return ratesHadronic;
 	} else if (kind == "gamma") {
 		if(withThreshold) {
-			return ctofRatesGammaT;
+			return ratesGammaT;
 		}
-		return ctofRatesGamma;
+		return ratesGamma;
 	}
 
-	return ctofRatesTotal;
+	return ratesTotalT;
 }
+
+vector<TH1F*> getEHistos(string kind) {
+	if(        kind == "total") {
+		if(zoomed) {
+			return ratesTotalEdepZ;
+		}
+		return ratesTotalEdep;
+	} else if (kind == "em") {
+		if(zoomed) {
+			return ratesEmEdepZ;
+		}
+		return ratesEmEdep;
+	} else if (kind == "hadronic") {
+		if(zoomed) {
+			return ratesHadronicEdepZ;
+		}
+		return ratesHadronicEdep;
+	} else if (kind == "gamma") {
+		if(zoomed) {
+			return ratesGammaEdepZ;
+		}
+		return ratesGammaEdep;
+	}
+
+	return ratesTotalEdep;
+}
+
+
 
 // root[0] .x show.C
 void show()
@@ -183,6 +220,7 @@ void show()
 
 	rateType = "total";
 	withThreshold = true;
+	zoomed = false;
 
 	loadHistos();
 
@@ -198,6 +236,7 @@ void show()
 	bar->AddButton("Set rates to Gamma",    "setRates(3)");
 	bar->AddButton("", "");
 	bar->AddButton("Switch Threshold",      "switchT()");
+	bar->AddButton("Switch Zoomed",         "switchZ()");
 	bar->AddButton("", "");
 	bar->Show();
 	gROOT->SaveContext();
@@ -208,6 +247,12 @@ void switchT() {
 	withThreshold = !withThreshold;
 	cout << " Threshold: " << withThreshold << endl;
 }
+
+void switchZ() {
+	zoomed = !zoomed;
+	cout << " Zoomed: " << zoomed << endl;
+}
+
 
 void setRates(int kind){
 	if(         kind ==0) {
@@ -226,7 +271,7 @@ void setRates(int kind){
 
 void showPaddles() {
 
-	gStyle->SetPadLeftMargin(0.1);
+	gStyle->SetPadLeftMargin(0.12);
 	gStyle->SetPadRightMargin(0.04);
 	gStyle->SetPadTopMargin(0.2);
 	gStyle->SetPadBottomMargin(0.12);
@@ -282,6 +327,66 @@ void showPaddles() {
 }
 
 
+
+void showEdep() {
+
+	gStyle->SetPadLeftMargin(0.1);
+	gStyle->SetPadRightMargin(0.04);
+	gStyle->SetPadTopMargin(0.2);
+	gStyle->SetPadBottomMargin(0.12);
+
+
+	TCanvas *rates = new TCanvas("rates", "rates", 900, 650);
+
+
+	vector<TH1F*> histos = getEHistos(rateType);
+
+	histos[0]->Draw();
+	for(unsigned h=1; h<confs.size(); h++) {
+		histos[h]->Draw("same");
+	}
+
+	// fitting and getting avg
+	vector<double> integrals;
+	for(unsigned h=0; h<confs.size(); h++) {
+		integrals.push_back(histos[h]->Integral());
+	}
+
+	TLegend *tconfs  = new TLegend(0.6, 0.4, 0.95, 0.99);
+	for(unsigned h=0; h<confs.size(); h++) {
+		if(zoomed) {
+			tconfs->AddEntry(histos[h], Form("%3.2f MHz in 0-120 KeV", integrals[h] ), "F");
+		} else {
+			tconfs->AddEntry(histos[h], Form("%3.2f MHz in 0-50 MeV", integrals[h] ), "F");
+		}
+	}
+
+	tconfs->SetBorderSize(0);
+	tconfs->SetFillColor(0);
+	tconfs->Draw();
+
+	TLatex lab;
+	lab.SetTextFont(42);
+	lab.SetTextSize(0.045);
+	lab.SetTextColor(kBlue+3);
+	lab.SetNDC(1);
+	lab.SetTextAngle(90);
+
+	lab.DrawLatex(0.06, 0.55,  "Rates (MHz)" );
+
+	lab.SetTextAngle(0);
+	lab.DrawLatex(0.6, 0.02,  "Energy Deposited [Mev]" );
+
+
+	lab.SetTextSize(0.05);
+	lab.SetTextColor(kRed+3);
+	lab.DrawLatex(0.1, 0.9,  Form("%s rate for different shielding", rateType.c_str()) );
+	if(withThreshold) {
+		lab.DrawLatex(0.1, 0.85,  "with 1 MeV Threshold");
+	} else {
+		lab.DrawLatex(0.1, 0.85,  "No Threshold");
+	}
+}
 
 
 
