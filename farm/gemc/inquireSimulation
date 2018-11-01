@@ -156,7 +156,6 @@ while ($w <= $#titles)
 
 				# number of events was not above minimum limit
 				else
-					\echo " > only $LASTE in $thisDir"
 					if($OPT == "clear") then
 						\echo " > Clearing $thisDir"
 						rm -rf  $thisDir
