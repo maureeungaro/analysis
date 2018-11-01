@@ -29,6 +29,11 @@ private:
 	vector<TH1F*> ctofRatesEm;
 	vector<TH1F*> ctofRatesGamma;
 
+	vector<TH1F*> ctofRatesTotalEdep;
+	vector<TH1F*> ctofRatesHadronicEdep;
+	vector<TH1F*> ctofRatesEmEdep;
+	vector<TH1F*> ctofRatesGammaEdep;
+
 	vector<string> confs;
 
 	// root trees. Generated for the number of events

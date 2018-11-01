@@ -2,8 +2,20 @@
 //#include "TH1.h"
 
 vector<TH1F*> ctofRatesTotal;
+vector<TH1F*> ctofRatesHadronic;
+vector<TH1F*> ctofRatesEm;
+vector<TH1F*> ctofRatesGamma;
+
+vector<TH1F*> ctofRatesTotalEdep;
+vector<TH1F*> ctofRatesHadronicEdep;
+vector<TH1F*> ctofRatesEmEdep;
+vector<TH1F*> ctofRatesGammaEdep;
+
+
 vector<string>   confs;
 vector<Color_t> colors;
+
+string rateType;
 
 void loadHistos() {
 	string fname = "ctofHistos.root";
@@ -12,12 +24,56 @@ void loadHistos() {
 	TFile *f = new TFile(fname.c_str());
 
 	for(unsigned h=0; h<confs.size(); h++) {
+		cout << " Loading " << confs[h] << " configuration " << endl;
+
 		string name = "ctofRatesTotal_" + confs[h];
-		cout << " Loading " << confs[h] << " configuration histos " << name << endl;
 		ctofRatesTotal.push_back((TH1F*) f->Get(name.c_str()));
 		ctofRatesTotal.back()->SetMinimum(0);
 		ctofRatesTotal.back()->SetLineColor(colors[h]);
 		ctofRatesTotal.back()->SetDirectory(0);
+
+		name = "ctofRatesHadronic_" + confs[h];
+		ctofRatesHadronic.push_back((TH1F*) f->Get(name.c_str()));
+		ctofRatesHadronic.back()->SetMinimum(0);
+		ctofRatesHadronic.back()->SetLineColor(colors[h]);
+		ctofRatesHadronic.back()->SetDirectory(0);
+
+		name = "ctofRatesEm_" + confs[h];
+		ctofRatesEm.push_back((TH1F*) f->Get(name.c_str()));
+		ctofRatesEm.back()->SetMinimum(0);
+		ctofRatesEm.back()->SetLineColor(colors[h]);
+		ctofRatesEm.back()->SetDirectory(0);
+
+		name = "ctofRatesGamma_" + confs[h];
+		ctofRatesGamma.push_back((TH1F*) f->Get(name.c_str()));
+		ctofRatesGamma.back()->SetMinimum(0);
+		ctofRatesGamma.back()->SetLineColor(colors[h]);
+		ctofRatesGamma.back()->SetDirectory(0);
+
+		name = "ctofRatesTotalEdep_" + confs[h];
+		ctofRatesTotalEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ctofRatesTotalEdep.back()->SetMinimum(0);
+		ctofRatesTotalEdep.back()->SetLineColor(colors[h]);
+		ctofRatesTotalEdep.back()->SetDirectory(0);
+
+		name = "ctofRatesHadronicEdep_" + confs[h];
+		ctofRatesHadronicEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ctofRatesHadronicEdep.back()->SetMinimum(0);
+		ctofRatesHadronicEdep.back()->SetLineColor(colors[h]);
+		ctofRatesHadronicEdep.back()->SetDirectory(0);
+
+		name = "ctofRatesEmEdep_" + confs[h];
+		ctofRatesEmEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ctofRatesEmEdep.back()->SetMinimum(0);
+		ctofRatesEmEdep.back()->SetLineColor(colors[h]);
+		ctofRatesEmEdep.back()->SetDirectory(0);
+
+		name = "ctofRatesGammaEdep_" + confs[h];
+		ctofRatesGammaEdep.push_back((TH1F*) f->Get(name.c_str()));
+		ctofRatesGammaEdep.back()->SetMinimum(0);
+		ctofRatesGammaEdep.back()->SetLineColor(colors[h]);
+		ctofRatesGammaEdep.back()->SetDirectory(0);
+
 	}
 
 	cout << " done. " << endl;
@@ -25,6 +81,19 @@ void loadHistos() {
 
 }
 
+vector<TH1F*> getRateHistos(string kind) {
+	if(        kind == "total") {
+		return ctofRatesTotal;
+	} else if (kind == "em") {
+		return ctofRatesEm;
+	} else if (kind == "hadronic") {
+		return ctofRatesHadronic;
+	} else if (kind == "gamma") {
+		return ctofRatesGamma;
+	}
+
+	return ctofRatesTotal;
+}
 
 // root[0] .x show.C
 void show()
@@ -32,20 +101,40 @@ void show()
 	gStyle->SetOptStat(0);
 	gStyle->SetOptTitle(0);
 
-	confs  = {"bstNoShieldCtofNoShield",	"bstShieldCtof1mm", "bstShieldCtof2mm", "bstShieldCtof3mm",	"bstShieldCtofNoShield"};
-	colors = {                  kBlue-7,                kRed,              kBlue,           kGreen+4,                  kRed+2};
+	confs  = {"bstNoShieldCtofNoShield", "bstShieldCtofNoShield",	"bstShieldCtof1mm", "bstShieldCtof2mm", "bstShieldCtof3mm"	};
+	colors = {                  kBlack,                    kBlue,            kRed - 3,           kRed + 3,           kGreen+4  };
+
+	rateType = "total";
 
 	loadHistos();
 
-	TControlBar *bar = new TControlBar("vertical", "TGeo shapes",10, 10);
+	TControlBar *bar = new TControlBar("vertical", "Ctof Study", 1400, 200);
+	bar->AddButton("", "");
 	bar->AddButton("Show Paddle Rates", "showPaddles()");
+	bar->AddButton("", "");
+	bar->AddButton("Set rates to Total",    "setRates(0)");
+	bar->AddButton("Set rates to EM",       "setRates(1)");
+	bar->AddButton("Set rates to Hadronic", "setRates(2)");
+	bar->AddButton("Set rates to Gamma",    "setRates(3)");
+	bar->AddButton("", "");
+	bar->AddButton("", "");
 	bar->Show();
 	gROOT->SaveContext();
-
-
 }
 
 
+void setRates(int kind){
+	if(         kind ==0) {
+		rateType = "total";
+	} else if (kind == 1) {
+		rateType = "em";
+	} else if (kind == 2) {
+		rateType = "hadronic";
+	} else if (kind == 3) {
+		rateType = "gamma";
+	}
+	cout << " Rates set to " << rateType << endl;
+}
 
 
 
@@ -56,28 +145,29 @@ void showPaddles() {
 	gStyle->SetPadTopMargin(0.2);
 	gStyle->SetPadBottomMargin(0.12);
 
-
-
 	TLatex lab;
 	lab.SetTextColor(kBlue+3);
 	lab.SetTextFont(32);
 
 	TCanvas *rates = new TCanvas("rates", "rates", 900, 650);
 
-	ctofRatesTotal[0]->Draw();
+	vector<TH1F*> histos = getRateHistos(rateType);
 
+	histos[0]->Draw();
 	for(unsigned h=1; h<confs.size(); h++) {
-		ctofRatesTotal[h]->Draw("same");
+		histos[h]->Draw("same");
 	}
 
 	TLegend *tconfs  = new TLegend(0.7, 0.82, 0.99, 0.99);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(ctofRatesTotal[h], confs[h].c_str(), "F");
+		tconfs->AddEntry(histos[h], confs[h].c_str(), "F");
 	}
+
 	tconfs->SetBorderSize(0);
 	tconfs->SetFillColor(0);
 	tconfs->Draw();
-
 }
+
+
 
 
