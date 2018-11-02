@@ -19,6 +19,9 @@ vector<TH1F*> ratesHadronicEdepZ;
 vector<TH1F*> ratesEmEdepZ;
 vector<TH1F*> ratesGammaEdepZ;
 
+vector<TH2F*> vertexRZ;
+vector<TH1F*> vertexR;
+vector<TH1F*> vertexZ;
 
 vector<string>   confs;
 vector<Color_t> colors;
@@ -148,6 +151,25 @@ void loadHistos() {
 		ratesGammaEdepZ.back()->SetDirectory(0);
 
 
+
+		name = "vertexRZ_" + confs[h];
+		vertexRZ.push_back((TH2F*) f->Get(name.c_str()));
+		vertexRZ.back()->SetMaximum(800);
+		vertexRZ.back()->SetDirectory(0);
+
+		name = "vertexR_" + confs[h];
+		vertexR.push_back((TH1F*) f->Get(name.c_str()));
+		vertexR.back()->SetLineColor(colors[h]);
+		vertexR.back()->SetDirectory(0);
+
+		name = "vertexZ_" + confs[h];
+		vertexZ.push_back((TH1F*) f->Get(name.c_str()));
+		vertexZ.back()->SetLineColor(colors[h]);
+		vertexZ.back()->SetDirectory(0);
+
+
+
+
 	}
 
 	cout << " done. " << endl;
@@ -216,7 +238,7 @@ void show()
 	gStyle->SetOptTitle(0);
 
 	confs  = {"bstNoShieldCtofNoShield", "bstShieldCtofNoShield",	"bstShieldCtof1mm", "bstShieldCtof2mm", "bstShieldCtof3mm"	};
-	colors = {                  kBlack,                    kBlue,            kRed - 3,           kRed + 3,           kGreen+4  };
+	colors = {                  kBlack,                    kBlue,                kRed-2,             kOrange,           kPink  };
 
 	rateType = "total";
 	withThreshold = true;
@@ -227,8 +249,10 @@ void show()
 	TControlBar *bar = new TControlBar("vertical", "Ctof Study", 1400, 200);
 	bar->AddButton("", "");
 	bar->AddButton("Show Paddle Rates",     "showPaddles()");
-	bar->AddButton("", "");
 	bar->AddButton("Show Energy Deposited", "showEdep()");
+	bar->AddButton("", "");
+	bar->AddButton("Show 2D Vertex",        "show2DVertex()");
+	bar->AddButton("Show Z Vertex",         "showZVertex()");
 	bar->AddButton("", "");
 	bar->AddButton("Set rates to Total",    "setRates(0)");
 	bar->AddButton("Set rates to EM",       "setRates(1)");
@@ -277,7 +301,7 @@ void showPaddles() {
 	gStyle->SetPadBottomMargin(0.12);
 
 
-	TCanvas *rates = new TCanvas("rates", "rates", 900, 650);
+	TCanvas *rates = new TCanvas("rates", "rates", 1400, 1000);
 
 	vector<TH1F*> histos = getRateHistos(rateType);
 
@@ -336,7 +360,7 @@ void showEdep() {
 	gStyle->SetPadBottomMargin(0.12);
 
 
-	TCanvas *rates = new TCanvas("rates", "rates", 900, 650);
+	TCanvas *rates = new TCanvas("rates", "rates", 1400, 1000);
 
 
 	vector<TH1F*> histos = getEHistos(rateType);
@@ -370,8 +394,8 @@ void showEdep() {
 	lab.SetTextSize(0.045);
 	lab.SetTextColor(kBlue+3);
 	lab.SetNDC(1);
-	lab.SetTextAngle(90);
 
+	lab.SetTextAngle(90);
 	lab.DrawLatex(0.06, 0.55,  "Rates (MHz)" );
 
 	lab.SetTextAngle(0);
@@ -381,11 +405,87 @@ void showEdep() {
 	lab.SetTextSize(0.05);
 	lab.SetTextColor(kRed+3);
 	lab.DrawLatex(0.1, 0.9,  Form("%s rate for different shielding", rateType.c_str()) );
-	if(withThreshold) {
-		lab.DrawLatex(0.1, 0.85,  "with 1 MeV Threshold");
-	} else {
-		lab.DrawLatex(0.1, 0.85,  "No Threshold");
+
+}
+
+
+void show2DVertex() {
+
+	gStyle->SetPadLeftMargin(0.1);
+	gStyle->SetPadRightMargin(0.1);
+	gStyle->SetPadTopMargin(0.1);
+	gStyle->SetPadBottomMargin(0.1);
+	gStyle->SetPalette(1);
+
+	vector<TCanvas*> verts;
+
+	for(unsigned h=0; h<confs.size(); h++) {
+
+		verts.push_back(new TCanvas(confs[h].c_str(), confs[h].c_str(), 1400, 1000));
+
+		vertexRZ[h]->Draw("colz");
+
+		TLatex lab;
+		lab.SetTextFont(42);
+		lab.SetTextSize(0.045);
+		lab.SetTextColor(kBlue+3);
+		lab.SetNDC(1);
+
+		lab.SetTextAngle(90);
+		lab.DrawLatex(0.04, 0.52,  "Vertex R    [cm]" );
+
+		lab.SetTextAngle(0);
+		lab.DrawLatex(0.7, 0.02,  "Vertex Z    [cm]" );
+
+		lab.SetTextSize(0.05);
+		lab.SetTextColor(kRed+3);
+		lab.DrawLatex(0.2, 0.92,  Form("Rate for configuration: %s", confs[h].c_str()));
+
 	}
+}
+
+void showZVertex() {
+
+	gStyle->SetPadLeftMargin(0.12);
+	gStyle->SetPadRightMargin(0.04);
+	gStyle->SetPadTopMargin(0.1);
+	gStyle->SetPadBottomMargin(0.1);
+
+	TCanvas *rates = new TCanvas("rates", "rates", 1400, 1000);
+
+	vertexZ[0]->Draw("");
+
+
+	for(unsigned h=1; h<confs.size(); h++) {
+		vertexZ[h]->Draw("same");
+	}
+
+	TLatex lab;
+	lab.SetTextFont(42);
+	lab.SetTextSize(0.045);
+	lab.SetTextColor(kBlue+3);
+	lab.SetNDC(1);
+
+	lab.SetTextAngle(90);
+	lab.DrawLatex(0.04, 0.55,  "Rates (MHz)" );
+
+	lab.SetTextAngle(0);
+	lab.DrawLatex(0.7, 0.02,  "Vertex Z    [cm]" );
+
+	lab.SetTextSize(0.05);
+	lab.SetTextColor(kRed+3);
+	lab.DrawLatex(0.2, 0.92,  Form("Z vertex for all configurations"));
+
+	TLegend *tconfs  = new TLegend(0.65, 0.4, 0.95, 0.85);
+	for(unsigned h=0; h<confs.size(); h++) {
+		tconfs->AddEntry(vertexZ[h], Form("%s", confs[h].c_str() ), "F");
+	}
+
+	tconfs->SetBorderSize(0);
+	tconfs->SetFillColor(0);
+	tconfs->Draw();
+
+
 }
 
 
