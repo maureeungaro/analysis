@@ -220,7 +220,7 @@ void anaOption::fillHistos(int cindex) {
 	const double TWINDOW = 248E-9;
 
 	const double threshold = 1.0;
-	const double sThreshold = 0.2;
+	const double sThreshold = 0.4;
 
 	double totalTime = ((double) nevents)*TWINDOW;
 

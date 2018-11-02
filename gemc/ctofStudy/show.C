@@ -587,6 +587,10 @@ void showScalers() {
 
 	TCanvas *ratesUp = new TCanvas("ratesUp", "ratesUp", 1400, 1000);
 
+	double adjustedMax = scalersUp[0]->GetMaximum()*1.3;
+
+	scalersUp[0]->SetMaximum(adjustedMax);
+
 	scalersUp[0]->Draw("H");
 
 	for(unsigned h=1; h<confs.size(); h++) {
@@ -620,6 +624,9 @@ void showScalers() {
 
 	TCanvas *ratesDown = new TCanvas("ratesDown", "ratesDown", 1400, 1000);
 
+	adjustedMax = scalersDown[0]->GetMaximum()*1.3;
+	scalersDown[0]->SetMaximum(adjustedMax);
+	
 	scalersDown[0]->Draw("H");
 
 	for(unsigned h=1; h<confs.size(); h++) {
