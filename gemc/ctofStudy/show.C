@@ -26,6 +26,12 @@ vector<TH1F*> vertexZ;
 vector<string>   confs;
 vector<Color_t> colors;
 
+vector<TH1F*> scalersUp;
+vector<TH1F*> scalersDown;
+vector<TH1F*> currentUp;
+vector<TH1F*> currentDown;
+
+
 string rateType;
 bool withThreshold;
 bool zoomed;
@@ -154,7 +160,7 @@ void loadHistos() {
 
 		name = "vertexRZ_" + confs[h];
 		vertexRZ.push_back((TH2F*) f->Get(name.c_str()));
-		vertexRZ.back()->SetMaximum(800);
+		vertexRZ.back()->SetMaximum(0.003);
 		vertexRZ.back()->SetDirectory(0);
 
 		name = "vertexR_" + confs[h];
@@ -168,6 +174,30 @@ void loadHistos() {
 		vertexZ.back()->SetDirectory(0);
 
 
+		name = "scalersUp_" + confs[h];
+		scalersUp.push_back((TH1F*) f->Get(name.c_str()));
+		scalersUp.back()->SetMinimum(0);
+		scalersUp.back()->SetLineColor(colors[h]);
+		scalersUp.back()->SetDirectory(0);
+
+		name = "scalersDown_" + confs[h];
+		scalersDown.push_back((TH1F*) f->Get(name.c_str()));
+		scalersDown.back()->SetMinimum(0);
+		scalersDown.back()->SetLineColor(colors[h]);
+		scalersDown.back()->SetDirectory(0);
+
+
+		name = "currentUp_" + confs[h];
+		currentUp.push_back((TH1F*) f->Get(name.c_str()));
+		currentUp.back()->SetMinimum(0);
+		currentUp.back()->SetLineColor(colors[h]);
+		currentUp.back()->SetDirectory(0);
+
+		name = "currentDown_" + confs[h];
+		currentDown.push_back((TH1F*) f->Get(name.c_str()));
+		currentDown.back()->SetMinimum(0);
+		currentDown.back()->SetLineColor(colors[h]);
+		currentDown.back()->SetDirectory(0);
 
 
 	}
@@ -246,13 +276,17 @@ void show()
 
 	loadHistos();
 
-	TControlBar *bar = new TControlBar("vertical", "Ctof Study", 1400, 200);
+	TControlBar *bar = new TControlBar("vertical", "Ctof Study", 1600, 200);
 	bar->AddButton("", "");
 	bar->AddButton("Show Paddle Rates",     "showPaddles()");
 	bar->AddButton("Show Energy Deposited", "showEdep()");
 	bar->AddButton("", "");
 	bar->AddButton("Show 2D Vertex",        "show2DVertex()");
 	bar->AddButton("Show Z Vertex",         "showZVertex()");
+	bar->AddButton("Show R Vertex",         "showRVertex()");
+	bar->AddButton("", "");
+	bar->AddButton("Show Scalers",          "showScalers()");
+	bar->AddButton("Show Current",          "showCurrent()");
 	bar->AddButton("", "");
 	bar->AddButton("Set rates to Total",    "setRates(0)");
 	bar->AddButton("Set rates to EM",       "setRates(1)");
@@ -305,9 +339,9 @@ void showPaddles() {
 
 	vector<TH1F*> histos = getRateHistos(rateType);
 
-	histos[0]->Draw();
+	histos[0]->Draw("H");
 	for(unsigned h=1; h<confs.size(); h++) {
-		histos[h]->Draw("same");
+		histos[h]->Draw("Hsame");
 	}
 
 	// fitting and getting avg
@@ -334,7 +368,7 @@ void showPaddles() {
 	lab.SetNDC(1);
 	lab.SetTextAngle(90);
 
-	lab.DrawLatex(0.06, 0.55,  "Rates (MHz)" );
+	lab.DrawLatex(0.05, 0.55,  "Rates (MHz)" );
 
 	lab.SetTextAngle(0);
 	lab.DrawLatex(0.6, 0.02,  "Paddle Number" );
@@ -365,12 +399,12 @@ void showEdep() {
 
 	vector<TH1F*> histos = getEHistos(rateType);
 
-	histos[0]->Draw();
+	histos[0]->Draw("H");
 	for(unsigned h=1; h<confs.size(); h++) {
-		histos[h]->Draw("same");
+		histos[h]->Draw("Hsame");
 	}
 
-	// fitting and getting avg
+	// integral
 	vector<double> integrals;
 	for(unsigned h=0; h<confs.size(); h++) {
 		integrals.push_back(histos[h]->Integral());
@@ -412,7 +446,7 @@ void showEdep() {
 void show2DVertex() {
 
 	gStyle->SetPadLeftMargin(0.1);
-	gStyle->SetPadRightMargin(0.1);
+	gStyle->SetPadRightMargin(0.14);
 	gStyle->SetPadTopMargin(0.1);
 	gStyle->SetPadBottomMargin(0.1);
 	gStyle->SetPalette(1);
@@ -453,11 +487,17 @@ void showZVertex() {
 
 	TCanvas *rates = new TCanvas("rates", "rates", 1400, 1000);
 
-	vertexZ[0]->Draw("");
+	vertexZ[0]->Draw("H");
 
 
 	for(unsigned h=1; h<confs.size(); h++) {
-		vertexZ[h]->Draw("same");
+		vertexZ[h]->Draw("Hsame");
+	}
+
+	// integral
+	vector<double> integrals;
+	for(unsigned h=0; h<confs.size(); h++) {
+		integrals.push_back(vertexZ[h]->Integral());
 	}
 
 	TLatex lab;
@@ -476,18 +516,213 @@ void showZVertex() {
 	lab.SetTextColor(kRed+3);
 	lab.DrawLatex(0.2, 0.92,  Form("Z vertex for all configurations"));
 
-	TLegend *tconfs  = new TLegend(0.65, 0.4, 0.95, 0.85);
+	TLegend *tconfs  = new TLegend(0.6, 0.35, 0.96, 0.9);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(vertexZ[h], Form("%s", confs[h].c_str() ), "F");
+		tconfs->AddEntry(vertexZ[h], Form("%s: %3.2f MHz", confs[h].c_str(), integrals[h] ), "F");
 	}
 
 	tconfs->SetBorderSize(0);
 	tconfs->SetFillColor(0);
 	tconfs->Draw();
+}
 
 
+void showRVertex() {
+
+	gStyle->SetPadLeftMargin(0.12);
+	gStyle->SetPadRightMargin(0.04);
+	gStyle->SetPadTopMargin(0.1);
+	gStyle->SetPadBottomMargin(0.1);
+
+	TCanvas *rates = new TCanvas("rates", "rates", 1400, 1000);
+
+	vertexR[0]->Draw("H");
+
+
+	for(unsigned h=1; h<confs.size(); h++) {
+		vertexR[h]->Draw("Hsame");
+	}
+
+	// integral
+	vector<double> integrals;
+	for(unsigned h=0; h<confs.size(); h++) {
+		integrals.push_back(vertexZ[h]->Integral());
+	}
+
+	TLatex lab;
+	lab.SetTextFont(42);
+	lab.SetTextSize(0.045);
+	lab.SetTextColor(kBlue+3);
+	lab.SetNDC(1);
+
+	lab.SetTextAngle(90);
+	lab.DrawLatex(0.04, 0.55,  "Rates (MHz)" );
+
+	lab.SetTextAngle(0);
+	lab.DrawLatex(0.7, 0.02,  "Vertex R    [cm]" );
+
+	lab.SetTextSize(0.05);
+	lab.SetTextColor(kRed+3);
+	lab.DrawLatex(0.2, 0.92,  Form("R vertex for all configurations"));
+
+	TLegend *tconfs  = new TLegend(0.6, 0.3, 0.96, 0.9);
+	for(unsigned h=0; h<confs.size(); h++) {
+		tconfs->AddEntry(vertexR[h], Form("%s: %3.2f MHz", confs[h].c_str(), integrals[h] ), "F");
+	}
+
+	tconfs->SetBorderSize(0);
+	tconfs->SetFillColor(0);
+	tconfs->Draw();
 }
 
 
 
 
+void showScalers() {
+
+	gStyle->SetPadLeftMargin(0.12);
+	gStyle->SetPadRightMargin(0.04);
+	gStyle->SetPadTopMargin(0.1);
+	gStyle->SetPadBottomMargin(0.1);
+
+	TCanvas *ratesUp = new TCanvas("ratesUp", "ratesUp", 1400, 1000);
+
+	scalersUp[0]->Draw("H");
+
+	for(unsigned h=1; h<confs.size(); h++) {
+		scalersUp[h]->Draw("Hsame");
+	}
+
+	TLatex lab1;
+	lab1.SetTextFont(42);
+	lab1.SetTextSize(0.045);
+	lab1.SetTextColor(kBlue+3);
+	lab1.SetNDC(1);
+
+	lab1.SetTextAngle(90);
+	lab1.DrawLatex(0.04, 0.55,  "Rates (KHz)" );
+
+	lab1.SetTextAngle(0);
+	lab1.DrawLatex(0.6, 0.02,  "Paddle Number" );
+
+	lab1.SetTextSize(0.05);
+	lab1.SetTextColor(kRed+3);
+	lab1.DrawLatex(0.2, 0.92,  Form("Upstream Scaler Rates"));
+
+	TLegend *tconfs1  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	for(unsigned h=0; h<confs.size(); h++) {
+		tconfs1->AddEntry(scalersUp[h], confs[h].c_str(), "F");
+	}
+
+	tconfs1->SetBorderSize(0);
+	tconfs1->SetFillColor(0);
+	tconfs1->Draw();
+
+	TCanvas *ratesDown = new TCanvas("ratesDown", "ratesDown", 1400, 1000);
+
+	scalersDown[0]->Draw("H");
+
+	for(unsigned h=1; h<confs.size(); h++) {
+		scalersDown[h]->Draw("Hsame");
+	}
+
+	TLatex lab2;
+	lab2.SetTextFont(42);
+	lab2.SetTextSize(0.045);
+	lab2.SetTextColor(kBlue+3);
+	lab2.SetNDC(1);
+
+	lab2.SetTextAngle(90);
+	lab2.DrawLatex(0.04, 0.55,  "Rates (KHz)" );
+
+	lab2.SetTextAngle(0);
+	lab2.DrawLatex(0.6, 0.02,  "Paddle Number" );
+
+	lab2.SetTextSize(0.05);
+	lab2.SetTextColor(kRed+3);
+	lab2.DrawLatex(0.2, 0.92,  Form("Downstream Scaler Rates"));
+
+	TLegend *tconfs2  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	for(unsigned h=0; h<confs.size(); h++) {
+		tconfs2->AddEntry(scalersDown[h], confs[h].c_str(), "F");
+	}
+
+	tconfs2->SetBorderSize(0);
+	tconfs2->SetFillColor(0);
+	tconfs2->Draw();
+}
+
+
+void showCurrent() {
+
+	gStyle->SetPadLeftMargin(0.12);
+	gStyle->SetPadRightMargin(0.04);
+	gStyle->SetPadTopMargin(0.1);
+	gStyle->SetPadBottomMargin(0.1);
+
+	TCanvas *ratesUp = new TCanvas("ratesUp", "ratesUp", 1400, 1000);
+
+	currentUp[0]->Draw("H");
+
+	for(unsigned h=1; h<confs.size(); h++) {
+		currentUp[h]->Draw("Hsame");
+	}
+
+	TLatex lab1;
+	lab1.SetTextFont(42);
+	lab1.SetTextSize(0.045);
+	lab1.SetTextColor(kBlue+3);
+	lab1.SetNDC(1);
+
+	lab1.SetTextAngle(90);
+	lab1.DrawLatex(0.04, 0.55,  "Current (#muA)" );
+
+	lab1.SetTextAngle(0);
+	lab1.DrawLatex(0.6, 0.02,  "Paddle Number" );
+
+	lab1.SetTextSize(0.05);
+	lab1.SetTextColor(kRed+3);
+	lab1.DrawLatex(0.2, 0.92,  Form("Upstream Current"));
+
+	TLegend *tconfs1  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	for(unsigned h=0; h<confs.size(); h++) {
+		tconfs1->AddEntry(currentUp[h], confs[h].c_str(), "F");
+	}
+
+	tconfs1->SetBorderSize(0);
+	tconfs1->SetFillColor(0);
+	tconfs1->Draw();
+
+	TCanvas *ratesDown = new TCanvas("ratesDown", "ratesDown", 1400, 1000);
+
+	currentDown[0]->Draw("H");
+
+	for(unsigned h=1; h<confs.size(); h++) {
+		currentDown[h]->Draw("Hsame");
+	}
+
+	TLatex lab2;
+	lab2.SetTextFont(42);
+	lab2.SetTextSize(0.045);
+	lab2.SetTextColor(kBlue+3);
+	lab2.SetNDC(1);
+
+	lab2.SetTextAngle(90);
+	lab2.DrawLatex(0.04, 0.55,  "Current (#muA)" );
+
+	lab2.SetTextAngle(0);
+	lab2.DrawLatex(0.6, 0.02,  "Paddle Number" );
+
+	lab2.SetTextSize(0.05);
+	lab2.SetTextColor(kRed+3);
+	lab2.DrawLatex(0.2, 0.92,  Form("Downstream Current"));
+
+	TLegend *tconfs2  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	for(unsigned h=0; h<confs.size(); h++) {
+		tconfs2->AddEntry(currentDown[h], confs[h].c_str(), "F");
+	}
+
+	tconfs2->SetBorderSize(0);
+	tconfs2->SetFillColor(0);
+	tconfs2->Draw();
+}

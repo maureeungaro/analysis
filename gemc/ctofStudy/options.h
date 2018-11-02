@@ -48,6 +48,11 @@ private:
 	vector<TH1F*> vertexR;
 	vector<TH1F*> vertexZ;
 
+	vector<TH1F*> scalersUp;
+	vector<TH1F*> scalersDown;
+	vector<TH1F*> currentUp;
+	vector<TH1F*> currentDown;
+
 	vector<string> confs;
 
 	// root trees. Generated for the number of events
@@ -55,6 +60,7 @@ private:
 
 	// ctof leafs
 	vector<double> *paddle;
+	vector<double> *side;
 	vector<double> *x;
 	vector<double> *y;
 	vector<double> *z;
