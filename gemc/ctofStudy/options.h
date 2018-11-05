@@ -53,7 +53,23 @@ private:
 	vector<TH1F*> currentUp;
 	vector<TH1F*> currentDown;
 
+
+	// as a function of momentum
+	vector<TH1F*> leptons;
+	vector<TH1F*> gammas;
+	vector<TH1F*> pions;
+	vector<TH1F*> protons;
+	vector<TH1F*> neutrons;
+
+	vector<TH1F*> leptonsZ;
+	vector<TH1F*> gammasZ;
+	vector<TH1F*> pionsZ;
+	vector<TH1F*> protonsZ;
+	vector<TH1F*> neutronsZ;
+
+
 	vector<string> confs;
+
 
 	// root trees. Generated for the number of events
 	TTree *generated, *ctof;
@@ -70,6 +86,9 @@ private:
 	vector<double> *vx;
 	vector<double> *vy;
 	vector<double> *vz;
+	vector<double> *px;
+	vector<double> *py;
+	vector<double> *pz;
 
 private:
 	void defineHistos(string c);

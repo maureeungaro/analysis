@@ -104,6 +104,40 @@ void anaOption::defineHistos(string c) {
 	scalersDown.push_back(new TH1F(Form("scalersDown_%s", c.c_str()),
 											 Form("scalersDown_%s", c.c_str()), 48, 0.5, 48.5));
 
+
+
+
+	leptons.push_back(new TH1F(Form("leptons_%s", c.c_str()),
+										Form("leptons_%s", c.c_str()), 100, 0., 1000));
+
+	gammas.push_back(new TH1F(Form("gammas_%s", c.c_str()),
+									  Form("gammas_%s", c.c_str()), 100, 0., 1000));
+
+	pions.push_back(new TH1F(Form("pions_%s", c.c_str()),
+									 Form("pions_%s", c.c_str()), 100, 0., 1000));
+
+	protons.push_back(new TH1F(Form("protons_%s", c.c_str()),
+										Form("protons_%s", c.c_str()), 100, 0., 1000));
+
+	neutrons.push_back(new TH1F(Form("neutrons_%s", c.c_str()),
+										 Form("neutrons_%s", c.c_str()), 100, 0., 1000));
+
+
+	leptonsZ.push_back(new TH1F(Form("leptonsZ_%s", c.c_str()),
+										 Form("leptonsZ_%s", c.c_str()), 100, 0., 2));
+
+	gammasZ.push_back(new TH1F(Form("gammasZ_%s", c.c_str()),
+										Form("gammasZ_%s", c.c_str()), 100, 0., 2));
+
+	pionsZ.push_back(new TH1F(Form("pionsZ_%s", c.c_str()),
+									  Form("pionsZ_%s", c.c_str()), 100, 0., 2));
+
+	protonsZ.push_back(new TH1F(Form("protonsZ_%s", c.c_str()),
+										 Form("protonsZ_%s", c.c_str()), 100, 0., 2));
+
+	neutronsZ.push_back(new TH1F(Form("neutronsZ_%s", c.c_str()),
+										  Form("neutronsZ_%s", c.c_str()), 100, 0., 2));
+
 }
 
 void anaOption::setDirHistos(int cIndex) {
@@ -139,6 +173,21 @@ void anaOption::setDirHistos(int cIndex) {
 
 	scalersUp[cIndex]->SetDirectory(0);
 	scalersDown[cIndex]->SetDirectory(0);
+
+
+	leptons[cIndex]->SetDirectory(0);
+	gammas[cIndex]->SetDirectory(0);
+	pions[cIndex]->SetDirectory(0);
+	protons[cIndex]->SetDirectory(0);
+	neutrons[cIndex]->SetDirectory(0);
+
+	leptonsZ[cIndex]->SetDirectory(0);
+	gammasZ[cIndex]->SetDirectory(0);
+	pionsZ[cIndex]->SetDirectory(0);
+	protonsZ[cIndex]->SetDirectory(0);
+	neutronsZ[cIndex]->SetDirectory(0);
+
+
 }
 
 void anaOption::writeHistos() {
@@ -179,6 +228,18 @@ void anaOption::writeHistos() {
 	for(auto *h: scalersUp)    { h->Write(); }
 	for(auto *h: scalersDown)  { h->Write(); }
 
+	for(auto *h: leptons)  { h->Write(); }
+	for(auto *h: gammas)   { h->Write(); }
+	for(auto *h: pions)    { h->Write(); }
+	for(auto *h: protons)  { h->Write(); }
+	for(auto *h: neutrons) { h->Write(); }
+
+	for(auto *h: leptonsZ)  { h->Write(); }
+	for(auto *h: gammasZ)   { h->Write(); }
+	for(auto *h: pionsZ)    { h->Write(); }
+	for(auto *h: protonsZ)  { h->Write(); }
+	for(auto *h: neutronsZ) { h->Write(); }
+
 	of.Close();
 }
 
@@ -198,6 +259,9 @@ void anaOption::initLeafs() {
 	vx       = nullptr;
 	vy       = nullptr;
 	vz       = nullptr;
+	px       = nullptr;
+	py       = nullptr;
+	pz       = nullptr;
 
 	ctof->SetBranchAddress("paddle",  &paddle);
 	ctof->SetBranchAddress("side",    &side);
@@ -210,6 +274,9 @@ void anaOption::initLeafs() {
 	ctof->SetBranchAddress("vx",   &vx);
 	ctof->SetBranchAddress("vy",   &vy);
 	ctof->SetBranchAddress("vz",   &vz);
+	ctof->SetBranchAddress("px",   &px);
+	ctof->SetBranchAddress("py",   &py);
+	ctof->SetBranchAddress("pz",   &pz);
 
 }
 
@@ -264,6 +331,8 @@ void anaOption::fillHistos(int cindex) {
 		double currentRight = 0;
 		double currentLeft  = 0;
 
+		double thisMomentum = 0;
+
 		// looping over hits
 		for(unsigned d=0; d<(*x).size(); d++) {
 
@@ -299,6 +368,8 @@ void anaOption::fillHistos(int cindex) {
 				thisVZ = (*vz)[d];
 
 
+				thisMomentum = sqrt( (*px)[d]*(*px)[d] + (*py)[d]*(*py)[d] + (*pz)[d]*(*pz)[d]);
+
 				// weight to give rates in MHz.
 				double weight       = 1.0/(totalTime*1000000);
 				double weightPaddle = 1.0/(totalTime*1000000*48);
@@ -315,9 +386,10 @@ void anaOption::fillHistos(int cindex) {
 					scalersUp[cindex]->Fill(thisPaddle, weight*1000);
 				}
 
-				vertexRZ[cindex]->Fill(thisVZ, thisVR, weightPaddle);
-				vertexR[cindex]->Fill(thisVR, weightPaddle);
-				vertexZ[cindex]->Fill(thisVZ, weightPaddle);
+				// vertex in KHz
+				vertexRZ[cindex]->Fill(thisVZ, thisVR, 1000*weightPaddle);
+				vertexR[cindex]->Fill(thisVR,          1000*weightPaddle);
+				vertexZ[cindex]->Fill(thisVZ,          1000*weightPaddle);
 
 				// filling all particles
 				ratesTotal[cindex]->Fill(thisPaddle, weight);
@@ -352,6 +424,25 @@ void anaOption::fillHistos(int cindex) {
 					}
 					ratesGammaEdep[cindex]->Fill(thisEdep, weightPaddle);
 					ratesGammaEdepZ[cindex]->Fill(thisEdep, weightPaddle);
+				}
+
+
+				// momentum in KHz
+				if(thisPID == 11 || thisPID == -11 || thismPID == -11){
+					leptons[cindex]->Fill(thisMomentum,  1000*weightPaddle);
+					leptonsZ[cindex]->Fill(thisMomentum,  1000*weightPaddle);
+				} else if(thisPID == 22 || thismPID == 22) {
+					gammas[cindex]->Fill(thisMomentum,   1000*weightPaddle);
+					gammasZ[cindex]->Fill(thisMomentum,   1000*weightPaddle);
+				} else if(thisPID == 211 || thismPID == -211) {
+					pions[cindex]->Fill(thisMomentum,    1000*weightPaddle);
+					pionsZ[cindex]->Fill(thisMomentum,    1000*weightPaddle);
+				} else if(thisPID == 2212 || thismPID == 2212) {
+					protons[cindex]->Fill(thisMomentum,  1000*weightPaddle);
+					protonsZ[cindex]->Fill(thisMomentum,  1000*weightPaddle);
+				} else if(thisPID == 2112 || thismPID == 2112) {
+					neutrons[cindex]->Fill(thisMomentum, 1000*weightPaddle);
+					neutronsZ[cindex]->Fill(thisMomentum, 1000*weightPaddle);
 				}
 			}
 

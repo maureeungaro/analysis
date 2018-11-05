@@ -31,6 +31,20 @@ vector<TH1F*> scalersDown;
 vector<TH1F*> currentUp;
 vector<TH1F*> currentDown;
 
+// as a function of momentum
+vector<TH1F*> leptons;
+vector<TH1F*> gammas;
+vector<TH1F*> pions;
+vector<TH1F*> protons;
+vector<TH1F*> neutrons;
+
+
+// as a function of momentum
+vector<TH1F*> leptonsZ;
+vector<TH1F*> gammasZ;
+vector<TH1F*> pionsZ;
+vector<TH1F*> protonsZ;
+vector<TH1F*> neutronsZ;
 
 string rateType;
 bool withThreshold;
@@ -199,6 +213,77 @@ void loadHistos() {
 		currentDown.back()->SetLineColor(colors[h]);
 		currentDown.back()->SetDirectory(0);
 
+		name = "currentDown_" + confs[h];
+		currentDown.push_back((TH1F*) f->Get(name.c_str()));
+		currentDown.back()->SetMinimum(0);
+		currentDown.back()->SetLineColor(colors[h]);
+		currentDown.back()->SetDirectory(0);
+
+
+
+
+		name = "leptons_" + confs[h];
+		leptons.push_back((TH1F*) f->Get(name.c_str()));
+		leptons.back()->SetLineColor(colors[0]);
+		leptons.back()->SetMinimum(0.001);
+		leptons.back()->SetDirectory(0);
+
+		name = "gammas_" + confs[h];
+		gammas.push_back((TH1F*) f->Get(name.c_str()));
+		gammas.back()->SetLineColor(colors[1]);
+		gammas.back()->SetMinimum(0.001);
+		gammas.back()->SetDirectory(0);
+
+		name = "pions_" + confs[h];
+		pions.push_back((TH1F*) f->Get(name.c_str()));
+		pions.back()->SetLineColor(colors[2]);
+		pions.back()->SetMinimum(0.001);
+		pions.back()->SetDirectory(0);
+
+		name = "protons_" + confs[h];
+		protons.push_back((TH1F*) f->Get(name.c_str()));
+		protons.back()->SetLineColor(colors[3]);
+		protons.back()->SetMinimum(0.001);
+		protons.back()->SetDirectory(0);
+
+		name = "neutrons_" + confs[h];
+		neutrons.push_back((TH1F*) f->Get(name.c_str()));
+		neutrons.back()->SetLineColor(colors[4]);
+		neutrons.back()->SetMinimum(0.001);
+		neutrons.back()->SetDirectory(0);
+
+
+		// zoomed in
+		name = "leptonsZ_" + confs[h];
+		leptonsZ.push_back((TH1F*) f->Get(name.c_str()));
+		leptonsZ.back()->SetLineColor(colors[0]);
+		leptonsZ.back()->SetMinimum(0.001);
+		leptonsZ.back()->SetDirectory(0);
+
+		name = "gammasZ_" + confs[h];
+		gammasZ.push_back((TH1F*) f->Get(name.c_str()));
+		gammasZ.back()->SetLineColor(colors[1]);
+		gammasZ.back()->SetMinimum(0.001);
+		gammasZ.back()->SetDirectory(0);
+
+		name = "pionsZ_" + confs[h];
+		pionsZ.push_back((TH1F*) f->Get(name.c_str()));
+		pionsZ.back()->SetLineColor(colors[2]);
+		pionsZ.back()->SetMinimum(0.001);
+		pionsZ.back()->SetDirectory(0);
+
+		name = "protonsZ_" + confs[h];
+		protonsZ.push_back((TH1F*) f->Get(name.c_str()));
+		protonsZ.back()->SetLineColor(colors[3]);
+		protonsZ.back()->SetMinimum(0.001);
+		protonsZ.back()->SetDirectory(0);
+
+		name = "neutronsZ_" + confs[h];
+		neutronsZ.push_back((TH1F*) f->Get(name.c_str()));
+		neutronsZ.back()->SetLineColor(colors[4]);
+		neutronsZ.back()->SetMinimum(0.001);
+		neutronsZ.back()->SetDirectory(0);
+
 
 	}
 
@@ -295,6 +380,8 @@ void show()
 	bar->AddButton("", "");
 	bar->AddButton("Switch Threshold",      "switchT()");
 	bar->AddButton("Switch Zoomed",         "switchZ()");
+	bar->AddButton("", "");
+	bar->AddButton("Show Momentum",         "showMomentum()");
 	bar->AddButton("", "");
 	bar->Show();
 	gROOT->SaveContext();
@@ -732,4 +819,67 @@ void showCurrent() {
 	tconfs2->SetBorderSize(0);
 	tconfs2->SetFillColor(0);
 	tconfs2->Draw();
+}
+
+
+void showMomentum() {
+
+	gStyle->SetPadLeftMargin(0.1);
+	gStyle->SetPadRightMargin(0.14);
+	gStyle->SetPadTopMargin(0.1);
+	gStyle->SetPadBottomMargin(0.1);
+	gStyle->SetPalette(1);
+
+
+	vector<TCanvas*> moms;
+
+	for(unsigned h=0; h<confs.size(); h++) {
+
+		moms.push_back(new TCanvas(confs[h].c_str(), confs[h].c_str(), 1400, 1000));
+		gPad->SetLogy();
+
+		if(zoomed) {
+			leptonsZ[h]->Draw("H");
+			gammasZ[h]->Draw("Hsame");
+			pionsZ[h]->Draw("Hsame");
+			protonsZ[h]->Draw("Hsame");
+			neutronsZ[h]->Draw("Hsame");
+		} else {
+			leptons[h]->Draw("H");
+			gammas[h]->Draw("Hsame");
+			pions[h]->Draw("Hsame");
+			protons[h]->Draw("Hsame");
+			neutrons[h]->Draw("Hsame");
+		}
+		TLatex lab;
+		lab.SetTextFont(42);
+		lab.SetTextSize(0.045);
+		lab.SetTextColor(kBlue+3);
+		lab.SetNDC(1);
+
+		lab.SetTextAngle(90);
+		lab.DrawLatex(0.04, 0.52,  "Rates    [MHz]" );
+
+		lab.SetTextAngle(0);
+		lab.DrawLatex(0.7, 0.02,  "Momentum    [MeV]" );
+
+		lab.SetTextSize(0.05);
+		lab.SetTextColor(kRed+3);
+		lab.DrawLatex(0.2, 0.92,  Form("Rate for configuration: %s", confs[h].c_str()));
+
+
+		TLegend *tconfs2  = new TLegend(0.5, 0.5, 0.92, 0.9);
+		tconfs2->AddEntry(leptons[h],  "leptons", "F");
+		tconfs2->AddEntry(gammas[h],   "gammas", "F");
+		tconfs2->AddEntry(pions[h],    "pions", "F");
+		tconfs2->AddEntry(protons[h],  "protons", "F");
+		tconfs2->AddEntry(neutrons[h], "neutrons", "F");
+
+
+		tconfs2->SetBorderSize(0);
+		tconfs2->SetFillColor(0);
+		tconfs2->Draw();
+
+
+	}
 }
