@@ -176,7 +176,7 @@ end
 
 
 # copying rootAdd in the proper place if not there already
-if ( ~ -f $OUTPUTD/rootAdd) then
+if ( ! -f $OUTPUTD/rootAdd) then
 	echo
 	cp rootAdd $OUTPUTD/rootAdd
 	echo Copying rootAdd to $OUTPUTD/rootAdd
