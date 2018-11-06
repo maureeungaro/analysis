@@ -24,6 +24,7 @@ vector<TH1F*> vertexR;
 vector<TH1F*> vertexZ;
 
 vector<string>   confs;
+vector<string>   confsn;
 vector<Color_t> colors;
 
 vector<TH1F*> scalersUp;
@@ -86,7 +87,7 @@ void loadHistos() {
 
 		name = "ratesTotalT_" + confs[h];
 		ratesTotalT.push_back((TH1F*) f->Get(name.c_str()));
-		ratesTotalT.back()->SetMaximum(0.5);
+		ratesTotalT.back()->SetMaximum(0.2);
 		ratesTotalT.back()->SetMinimum(0);
 		ratesTotalT.back()->SetLineColor(colors[h]);
 		ratesTotalT.back()->SetDirectory(0);
@@ -174,7 +175,7 @@ void loadHistos() {
 
 		name = "vertexRZ_" + confs[h];
 		vertexRZ.push_back((TH2F*) f->Get(name.c_str()));
-		vertexRZ.back()->SetMaximum(0.003);
+		vertexRZ.back()->SetMaximum(1);
 		vertexRZ.back()->SetDirectory(0);
 
 		name = "vertexR_" + confs[h];
@@ -352,8 +353,9 @@ void show()
 	gStyle->SetOptStat(0);
 	gStyle->SetOptTitle(0);
 
-	confs  = {"bstNoShieldCtofNoShield", "bstShieldCtofNoShield",	"bstShieldCtof1mm", "bstShieldCtof2mm", "bstShieldCtof3mm"	};
-	colors = {                  kBlack,                    kBlue,                kRed-2,             kOrange,           kPink  };
+	confs  = {"bstNoShieldCtofNoShield", "bstShieldCtofNoShield",	"bstShieldCtof0.5mm", "bstShieldCtof1mm", "bstShieldCtof2mm", "bstShieldCtof3mm"	};
+	confsn = {            "noBstShield",             "bstShield", 	             "0.5mm",              "1mm",              "2mm",              "3mm"	};
+	colors = {                  kBlack,                    kBlue,                kRed-2,            kOrange+1,            kPink,          kGreen+2 };
 
 	rateType = "total";
 	withThreshold = true;
@@ -441,7 +443,7 @@ void showPaddles() {
 
 	TLegend *tconfs  = new TLegend(0.6, 0.82, 0.99, 0.99);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(histos[h], Form("%s: %3.2f MHz", confs[h].c_str(), avg[h] ), "F");
+		tconfs->AddEntry(histos[h], Form("%s: %3.2f KHz", confsn[h].c_str(), 1000*avg[h] ), "F");
 	}
 
 	tconfs->SetBorderSize(0);
@@ -475,7 +477,7 @@ void showPaddles() {
 
 void showEdep() {
 
-	gStyle->SetPadLeftMargin(0.1);
+	gStyle->SetPadLeftMargin(0.12);
 	gStyle->SetPadRightMargin(0.04);
 	gStyle->SetPadTopMargin(0.2);
 	gStyle->SetPadBottomMargin(0.12);
@@ -497,12 +499,12 @@ void showEdep() {
 		integrals.push_back(histos[h]->Integral());
 	}
 
-	TLegend *tconfs  = new TLegend(0.6, 0.4, 0.95, 0.99);
+	TLegend *tconfs  = new TLegend(0.6, 0.3, 0.96, 0.99);
 	for(unsigned h=0; h<confs.size(); h++) {
 		if(zoomed) {
-			tconfs->AddEntry(histos[h], Form("%3.2f MHz in 0-120 KeV", integrals[h] ), "F");
+			tconfs->AddEntry(histos[h], Form("%s %3.2f MHz in 0-120 KeV", confsn[h].c_str(), integrals[h] ), "F");
 		} else {
-			tconfs->AddEntry(histos[h], Form("%3.2f MHz in 0-50 MeV", integrals[h] ), "F");
+			tconfs->AddEntry(histos[h], Form("%s %3.2f MHz in 0-50 MeV",  confsn[h].c_str(), integrals[h] ), "F");
 		}
 	}
 
@@ -517,7 +519,7 @@ void showEdep() {
 	lab.SetNDC(1);
 
 	lab.SetTextAngle(90);
-	lab.DrawLatex(0.06, 0.55,  "Rates (MHz)" );
+	lab.DrawLatex(0.04, 0.55,  "Rates (MHz)" );
 
 	lab.SetTextAngle(0);
 	lab.DrawLatex(0.6, 0.02,  "Energy Deposited [Mev]" );
@@ -560,7 +562,7 @@ void show2DVertex() {
 
 		lab.SetTextSize(0.05);
 		lab.SetTextColor(kRed+3);
-		lab.DrawLatex(0.2, 0.92,  Form("Rate for configuration: %s", confs[h].c_str()));
+		lab.DrawLatex(0.2, 0.92,  Form("Rate for configuration: %s", confsn[h].c_str()));
 
 	}
 }
@@ -594,7 +596,7 @@ void showZVertex() {
 	lab.SetNDC(1);
 
 	lab.SetTextAngle(90);
-	lab.DrawLatex(0.04, 0.55,  "Rates (MHz)" );
+	lab.DrawLatex(0.04, 0.55,  "Rates (KHz)" );
 
 	lab.SetTextAngle(0);
 	lab.DrawLatex(0.7, 0.02,  "Vertex Z    [cm]" );
@@ -605,7 +607,7 @@ void showZVertex() {
 
 	TLegend *tconfs  = new TLegend(0.6, 0.35, 0.96, 0.9);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(vertexZ[h], Form("%s: %3.2f MHz", confs[h].c_str(), integrals[h] ), "F");
+		tconfs->AddEntry(vertexZ[h], Form("%s: %3.2f KHz", confsn[h].c_str(), integrals[h] ), "F");
 	}
 
 	tconfs->SetBorderSize(0);
@@ -643,7 +645,7 @@ void showRVertex() {
 	lab.SetNDC(1);
 
 	lab.SetTextAngle(90);
-	lab.DrawLatex(0.04, 0.55,  "Rates (MHz)" );
+	lab.DrawLatex(0.04, 0.55,  "Rates (KHz)" );
 
 	lab.SetTextAngle(0);
 	lab.DrawLatex(0.7, 0.02,  "Vertex R    [cm]" );
@@ -654,7 +656,7 @@ void showRVertex() {
 
 	TLegend *tconfs  = new TLegend(0.6, 0.3, 0.96, 0.9);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(vertexR[h], Form("%s: %3.2f MHz", confs[h].c_str(), integrals[h] ), "F");
+		tconfs->AddEntry(vertexR[h], Form("%s: %3.2f KHz", confsn[h].c_str(), integrals[h] ), "F");
 	}
 
 	tconfs->SetBorderSize(0);
@@ -700,9 +702,9 @@ void showScalers() {
 	lab1.SetTextColor(kRed+3);
 	lab1.DrawLatex(0.2, 0.92,  Form("Upstream Scaler Rates"));
 
-	TLegend *tconfs1  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	TLegend *tconfs1  = new TLegend(0.4, 0.2, 0.9, 0.6);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs1->AddEntry(scalersUp[h], confs[h].c_str(), "F");
+		tconfs1->AddEntry(scalersUp[h], confsn[h].c_str(), "F");
 	}
 
 	tconfs1->SetBorderSize(0);
@@ -736,9 +738,9 @@ void showScalers() {
 	lab2.SetTextColor(kRed+3);
 	lab2.DrawLatex(0.2, 0.92,  Form("Downstream Scaler Rates"));
 
-	TLegend *tconfs2  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	TLegend *tconfs2  = new TLegend(0.4, 0.2, 0.9, 0.6);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs2->AddEntry(scalersDown[h], confs[h].c_str(), "F");
+		tconfs2->AddEntry(scalersDown[h], confsn[h].c_str(), "F");
 	}
 
 	tconfs2->SetBorderSize(0);
@@ -780,7 +782,7 @@ void showCurrent() {
 
 	TLegend *tconfs1  = new TLegend(0.2, 0.2, 0.8, 0.6);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs1->AddEntry(currentUp[h], confs[h].c_str(), "F");
+		tconfs1->AddEntry(currentUp[h], confsn[h].c_str(), "F");
 	}
 
 	tconfs1->SetBorderSize(0);
@@ -813,7 +815,7 @@ void showCurrent() {
 
 	TLegend *tconfs2  = new TLegend(0.2, 0.2, 0.8, 0.6);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs2->AddEntry(currentDown[h], confs[h].c_str(), "F");
+		tconfs2->AddEntry(currentDown[h], confsn[h].c_str(), "F");
 	}
 
 	tconfs2->SetBorderSize(0);
