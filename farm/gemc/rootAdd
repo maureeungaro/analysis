@@ -1,6 +1,18 @@
 #!/bin/csh -f
 
 foreach d (`\ls`)
-	hadd $d.root $d
+ hadd $d".root" $d/*.root
 end
 
+# creating dir so it's easier to scp
+rm -rf added ; mkdir added
+mv *.root added
+
+# echoing dir to scp
+cd added
+set dirToCopy = `pwd`
+
+# from the local computer
+echo -r "scp ftp:$dirToCopy ."
+echo "mv added/*.root ."
+echo "rm -rf added"

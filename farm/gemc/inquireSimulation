@@ -25,6 +25,11 @@ set BANKSM  = "ctof"                   # bank to be included in rootification
 # ---------------------
 
 
+# copying rootAdd in the proper place if not there already
+if ( ~ -f $OUTPUTD/rootAdd) then
+	cp rootAdd $OUTPUTD/rootAdd
+endif
+
 # making sure evio2root exists
 if(`where evio2root` == "") then
 	echo evio2root not found, check environment

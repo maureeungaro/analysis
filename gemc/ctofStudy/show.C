@@ -858,7 +858,7 @@ void showMomentum() {
 		lab.SetNDC(1);
 
 		lab.SetTextAngle(90);
-		lab.DrawLatex(0.04, 0.52,  "Rates    [MHz]" );
+		lab.DrawLatex(0.04, 0.52,  "Rates    [KHz]" );
 
 		lab.SetTextAngle(0);
 		lab.DrawLatex(0.7, 0.02,  "Momentum    [MeV]" );
