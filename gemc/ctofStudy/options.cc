@@ -287,7 +287,6 @@ void anaOption::fillHistos(int cindex) {
 	const double TWINDOW = 248E-9;
 
 	const double threshold = 1.0;
-	const double sThreshold = 0.4;
 
 	double totalTime = ((double) nevents)*TWINDOW;
 
@@ -378,11 +377,11 @@ void anaOption::fillHistos(int cindex) {
 				currentDown[cindex]->Fill(thisPaddle, currentRight/totalTime);
 
 				// scalers in KHz
-				if(eRight > sThreshold) {
+				if(eRight > threshold) {
 					scalersDown[cindex]->Fill(thisPaddle, weight*1000);
 				}
 
-				if(eLeft > sThreshold) {
+				if(eLeft > threshold) {
 					scalersUp[cindex]->Fill(thisPaddle, weight*1000);
 				}
 
@@ -396,18 +395,20 @@ void anaOption::fillHistos(int cindex) {
 				if(thisEdep > threshold) {
 					ratesTotalT[cindex]->Fill(thisPaddle, weight);
 				}
+
+
 				ratesTotalEdep[cindex]->Fill(thisEdep, weightPaddle);
 				ratesTotalEdepZ[cindex]->Fill(thisEdep, weightPaddle);
 
 				// e.m.
-				if(thisPID ==11 || thisPID == -11 || thisPID == 22) {
+				if((thisPID == 11 || thisPID == -11) ) {
 					ratesEm[cindex]->Fill(thisPaddle, weight);
 					if(thisEdep > threshold) {
 						ratesEmT[cindex]->Fill(thisPaddle, weight);
 					}
 					ratesEmEdep[cindex]->Fill(thisEdep, weightPaddle);
 					ratesEmEdepZ[cindex]->Fill(thisEdep, weightPaddle);
-				} else {
+				} else if(thisPID != 22) {
 					// hadronic
 					ratesHadronic[cindex]->Fill(thisPaddle, weight);
 					if(thisEdep > threshold) {
@@ -417,7 +418,7 @@ void anaOption::fillHistos(int cindex) {
 					ratesHadronicEdepZ[cindex]->Fill(thisEdep, weightPaddle);
 				}
 				// just gammas
-				if(thisPID == 22 || thismPID == 22) {
+				if(thisPID == 22) {
 					ratesGamma[cindex]->Fill(thisPaddle, weight);
 					if(thisEdep > threshold) {
 						ratesGammaT[cindex]->Fill(thisPaddle, weight);

@@ -108,7 +108,7 @@ void loadHistos() {
 
 		name = "ratesGammaT_" + confs[h];
 		ratesGammaT.push_back((TH1F*) f->Get(name.c_str()));
-		ratesGammaT.back()->SetMaximum(0.02);
+		ratesGammaT.back()->SetMaximum(0.2);
 		ratesGammaT.back()->SetMinimum(0);
 		ratesGammaT.back()->SetLineColor(colors[h]);
 		ratesGammaT.back()->SetDirectory(0);
@@ -214,12 +214,7 @@ void loadHistos() {
 		currentDown.back()->SetLineColor(colors[h]);
 		currentDown.back()->SetDirectory(0);
 
-		name = "currentDown_" + confs[h];
-		currentDown.push_back((TH1F*) f->Get(name.c_str()));
-		currentDown.back()->SetMinimum(0);
-		currentDown.back()->SetLineColor(colors[h]);
-		currentDown.back()->SetDirectory(0);
-
+	
 
 
 
