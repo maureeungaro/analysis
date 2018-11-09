@@ -91,6 +91,15 @@ void anaOption::defineHistos(string c) {
 	vertexZ.push_back(new TH1F(Form("vertexZ_%s", c.c_str()),
 										Form("vertexZ_%s", c.c_str()), 400, -800, 1500));
 
+	vertexRZT.push_back(new TH2F(Form("vertexRZT_%s", c.c_str()),
+										  Form("vertexRZT_%s", c.c_str()), 400, -800, 1500, 400, -10, 600));
+
+	vertexRT.push_back(new TH1F(Form("vertexRT_%s", c.c_str()),
+										 Form("vertexRT_%s", c.c_str()), 400, -10, 600));
+
+	vertexZT.push_back(new TH1F(Form("vertexZT_%s", c.c_str()),
+										 Form("vertexZT_%s", c.c_str()), 400, -800, 1500));
+
 
 	currentUp.push_back(new TH1F(Form("currentUp_%s", c.c_str()),
 										  Form("currentUp_%s", c.c_str()), 48, 0.5, 48.5));
@@ -168,12 +177,15 @@ void anaOption::setDirHistos(int cIndex) {
 	vertexR[cIndex]->SetDirectory(0);
 	vertexZ[cIndex]->SetDirectory(0);
 
+	vertexRZT[cIndex]->SetDirectory(0);
+	vertexRT[cIndex]->SetDirectory(0);
+	vertexZT[cIndex]->SetDirectory(0);
+
 	currentUp[cIndex]->SetDirectory(0);
 	currentDown[cIndex]->SetDirectory(0);
 
 	scalersUp[cIndex]->SetDirectory(0);
 	scalersDown[cIndex]->SetDirectory(0);
-
 
 	leptons[cIndex]->SetDirectory(0);
 	gammas[cIndex]->SetDirectory(0);
@@ -221,6 +233,9 @@ void anaOption::writeHistos() {
 	for(auto *h: vertexRZ)   { h->Write(); }
 	for(auto *h: vertexR)    { h->Write(); }
 	for(auto *h: vertexZ)    { h->Write(); }
+	for(auto *h: vertexRZT)   { h->Write(); }
+	for(auto *h: vertexRT)    { h->Write(); }
+	for(auto *h: vertexZT)    { h->Write(); }
 
 	for(auto *h: currentUp)    { h->Write(); }
 	for(auto *h: currentDown)  { h->Write(); }
@@ -389,6 +404,12 @@ void anaOption::fillHistos(int cindex) {
 				vertexRZ[cindex]->Fill(thisVZ, thisVR, 1000*weightPaddle);
 				vertexR[cindex]->Fill(thisVR,          1000*weightPaddle);
 				vertexZ[cindex]->Fill(thisVZ,          1000*weightPaddle);
+
+				if(thisEdep > threshold) {
+					vertexRZT[cindex]->Fill(thisVZ, thisVR, 1000*weightPaddle);
+					vertexRT[cindex]->Fill(thisVR,          1000*weightPaddle);
+					vertexZT[cindex]->Fill(thisVZ,          1000*weightPaddle);
+				}
 
 				// filling all particles
 				ratesTotal[cindex]->Fill(thisPaddle, weight);

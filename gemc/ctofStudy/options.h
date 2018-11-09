@@ -48,6 +48,10 @@ private:
 	vector<TH1F*> vertexR;
 	vector<TH1F*> vertexZ;
 
+	vector<TH2F*> vertexRZT;
+	vector<TH1F*> vertexRT;
+	vector<TH1F*> vertexZT;
+
 	vector<TH1F*> scalersUp;
 	vector<TH1F*> scalersDown;
 	vector<TH1F*> currentUp;

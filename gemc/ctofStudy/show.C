@@ -23,6 +23,10 @@ vector<TH2F*> vertexRZ;
 vector<TH1F*> vertexR;
 vector<TH1F*> vertexZ;
 
+vector<TH2F*> vertexRZT;
+vector<TH1F*> vertexRT;
+vector<TH1F*> vertexZT;
+
 vector<string>   confs;
 vector<string>   confsn;
 vector<Color_t> colors;
@@ -187,6 +191,21 @@ void loadHistos() {
 		vertexZ.push_back((TH1F*) f->Get(name.c_str()));
 		vertexZ.back()->SetLineColor(colors[h]);
 		vertexZ.back()->SetDirectory(0);
+
+		name = "vertexRZT_" + confs[h];
+		vertexRZT.push_back((TH2F*) f->Get(name.c_str()));
+		vertexRZT.back()->SetMaximum(0.2);
+		vertexRZT.back()->SetDirectory(0);
+
+		name = "vertexRT_" + confs[h];
+		vertexRT.push_back((TH1F*) f->Get(name.c_str()));
+		vertexRT.back()->SetLineColor(colors[h]);
+		vertexRT.back()->SetDirectory(0);
+
+		name = "vertexZT_" + confs[h];
+		vertexZT.push_back((TH1F*) f->Get(name.c_str()));
+		vertexZT.back()->SetLineColor(colors[h]);
+		vertexZT.back()->SetDirectory(0);
 
 
 		name = "scalersUp_" + confs[h];
@@ -541,7 +560,11 @@ void show2DVertex() {
 
 		verts.push_back(new TCanvas(confs[h].c_str(), confs[h].c_str(), 1400, 1000));
 
-		vertexRZ[h]->Draw("colz");
+		if(withThreshold) {
+			vertexRZT[h]->Draw("colz");
+		} else {
+			vertexRZ[h]->Draw("colz");
+		}
 
 		TLatex lab;
 		lab.SetTextFont(42);
@@ -571,17 +594,28 @@ void showZVertex() {
 
 	TCanvas *rates = new TCanvas("rates", "rates", 1400, 1000);
 
-	vertexZ[0]->Draw("H");
-
-
-	for(unsigned h=1; h<confs.size(); h++) {
-		vertexZ[h]->Draw("Hsame");
+	if(withThreshold) {
+		vertexZT[4]->Draw("H");
+		for(unsigned h=0; h<confs.size(); h++) {
+			vertexZT[h]->Draw("Hsame");
+		}
+	} else {
+		vertexZ[0]->Draw("H");
+		for(unsigned h=1; h<confs.size(); h++) {
+			vertexZ[h]->Draw("Hsame");
+		}
 	}
+
+
 
 	// integral
 	vector<double> integrals;
 	for(unsigned h=0; h<confs.size(); h++) {
-		integrals.push_back(vertexZ[h]->Integral());
+		if(withThreshold) {
+			integrals.push_back(vertexZT[h]->Integral());
+		} else {
+			integrals.push_back(vertexZ[h]->Integral());
+		}
 	}
 
 	TLatex lab;
@@ -594,7 +628,7 @@ void showZVertex() {
 	lab.DrawLatex(0.04, 0.55,  "Rates (KHz)" );
 
 	lab.SetTextAngle(0);
-	lab.DrawLatex(0.7, 0.02,  "Vertex Z    [cm]" );
+	lab.DrawLatex(0.7, 0.02,  "Vertex Z    [mm]" );
 
 	lab.SetTextSize(0.05);
 	lab.SetTextColor(kRed+3);
@@ -602,7 +636,11 @@ void showZVertex() {
 
 	TLegend *tconfs  = new TLegend(0.6, 0.35, 0.96, 0.9);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(vertexZ[h], Form("%s: %3.2f KHz", confsn[h].c_str(), integrals[h] ), "F");
+		if(withThreshold) {
+			tconfs->AddEntry(vertexZT[h], Form("%s: %3.2f KHz", confsn[h].c_str(), integrals[h] ), "F");
+		} else {
+			tconfs->AddEntry(vertexZ[h], Form("%s: %3.2f KHz", confsn[h].c_str(), integrals[h] ), "F");
+		}
 	}
 
 	tconfs->SetBorderSize(0);
@@ -620,17 +658,30 @@ void showRVertex() {
 
 	TCanvas *rates = new TCanvas("rates", "rates", 1400, 1000);
 
-	vertexR[0]->Draw("H");
-
-
-	for(unsigned h=1; h<confs.size(); h++) {
-		vertexR[h]->Draw("Hsame");
+	if(withThreshold) {
+		vertexRT[4]->Draw("H");
+		for(unsigned h=0; h<confs.size(); h++) {
+			vertexRT[h]->Draw("Hsame");
+		}
+	} else {
+		vertexR[0]->Draw("H");
+		for(unsigned h=1; h<confs.size(); h++) {
+			vertexR[h]->Draw("Hsame");
+		}
 	}
+
+
 
 	// integral
 	vector<double> integrals;
-	for(unsigned h=0; h<confs.size(); h++) {
-		integrals.push_back(vertexZ[h]->Integral());
+	if(withThreshold) {
+		for(unsigned h=0; h<confs.size(); h++) {
+			integrals.push_back(vertexRT[h]->Integral());
+		}
+	} else {
+		for(unsigned h=0; h<confs.size(); h++) {
+			integrals.push_back(vertexR[h]->Integral());
+		}
 	}
 
 	TLatex lab;
@@ -643,7 +694,7 @@ void showRVertex() {
 	lab.DrawLatex(0.04, 0.55,  "Rates (KHz)" );
 
 	lab.SetTextAngle(0);
-	lab.DrawLatex(0.7, 0.02,  "Vertex R    [cm]" );
+	lab.DrawLatex(0.7, 0.02,  "Vertex R    [mm]" );
 
 	lab.SetTextSize(0.05);
 	lab.SetTextColor(kRed+3);
