@@ -122,7 +122,7 @@
 	init_induced_damage();
 	
 	for(int t=0; t<NTARGET; t++)
-		init_bst_histos(Form("/lustre/expphy/volatile/clas12/ungaro/clas12/root/added/1%s.root", starget[t].c_str()), t);
+		init_bst_histos(Form("/lustre/expphy/volatile/clas12/ungaro/clas12/root/added/%s.root", starget[t].c_str()), t);
 	
 
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
@@ -150,7 +150,10 @@
 	bar->AddButton("Print all targets Events",  "print_all_targets_events()");
 	bar->AddButton("","");
 	bar->Show();
-	
+
+
+
+
 }
 
 
