@@ -11,9 +11,9 @@
 	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
-	const int NTARGET       = 7;
-	string starget[NTARGET] = { "noShield", "thick50", "thick100", "thick150", "thick200", "thick300", "thick500" };
-	Color_t colors[NTARGET] = {    kBlue-7,      kRed,      kBlue,     kGreen+4,     kRed+2,     kBlue+2, kGreen - 3 };
+	const int NTARGET       = 2;
+	string starget[NTARGET] = { "bstNoShieldCtofNoShield", "bstShieldCtofNoShield" };
+	Color_t colors[NTARGET] = {   kRed,                  kBlue};
 	int TARGET = 0;
 
 	// deposited energy cut
@@ -122,7 +122,7 @@
 	init_induced_damage();
 	
 	for(int t=0; t<NTARGET; t++)
-		init_bst_histos(Form("/volatile/clas12/ungaro/clas12/root/%s.root", starget[t].c_str()), t);
+		init_bst_histos(Form("/lustre/expphy/volatile/clas12/ungaro/clas12/root/added/1%s.root", starget[t].c_str()), t);
 	
 
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
