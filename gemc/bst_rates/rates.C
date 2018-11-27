@@ -151,8 +151,14 @@
 	bar->AddButton("","");
 	bar->Show();
 
+	// for batch mode:
+	// root -b -q rates.C
 
 
+	// to paste nice tables from the output:
+	// 1. copy from terminal
+	// 2. paste special: as Text
+	// 3. click pate: Wizard
 
 }
 
