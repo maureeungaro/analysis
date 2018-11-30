@@ -13,6 +13,6 @@ cd added
 set dirToCopy = `pwd`
 
 # from the local computer
-echo -r "scp ftp:$dirToCopy ."
+echo "scp -r ftp:$dirToCopy ."
 echo "mv added/*.root ."
 echo "rm -rf added"

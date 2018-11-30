@@ -367,9 +367,14 @@ void show()
 	gStyle->SetOptStat(0);
 	gStyle->SetOptTitle(0);
 
-	confs  = {"bstNoShieldCtofNoShield", "bstShieldCtofNoShield",	"bstShieldCtof0.5mm", "bstShieldCtof1mm", "bstShieldCtof2mm", "bstShieldCtof3mm"	};
-	confsn = {            "noBstShield",             "bstShield", 	             "0.5mm",              "1mm",              "2mm",              "3mm"	};
-	colors = {                  kBlack,                    kBlue,                kRed-2,            kOrange+1,            kPink,          kGreen+2 };
+	confs  = {"bstShieldCtofNoShield",	"bstShieldCtof0.1mm" , "bstShieldCtof0.5mm", "bstShieldCtof1mm", "bstShieldCtof2mm", "bstShieldCtof3mm"	};
+	confsn = {            "bstShield", 	              "0.1mm",              "0.5mm",              "1mm",              "2mm",              "3mm"	};
+	colors = {                 kBlack,                    kBlue,                kRed-2,            kOrange+1,            kPink,          kGreen+2 };
+
+//	confs  = {"bstShieldCtofNoShield",	"bstShieldCtof0.1mm"	 };
+//	confsn = {            "bstShield", 	             "0.1mm"  };
+//	colors = {                 kBlack,                 kRed-2 };
+
 
 	rateType = "total";
 	withThreshold = true;
