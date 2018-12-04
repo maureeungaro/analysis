@@ -73,7 +73,7 @@ while ($SIMU < $NMAX)
 		# running gemc
 		gemc $gcard -N=$nevents -USE_GUI=0        >> $logFile
 
-		cp out.ev $gcard $runDir
+		cp out.ev $gcard $runDir $runDir
 
 		# log after running
 		./logConditions after-run
