@@ -19,7 +19,7 @@ set PROJECT  = clas12          # job project name
 set MAIL     = ungaro@jlab.org # author email
 set TRACK    = simulation      # job track
 set JSUBC    = /site/bin/jsub  # command to submit the job
-set TIME     = 120             # max time in minutes
+set TIME     = 240             # max time in minutes 4 hours
 
 # End of user parameter
 # ---------------------
