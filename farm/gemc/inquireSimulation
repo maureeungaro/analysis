@@ -181,6 +181,10 @@ if ( ! -f $OUTPUTD/rootAdd) then
 	cp rootAdd $OUTPUTD/rootAdd
 	echo Copying rootAdd to $OUTPUTD/rootAdd
 	echo
+	echo To go there:
+	echo
+	echo cd $OUTPUTD/
+	echo
 endif
 
 
