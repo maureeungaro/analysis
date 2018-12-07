@@ -54,7 +54,8 @@
 	
 	<!--  Will print message every 10 events -->
 	<option name="PRINT_EVENT"    value="1" />
-	
+	<option name="INTEGRATEDRAW"  value="ftof"/>
+
 	
 	<!--  Run Number 11, picked up by digitization routines -->
 	<option name="RUNNO"    value="11" />
