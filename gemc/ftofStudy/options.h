@@ -85,6 +85,7 @@ private:
 	vector<double> *x;
 	vector<double> *y;
 	vector<double> *z;
+	vector<double> *lx;
 	vector<double> *pid;
 	vector<double> *mpid;
 	vector<double> *totEdep;
@@ -94,6 +95,10 @@ private:
 	vector<double> *px;
 	vector<double> *py;
 	vector<double> *pz;
+
+
+	vector<double> paddleAttLength;
+	vector<double> paddleLength;
 
 private:
 	void defineHistos(string c);

@@ -1,6 +1,7 @@
 #include "options.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "TFile.h"
 #include "TCanvas.h"
@@ -8,9 +9,24 @@
 anaOption::anaOption(vector<string> configurations) : confs(configurations)
 {
 	PRINT  = "";
-	
+
+	// load paddle infos from file
+	// The first column in the FTOF panel-1b conter attenuation lengths (cm)
+	// and the second column is the associated counter length (cm).
+	ifstream ftofIN("p1b-info.dat");
+
+	double a, l;
+	for(unsigned p=0; p<62; p++) {
+		ftofIN >> a >> l;
+		paddleAttLength.push_back(a*10);
+		paddleLength.push_back(l*10);
+	}
+	ftofIN.close();
+	cout << " Ftof lengths loaded with " << paddleAttLength.size() << " entries" << endl;
+
+
 	TCanvas *c1 = new TCanvas("c1", "c1", 100,100);
-	
+
 	int cIndex = 0;
 	for(auto p: confs) {
 		
@@ -36,9 +52,7 @@ anaOption::anaOption(vector<string> configurations) : confs(configurations)
 	c1->Close();
 	writeHistos();
 	
-	
-	
-}
+	}
 
 
 void anaOption::defineHistos(string c) {
@@ -266,15 +280,16 @@ void anaOption::initLeafs() {
 	paddle  = nullptr;
 	layer   = nullptr;
 	sector  = nullptr;
-	x       = nullptr;
-	y       = nullptr;
-	z       = nullptr;
+	lx      = nullptr;
 	pid     = nullptr;
 	mpid    = nullptr;
 	totEdep = nullptr;
 	vx      = nullptr;
 	vy      = nullptr;
 	vz      = nullptr;
+	x       = nullptr;
+	y       = nullptr;
+	z       = nullptr;
 	px      = nullptr;
 	py      = nullptr;
 	pz      = nullptr;
@@ -282,18 +297,19 @@ void anaOption::initLeafs() {
 	ftof->SetBranchAddress("paddle",  &paddle);
 	ftof->SetBranchAddress("layer",   &layer);
 	ftof->SetBranchAddress("sector",  &sector);
-	ftof->SetBranchAddress("avg_x",   &x);
-	ftof->SetBranchAddress("avg_y",   &y);
-	ftof->SetBranchAddress("avg_z",   &z);
+	ftof->SetBranchAddress("avg_lx",  &lx);
 	ftof->SetBranchAddress("pid",     &pid);
 	ftof->SetBranchAddress("mpid",    &mpid);
 	ftof->SetBranchAddress("totEdep", &totEdep);
-	ftof->SetBranchAddress("vx",   &vx);
-	ftof->SetBranchAddress("vy",   &vy);
-	ftof->SetBranchAddress("vz",   &vz);
-	ftof->SetBranchAddress("px",   &px);
-	ftof->SetBranchAddress("py",   &py);
-	ftof->SetBranchAddress("pz",   &pz);
+	ftof->SetBranchAddress("vx",      &vx);
+	ftof->SetBranchAddress("vy",      &vy);
+	ftof->SetBranchAddress("vz",      &vz);
+	ftof->SetBranchAddress("avg_x",   &x);
+	ftof->SetBranchAddress("avg_y",   &y);
+	ftof->SetBranchAddress("avg_z",   &z);
+	ftof->SetBranchAddress("px",      &px);
+	ftof->SetBranchAddress("py",      &py);
+	ftof->SetBranchAddress("pz",      &pz);
 
 }
 
@@ -302,19 +318,12 @@ void anaOption::fillHistos(int cindex) {
 	int nevents = ftof->GetEntries();
 
 	const double TWINDOW = 248E-9;
-
 	const double threshold = 1.0;
-
 	double totalTime = ((double) nevents)*TWINDOW;
 
-	double attLenght = 1400.00; // 140 cm
-
-
-
-
-
-	double shift = -100;        // 10 cm
-	double counterLength = 880; // ~88cm
+	// weight to give rates in MHz.
+	double weight       = 1.0/(totalTime*1000000);
+	double weightPaddle = 1.0/(totalTime*1000000*62);
 
 	double conversionMeVTomicroC = 0.00002768; // numbers for conversions from energy in MeV to Charge in uC are taken from Dan Carman's email of 2016/4/27
 
@@ -323,18 +332,15 @@ void anaOption::fillHistos(int cindex) {
 	for(int i=0; i<ftof->GetEntries(); i++){
 		
 		ftof->GetEntry(i);
-		generated->GetEntry(i);
-		
+
 		//		if(i%10 == 0) cout << " Entry number " << i << endl;
 		
 		int thisPaddle = 0;
 		int thislayer  = -1;
 		int thisSector = -1;
 
-		double thisX  = 0;
-		double thisY  = 0;
-		double thisZ  = 0;
-		
+		double thisLX  = 0;
+
 		int thisPID     = 0;
 		int thismPID    = 0;
 		
@@ -342,6 +348,8 @@ void anaOption::fillHistos(int cindex) {
 
 		double thisVR  = 0;
 		double thisVZ  = 0;
+
+		double thisDV   = 0;
 
 		double attRight  = 0;
 		double attLeft   = 0;
@@ -355,23 +363,31 @@ void anaOption::fillHistos(int cindex) {
 
 		double thisMomentum = 0;
 
-		// looping over hits
-		for(unsigned d=0; d<(*x).size(); d++) {
 
-			thislayer  = (*layer)[d];
-			thisSector = (*sector)[d];
+		// looping over hits
+		for(unsigned d=0; d<(*layer).size(); d++) {
+
+			thislayer    = (*layer)[d];
+			thisSector   = (*sector)[d];
+			thisVR       = sqrt( (*vx)[d]*(*vx)[d] + (*vy)[d]*(*vy)[d] );
+			thisVZ       = (*vz)[d];
+			thisPaddle   = (*paddle)[d];
+			thisMomentum = sqrt( (*px)[d]*(*px)[d] + (*py)[d]*(*py)[d] + (*pz)[d]*(*pz)[d]);
+
+			// transverse position of the vertex
+			thisDV   = sqrt( ((*vx)[d] - (*x)[d])*((*vx)[d] - (*x)[d]) + ((*vy)[d] - (*y)[d])*((*vy)[d] - (*y)[d])  );
 
 			// careful, true hits are double counted for each ftof layer
 			if(thislayer == 2 && (thisSector == 1 || thisSector == 4)) {
 
-				thisPaddle = (*paddle)[d];
 
-				thisX  = (*x)[d];
-				thisY  = (*y)[d];
-				thisZ  = (*z)[d];
+				double attLenght     = paddleAttLength[thisPaddle-1];
+				double counterLength = paddleLength[thisPaddle-1];
 
-				distRight = counterLength / 2 - (thisZ - shift);
-				distLeft  = counterLength / 2 + (thisZ - shift);
+				thisLX  = (*lx)[d];
+
+				distRight = counterLength / 2 - (thisLX);
+				distLeft  = counterLength / 2 + (thisLX);
 
 				thisPID    = (*pid)[d];
 				thismPID   = (*mpid)[d];
@@ -381,21 +397,13 @@ void anaOption::fillHistos(int cindex) {
 				attRight = exp(-distRight/attLenght);
 				attLeft  = exp(-distLeft/attLenght);
 				eRight = thisEdep*attRight;
-				eLeft = thisEdep*attLeft;
-
+				eLeft  = thisEdep*attLeft;
 
 				currentRight = eRight*conversionMeVTomicroC;
 				currentLeft  = eLeft*conversionMeVTomicroC;
 
-				thisVR = sqrt( (*vx)[d]*(*vx)[d] + (*vy)[d]*(*vy)[d] );
-				thisVZ = (*vz)[d];
-
-
-				thisMomentum = sqrt( (*px)[d]*(*px)[d] + (*py)[d]*(*py)[d] + (*pz)[d]*(*pz)[d]);
-
-				// weight to give rates in MHz.
-				double weight       = 1.0/(totalTime*1000000);
-				double weightPaddle = 1.0/(totalTime*1000000*62);
+//				cout << attLenght <<  " " << distRight << endl;
+//				cout << currentRight <<  " " << currentLeft << endl;
 
 				current1a[cindex]->Fill(thisPaddle, currentLeft/totalTime);
 				current1b[cindex]->Fill(thisPaddle, currentRight/totalTime);
@@ -409,23 +417,24 @@ void anaOption::fillHistos(int cindex) {
 					scalers1a[cindex]->Fill(thisPaddle, weight*1000);
 				}
 
+
 				// vertex in KHz
 				vertexRZ[cindex]->Fill(thisVZ, thisVR, 1000*weightPaddle);
 				vertexR[cindex]->Fill(thisVR,          1000*weightPaddle);
 				vertexZ[cindex]->Fill(thisVZ,          1000*weightPaddle);
-
+				
 				if(thisEdep > threshold) {
 					vertexRZT[cindex]->Fill(thisVZ, thisVR, 1000*weightPaddle);
 					vertexRT[cindex]->Fill(thisVR,          1000*weightPaddle);
 					vertexZT[cindex]->Fill(thisVZ,          1000*weightPaddle);
 				}
-
+				
 				// filling all particles
 				ratesTotal[cindex]->Fill(thisPaddle, weight);
 				if(thisEdep > threshold) {
 					ratesTotalT[cindex]->Fill(thisPaddle, weight);
 				}
-
+				
 
 				ratesTotalEdep[cindex]->Fill(thisEdep, weightPaddle);
 				ratesTotalEdepZ[cindex]->Fill(thisEdep, weightPaddle);
@@ -460,20 +469,20 @@ void anaOption::fillHistos(int cindex) {
 
 				// momentum in KHz
 				if(thisPID == 11 || thisPID == -11 || thismPID == -11){
-					leptons[cindex]->Fill(thisMomentum,  1000*weightPaddle);
-					leptonsZ[cindex]->Fill(thisMomentum, 1000*weightPaddle);
+					leptons[cindex]->Fill(thisMomentum,   1000*weightPaddle);
+					leptonsZ[cindex]->Fill(thisMomentum,  1000*weightPaddle);
 				} else if(thisPID == 22 || thismPID == 22) {
-					gammas[cindex]->Fill(thisMomentum,   1000*weightPaddle);
-					gammasZ[cindex]->Fill(thisMomentum,  1000*weightPaddle);
+					gammas[cindex]->Fill(thisMomentum,    1000*weightPaddle);
+					gammasZ[cindex]->Fill(thisMomentum,   1000*weightPaddle);
 				} else if(thisPID == 211 || thismPID == -211) {
-					pions[cindex]->Fill(thisMomentum,    1000*weightPaddle);
-					pionsZ[cindex]->Fill(thisMomentum,   1000*weightPaddle);
+					pions[cindex]->Fill(thisMomentum,     1000*weightPaddle);
+					pionsZ[cindex]->Fill(thisMomentum,    1000*weightPaddle);
 				} else if(thisPID == 2212 || thismPID == 2212) {
-					protons[cindex]->Fill(thisMomentum,  1000*weightPaddle);
-					protonsZ[cindex]->Fill(thisMomentum, 1000*weightPaddle);
+					protons[cindex]->Fill(thisMomentum,   1000*weightPaddle);
+					protonsZ[cindex]->Fill(thisMomentum,  1000*weightPaddle);
 				} else if(thisPID == 2112 || thismPID == 2112) {
-					neutrons[cindex]->Fill(thisMomentum, 1000*weightPaddle);
-					neutronsZ[cindex]->Fill(thisMomentum,1000*weightPaddle);
+					neutrons[cindex]->Fill(thisMomentum,  1000*weightPaddle);
+					neutronsZ[cindex]->Fill(thisMomentum, 1000*weightPaddle);
 				}
 			}
 

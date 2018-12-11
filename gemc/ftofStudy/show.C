@@ -91,7 +91,7 @@ void loadHistos() {
 
 		name = "ratesTotalT_" + confs[h];
 		ratesTotalT.push_back((TH1F*) f->Get(name.c_str()));
-		ratesTotalT.back()->SetMaximum(0.5);
+		ratesTotalT.back()->SetMaximum(1.1);
 		ratesTotalT.back()->SetMinimum(0);
 		ratesTotalT.back()->SetLineColor(colors[h]);
 		ratesTotalT.back()->SetDirectory(0);
@@ -363,9 +363,9 @@ void show()
 	gStyle->SetOptStat(0);
 	gStyle->SetOptTitle(0);
 
-	confs  = { "noShield",	"shield0.1" , "shield0.2", "shield0.5", "shield1.0" };
-	confsn = {       "no",	      "0.1" ,       "0.2",       "0.5",       "1.0" };
-	colors = {     kBlack,         kBlue,      kRed-2,   kOrange+1,       kPink };
+	confs  = { "noShield",	"shield01" , "shield02", "shield05", "shield10" };
+	confsn = {       "no",     "0.1mm" ,    "0.2mm",    "0.5mm",    "1.0mm" };
+	colors = {     kBlack,        kBlue,     kRed-2,   kOrange+1,     kPink };
 
 //	confs  = {"bstShieldftofNoShield",	"bstShieldftof0.1mm"	 };
 //	confsn = {            "bstShield", 	             "0.1mm"  };
@@ -451,14 +451,12 @@ void showPaddles() {
 	// fitting and getting avg
 	vector<double> avg;
 	for(unsigned h=0; h<confs.size(); h++) {
-		histos[h]->Fit("pol0", "", "REM");
-		histos[h]->GetFunction("pol0")->SetLineColor(colors[h]);
-		avg.push_back(histos[h]->GetFunction("pol0")->GetParameter(0));
+		avg.push_back(histos[h]->Integral());
 	}
 
 	TLegend *tconfs  = new TLegend(0.6, 0.82, 0.99, 0.99);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs->AddEntry(histos[h], Form("%s: %3.2f KHz", confsn[h].c_str(), 1000*avg[h] ), "F");
+		tconfs->AddEntry(histos[h], Form("%s: %3.2f MHz", confsn[h].c_str(), avg[h] ), "F");
 	}
 
 	tconfs->SetBorderSize(0);

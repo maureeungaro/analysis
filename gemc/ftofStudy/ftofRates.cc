@@ -11,7 +11,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	vector<string> confs = {"noShield",	"shield0.1" , "shield0.2", "shield0.5", "shield1.0"};
+	vector<string> confs = {"noShield",	"shield01" , "shield02", "shield05", "shield10"};
 	
 	anaOption analysis(confs);
 }
