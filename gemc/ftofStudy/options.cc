@@ -322,8 +322,8 @@ void anaOption::fillHistos(int cindex) {
 	double totalTime = ((double) nevents)*TWINDOW;
 
 	// weight to give rates in MHz.
-	double weight       = 1.0/(totalTime*1000000);
-	double weightPaddle = 1.0/(totalTime*1000000*62);
+	double weight       = 1.0/(totalTime*1000000*2);
+	double weightPaddle = 1.0/(totalTime*1000000*62*2);
 
 	double conversionMeVTomicroC = 0.00002768; // numbers for conversions from energy in MeV to Charge in uC are taken from Dan Carman's email of 2016/4/27
 
@@ -422,19 +422,19 @@ void anaOption::fillHistos(int cindex) {
 				vertexRZ[cindex]->Fill(thisVZ, thisVR, 1000*weightPaddle);
 				vertexR[cindex]->Fill(thisVR,          1000*weightPaddle);
 				vertexZ[cindex]->Fill(thisVZ,          1000*weightPaddle);
-				
+
 				if(thisEdep > threshold) {
 					vertexRZT[cindex]->Fill(thisVZ, thisVR, 1000*weightPaddle);
 					vertexRT[cindex]->Fill(thisVR,          1000*weightPaddle);
 					vertexZT[cindex]->Fill(thisVZ,          1000*weightPaddle);
 				}
-				
+
 				// filling all particles
 				ratesTotal[cindex]->Fill(thisPaddle, weight);
 				if(thisEdep > threshold) {
 					ratesTotalT[cindex]->Fill(thisPaddle, weight);
 				}
-				
+
 
 				ratesTotalEdep[cindex]->Fill(thisEdep, weightPaddle);
 				ratesTotalEdepZ[cindex]->Fill(thisEdep, weightPaddle);

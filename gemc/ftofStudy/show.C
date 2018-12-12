@@ -105,7 +105,7 @@ void loadHistos() {
 
 		name = "ratesEmT_" + confs[h];
 		ratesEmT.push_back((TH1F*) f->Get(name.c_str()));
-		ratesEmT.back()->SetMaximum(0.3);
+		ratesEmT.back()->SetMaximum(1.0);
 		ratesEmT.back()->SetMinimum(0);
 		ratesEmT.back()->SetLineColor(colors[h]);
 		ratesEmT.back()->SetDirectory(0);
@@ -745,11 +745,11 @@ void showScalers() {
 
 	lab1.SetTextSize(0.05);
 	lab1.SetTextColor(kRed+3);
-	lab1.DrawLatex(0.2, 0.92,  Form("Upstream Scaler Rates"));
+	lab1.DrawLatex(0.2, 0.92,  Form("Left Scaler Rates"));
 
-	TLegend *tconfs1  = new TLegend(0.4, 0.2, 0.9, 0.6);
+	TLegend *tconfs1  = new TLegend(0.15, 0.5, 0.4, 0.85);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs1->AddEntry(scalers1a[h], confsn[h].c_str(), "F");
+		tconfs1->AddEntry(scalers1a[h], Form("%s: %3.2f MHz", confsn[h].c_str(), scalers1a[h]->Integral()/1000), "F");
 	}
 
 	tconfs1->SetBorderSize(0);
@@ -781,11 +781,11 @@ void showScalers() {
 
 	lab2.SetTextSize(0.05);
 	lab2.SetTextColor(kRed+3);
-	lab2.DrawLatex(0.2, 0.92,  Form("Downstream Scaler Rates"));
+	lab2.DrawLatex(0.2, 0.92,  Form("Right Scaler Rates"));
 
-	TLegend *tconfs2  = new TLegend(0.4, 0.2, 0.9, 0.6);
+	TLegend *tconfs2  = new TLegend(0.15, 0.5, 0.4, 0.85);
 	for(unsigned h=0; h<confs.size(); h++) {
-		tconfs2->AddEntry(scalers1b[h], confsn[h].c_str(), "F");
+		tconfs2->AddEntry(scalers1b[h], Form("%s: %3.2f MHz", confsn[h].c_str(), scalers1b[h]->Integral()/1000), "F");
 	}
 
 	tconfs2->SetBorderSize(0);
@@ -823,9 +823,9 @@ void showCurrent() {
 
 	lab1.SetTextSize(0.05);
 	lab1.SetTextColor(kRed+3);
-	lab1.DrawLatex(0.2, 0.92,  Form("Upstream Current"));
+	lab1.DrawLatex(0.2, 0.92,  Form("Left Current"));
 
-	TLegend *tconfs1  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	TLegend *tconfs1  = new TLegend(0.5, 0.2, 0.9, 0.6);
 	for(unsigned h=0; h<confs.size(); h++) {
 		tconfs1->AddEntry(current1a[h], confsn[h].c_str(), "F");
 	}
@@ -856,9 +856,9 @@ void showCurrent() {
 
 	lab2.SetTextSize(0.05);
 	lab2.SetTextColor(kRed+3);
-	lab2.DrawLatex(0.2, 0.92,  Form("Downstream Current"));
+	lab2.DrawLatex(0.2, 0.92,  Form("Right Current"));
 
-	TLegend *tconfs2  = new TLegend(0.2, 0.2, 0.8, 0.6);
+	TLegend *tconfs2  = new TLegend(0.5, 0.2, 0.9, 0.6);
 	for(unsigned h=0; h<confs.size(); h++) {
 		tconfs2->AddEntry(current1b[h], confsn[h].c_str(), "F");
 	}
