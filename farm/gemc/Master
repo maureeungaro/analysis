@@ -24,7 +24,8 @@ set OS       = centos7         # job OS
 set PROJECT  = clas12          # job project name
 set MAIL     = ungaro@jlab.org # author email
 set TRACK    = simulation      # job track
-set JSUBC    = /site/bin/jsub  # command to submit the job
+set JSUBC    = /site/bin/jsub                       # command to submit the job
+set JSUBC    =  /site/scicomp/auger-slurm/bin/jsub  # SLURM command to submit the job
 set TIME     = 240             # max time in minutes 4 hours
 
 # End of user parameter
