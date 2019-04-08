@@ -1,5 +1,7 @@
 #!/bin/csh -f
 
+# If the option TEST is used, MULTI_JOBS is set to 5
+
 # Parameters set by user
 # ----------------------
 
@@ -11,6 +13,10 @@ set DEBUG      = no                              # "yes" will print out the jsub
 set EXPSD      = /group/clas12/gemc/4.3.1        # directory containing the detector definition
 set INPUTFILES = none                            # directory containing the input files. Can be "none" for internal generator
                                                  # The files must be of the format "gemcInput_#.dat" where # (file number) will match the job number
+
+if($1 == "TEST") then
+	set MULTI_JOBS = 5
+endif
 
 # Farm specific parameters
 set MEMORY   = "4000 MB"       # node memory to be used
