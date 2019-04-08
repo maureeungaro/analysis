@@ -13,7 +13,7 @@ set INPUTFILES = none                            # directory containing the inpu
                                                  # The files must be of the format "gemcInput_#.dat" where # (file number) will match the job number
 
 # Farm specific parameters
-set MEMORY   = "2000 MB"       # node memory to be used
+set MEMORY   = "4000 MB"       # node memory to be used
 set OS       = centos7         # job OS
 set PROJECT  = clas12          # job project name
 set MAIL     = ungaro@jlab.org # author email

@@ -39,7 +39,7 @@
 	
 	<!--  Will print message every 1 events -->
 	<option name="PRINT_EVENT"    value="1" />
-	<option name="INTEGRATEDRAW"  value="bst"/>
+	<option name="INTEGRATEDRAW"  value="bst ctof"/>
 
 	<!--  Run Number 11, picked up by digitization routines -->
 	<option name="RUNNO"    value="11" />
