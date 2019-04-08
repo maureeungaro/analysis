@@ -13,9 +13,9 @@
 	<detector name="experiments/clas12/ctof/javacad/"  factory="CAD"/>
 	<detector name="experiments/clas12/cnd/cnd"        factory="TEXT" variation="original"/>
 	
-	<!-- magnets -->
-	<detector name="experiments/clas12/magnets/solenoid" factory="TEXT" variation="original"/>
 
+
+	
 
 	<!-- you can scale the fields here. Remember torus -1 means e- INBENDING  -->
 	<option name="SCALE_FIELD" value="clas12-newSolenoid, -1"/>

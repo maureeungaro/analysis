@@ -16,10 +16,10 @@ set OPT = $1
 
 set GCARDSD = /home/ungaro/projects/analysis/farm/gemc/studies/ftofShield      # collection of gcards. One job / gcard will be launched
 set INPUTD  = /volatile/clas12/ungaro/clas12  # location of evio files (inside each gcard title)
-set OUTPUTD = $INPUTD/root                 # output directory
-set EXACT   = 40                          # number of expected events
-set MINP    = 40                          # minimum number of events required for the sim to be processed
-set BANKSM  = "ftof"                   # bank to be included in rootification
+set OUTPUTD = $INPUTD/root                    # output directory
+set EXACT   = 40                              # number of expected events
+set MINP    = 40                              # minimum number of events required for the sim to be processed
+set BANKSM  = "ftof"                          # bank to be included in rootification
 
 # End of user parameter
 # ---------------------
