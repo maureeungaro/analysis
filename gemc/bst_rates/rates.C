@@ -1,3 +1,12 @@
+/*
+
+To use with root 5 on the farm:
+
+setenv ROOT_VERSION 5.34.36
+source /site/12gev_phys/softenv.csh 2.1 keepmine
+
+*/
+
 {
 	#include <iomanip>
 	
@@ -11,9 +20,9 @@
 	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
-	const int NTARGET       = 2;
-	string starget[NTARGET] = { "bstNoShieldCtofNoShield", "bstShieldCtofNoShield" };
-	Color_t colors[NTARGET] = {   kRed,                  kBlue};
+	const int NTARGET       = 6;
+	string starget[NTARGET] = { "clas12", "noShield", "rgb-winter", "rgb-winterHP", "clas12NoSolenoid", "rga-fall" };
+	Color_t colors[NTARGET] = {   kRed,       kBlue,     kGreen,      kPurple,        kPink,         kOrange};
 	int TARGET = 0;
 
 	// deposited energy cut
@@ -26,6 +35,8 @@
 	double  Qth[NENERGY] = {        0      ,     5772       ,        8658 };
 	const double Qn      = 2400;
 	int ENERGY           = 0;
+
+
 
 	// layers
 	// last layer represents one chip in one layer
