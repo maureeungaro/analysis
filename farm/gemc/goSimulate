@@ -27,8 +27,8 @@ mkdir -p $dir
 # to prevent to use the same directory
 set x = `perl -e 'srand; print int(rand(100)+1)'`
 
-echo sleeping for $x seconds
-sleep $x >> localLog
+echo "sleeping for "$x" seconds" > localLog
+sleep $x
 
 # checking how many directories already exist
 # the loop will check for all of those + 10
@@ -36,7 +36,7 @@ sleep $x >> localLog
 set NEXIST = `\ls $dir/  | awk -F'simu_' '{print $2}' | awk -F\/ '{print $1}' | sort -nr | head -1`
 @ NMAX = $NEXIST * 2 + 200
 
-echo $NEXIST > localLog
+echo "Direactory already existing: "$NEXIST >> localLog
 
 # Look for first non existing dir
 set SIMU = 1
@@ -63,21 +63,22 @@ while ($SIMU < $NMAX)
 			ln -s $inputf/input$SIMU".dat" sidis.dat
 		endif
 	
-		set logFile = $runDir/gemc.log
-		cat localLog > $logFile
+		set gemcLogFile = $runDir/gemc.log
 
 		# log before running
 		./logConditions pre-run $SIMU $x            
-		./logConditions pre-run $SIMU $x          >> $logFile
+		./logConditions pre-run $SIMU $x          >> localLog
 
 		# running gemc
-		gemc $gcard -N=$nevents -USE_GUI=0        >> $logFile
+		gemc $gcard -N=$nevents -USE_GUI=0        >> $gemcLogFile
 
-		cp out.ev $gcard job.err job.out $runDir
 
 		# log after running
 		./logConditions after-run
-		./logConditions after-run                 >> $logFile
+		./logConditions after-run                 >> localLog
+
+		cp out.ev $gcard localLog $runDir
+
 
 		# exit here to stop at the first non-existing dir
 		exit
