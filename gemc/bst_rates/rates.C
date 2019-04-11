@@ -17,12 +17,12 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 	TH1F *HNHITS;  // contains the number of hits
 	int NHITS ;
 					
-	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
 	const int NTARGET       = 6;
 	string starget[NTARGET] = { "clas12", "noShield", "rgb-winter", "rgb-winterHP", "clas12NoSolenoid", "rga-fall" };
-	Color_t colors[NTARGET] = {   kRed,       kBlue,     kGreen,      kPurple,        kPink,         kOrange};
+	Color_t colors[NTARGET] = {   kRed,       kBlue,     kGreen,      kViolet,        kBlack,         kOrange};
 	int TARGET = 0;
 
 	// deposited energy cut
@@ -169,7 +169,7 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 	// to paste nice tables from the output:
 	// 1. copy from terminal
 	// 2. paste special: as Text
-	// 3. click pate: Wizard
+	// 3. click paste: Wizard
 
 }
 
