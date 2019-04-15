@@ -162,9 +162,9 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 	bar->AddButton("","");
 	bar->Show();
 
-	// for batch mode:
-	// root -b -q rates.C
-
+	/* for batch mode:
+	 root -b -q rates.C
+	*/
 
 	// to paste nice tables from the output:
 	// 1. copy from terminal

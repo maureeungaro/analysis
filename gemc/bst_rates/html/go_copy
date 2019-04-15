@@ -1,6 +1,8 @@
 #!/bin/csh -f
 
 
+scp -r dist.css all_rates.html img ftp:/userweb/ungaro/public_html/bst
 
-scp -r * ftp:/u/group/clas/www/gemc/html/work/bst/rates
+
+#scp -r * all_rates.html img ftp:/group/clas/www/gemc/html/work/bst/rates
 
