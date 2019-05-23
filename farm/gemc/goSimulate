@@ -25,7 +25,7 @@ mkdir -p $dir
 
 # sleeping a random amount of time (max 100 seconds)
 # to prevent to use the same directory
-set x = `perl -e 'srand; print int(rand(100)+1)'`
+set x = `perl -e 'srand; print int(rand(10)+1)'`
 
 echo "sleeping for "$x" seconds" > localLog
 sleep $x

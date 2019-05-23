@@ -1,5 +1,7 @@
 #!/bin/csh -f
 
+# Note: with SLURM the log files are inside /farm_out/ungaro/
+
 # Availiable options:
 #
 # reset:   will reset the event count number to 1 (write to .dat file)

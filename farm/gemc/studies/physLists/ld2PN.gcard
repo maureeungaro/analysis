@@ -30,7 +30,7 @@
 	<option name="BEAM_P" value="e-, 10.6*GeV, 0.0*deg, 0*deg"/>
 	
 	<option name="SAVE_ALL_MOTHERS" value="1"/>
-	<option name="RECORD_MIRRORS"   value="0"/>
+	<option name="RECORD_OPTICALPHOTONS"   value="0"/>
 	
 	<option name="PHYSICS" value="FTFP_BERT_HP + STD"/>
 	<option name="MAX_X_POS" value="200"/>

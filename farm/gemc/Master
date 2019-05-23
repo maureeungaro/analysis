@@ -1,6 +1,7 @@
 #!/bin/csh -f
 
 # If the option TEST is used, MULTI_JOBS is set to 5
+# Note: with SLURM the log files are inside /farm_out/ungaro/
 
 # Parameters set by user
 # ----------------------
