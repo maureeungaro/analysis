@@ -14,7 +14,7 @@ set OPT = $1
 # Parameters set by user
 # ----------------------
 
-set GCARDSD = /home/ungaro/projects/analysis/farm/gemc/studies/deuteronEffect      # collection of gcards. One job / gcard will be launched
+set GCARDSD = /home/ungaro/projects/analysis/farm/gemc/studies/physList      # collection of gcards. One job / gcard will be launched
 set INPUTD  = /volatile/clas12/ungaro/clas12  # location of evio files (inside each gcard title)
 set OUTPUTD = $INPUTD/root                    # output directory
 set EXACT   = 40                              # number of expected events

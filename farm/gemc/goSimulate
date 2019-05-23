@@ -2,7 +2,7 @@
 
 # user setup: environment
 # -----------------------
-source /group/clas12/gemc/environment.csh 4.3.1
+source /group/clas12/gemc/environment.csh 4.4.0
 # -----------------
 # end of user setup
 
