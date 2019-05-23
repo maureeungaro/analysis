@@ -31,8 +31,9 @@
 	
 	<option name="SAVE_ALL_MOTHERS" value="1"/>
 	<option name="RECORD_OPTICALPHOTONS"   value="0"/>
-	
-	<option name="PHYSICS" value="FTFP_BERT_HP + STD"/>
+	<option name="PHYS_VERBOSITY"   value="2"/>
+
+	<option name="PHYSICS" value="FTFP_BERT_HP + STD + PhotoNuclear"/>
 	<option name="MAX_X_POS" value="200"/>
 	<option name="MAX_Y_POS" value="200"/>
 	<option name="MAX_Z_POS" value="300"/>
@@ -41,8 +42,8 @@
 	
 	<!--  Will print message every 1 events -->
 	<option name="PRINT_EVENT"    value="1" />
-	<option name="INTEGRATEDRAW"  value="bst ctof"/>
-	
+	<option name="INTEGRATEDRAW"  value="bst"/>
+
 	<!--  Run Number 11, picked up by digitization routines -->
 	<option name="RUNNO"    value="11" />
 	

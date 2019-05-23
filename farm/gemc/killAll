@@ -1,11 +1,6 @@
 #!/bin/csh -f
 
-set me = `whoami`
-
-set a = (`/site/bin/jobstat -u $me | grep -v JOB | awk '{print $1}'`)
-echo "Jobs to be killed: "$a
-
-/site/scicomp/auger-slurm/bin/jkill $a
+/site/scicomp/auger-slurm/bin/jkill 0
 
 
 

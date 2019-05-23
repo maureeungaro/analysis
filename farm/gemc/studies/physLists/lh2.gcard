@@ -1,7 +1,7 @@
 <gcard>
 	<!-- target. Notice variation give the target type. Can be: lH2, lD2, ND3 -->
 	<detector name="experiments/clas12/targets/cad/"   factory="CAD"/>
-	<detector name="experiments/clas12/targets/target" factory="TEXT" variation="lD2"/>
+	<detector name="experiments/clas12/targets/target" factory="TEXT" variation="lH2"/>
 	
 	<!-- central detectors 	-->
 	<detector name="experiments/clas12/bst/bst"               factory="TEXT" variation="java"/>
@@ -31,6 +31,7 @@
 
 	<option name="SAVE_ALL_MOTHERS" value="1"/>
 	<option name="RECORD_OPTICALPHOTONS"   value="0"/>
+	<option name="PHYS_VERBOSITY"   value="2"/>
 
 	<option name="PHYSICS" value="FTFP_BERT_HP + STD"/>
 	<option name="MAX_X_POS" value="200"/>
@@ -41,7 +42,7 @@
 	
 	<!--  Will print message every 1 events -->
 	<option name="PRINT_EVENT"    value="1" />
-	<option name="INTEGRATEDRAW"  value="bst ctof"/>
+	<option name="INTEGRATEDRAW"  value="bst"/>
 	
 	<!--  Run Number 11, picked up by digitization routines -->
 	<option name="RUNNO"    value="11" />
