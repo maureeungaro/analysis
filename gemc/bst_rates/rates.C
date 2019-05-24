@@ -21,7 +21,7 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 				     // convention: filename is target.root
 	
 	const int NTARGET       = 3;
-	string starget[NTARGET] = { "lh2",   "ld2", "ld2NP" };
+	string starget[NTARGET] = { "lh2",   "ld2", "ld2PN" };
 	Color_t colors[NTARGET] = { kBlue,  kRed+1,  kBlack };
 	int TARGET = 0;
 
