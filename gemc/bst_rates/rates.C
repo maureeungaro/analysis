@@ -20,9 +20,9 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
-	const int NTARGET       = 6;
-	string starget[NTARGET] = { "clas12", "noShield", "rgb-winter", "rgb-winterHP", "clas12NoSolenoid", "rga-fall" };
-	Color_t colors[NTARGET] = {   kRed,       kBlue,     kGreen,      kViolet,        kBlack,         kOrange};
+	const int NTARGET       = 3;
+	string starget[NTARGET] = { "lh2",   "ld2", "ld2NP" };
+	Color_t colors[NTARGET] = { kBlue,  kRed+1,  kBlack };
 	int TARGET = 0;
 
 	// deposited energy cut
