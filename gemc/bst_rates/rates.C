@@ -5,7 +5,17 @@ To use with root 5 on the farm:
 setenv ROOT_VERSION 5.34.36
 source /site/12gev_phys/softenv.csh 2.1 keepmine
 
-*/
+root -b -q rates.C
+
+to paste nice tables from the output:
+
+1. copy from terminal
+2. paste special: as Text
+3. click paste: Wizard
+
+ */
+
+
 
 {
 	#include <iomanip>
@@ -17,7 +27,7 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 	TH1F *HNHITS;  // contains the number of hits
 	int NHITS ;
 					
-	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
 	const int NTARGET       = 3;
@@ -162,14 +172,6 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 	bar->AddButton("","");
 	bar->Show();
 
-	/* for batch mode:
-	 root -b -q rates.C
-	*/
-
-	// to paste nice tables from the output:
-	// 1. copy from terminal
-	// 2. paste special: as Text
-	// 3. click paste: Wizard
 
 }
 
