@@ -37,7 +37,7 @@
 	<option name="MAX_X_POS" value="200"/>
 	<option name="MAX_Y_POS" value="200"/>
 	<option name="MAX_Z_POS" value="300"/>
-	<option name="PRODUCTIONCUT"  value="0.5"/>
+	<option name="PRODUCTIONCUT"  value="0.1"/>
 
 	<option name="OUTPUT"   value="evio, out.ev"/>
 	
@@ -53,7 +53,7 @@
 	<option name="LUMI_V"         value="(0.0, 0.0, -10)cm" />
 	<option name="LUMI_SPREAD_V"  value="(0.03, 0.03)cm" />
 	<option name="RFSETUP"        value="0.499, 40, 20" />
-		
+	
 	<!--  Target and central detectors are all shifted upstream by 19.4mm -->
 	<detector name="target">    <position x="0.12*cm"  y="0.11*cm"  z="-3.00*cm"  />  </detector>
 	<detector name="svt">       <position x="0*cm"     y="0*cm"     z="-3.00*cm"  />  </detector>
@@ -62,7 +62,7 @@
 	<detector name="FMT">       <position x="0*cm"     y="0*cm"     z="-3.00*cm"  />  </detector>
 	<detector name="ctof">      <position x="0*cm"     y="0*cm"     z="-3.00*cm"  />  </detector>
 	<detector name="cnd">       <position x="0*cm"     y="0*cm"     z="-3.00*cm"  />  </detector>
-		
+
 	<detector name="FMT">
 		<existence exist="no" />
 	</detector>
