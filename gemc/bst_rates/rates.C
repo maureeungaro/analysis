@@ -30,9 +30,9 @@ to paste nice tables from the output:
 	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
-	const int NTARGET       = 3;
-	string starget[NTARGET] = { "lh2",   "ld2", "ld2PN" };
-	Color_t colors[NTARGET] = { kBlue,  kRed+1,  kBlack };
+	const int NTARGET       = 4;
+	string starget[NTARGET] = { "lh2",   "ld2", "ld2PN", "ld2PNpc" };
+	Color_t colors[NTARGET] = { kBlue,  kRed+1,  kBlack, kGreen-3 };
 	int TARGET = 0;
 
 	// deposited energy cut
