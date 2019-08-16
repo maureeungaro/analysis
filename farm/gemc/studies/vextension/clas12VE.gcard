@@ -37,6 +37,7 @@
 	<!--  Run Number 11, picked up by digitization routines -->
 	<option name="RUNNO"    value="11" />
 	<option name="DIGITIZATION_VARIATION"  value="default" />
+	<option name="INTEGRATEDRAW"  value="dc"/>
 
 	<!--  Do not track staff after the apex -->
 	<option name="MAX_Z_POS" value="8000"/>
