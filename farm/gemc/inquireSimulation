@@ -16,12 +16,12 @@ set OPT = $1
 # Parameters set by user
 # ----------------------
 
-set GCARDSD = /home/ungaro/projects/analysis/farm/gemc/studies/physLists      # collection of gcards. One job / gcard will be launched
+set GCARDSD = /home/ungaro/projects/analysis/farm/gemc/studies/vextension      # collection of gcards. One job / gcard will be launched
 set INPUTD  = /volatile/clas12/ungaro/clas12  # location of evio files (inside each gcard title)
 set OUTPUTD = $INPUTD/root                    # output directory
 set EXACT   = 20                              # number of expected events
 set MINP    = 20                              # minimum number of events required for the sim to be processed
-set BANKSM  = "bst"                          # bank to be included in rootification
+set BANKSM  = "dc"                          # bank to be included in rootification
 
 # End of user parameter
 # ---------------------

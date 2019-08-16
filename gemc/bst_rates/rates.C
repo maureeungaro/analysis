@@ -5,7 +5,7 @@ To use with root 5 on the farm:
 setenv ROOT_VERSION 5.34.36
 source /site/12gev_phys/softenv.csh 2.1 keepmine
 
-
+root -b -q rates.C
  
 to paste nice tables from the output:
 
