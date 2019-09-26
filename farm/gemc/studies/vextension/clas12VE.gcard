@@ -68,9 +68,6 @@
 	</detector>
 	<detector name="experiments/clas12/vacuumExtension/vacuumExtension"   factory="TEXT" variation="original"/>
 
-	<detector name="TargetFoam">
-		<existence exist="no" />
-	</detector>
 	<detector name="TargetVacuumWindow50umAl">
 		<existence exist="no" />
 	</detector>
