@@ -363,9 +363,14 @@ void show()
 	gStyle->SetOptStat(0);
 	gStyle->SetOptTitle(0);
 
-	confs  = { "noShield",	"shield01" , "shield02", "shield05", "shield10" };
-	confsn = {       "no",     "0.1mm" ,    "0.2mm",    "0.5mm",    "1.0mm" };
-	colors = {     kBlack,        kBlue,     kRed-2,   kOrange+1,     kPink };
+//	confs  = { "noShield",	"shield01" , "shield02", "shield05", "shield10" };
+//	confsn = {       "no",     "0.1mm" ,    "0.2mm",    "0.5mm",    "1.0mm" };
+//	colors = {     kBlack,        kBlue,     kRed-2,   kOrange+1,     kPink };
+//
+
+	confs  = { "noShield"};
+	confsn = {       "no"};
+	colors = {     kBlack};
 
 //	confs  = {"bstShieldftofNoShield",	"bstShieldftof0.1mm"	 };
 //	confsn = {            "bstShield", 	             "0.1mm"  };

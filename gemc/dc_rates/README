@@ -7,4 +7,4 @@ source /site/12gev_phys/softenv.csh 2.1 keepmine
 rm -rf img ; mkdir img
 root -b -q rates.C
 
-echo Remember to modify createPics to get a default pic, and to add the plots to mauriplots repo
+Remember to modify createPics to get a default pic, and to add the plots to mauriplots repo
