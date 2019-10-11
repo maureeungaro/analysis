@@ -20,7 +20,7 @@ if($1 == "TEST") then
 endif
 
 # Farm specific parameters
-set MEMORY   = "4000 MB"       # node memory to be used
+set MEMORY   = "2 GB"          # node memory to be used
 set OS       = centos7         # job OS
 set PROJECT  = clas12          # job project name
 set MAIL     = ungaro@jlab.org # author email
