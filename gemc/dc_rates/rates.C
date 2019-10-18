@@ -63,7 +63,7 @@
 	zlimits[2][0][0] = -100;   zlimits[2][1][0] = 1000;
 	
 	// beampipe
-	zlimits[0][0][1] =  600;   zlimits[0][1][1] = 1400;
+	zlimits[0][0][1] = -100;   zlimits[0][1][1] = 1400;
 	zlimits[2][0][1] = -100;   zlimits[2][1][1] = 1600;
 	
 	// torus

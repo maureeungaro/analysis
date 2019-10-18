@@ -172,7 +172,7 @@ void init_dc_histos(string filename, int cindex)
 			for(int r=0; r<3; r++)
 			{
 				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*(r+1) + 1);
-				string allCuts    = hitCut + "  && " + regionCut;
+				string allCuts    = hitCut + "  && " + regionCut  + " && !(vz > 850 && vz < 1000 && sqrt(vx*vx+vy*vy) < 20) ";
 				string histSum   = Form("sector - 0.5 >> dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str());
 				dc->Draw(histSum.c_str(), allCuts.c_str());
 				dc_occ_summary[r][e][cindex]->Sumw2();
