@@ -117,7 +117,7 @@ void init_dc_histos(string filename, int cindex)
 			{
 				string sectcut= Form("sector == %d", s+1);
 				
-				string allCuts    = hitCut + "  && " + sectcut;
+				string allCuts    = hitCut + "  && " + sectcut + " && !(vz > 850 && vz < 1000 && sqrt(vx*vx+vy*vy) < 20) " ;
 				
 				// 2D occupancy histos: 2D for each sector, wire vs layer
 				// layer is from 1 to 36
@@ -136,7 +136,7 @@ void init_dc_histos(string filename, int cindex)
 			for(int r=0; r<NREG; r++)
 			{
 				string hitCutR;
-				if(r==0) hitCutR = hitCut + "               && layer < 13";
+				if(r==0) hitCutR = hitCut + "               && layer < 13" + " && !(vz > 850 && vz < 1000 && sqrt(vx*vx+vy*vy) < 20) ";
 				if(r==1) hitCutR = hitCut + " && layer > 12 && layer < 25";
 				if(r==2) hitCutR = hitCut + " && layer > 24 ";
 

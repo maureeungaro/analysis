@@ -14,11 +14,13 @@
 	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 	
 	
-	const int NCONF      = 2;
-	string sconf[NCONF]  = { "clas12", "clas12VE", };
-	double factor[NCONF] = {   1, 1};  // additional factor to scale the different configurations
 
-      	
+				const int NCONF      = 1;
+				string sconf[NCONF]  = { "clas12VEG"};
+			//        string sconf[NCONF]  = { "clas12", "clas12VE", "clas12VEcone21", "clas12VEcone30"};
+				double factor[NCONF] = {   1};  // additional factor to scale the different configurations
+
+
 
 	int CONF             = 0;
 	
@@ -61,7 +63,7 @@
 	zlimits[2][0][0] = -100;   zlimits[2][1][0] = 1000;
 	
 	// beampipe
-	zlimits[0][0][1] = -100;   zlimits[0][1][1] = 1400;
+	zlimits[0][0][1] =  600;   zlimits[0][1][1] = 1400;
 	zlimits[2][0][1] = -100;   zlimits[2][1][1] = 1600;
 	
 	// torus
