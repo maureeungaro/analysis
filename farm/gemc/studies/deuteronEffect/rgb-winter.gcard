@@ -1,20 +1,20 @@
 <gcard>
-	<!-- target. Notice variation give the target type. Can be: lH2, lD2, ND3 -->
-	<detector name="experiments/clas12/targets/cad/"   factory="CAD"/>
-	<detector name="experiments/clas12/targets/target" factory="TEXT" variation="lD2"/>
-	
-	<!-- central detectors 	-->
-	<detector name="experiments/clas12/bst/bst"               factory="TEXT" variation="java"/>
-	<detector name="experiments/clas12/bstShield/bstShield"   factory="TEXT" variation="w51"/>
-	<detector name="experiments/clas12/micromegas/micromegas" factory="TEXT" variation="michel"/>
+    <detector name="experiments/clas12/targets/cad/"   factory="CAD"/>
+    <detector name="experiments/clas12/targets/target" factory="TEXT" variation="lD2"/>
 
-	<!--ctof, cad  -->
-	<detector name="experiments/clas12/ctof/ctof"      factory="TEXT" variation="cad"/>
-	<detector name="experiments/clas12/ctof/javacad/"  factory="CAD"/>
-	<detector name="experiments/clas12/cnd/cnd"        factory="TEXT" variation="original"/>
-	
-	<!-- magnets -->
-	<detector name="experiments/clas12/magnets/solenoid" factory="TEXT" variation="original"/>
+    <!-- central detectors     -->
+    <detector name="experiments/clas12/bst/bst"               factory="TEXT" variation="default"/>
+    <detector name="experiments/clas12/bstShield/bstShield"   factory="TEXT" variation="w51"/>
+    <detector name="experiments/clas12/micromegas/micromegas" factory="TEXT" variation="michel"/>
+
+    <!--ctof, cad  -->
+    <detector name="experiments/clas12/ctof/ctof"                   factory="TEXT" variation="rga_fall2018"/>
+    <detector name="experiments/clas12/ctof/javacad_rga_fall2018/"  factory="CAD"/>
+    <detector name="experiments/clas12/cnd/cnd"                     factory="TEXT" variation="original"/>
+
+    <!-- magnets -->
+    <detector name="experiments/clas12/magnets/solenoid" factory="TEXT" variation="original"/>
+    <detector name="experiments/clas12/magnets/cad/"     factory="CAD" />
 
 
 	<!-- you can scale the fields here. Remember torus -1 means e- INBENDING  -->
@@ -31,8 +31,8 @@
 	<option name="BEAM_P"   value="e-, 10.6*GeV, 0.0*deg, 0*deg"/>
 	
 	<option name="SAVE_ALL_MOTHERS" value="1"/>
-	<option name="RECORD_MIRRORS"   value="0"/>
-	
+    <option name="RECORD_OPTICALPHOTONS"   value="0"/>
+
 	<option name="PHYSICS" value="FTFP_BERT + STD"/>
 	
 	<option name="OUTPUT"   value="evio, out.ev"/>
