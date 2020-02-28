@@ -21,7 +21,7 @@ endif
 
 # Farm specific parameters
 set MEMORY   = "2 GB"          # node memory to be used
-set OS       = centos7         # job OS
+set OS       = centos77        # job OS
 set PROJECT  = clas12          # job project name
 set MAIL     = ungaro@jlab.org # author email
 set TRACK    = simulation      # job track
@@ -59,7 +59,7 @@ while ($w <= $#titles)
 	\echo  MAIL:    $MAIL                                                         >> gemc.jsub
 	\echo  TRACK:   $TRACK                                                        >> gemc.jsub
 	\echo  SINGLE_JOB: true                                                       >> gemc.jsub
-#	\echo  OS:      $OS                                                           >> gemc.jsub
+	\echo  OS:      $OS                                                           >> gemc.jsub
 	\echo  MEMORY:  $MEMORY                                                       >> gemc.jsub
 	\echo  TIME:    $TIME                                                         >> gemc.jsub
 	\echo  MULTI_JOBS: $MULTI_JOBS                                                >> gemc.jsub
