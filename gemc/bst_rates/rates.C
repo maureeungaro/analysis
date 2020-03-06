@@ -31,8 +31,8 @@ to paste nice tables from the output:
 				     // convention: filename is target.root
 	
 	const int NTARGET       = 6;
-	string starget[NTARGET] = { "rga-fallOld.root",   "rgb-winterOld.root", "rgb-winterOldHP.root", "rga-fall.root",   "rgb-winter.root", "rgb-winterHP.root" };
-	Color_t colors[NTARGET] = {          kBlue - 2,               kRed - 2,                 kBlack,        kGreen-3,          kBlue + 2,             kRed + 2};
+	string starget[NTARGET] = { "rga-fallOld",   "rgb-winterOld", "rgb-winterOldHP", "rga-fall",   "rgb-winter", "rgb-winterHP" };
+	Color_t colors[NTARGET] = {     kBlue - 2,          kRed - 2,            kBlack,   kGreen-3,     kBlue + 2,        kRed + 2};
 	int TARGET = 0;
 
     
