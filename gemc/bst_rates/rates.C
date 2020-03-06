@@ -30,11 +30,12 @@ to paste nice tables from the output:
 	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
-	const int NTARGET       = 4;
-	string starget[NTARGET] = { "lh2",   "ld2", "ld2PN", "ld2PNpc" };
-	Color_t colors[NTARGET] = { kBlue,  kRed+1,  kBlack, kGreen-3 };
+	const int NTARGET       = 6;
+	string starget[NTARGET] = { "rga-fallOld.root",   "rgb-winterOld.root", "rgb-winterOldHP.root", "rga-fall.root",   "rgb-winter.root", "rgb-winterHP.root" };
+	Color_t colors[NTARGET] = {          kBlue - 2,               kRed - 2,                 kBlack,        kGreen-3,          kBlue + 2,             kRed + 2};
 	int TARGET = 0;
 
+    
 	// deposited energy cut
 	// An MIP releases 108 KeV - or 240000 electrons
 	// That's 222.2 electrons / KeV
