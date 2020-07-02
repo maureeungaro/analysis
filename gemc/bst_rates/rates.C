@@ -27,14 +27,19 @@ to paste nice tables from the output:
 	TH1F *HNHITS;  // contains the number of hits
 	int NHITS ;
 					
-	bool recalc = 1; // 1 will refill all histos - 0 will open the outputf file as input
+	bool recalc = 0; // 1 will refill all histos - 0 will open the outputf file as input
 				     // convention: filename is target.root
 	
-	const int NTARGET       = 6;
-	string starget[NTARGET] = { "rga-fallOld",   "rgb-winterOld", "rgb-winterOldHP", "rga-fall",   "rgb-winter", "rgb-winterHP" };
-	Color_t colors[NTARGET] = {     kBlue - 2,          kRed - 2,            kBlack,   kGreen-3,     kBlue + 2,        kRed + 2};
-	int TARGET = 0;
+	//const int NTARGET       = 6;
+	//string starget[NTARGET] = { "rga-fallOld",   "rgb-winterOld", "rgb-winterOldHP", "rga-fall",   "rgb-winter", "rgb-winterHP" };
+	//Color_t colors[NTARGET] = {     kBlue - 2,          kRed - 2,            kBlack,   kGreen-3,     kBlue + 2,        kRed + 2};
+	//int TARGET = 0;
 
+
+	const int NTARGET       = 2;
+        string starget[NTARGET] = {  "rgb-winterOld",   "rgb-winter",  };
+        Color_t colors[NTARGET] = {    kRed - 2,       kBlue + 2};
+        int TARGET = 0;
     
 	// deposited energy cut
 	// An MIP releases 108 KeV - or 240000 electrons

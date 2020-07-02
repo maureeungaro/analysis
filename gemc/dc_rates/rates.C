@@ -15,10 +15,10 @@
 	
 	
 
-				const int NCONF      = 1;
-				string sconf[NCONF]  = { "clas12VEG"};
+				const int NCONF      = 2;
+				string sconf[NCONF]  = { "target", "target2"};
 			//        string sconf[NCONF]  = { "clas12", "clas12VE", "clas12VEcone21", "clas12VEcone30"};
-				double factor[NCONF] = {   1};  // additional factor to scale the different configurations
+				double factor[NCONF] = {   1, 1};  // additional factor to scale the different configurations
 
 
 
@@ -103,7 +103,9 @@
 	gROOT->LoadMacro("show.C");
 	
 	for(int c=0; c<NCONF; c++)
-		init_dc_histos(Form("/volatile/clas12/ungaro/clas12/root/added/%s.root", sconf[c].c_str()), c);
+//		init_dc_histos(Form("/volatile/clas12/ungaro/clas12/root/added/%s.root", sconf[c].c_str()), c);
+                init_dc_histos(Form("/volatile/clas12/sangbaek/ttarget/root/added/%s.root", sconf[c].c_str()), c);
+
 		
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("DC Occupancy Rates",  "");

@@ -117,7 +117,7 @@ void init_dc_histos(string filename, int cindex)
 			{
 				string sectcut= Form("sector == %d", s+1);
 				
-				string allCuts    = hitCut + "  && " + sectcut + " && !(vz > 850 && vz < 1000 && sqrt(vx*vx+vy*vy) < 20) " ;
+				string allCuts    = hitCut + "  && " + sectcut ;
 				
 				// 2D occupancy histos: 2D for each sector, wire vs layer
 				// layer is from 1 to 36
@@ -136,7 +136,7 @@ void init_dc_histos(string filename, int cindex)
 			for(int r=0; r<NREG; r++)
 			{
 				string hitCutR;
-				if(r==0) hitCutR = hitCut + "               && layer < 13" + " && !(vz > 850 && vz < 1000 && sqrt(vx*vx+vy*vy) < 20) ";
+				if(r==0) hitCutR = hitCut + "               && layer < 13" ;
 				if(r==1) hitCutR = hitCut + " && layer > 12 && layer < 25";
 				if(r==2) hitCutR = hitCut + " && layer > 24 ";
 
@@ -172,7 +172,7 @@ void init_dc_histos(string filename, int cindex)
 			for(int r=0; r<3; r++)
 			{
 				string regionCut = Form("(layer > %d && layer < %d)", 12*r, 12*(r+1) + 1);
-				string allCuts    = hitCut + "  && " + regionCut  + " && !(vz > 850 && vz < 1000 && sqrt(vx*vx+vy*vy) < 200) ";
+				string allCuts    = hitCut + "  && " + regionCut  ;
 				string histSum   = Form("sector - 0.5 >> dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str());
 				dc->Draw(histSum.c_str(), allCuts.c_str());
 				dc_occ_summary[r][e][cindex]->Sumw2();
