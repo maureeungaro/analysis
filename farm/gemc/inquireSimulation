@@ -10,6 +10,8 @@
 # rootr:   will rootify and remove simulation dir
 # clear:   will remove unfinished directories
 
+source /group/clas12/packages/setup.csh
+module load clas12/pro
 
 set OPT = $1
 
