@@ -55,6 +55,7 @@ while ($SIMU < $NMAX)
 		# linking detector info and input files
 		ln -s $expsd .
 		ln -s $expsd $runDir/
+                setenv GEMC_DATA_DIR $expsd
 
 		# copying gcard to runDir
 		cp $gcard $runDir
@@ -70,7 +71,11 @@ while ($SIMU < $NMAX)
 		./logConditions pre-run $SIMU $x            
 		./logConditions pre-run $SIMU $x          >> localLog
 
-		# running gemc
+		setenv GEMC_DATA_DIR $expsd
+                echo GEMC_DATA_DIR: $GEMC_DATA_DIR  >> localLog
+                ls -l $GEMC_DATA_DIR >> localLog
+
+		# running gemc              
 		gemc $gcard -N=$nevents -USE_GUI=0        >> $gemcLogFile
 
 

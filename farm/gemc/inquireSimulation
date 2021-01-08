@@ -18,7 +18,7 @@ set OPT = $1
 # Parameters set by user
 # ----------------------
 
-set GCARDSD = /home/ungaro/projects/analysis/farm/gemc/studies/deuteronEffect      # collection of gcards. One job / gcard will be launched
+set GCARDSD = /home/ungaro/projects/analysis/farm/gemc/studies/nh3      # collection of gcards. One job / gcard will be launched
 set INPUTD  = /volatile/clas12/ungaro/clas12  # location of evio files (inside each gcard title)
 set OUTPUTD = $INPUTD/root                    # output directory
 set EXACT   = 10                              # number of expected events
@@ -108,6 +108,7 @@ while ($w <= $#titles)
 				# no core found - proceed
 				# identifying last event
 				set LASTE = `grep Event $thisDir/gemc.log | grep "End of Event" | tail -1 | awk -F"End of Event" '{print $2}' | awk '{print $1}'`
+				set LASTE = 10
 				if($LASTE == "") then
 					set LASTE = 0
 				endif
