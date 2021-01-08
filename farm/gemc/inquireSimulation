@@ -108,7 +108,7 @@ while ($w <= $#titles)
 				# no core found - proceed
 				# identifying last event
 				set LASTE = `grep Event $thisDir/gemc.log | grep "End of Event" | tail -1 | awk -F"End of Event" '{print $2}' | awk '{print $1}'`
-				set LASTE = 10
+				# set LASTE = 10
 				if($LASTE == "") then
 					set LASTE = 0
 				endif
@@ -127,7 +127,7 @@ while ($w <= $#titles)
 						if ( -f $thisDir/out.ev ) then
 
 							\echo " > Last good event for simulation $SIMU is $LASTE. Good. Start Event is $EVN"
-							set exc = `evio2root -B="$BANKSM" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
+							set exc = `evio2root -B="$BANKSM" -R"$BANKSM" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
 							#set exc = `evio2root -B="dc ftof htcc" -INPUTF=$thisDir/out.ev -ADDEVN=$ADDEVN |& grep -i segmentation | awk '{print $1}'`
 						
 							# evio2root failed
