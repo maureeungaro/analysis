@@ -15,7 +15,7 @@ void show_dc_occ()
 
 
 	// TEMP SCALE TO 100 SO WE DO NOT HAVE TO RECALC
-	dc_occ[SECT][ENERGY][CONF]->SetMaximum(4);
+	dc_occ[SECT][ENERGY][CONF]->SetMaximum(24);
 
 	dc_occ[SECT][ENERGY][CONF]->Draw("colz");
 	
@@ -74,7 +74,7 @@ void show_dc_int_occ()
 
 		// manually setting max
 		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(max);
-		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(3.0);
+		dc_occ_summary[r][ENERGY][CONF]->SetMaximum(45.0);
 
 //		if(CONF==2)
 //			dc_occ_summary[r][ENERGY][CONF]->SetMaximum(2);
@@ -135,7 +135,7 @@ void show_dc_int_occ()
 	sprintf(r2label, "Region2: %3.2f%% * %d = %3.2f", intocc[1]/factor[CONF],  factor[CONF], r2Occ);
 	sprintf(r3label, "Region3: %3.2f%% * %d = %3.2f", intocc[2]/factor[CONF],  factor[CONF], r3Occ);
 
-	TLegend *tmodels  = new TLegend(0.5, 0.6, 0.8,  0.8);
+	TLegend *tmodels  = new TLegend(0.3, 0.6, 0.8,  0.73);
 	tmodels->AddEntry(dc_occ_summary[0][ENERGY][CONF], r1label,  "P");
 	tmodels->AddEntry(dc_occ_summary[1][ENERGY][CONF], r2label,  "P");
 	tmodels->AddEntry(dc_occ_summary[2][ENERGY][CONF], r3label,  "P");
