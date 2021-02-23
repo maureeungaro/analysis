@@ -3,11 +3,10 @@
 
 	<!-- other variations include: lH2, lD2, ND3, "elaborate"  -->
 
-	<detector name="experiments/clas12/helmholtzTransverse/target" factory="TEXT" variation="transverse"/>
-	<detector name="experiments/clas12/helmholtzTransverse/helmholtzSolenoid/" factory="CAD"/>
+	<detector name="experiments/clas12/targets/target" factory="TEXT" variation="transverse"/>
+	<detector name="experiments/clas12/targets/transverseTargetCad//" factory="CAD"/>
 
 	<detector name="experiments/clas12/magnets/cad/"      factory="CAD" />
-
 
 	<!-- Beamline configuration: FT is not used -->
 	<detector name="experiments/clas12/ft/ft" factory="TEXT" variation="FTOff"/>
@@ -19,12 +18,14 @@
 	<!-- forward carriage -->
 	<detector name="experiments/clas12/fc/forwardCarriage" factory="TEXT" variation="TorusSymmetric"/>
 
+	<!-- Just DC in forward carriage. This is specific to Region1 DC occupancy only.
+		  Add all other detectors if we're interested in the other regions as well  -->
 	<detector name="experiments/clas12/dc/dc"              factory="TEXT" variation="default"/>
 
 	<!-- hall field  -->
-	<option name="HALL_FIELD"  value="transverseOldMagnet"/>
-	<option name="SCALE_FIELD" value="transverseOldMagnet, 1.1"/>
-	<option name="FIELD_PROPERTIES" value="transverseOldMagnet, 1*mm, G4ClassicalRK4, linear"/>
+	<option name="HALL_FIELD"  value="transverseNewMagnet"/>
+	<option name="SCALE_FIELD" value="transverseNewMagnet, 1.1"/>
+	<option name="FIELD_PROPERTIES" value="transverseNewMagnet, 1*mm, G4ClassicalRK4, linear"/>
 
 
 	<!-- beam conditions -->
@@ -50,17 +51,18 @@
 	<option name="INTEGRATEDRAW" value="dc"/>
 
 
-	<!--  RF Signal needs event time window defined by LUMI_EVENT -->
-	<option name="LUMI_EVENT"  value="420, 252*ns, 4*ns" />
+	<!--  RF Signal needs event time window defined by LUMI_EVENT
+	      This is the 60% of NH3 and 40% of liquid-helium 10^33 luminosity 28.4mm long target -->
+	<option name="LUMI_EVENT"     value="252, 252*ns, 4*ns" />
 	<option name="LUMI_P"         value="e-, 10.6*GeV, 2.7*deg, 180*deg" />
 	<option name="LUMI_V"         value="(1.0, 0.0, -30)cm" />
 	<option name="LUMI_SPREAD_V"  value="(0.05, 0.05)cm" />
-	<option name="RFSETUP"     value="0.499, 40, 20" />
+	<option name="RFSETUP"        value="0.499, 40, 20" />
 
 	<!--  Reference position set as target shift below -->
 	<option name="RFSTART"     value="eventVertex, 0, 0, -30.0" />
 
-	<option name="ROTATE_FIELDMAP"     value="transverseOldMagnet, 0*deg, 0*deg, 0*deg" />
+	<option name="ROTATE_FIELDMAP"     value="transverseNewMagnet, 0*deg, 0*deg, 0*deg" />
 
 <!--	<detector name="main-cone">-->
 <!--		<existence exist="no" />-->
