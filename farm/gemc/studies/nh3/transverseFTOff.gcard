@@ -24,7 +24,7 @@
 
 	<!-- hall field  -->
 	<option name="HALL_FIELD"  value="transverseNewMagnet"/>
-	<option name="SCALE_FIELD" value="transverseNewMagnet, 1.1"/>
+	<option name="SCALE_FIELD" value="transverseNewMagnet, 1.0"/>
 	<option name="FIELD_PROPERTIES" value="transverseNewMagnet, 1*mm, G4ClassicalRK4, linear"/>
 
 
