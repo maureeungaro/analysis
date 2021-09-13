@@ -2,13 +2,14 @@
 
 # user setup: environment
 # -----------------------
-source /group/clas12/packages/setup.csh
-module load clas12/pro
+#source /group/clas12/packages/setup.csh
+#module load clas12/pro
 
-#setenv JLAB_VERSION 2.5
-#setenv GEANT4_VERSION 4.10.07.p02
-#setenv GEMC /home/ungaro/tmp/source
-#source /site/12gev_phys/softenv.csh $JLAB_VERSION keepmine
+setenv JLAB_VERSION 2.5
+setenv GEANT4_VERSION 4.10.07.p02
+setenv GEMC /home/ungaro/tmp/source
+#setenv GEMC /home/ungaro/tmp/east
+source /site/12gev_phys/softenv.csh $JLAB_VERSION keepmine
 
 # -----------------
 # end of user setup
