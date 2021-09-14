@@ -37,7 +37,7 @@ to paste nice tables from the output:
 
 
 	const int NTARGET       = 2;
-        string starget[NTARGET] = {  "rgb-winterOld",   "rgb-winter",  };
+        string starget[NTARGET] = {  "lh2",   "lh2e",  };
         Color_t colors[NTARGET] = {    kRed - 2,       kBlue + 2};
         int TARGET = 0;
     
@@ -149,7 +149,7 @@ to paste nice tables from the output:
 	init_induced_damage();
 	
 	for(int t=0; t<NTARGET; t++)
-		init_bst_histos(Form("/lustre/expphy/volatile/clas12/ungaro/clas12/root/added/%s.root", starget[t].c_str()), t);
+		init_bst_histos(Form("/lustre19/expphy/volatile/clas12/ungaro/east/%s.root", starget[t].c_str()), t);
 	
 
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
