@@ -27,6 +27,9 @@ void change_sector()
 void print_all()
 {
 	PRINT = "png";
+	if (GSIM) {
+		PRINT = "_gsim.png";
+	}
 
 	// cc theta
 	calc_all_cc_match();

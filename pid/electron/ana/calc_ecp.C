@@ -1,3 +1,7 @@
+#include "calc_ecp.h"
+
+
+
 double Mean(double *x, double *par)
 { 
 	// par[0] is sector

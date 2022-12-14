@@ -1,3 +1,7 @@
+
+
+
+
 double cc_match_Mean(double *x, double *par)
 { 
 	// par[0] is sector
@@ -20,8 +24,6 @@ double cc_match_Mean2(double *x, double *par)
 			Pars.cc_match_mean_b[s]*segment +
 			Pars.cc_match_mean_c[s]*segment*segment;
 }
-
-
 
 double cc_match_Sigma(double *x, double *par)
 {
