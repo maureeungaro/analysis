@@ -1,28 +1,10 @@
-// /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=cut  -addColumnTableVariable=sector -defaultPlot=img/cut-cctm_sector-1.png -imagesSize="1000 1000"
-
-// slices: slice 1 / total?
-// slices sampling fraction title
-
-// cut-01: theta match
-// cut-02: phi match
-// cut-03: time match
-// cut-04: p threshold
-// cut-05: sampling fraction
-// cut-06,7,8: u,v,w
-// cut-09: 2d uvw (not a cut)
-// cut-10: EoVsEi
-// cut-11: shshape
-// cut-12: nphe (not a cut)
-
 #include "TControlBar.h"
 #include "TApplication.h"
 
 
-// various constants
-//#include "utilities.h"
-
 // common parameters
 #include"ana/parameters.h"
+#include"ana/cc_match.h"
 
 // histos and parameters
 #include "src/common_info.h"
@@ -46,8 +28,10 @@ int main(int argc, char **argv)
 
 	// load common histos and parameters
 	// second parameters instructs to read the root file
-	chistos H(root_file, 1);
-	cpars Pars(pars_file);
+	chistos *H    = new chistos(root_file, 1);
+	cpars   *Pars = new cpars(pars_file);
+
+    CC_Match *CC = new CC_Match(H, Pars);
 
 	//
 	//	init();

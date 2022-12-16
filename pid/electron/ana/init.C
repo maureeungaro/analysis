@@ -1,17 +1,9 @@
 void init()
 {
-	for(int s=0; s<7; s++)
+	for(int s=0; s<6; s++)
 	{
-		no_cc_or_ec[s]   = H.monitor[2][s]->GetBinContent(1);
-		hit_cc[s]        = H.monitor[2][s]->GetBinContent(2);
-		hit_ec[s]        = H.monitor[2][s]->GetBinContent(3);
-		hit_cc_and_ec[s] = H.monitor[2][s]->GetBinContent(4);
-		
-		if(s<6)
-		{
-			cc_match_mean[s] = NULL;
-			cc_timing_low[s] = NULL;
-		}
+        cc_match_mean[s] = NULL;
+        cc_timing_low[s] = NULL;
 	}
 }
 

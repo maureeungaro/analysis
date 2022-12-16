@@ -180,11 +180,11 @@ void show_ecps()
 	lab.DrawLatex(0.65, 0.92,  Form("Lower Limit: #mu - %3.2f #sigma", Pars.NSIGMAS[1]));
 	
 	lab.SetTextColor(colors[0]);
-	lab.DrawLatex(0.61, 0.30,  Form("ec / no ec:  %3.1f%%",                 100.0*hit_ec[s] / no_cc_or_ec[s]));
+	lab.DrawLatex(0.61, 0.30,   Form("ec / no ec:  %3.1f%%",                100.0*H.monitor[2][s]->GetBinContent(3)  / H.monitor[2][s]->GetBinContent(1) ));
 	lab.SetTextColor(kRed+3);
-	lab.DrawLatex(0.424, 0.25,  Form("Sampling Fraction Cut / ec: %3.1f%%", 100.0*H.monitor[0][s]->GetBinContent(4)  / H.monitor[0][s]->GetBinContent(1)));
+	lab.DrawLatex(0.424, 0.25,  Form("Sampling Fraction Cut / ec: %3.1f%%", 100.0*H.monitor[0][s]->GetBinContent(4)  / H.monitor[0][s]->GetBinContent(1) ));
 	lab.SetTextColor(colors[3]);
-	lab.DrawLatex(0.60, 0.20,   Form("all cuts / ec: %3.1f%%",              100.0*H.monitor[1][s]->GetBinContent(10) / H.monitor[0][s]->GetBinContent(1)));
+	lab.DrawLatex(0.60, 0.20,   Form("all cuts / ec: %3.1f%%",              100.0*H.monitor[1][s]->GetBinContent(10) / H.monitor[0][s]->GetBinContent(1) ));
 	lab.SetTextColor(colors[1]);
 	lab.SetTextFont(102);
 	lab.DrawLatex(0.48, 0.84,  "All Other Cuts Applied");

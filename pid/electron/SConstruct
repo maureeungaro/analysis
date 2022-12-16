@@ -18,6 +18,7 @@ e_pid = env.Program(source = e_pid_sources, target = 'e_pid')
 # env.SharedLibrary(source = e_pid_sources, target = 'epid')
 
 e_pid_msources = Split("""e_pid.C
-                          src/common_info.cc""")
+                          src/common_info.cc
+                          ana/cc_match.cc""")
 
 e_pid_macro = env.Program(source = e_pid_msources, target = 'e_pid_analysis')

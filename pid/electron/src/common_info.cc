@@ -27,27 +27,27 @@ chistos::chistos(string filename, int READ)
 		for(int s=0; s<7; s++) {
 			for(int c=0; c<4; c++) {
 				nphe[c][s]          = new TH1F(Form("nphe_%s_sect%d",                         cut[c].c_str(), s+1),
-														 Form("10*photoelectrons in cc: %s, sector %d", cut[c].c_str(), s+1), 240, -20, 220);
+                                               Form("10*photoelectrons in cc: %s, sector %d", cut[c].c_str(), s+1), 240, -20, 220);
 				theta_vs_segm[c][s] = new TH2F(Form("theta_vs_segm_%s_sect%d",                cut[c].c_str(), s+1),
-														 Form("CC Theta vs segment: %s, sector %d",     cut[c].c_str(), s+1), 20, 0, 20, 900, -5, 60);
+                                               Form("CC Theta vs segment: %s, sector %d",     cut[c].c_str(), s+1), 20, 0, 20, 900, -5, 60);
 				phi_match[c][s]     = new TH1F(Form("phi_match_%s_sect%d",                    cut[c].c_str(), s+1),
-														 Form("CC phi match: %s, sector %d",            cut[c].c_str(), s+1), 7, -3, 3);
+                                               Form("CC phi match: %s, sector %d",            cut[c].c_str(), s+1), 7, -3, 3);
 				cc_timing[c][s]     = new TH2F(Form("cc_timing_%s_sect%d",                    cut[c].c_str(), s+1),
-														 Form("CC Timing vs segment %s, sector %d",     cut[c].c_str(), s+1), 38, 0, 38, 400, -20, 20);
+                                               Form("CC Timing vs segment %s, sector %d",     cut[c].c_str(), s+1), 38, 0, 38, 400, -20, 20);
 				ecthr[c][s]         = new TH1F(Form("ecthr_%s_sect%d",                        cut[c].c_str(), s+1),
-														 Form("EC Threshold: %s, sector %d",            cut[c].c_str(), s+1), 285, -0.3, 6.0);
+                                               Form("EC Threshold: %s, sector %d",            cut[c].c_str(), s+1), 285, -0.3, 6.0);
 				ecp[c][s]           = new TH2F(Form("ecp_%s_sect%d",                          cut[c].c_str(), s+1),
-														 Form("E_ec/P vs P: %s, sector %d",             cut[c].c_str(), s+1), 250, 0, 5, 250, 0.0, 0.5);
+                                               Form("E_ec/P vs P: %s, sector %d",             cut[c].c_str(), s+1), 250, 0, 5, 250, 0.0, 0.5);
 				ECu[c][s]           = new TH1F(Form("ECu_%s_sect%d",                          cut[c].c_str(), s+1),
-														 Form("EC U coordinate: %s, sector %d",         cut[c].c_str(), s+1), 235, -10, 460);
+                                               Form("EC U coordinate: %s, sector %d",         cut[c].c_str(), s+1), 235, -10, 460);
 				ECv[c][s]           = new TH1F(Form("ECv_%s_sect%d",                          cut[c].c_str(), s+1),
-														 Form("EC V coordinate: %s, sector %d",         cut[c].c_str(), s+1), 235, -10, 420);
+                                               Form("EC V coordinate: %s, sector %d",         cut[c].c_str(), s+1), 235, -10, 420);
 				ECw[c][s]           = new TH1F(Form("ECw_%s_sect%d",                          cut[c].c_str(), s+1),
-														 Form("EC W coordinate: %s, sector %d",         cut[c].c_str(), s+1), 235, -10, 460);
+                                               Form("EC W coordinate: %s, sector %d",         cut[c].c_str(), s+1), 235, -10, 460);
 				EoutEin[c][s]       = new TH2F(Form("EoutEin_%s_sect%d",                      cut[c].c_str(), s+1),
-														 Form("Eout/P vs Ein/P: %s, sector %d",         cut[c].c_str(), s+1), 300, 0.0, 0.3, 300, 0.0, 0.3);
+                                               Form("Eout/P vs Ein/P: %s, sector %d",         cut[c].c_str(), s+1), 300, 0.0, 0.3, 300, 0.0, 0.3);
 				EinEtot[c][s]       = new TH2F(Form("EinEtot_%s_sect%d",                      cut[c].c_str(), s+1),
-														 Form("Ein/E total vs P: %s, sector %d",        cut[c].c_str(), s+1), 225, 0.0, 4.5, 200, 0.0, 1.2);
+                                               Form("Ein/E total vs P: %s, sector %d",        cut[c].c_str(), s+1), 225, 0.0, 4.5, 200, 0.0, 1.2);
 			}
 		}
 		// utility histos
