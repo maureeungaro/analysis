@@ -1,6 +1,16 @@
 #include "cc_match.h"
 
+// constructor using chisto and cpars
+CC_Match::CC_Match(chistos *common_histo, cpars *common_pars, string P) {
+    H = common_histo;
+    Pars = common_pars;
+    PRINT = P;
 
+    for(int s=0; s<6; s++) {
+        cc_match_mean[s] = NULL;
+        cc_timing_low[s] = NULL;
+    }
+}
 
 double CC_Match::cc_match_Mean(double *x, double *par)
 { 
@@ -65,7 +75,7 @@ void CC_Match::calc_cc_match(int sector)
 	
 	TCanvas *Ccc_match  = new TCanvas("Ccc_match", "Ccc_match", 800, 800);
 	
-	TF1 *MyFit = new TF1("MyFit", gauss2_para, -100, 800, 6);
+	TF1 *MyFit = new TF1("MyFit", CC_Match::gauss2_para, -100, 800, 6);
 	MyFit->SetLineColor(kRed+2);
 	MyFit->SetLineWidth(1);
 	

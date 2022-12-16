@@ -2,13 +2,13 @@
 #include "TApplication.h"
 
 
-// common parameters
+// common parameters, analysis classes
 #include"ana/parameters.h"
-#include"ana/cc_match.h"
 
-// histos and parameters
-#include "src/common_info.h"
-
+void calc_cc_match() {
+    cout << 'asd ' << endl;
+    //CCMatch->calc_cc_match(SECTOR);
+}
 int main(int argc, char **argv)
 {
 	string pars_file = data_pars_file;
@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 			pars_file = data_pars_file;
 			root_file = data_root_file;
 			data_label = "gsim";
+            GSIM  = 1;
 			PRINT = "_gsim.png";
 		}
 	}
@@ -28,20 +29,25 @@ int main(int argc, char **argv)
 
 	// load common histos and parameters
 	// second parameters instructs to read the root file
-	chistos *H    = new chistos(root_file, 1);
-	cpars   *Pars = new cpars(pars_file);
+	H       = new chistos(root_file, 1);
+	Pars    = new cpars(pars_file);
 
-    CC_Match *CC = new CC_Match(H, Pars);
+    CCMatch = new CC_Match(H, Pars, PRINT);
 
-	//
-	//	init();
+
 
 	TApplication app("app", &argc, argv);
 
 	TControlBar* bar = new TControlBar("vertical", data_label.c_str());
 	bar->AddButton("Electron Particle ID", "");
 	bar->AddButton("","");
-	bar->AddButton("Calculate new CC theta matching cuts",     "calc_cc_match();");
+
+    // add button to execute  calc_cc_match defined in parameters.h
+    bar->AddButton("calc_cc_match", "calc_cc_match");
+
+    bar->AddButton("How to run  ","calc_cc_match()","Instructions for running this macro");
+
+	// bar->AddButton("Calculate new CC theta matching cuts",     "calc_cc_match()");
 	////	bar->AddButton("Show CC theta matching cuts",              "show_cc_match();");
 	////	bar->AddButton("Show CC theta matching cuts each sector",  "show_theta_vs_segms();");
 	////	bar->AddButton("Show CC theta matching cuts all sectors",  "show_theta_vs_segm_all_sectors();");
@@ -87,7 +93,9 @@ int main(int argc, char **argv)
 	//	bar->AddButton("Write Parameters",                         "Pars.write_vars(pars_file);");
 	bar->AddButton("","");
 	bar->Show();
-	app.Run();
+    gROOT->SaveContext();
+
+    app.Run();
 
 	return 0;
 }

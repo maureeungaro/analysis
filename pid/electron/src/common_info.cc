@@ -13,7 +13,7 @@
 chistos::chistos(string filename, int READ)
 {
 	string cut[4]     = {"no_cuts_on", "all_other_cuts_on", "all_other_cuts_neg", "all_cuts_on"};
-	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
+	//Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
 	
 	// Default: filename is output file
 	if(READ == 0)

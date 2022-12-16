@@ -1,21 +1,43 @@
 #ifndef GLOBAL_PARAMETERS_LOADED
 #define GLOBAL_PARAMETERS_LOADED
 
+// histos and parameters
+#include "../src/common_info.h"
 
-//#include "TGraphErrors.h"
-//#include "TF1.h"
+// analysis classes
+#include "cc_match.h"
 
 
-Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
+
+
+
+
 
 std::string PRINT = ".png";
-int SECTOR        = 1;
+
+
+int SECTOR = 1;
+int GSIM   = 0;
 
 const std::string data_pars_file = "electron_id_par.txt";
 const std::string gsim_pars_file = "electron_id_par_gsim.txt";
 const std::string data_root_file = "data_epid.root";
 const std::string gsim_root_file = "gsim_epid.root";
 std::string data_label     = "data";
+
+
+// common histogram
+chistos *H = nullptr;
+cpars   *Pars;
+
+// analysis classes
+CC_Match *CCMatch ;
+// Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
+
+
+//void change_sector();
+//void print_all();
+
 
 
 //const int NDIV = 15;       // divisions of sampling fraction
@@ -46,9 +68,6 @@ std::string data_label     = "data";
 //TF1 *cc_match_up = new TF1("cc_match_up", cc_match_limit, 1, 19, 3);
 //TF1 *cc_match_dn = new TF1("cc_match_dn", cc_match_limit, 1, 19, 3);
 //
-//// CC timing histos, variables, functions
-//TH1F *cc_timing1d[6][36];      // 1 dimensional projections, fitted with GAUS
-//TGraphErrors *cc_timing_low[6];
 
 
 
