@@ -20,13 +20,10 @@ void print_all()
 	}
     CCMatch->set_print(PRINT);
 
-
-//	// cc theta
+    // CC matching
     CCMatch->calc_all_cc_match();
-//	calc_all_cc_match();
-//
-//
-//    CCMatch->set_print(PRINT);
+
+
 //
 //	// cc TIMING
 //	calc_all_cc_timing();
@@ -35,8 +32,7 @@ void print_all()
 //	calc_all_ecp();
 
 	// indivicual sectors plots
-//	for(int s=0; s<6; s++)
-//	{
+
 //		SECTOR = s+1;
 //		show_npeSingle();
 //

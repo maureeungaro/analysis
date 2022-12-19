@@ -28,7 +28,6 @@ cpars   *Pars;
 
 // analysis classes
 CC_Match *CCMatch ;
-// Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
 
 
 //void change_sector();
@@ -58,14 +57,6 @@ CC_Match *CCMatch ;
 //TF1 *sf_up = new TF1("sf_up", ecp_limit, 0.2, 5, 3);
 //TF1 *sf_dn = new TF1("sf_dn", ecp_limit, 0.2, 5, 3);
 //
-
-
-//TF1 *cc_match_me = new TF1("cc_match_me", cc_match_Mean,  1, 19, 1);
-//TF1 *cc_match_up = new TF1("cc_match_up", cc_match_limit, 1, 19, 3);
-//TF1 *cc_match_dn = new TF1("cc_match_dn", cc_match_limit, 1, 19, 3);
-//
-
-
 
 #endif
 
