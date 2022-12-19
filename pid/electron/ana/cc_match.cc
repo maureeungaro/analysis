@@ -81,23 +81,21 @@ void CC_Match::calc_cc_match(int sector)
 	
 	int s = sector - 1;
 	double xb[18], xbe[18];
-	for(int b=0; b<18; b++)
-	{
+	for(int b=0; b<18; b++) {
 		xb[b]  = b+1.5;
 		xbe[b] = 0;
 	}
 	
 	// Slicing + fitting
 	cout << " Fitting sector " << s+1 << endl;
-	for(int b=0; b<18; b++)
-	{
+	for(int b=0; b<18; b++) {
 		cout << " Fitting pmt " << b+1 << endl;
 		H->theta_vs_segm[1][s]->ProjectionY(Form("cc_match1d_s%d_pmt%d", s+1, b+1), b+2, b+3);
 		cc_match1d[s][b] = (TH1F*)gROOT->Get(Form("cc_match1d_s%d_pmt%d", s+1, b+1));
-		
+
 		// Gaussian fit
 		cc_match1d[s][b]->Fit("gaus", "QEM");
-		
+
 		double max   = cc_match1d[s][b]->GetBinCenter( cc_match1d[s][b]->GetMaximumBin() );
 		double sigma = cc_match1d[s][b]->GetFunction("gaus")->GetParameter(2);
 		if(sigma > 2) sigma = 2;
@@ -112,13 +110,13 @@ void CC_Match::calc_cc_match(int sector)
 			xmin = 43;
 			xmax = 50;
 		}
-		
+
 		MyFit->SetParameter(3, cc_match1d[s][b]->GetFunction("gaus")->GetParameter(0));
 		MyFit->SetParameter(4, max);
 		MyFit->SetParLimits(4, max-5, max+10);
 		MyFit->SetParameter(5, 3);
 		MyFit->SetParLimits(5, 0.6, 10);
-		
+
 		// cc_match1d[s][b]->Fit("MyFit", "QEM");
 		cc_match1d[s][b]->Fit("MyFit", "QREM", "", xmin, xmax);
 		cc_matchmean[s][b]  = MyFit->GetParameter(4);
@@ -131,15 +129,15 @@ void CC_Match::calc_cc_match(int sector)
 	// Now creating / fitting the graphs
 	cc_match_mean[s] = new TGraphErrors(18, xb, cc_matchmean[s], xbe, cc_matchmeane[s]);
 	cc_match_sigm[s] = new TGraphErrors(18, xb, cc_matchsigm[s], xbe, cc_matchsigme[s]);
-		
-	
+
+
 	// will miss the first and last 2 pmts.
 	cc_match_mean[s]->Fit("pol2", "REM", "", 1, 20);
-		
+
 	Pars->cc_match_mean_a[s] = cc_match_mean[s]->GetFunction("pol2")->GetParameter(0);
 	Pars->cc_match_mean_b[s] = cc_match_mean[s]->GetFunction("pol2")->GetParameter(1);
 	Pars->cc_match_mean_c[s] = cc_match_mean[s]->GetFunction("pol2")->GetParameter(2);
-	
+//
 	cc_match_mean[s]->GetFunction("pol2")->SetLineColor(kRed+2);
 	cc_match_mean[s]->GetFunction("pol2")->SetLineWidth(2);
 	cc_match_mean[s]->GetFunction("pol2")->SetLineStyle(2);
@@ -151,7 +149,7 @@ void CC_Match::calc_cc_match(int sector)
 	cc_match_mean[s]->GetYaxis()->SetTitle("#theta on CC plane");
 	cc_match_sigm[s]->GetXaxis()->SetTitle("Segment");
 	cc_match_sigm[s]->GetYaxis()->SetTitle("#Delta#theta on CC plane");
-	
+
 	cc_match_mean[s]->GetXaxis()->SetLabelSize(0.05);
 	cc_match_mean[s]->GetYaxis()->SetLabelSize(0.05);
 	cc_match_sigm[s]->GetXaxis()->SetLabelSize(0.05);
@@ -176,7 +174,7 @@ void CC_Match::calc_cc_match(int sector)
 	lab.SetTextSize(0.07);
 	Psum->cd(1);
 	cc_match_mean[s]->Draw("AP");
-	
+
 	lab.DrawLatex(0.20, 0.75,  "Mean:");
 	lab.DrawLatex(0.20, 0.65,  "#mu = a + bx + cx^{2}");
 	lab.DrawLatex(0.70, 0.45,  Form("a = %3.2f", Pars->cc_match_mean_a[s]));
@@ -197,7 +195,7 @@ void CC_Match::calc_cc_match(int sector)
 
 
 	if(PRINT != "") {
-		Csum->Print( Form("img/cut-01cctmpars_sector-%d.%s", s+1, PRINT.c_str()) );
+        Csum->Print( Form("img/cut-01-thetamatch_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 	
 	cout << " done " << endl;

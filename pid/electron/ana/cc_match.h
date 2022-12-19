@@ -19,6 +19,7 @@ public:
     // set print
     void set_print(string P) { PRINT = P; }
     void calc_cc_match(int sector);
+    void calc_all_cc_match();
 
 private:
 
@@ -44,7 +45,6 @@ private:
     double cc_match_Mean2(double *x, double *par);
     double cc_match_Sigma(double *x, double *par);
     double cc_match_limit(double *x, double *par);
-    void calc_all_cc_match();
 
 
     // 2 gaussians + parabole

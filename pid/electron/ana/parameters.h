@@ -9,15 +9,11 @@
 
 
 
-
-
-
-
-std::string PRINT = ".png";
-
-
+std::string DATA_PRINT = ".png";
+std::string SIM_PRINT  = "_gsim.png";
+std::string PRINT  = "";
+bool is_simulation = false;
 int SECTOR = 1;
-int GSIM   = 0;
 
 const std::string data_pars_file = "electron_id_par.txt";
 const std::string gsim_pars_file = "electron_id_par_gsim.txt";

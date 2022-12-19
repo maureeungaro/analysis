@@ -85,18 +85,20 @@ chistos::chistos(string filename, int READ)
 	} else { // Reading from Input file
 		if( filename != "none" ) {
 			TFile f(filename.c_str());
-			cout << " Loading histos from: " << filename << endl;
+			cout << "\n > Loading histos from: " << filename << endl;
 
 			for(int s=0; s<7; s++) {
 				for(int c=0; c<4; c++) {
 
 					cc_timing[c][s]     = (TH2F*)f.Get(Form("cc_timing_%s_sect%d",     cut[c].c_str(), s+1));
+                    theta_vs_segm[c][s] = (TH2F*)f.Get(Form("theta_vs_segm_%s_sect%d", cut[c].c_str(), s+1));
+
 					cc_timing[c][s]    ->SetDirectory(0);
+					theta_vs_segm[c][s]->SetDirectory(0);
 
 
 
 //					nphe[c][s]          = (TH1F*)f.Get(Form("nphe_%s_sect%d",          cut[c].c_str(), s+1));
-//					theta_vs_segm[c][s] = (TH2F*)f.Get(Form("theta_vs_segm_%s_sect%d", cut[c].c_str(), s+1));
 //					phi_match[c][s]     = (TH1F*)f.Get(Form("phi_match_%s_sect%d",     cut[c].c_str(), s+1));
 //					ecthr[c][s]         = (TH1F*)f.Get(Form("ecthr_%s_sect%d",         cut[c].c_str(), s+1));
 //					ecp[c][s]           = (TH2F*)f.Get(Form("ecp_%s_sect%d",           cut[c].c_str(), s+1));
@@ -106,7 +108,6 @@ chistos::chistos(string filename, int READ)
 //					EoutEin[c][s]       = (TH2F*)f.Get(Form("EoutEin_%s_sect%d",       cut[c].c_str(), s+1));
 //					EinEtot[c][s]       = (TH2F*)f.Get(Form("EinEtot_%s_sect%d",       cut[c].c_str(), s+1));
 //					nphe[c][s]         ->SetDirectory(0);
-//					theta_vs_segm[c][s]->SetDirectory(0);
 //					phi_match[c][s]    ->SetDirectory(0);
 //					ecthr[c][s]        ->SetDirectory(0);
 //					ecp[c][s]          ->SetDirectory(0);
@@ -202,7 +203,7 @@ void chistos::write_and_close()
 cpars::cpars(string filename)
 {
 	ifstream parfile(filename.c_str(), ios::in);
-	cout << endl << " Opening parameter file " << filename << endl;
+	cout << endl << " > Opening parameter file " << filename << endl << endl;
 	if(!parfile) {
 		cout << " File " <<  filename << " could not be opened. " << endl;
 		cout << " Specify parameters file with -PARS_FILE=filename. Exiting. " << endl;

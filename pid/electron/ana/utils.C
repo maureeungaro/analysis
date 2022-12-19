@@ -1,6 +1,7 @@
 #include"parameters.h"
 
 
+
 void change_sector()
 {
 	SECTOR ++;
@@ -11,12 +12,17 @@ void change_sector()
 
 void print_all()
 {
-	PRINT = "png";
-	if (GSIM) {
-		PRINT = "_gsim.png";
+    cout << " > Printing all histograms " << endl;
+
+	PRINT = DATA_PRINT;
+	if (is_simulation) {
+		PRINT = SIM_PRINT;
 	}
+    CCMatch->set_print(PRINT);
+
 
 //	// cc theta
+    CCMatch->calc_all_cc_match();
 //	calc_all_cc_match();
 //
 //
