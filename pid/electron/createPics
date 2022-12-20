@@ -26,7 +26,7 @@ rm imageslist.txt ; ls img/* > imageslist.txt
 
 mv page.html cuts.html
 
-rm imageslist.txt ; ls imgs/* > imageslist.txt
+rm imageslist.txt ; ls img_slices/* > imageslist.txt
 
 /opt/projects/htmlImageBrowserCreator/pageCreator -addRowTableVariable=slice -addColumnTableVariable=cut \
 -addSelectableVariable=sector -defaultPlot=imgs/slice-23_cut-03cctim_sector-2.png -imagesSize="800 800" -d=imgs

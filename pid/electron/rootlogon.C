@@ -26,14 +26,6 @@
     mystyle->SetPaperSize(16, 20);
     mystyle->SetHeaderPS("220 500 translate");
 
-
-    // Pads
-    //  mystyle->SetPadLeftMargin(0.14);
-    //  mystyle->SetPadRightMargin(0.14);
-    //  mystyle->SetPadTopMargin(0.12);
-    //  mystyle->SetPadBottomMargin(0.15);
-    //
-
     mystyle->SetCanvasBorderMode(0);
     mystyle->SetFrameBorderMode(0);
     mystyle->SetPadBorderMode(0);
@@ -41,7 +33,6 @@
     gROOT->SetStyle("mystyle");
 
     gROOT->LoadMacro("/opt/projects/analysis/rootUtils/definitions.C");
-
 
     // load e_pid shared libraries
     gROOT->ProcessLine(".L libepid.dylib");

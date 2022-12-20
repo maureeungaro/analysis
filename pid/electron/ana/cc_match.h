@@ -23,11 +23,11 @@ public:
     void set_print(string P) { PRINT = P; }
     void calc_cc_match(int sector);
     void calc_all_cc_match();
-    void show_cc_match(int sector);
-    void show_theta_vs_segms(int sector);
-    void CC_DynamicExec(int sector);
-    void CC_DrawFit(int sector, int s, int hid);
+    void show_cc_theta_match_all_cuts(int sector);
+    void show_cc_theta_match(int sector);
+    void CC_DrawFit_ThetaSlice(int sector_index, int hid);
     void show_theta_vs_segm_all_sectors();
+    void CC_DynamicExec(int sector);
 
 private:
 
@@ -60,22 +60,7 @@ private:
     Double_t cc_match_Mean2(Double_t *x, Double_t *par);
     Double_t cc_match_Sigma(Double_t *x, Double_t *par);
     Double_t cc_match_limit(Double_t *x, Double_t *par);
-
 };
 
-// function class with a member function
-//struct MyIntegFunc {
-//
-//    Double_t parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
-//    Double_t gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
-//    Double_t gauss2_para(Double_t *x, Double_t *par)  { return parabole(x, par) + gaussian(x, &par[3]) + gaussian(x, &par[6]); }
-//
-//    MyIntegFunc(TF1 * f): fFunc(f) {}
-//    double Integral (double *x, double *par) const {
-//        double a = fFunc->GetXmin();
-//        return fFunc->Integral(a, *x);
-//    }
-//    TF1 * fFunc;
-//};
 
 #endif

@@ -8,15 +8,16 @@
 #include "TF1.h"
 #include "TPaletteAxis.h"
 #include "TVirtualX.h"
+#include "TExec.h"
 
-void CC_Match::show_cc_match(int SECTOR)
+void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 {
 	int s = SECTOR - 1;
 	
-	gStyle->SetPadLeftMargin(0.14);
-	gStyle->SetPadRightMargin(0.14);
+	gStyle->SetPadLeftMargin(0.05);
+	gStyle->SetPadRightMargin(0.12);
 	gStyle->SetPadTopMargin(0.04);
-	gStyle->SetPadBottomMargin(0.15);
+	gStyle->SetPadBottomMargin(0.1);
 
 	TLatex lab;
 	lab.SetNDC();
@@ -57,10 +58,16 @@ void CC_Match::show_cc_match(int SECTOR)
 		Ptheta_vs_segmS->cd(c+1);
 		//if (c != 2 )
         gPad->SetLogz();
+        if (c == 1) {
+            H->theta_vs_segm[c][s]->SetMinimum(2);
+        }
         if (c == 2) {
             H->theta_vs_segm[c][s]->SetMaximum(8000);
         }
-		H->theta_vs_segm[c][s]->Draw("colz");
+        if (c == 3) {
+            H->theta_vs_segm[c][s]->SetMinimum(2);
+        }
+        H->theta_vs_segm[c][s]->Draw("colz");
 		Ctheta_vs_segmS->Update();
 		if(H->theta_vs_segm[c][s]->GetMaximum()>1) {
 			palette = (TPaletteAxis*) H->theta_vs_segm[c][s]->FindObject("palette");
@@ -80,20 +87,20 @@ void CC_Match::show_cc_match(int SECTOR)
 		lab.SetTextFont(40);
 		lab.SetTextSize(0.050);
 		if(c==0) {
-			lab.DrawLatex(0.48, 0.91,  "a. no cuts applied");
+			lab.DrawLatex(0.48, 0.91,  "a: no cuts applied");
 		}
 		else if(c==1) {
-			lab.DrawLatex(0.31, 0.22,  "b. calorimeter cuts applied");
-			lab.DrawLatex(0.37, 0.17,  Form("percentage of a. : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
+			lab.DrawLatex(0.31, 0.91,  "b: calorimeter cuts applied");
+			lab.DrawLatex(0.37, 0.15,  Form("percentage of a : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
 		}
 		else if(c==2) {
-			lab.DrawLatex(0.18, 0.90,  "c. calorimeter negative cuts applied");
-			lab.DrawLatex(0.33, 0.85,  Form("percentage of a. : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
+			lab.DrawLatex(0.18, 0.91,  "c: calorimeter negative cuts applied");
+			lab.DrawLatex(0.33, 0.85,  Form("percentage of a : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
 		}
 		else if(c==3) {
-			lab.DrawLatex(0.48, 0.26,  "d. all cuts applied");
-			lab.DrawLatex(0.36, 0.21,  Form("percentage of a. : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
-			lab.DrawLatex(0.36, 0.16,  Form("percentage of b. : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[1][s]->GetEntries()));
+			lab.DrawLatex(0.48, 0.91,  "d: all cuts applied");
+			lab.DrawLatex(0.36, 0.21,  Form("percentage of a: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
+			lab.DrawLatex(0.36, 0.15,  Form("percentage of b: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[1][s]->GetEntries()));
 		}
 	}
 	
@@ -104,13 +111,14 @@ void CC_Match::show_cc_match(int SECTOR)
 	lab.DrawLatex(0.26, 0.95,  Form("CC #theta Matching  -  Sector %d", SECTOR));
 
 	if(PRINT != "") {
-		Ctheta_vs_segmS->Print( Form("img/cut-01ccthmd_sector-%d.%s", s+1, PRINT.c_str()) );
+		Ctheta_vs_segmS->Print( Form("img/cut-01-cc-theta-match_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
 
 
 
-void CC_Match::show_theta_vs_segms(int SECTOR) {
+void CC_Match::show_cc_theta_match(int SECTOR) {
+
     gStyle->SetPadLeftMargin(0.14);
     gStyle->SetPadRightMargin(0.16);
     gStyle->SetPadTopMargin(0.12);
@@ -183,45 +191,54 @@ void CC_Match::show_theta_vs_segms(int SECTOR) {
         Ctheta_vs_segm->Print(Form("img/cut-01ccthm_sector-%d.%s", s + 1, PRINT.c_str()));
     }
 
+
+    // only execute if the mean is defined
     if (cc_match_mean[s]) {
-        Ctheta_vs_segm->AddExec("dynamic", "CC_DynamicExec()");
+
+        TExec *DynamicExec = new TExec("CC_DynamicExec", Form("CC_Match::CC_DynamicExec(%d)", SECTOR));
+        H->theta_vs_segm[1][s]->GetListOfFunctions()->Add(DynamicExec);
+
+      //  Ctheta_vs_segm->AddExec("CC_Match", Form("CC_Match::CC_DynamicExec(%d)", SECTOR));
     }
 }
 
 
-
+// this does not work anymore because CC_DynamicExec is not static
 void CC_Match::CC_DynamicExec(int SECTOR)
 {
-	
-	int s = SECTOR - 1;
-	
-	TObject *select = gPad->GetSelected();
-	if(!select) return;
-	if (!select->InheritsFrom("TH2")) {gPad->SetUniqueID(0); return;}
-	TH2 *h = (TH2*)select;
-	gPad->GetCanvas()->FeedbackMode(kTRUE);
+    int s = SECTOR - 1;
 
-   // erase old position and draw a line at current position
-	int pxold = gPad->GetUniqueID();
-	int px = gPad->GetEventX();
-	int py = gPad->GetEventY();
-	float uymin = gPad->GetUymin();
-	float uymax = gPad->GetUymax();
-	int pymin = gPad->YtoAbsPixel(uymin);
-	int pymax = gPad->YtoAbsPixel(uymax);
-	if(pxold) gVirtualX->DrawLine(pxold, pymin, pxold ,pymax);
-	gVirtualX->DrawLine(px, pymin, px, pymax);
-	gPad->SetUniqueID(px);
-	float upx = gPad->AbsPixeltoX(px);
-	float x = gPad->PadtoX(upx);
-	
-	// draw slice corresponding to mouse position
-	if((int)(x-1) < 18)
-	CC_DrawFit(SECTOR, s, (int)(x-1));
+	TObject *select = gPad->GetSelected();
+    if (!select) return;
+    if (!select->InheritsFrom("TH2")) {
+        gPad->SetUniqueID(0);
+        return;
+    }
+    TH2 *h = (TH2 *) select;
+    gPad->GetCanvas()->FeedbackMode(kTRUE);
+
+    // erase old position and draw a line at current position
+    int pxold = gPad->GetUniqueID();
+    int px = gPad->GetEventX();
+    int py = gPad->GetEventY();
+    float uymin = gPad->GetUymin();
+    float uymax = gPad->GetUymax();
+    int pymin = gPad->YtoAbsPixel(uymin);
+    int pymax = gPad->YtoAbsPixel(uymax);
+    if (pxold) gVirtualX->DrawLine(pxold, pymin, pxold, pymax);
+    gVirtualX->DrawLine(px, pymin, px, pymax);
+    gPad->SetUniqueID(px);
+    float upx = gPad->AbsPixeltoX(px);
+    float x = gPad->PadtoX(upx);
+
+    // draw slice corresponding to mouse position
+    if ((int) (x - 1) < 18) {
+        CC_DrawFit_ThetaSlice(s, (int) (x - 1));
+    }
 }
 
-
-void CC_Match::CC_DrawFit(int SECTOR, int s, int hid)
+// s = sector - 1
+void CC_Match::CC_DrawFit_ThetaSlice(int s, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
@@ -231,12 +248,12 @@ void CC_Match::CC_DrawFit(int SECTOR, int s, int hid)
 	TLatex lab;
 	lab.SetNDC();
 
-   // create or set the new canvas c2
-	TVirtualPad *padsav = gPad;
-	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
-	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
-	c2->cd();
+    // create or set the new canvas c2
+    TVirtualPad *padsav = gPad;
+    TCanvas *c2 = (TCanvas *) gROOT->GetListOfCanvases()->FindObject("c2");
+    if (c2) delete c2->GetPrimitive("Projection");
+    else c2 = new TCanvas("c2", "Projection Canvas", 710, 10, 800, 800);
+    c2->cd();
 	
 	if(cc_match1d[s][hid]) {
 		cc_match1d[s][hid]->GetXaxis()->SetTitleOffset(1.3);
@@ -247,13 +264,13 @@ void CC_Match::CC_DrawFit(int SECTOR, int s, int hid)
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
 		if(hid<11) {
-			lab.DrawLatex(0.66, 0.82,  Form("Sector %d", SECTOR));
+			lab.DrawLatex(0.66, 0.82,  Form("Sector %d",   s+1));
 			lab.DrawLatex(0.64, 0.76,  Form("segment: %d", hid+1));
 			lab.SetTextColor(kRed+2);
 			lab.DrawLatex(0.59, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_match1d[s][hid]->GetFunction("MyFit")->GetParameter(4), cc_match1d[s][hid]->GetFunction("MyFit")->GetParError(4)));
 			lab.DrawLatex(0.59, 0.62,  Form("#sigma = %4.3f #pm %2.1e", cc_match1d[s][hid]->GetFunction("MyFit")->GetParameter(5), cc_match1d[s][hid]->GetFunction("MyFit")->GetParError(5)));
 		} else {
-			lab.DrawLatex(0.26, 0.82,  Form("Sector %d", SECTOR));
+			lab.DrawLatex(0.26, 0.82,  Form("Sector %d",   s+1));
 			lab.DrawLatex(0.24, 0.76,  Form("segment: %d", hid+1));
 			lab.SetTextColor(kRed+2);
 			lab.DrawLatex(0.19, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_match1d[s][hid]->GetFunction("MyFit")->GetParameter(4), cc_match1d[s][hid]->GetFunction("MyFit")->GetParError(4)));
@@ -266,9 +283,9 @@ void CC_Match::CC_DrawFit(int SECTOR, int s, int hid)
 	
 	if(PRINT != "") {
 		if(hid>=9) {
-            c2->Print(Form("imgs/slice-%d_cut-01ccthm_sector-%d.%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-%d_cut-01-cc-theta-slice_sector-%d%s",  hid + 1, s + 1, PRINT.c_str()));
         } else {
-            c2->Print(Form("imgs/slice-0%d_cut-01ccthm_sector-%d.%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-0%d_cut-01-cc-theta-slice_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         }
 	}
 
@@ -359,7 +376,7 @@ void CC_Match::show_theta_vs_segm_all_sectors()
 	
 	
 	if(PRINT != "") {
-		Ctheta_vs_segmA->Print(  Form("img/cut-01ccthm_sector-all.%s", PRINT.c_str()) );
+		Ctheta_vs_segmA->Print(  Form("img/cut-01-ccthm_sector-all.%s", PRINT.c_str()) );
 	}
 	
 }

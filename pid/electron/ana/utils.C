@@ -4,7 +4,7 @@
 
 void change_sector()
 {
-	SECTOR ++;
+	SECTOR++;
 	if(SECTOR == 7) SECTOR = 1;
 	
 	cout << " Sector set to: " << SECTOR << endl;
@@ -21,9 +21,19 @@ void print_all()
     CCMatch->set_print(PRINT);
 
     // CC matching
+    // This will also
     CCMatch->calc_all_cc_match();
 
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s+1;
+        CCMatch->show_cc_theta_match_all_cuts(SECTOR);
 
+        // cc theta slices
+        for(int b=0; b<18; b++) {
+            CCMatch->CC_DrawFit_ThetaSlice(s, b);
+        }
+
+    }
 //
 //	// cc TIMING
 //	calc_all_cc_timing();
@@ -36,7 +46,6 @@ void print_all()
 //		SECTOR = s+1;
 //		show_npeSingle();
 //
-//		show_cc_match();
 //		show_theta_vs_segms();
 //
 //		show_phi_match();
