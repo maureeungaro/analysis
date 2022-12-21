@@ -83,7 +83,7 @@ void CC_Match::calc_cc_match(int sector)
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *Ccc_match  = new TCanvas("Ccc_match", "Ccc_match", 800, 800);
+	TCanvas *Ccc_match  = new TCanvas("Ccc_match", "Ccc_match", csize, csize);
 	
 	TF1 *MyFit = new TF1("MyFit", gauss2_para, -100, 800, 6);
 	MyFit->SetLineColor(kRed+2);
@@ -174,7 +174,7 @@ void CC_Match::calc_cc_match(int sector)
 	cc_match_sigm[s]->GetXaxis()->SetTitleOffset(1.1);
 	cc_match_sigm[s]->GetYaxis()->SetTitleOffset(0.7);
 
-	TCanvas *Csum  = new TCanvas("Csum", "Csum", 800, 800);
+	TCanvas *Csum  = new TCanvas("Csum", "Csum", csize, csize);
 	TPad    *Psum  = new TPad("Psum", "Psum", 0.02, 0.02,  0.98, 0.92);
 	Psum->Divide(1, 2);
 	Psum->Draw();

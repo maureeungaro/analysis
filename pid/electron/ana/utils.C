@@ -21,12 +21,17 @@ void print_all()
     CCMatch->set_print(PRINT);
 
     // CC matching
-    // This will also
+
+    // This will also print the pars plots
     CCMatch->calc_all_cc_match();
 
     for (int s = 0; s < 6; s++) {
         SECTOR = s+1;
+        // show all cuts for this sector
         CCMatch->show_cc_theta_match_all_cuts(SECTOR);
+
+        // show cc match for this sector
+        CCMatch->show_cc_theta_match(SECTOR);
 
         // cc theta slices
         for(int b=0; b<18; b++) {
@@ -34,6 +39,10 @@ void print_all()
         }
 
     }
+
+    // CC matching show all sectors for all other cuts in one plot
+    CCMatch->show_theta_vs_segm_all_sectors();
+
 //
 //	// cc TIMING
 //	calc_all_cc_timing();

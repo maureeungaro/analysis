@@ -35,6 +35,7 @@ private:
     cpars *Pars;
     string PRINT;
     const int NDIV = 15;
+    const int csize = 1200; // common canvas size
 
     // CC theta match histos, variables, functions
     TH1F *cc_match1d[6][18];      // 1 dimensional projections, fitted with GAUSS+PARABOLE

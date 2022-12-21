@@ -38,7 +38,7 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 	TCanvas *Ctheta_vs_segmS;
 	TPad    *Ptheta_vs_segmS;
 	
-	Ctheta_vs_segmS = new TCanvas(Form("Ctheta_vs_segmS%d", s+1), Form("Ctheta_vs_segmS%d", s+1), 1000, 1000);
+	Ctheta_vs_segmS = new TCanvas(Form("Ctheta_vs_segmS%d", s+1), Form("Ctheta_vs_segmS%d", s+1), csize, csize);
 	Ptheta_vs_segmS = new TPad(Form("Ptheta_vs_segmS%d", s+1), Form("Ptheta_vs_segmS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Ptheta_vs_segmS->Divide(2, 2);
 	Ptheta_vs_segmS->Draw();
@@ -111,7 +111,7 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 	lab.DrawLatex(0.26, 0.95,  Form("CC #theta Matching  -  Sector %d", SECTOR));
 
 	if(PRINT != "") {
-		Ctheta_vs_segmS->Print( Form("img/cut-01-cc-theta-match_sector-%d%s", s+1, PRINT.c_str()) );
+		Ctheta_vs_segmS->Print( Form("img/cut-01-cc-theta-match-cuts_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -128,10 +128,10 @@ void CC_Match::show_cc_theta_match(int SECTOR) {
     lab.SetNDC();
 
     int s = SECTOR - 1;
-    int NBINS = H->theta_vs_segm[1][0]->GetNbinsX();
-    int db = NBINS / NDIV;
+//    int NBINS = H->theta_vs_segm[1][0]->GetNbinsX();
+//    int db = NBINS / NDIV;
 
-    TCanvas *Ctheta_vs_segm = new TCanvas("Ctheta_vs_segm", "Ctheta_vs_segm", 1000, 1000);
+    TCanvas *Ctheta_vs_segm = new TCanvas("Ctheta_vs_segm", "Ctheta_vs_segm", csize, csize);
     gPad->SetLogz();
 
     // Changing titles
@@ -188,15 +188,15 @@ void CC_Match::show_cc_theta_match(int SECTOR) {
 
 
     if (PRINT != "") {
-        Ctheta_vs_segm->Print(Form("img/cut-01ccthm_sector-%d.%s", s + 1, PRINT.c_str()));
+        Ctheta_vs_segm->Print(Form("img/cut-01-cc-theta-match_sector-%d%s", s + 1, PRINT.c_str()));
     }
 
 
     // only execute if the mean is defined
     if (cc_match_mean[s]) {
 
-        TExec *DynamicExec = new TExec("CC_DynamicExec", Form("CC_Match::CC_DynamicExec(%d)", SECTOR));
-        H->theta_vs_segm[1][s]->GetListOfFunctions()->Add(DynamicExec);
+        // TExec *DynamicExec = new TExec("CC_DynamicExec", Form("CC_Match::CC_DynamicExec(%d)", SECTOR));
+        // H->theta_vs_segm[1][s]->GetListOfFunctions()->Add(DynamicExec);
 
       //  Ctheta_vs_segm->AddExec("CC_Match", Form("CC_Match::CC_DynamicExec(%d)", SECTOR));
     }
@@ -214,13 +214,13 @@ void CC_Match::CC_DynamicExec(int SECTOR)
         gPad->SetUniqueID(0);
         return;
     }
-    TH2 *h = (TH2 *) select;
+   // TH2 *h = (TH2 *) select;
     gPad->GetCanvas()->FeedbackMode(kTRUE);
 
     // erase old position and draw a line at current position
     int pxold = gPad->GetUniqueID();
     int px = gPad->GetEventX();
-    int py = gPad->GetEventY();
+    //int py = gPad->GetEventY();
     float uymin = gPad->GetUymin();
     float uymax = gPad->GetUymax();
     int pymin = gPad->YtoAbsPixel(uymin);
@@ -252,7 +252,7 @@ void CC_Match::CC_DrawFit_ThetaSlice(int s, int hid)
     TVirtualPad *padsav = gPad;
     TCanvas *c2 = (TCanvas *) gROOT->GetListOfCanvases()->FindObject("c2");
     if (c2) delete c2->GetPrimitive("Projection");
-    else c2 = new TCanvas("c2", "Projection Canvas", 710, 10, 800, 800);
+    else c2 = new TCanvas("c2", "Projection Canvas", 710, 10, csize, csize);
     c2->cd();
 	
 	if(cc_match1d[s][hid]) {
@@ -294,7 +294,7 @@ void CC_Match::CC_DrawFit_ThetaSlice(int s, int hid)
 
 void CC_Match::show_theta_vs_segm_all_sectors()
 {
-	gStyle->SetPadLeftMargin(0.14);
+	gStyle->SetPadLeftMargin(0.18);
 	gStyle->SetPadRightMargin(0.12);
 	gStyle->SetPadTopMargin(0.02);
 	gStyle->SetPadBottomMargin(0.12);
@@ -314,19 +314,19 @@ void CC_Match::show_theta_vs_segm_all_sectors()
 	for(int s=0; s<6; s++) {
 		// Changing titles
 		H->theta_vs_segm[1][s]->GetXaxis()->CenterTitle(0);
-		H->theta_vs_segm[1][s]->GetXaxis()->SetTitle(Form("Sector %d              segment", s+1));
-		H->theta_vs_segm[1][s]->GetYaxis()->SetTitle(Form("\theta on CC plane    [degrees]"));
-		H->theta_vs_segm[1][s]->GetXaxis()->SetTitleSize(0.046);
-		H->theta_vs_segm[1][s]->GetYaxis()->SetTitleSize(0.046);
-		H->theta_vs_segm[1][s]->GetXaxis()->SetTitleOffset(1.2);
-		H->theta_vs_segm[1][s]->GetYaxis()->SetTitleOffset(1.5);
-		H->theta_vs_segm[1][s]->GetXaxis()->SetLabelSize(0.036);
-		H->theta_vs_segm[1][s]->GetYaxis()->SetLabelSize(0.036);
-		H->theta_vs_segm[1][s]->GetZaxis()->SetLabelSize(0.036);
+		H->theta_vs_segm[1][s]->GetXaxis()->SetTitle(Form("Sector %d     [segment]", s+1));
+		H->theta_vs_segm[1][s]->GetYaxis()->SetTitle(Form("#theta on CC plane         [degrees]"));
+		H->theta_vs_segm[1][s]->GetXaxis()->SetTitleSize(0.06);
+		H->theta_vs_segm[1][s]->GetYaxis()->SetTitleSize(0.06);
+		H->theta_vs_segm[1][s]->GetXaxis()->SetTitleOffset(1.0);
+		H->theta_vs_segm[1][s]->GetYaxis()->SetTitleOffset(1.2);
+		H->theta_vs_segm[1][s]->GetXaxis()->SetLabelSize(0.046);
+		H->theta_vs_segm[1][s]->GetYaxis()->SetLabelSize(0.046);
+		H->theta_vs_segm[1][s]->GetZaxis()->SetLabelSize(0.046);
 		H->theta_vs_segm[1][s]->GetYaxis()->SetRangeUser(1, 55);
 	}
 	
-	TCanvas *Ctheta_vs_segmA  = new TCanvas("Ctheta_vs_segmA", "Ctheta_vs_segmA", 1000, 1000);
+	TCanvas *Ctheta_vs_segmA  = new TCanvas("Ctheta_vs_segmA", "Ctheta_vs_segmA", csize, csize);
 	TPad    *Ptheta_vs_segmA  = new TPad("Ptheta_vs_segmA", "Ptheta_vs_segmA", 0.02, 0.00,  0.98, 0.92);
 	Ptheta_vs_segmA->Divide(3, 2);
 	Ptheta_vs_segmA->Draw();
@@ -376,7 +376,7 @@ void CC_Match::show_theta_vs_segm_all_sectors()
 	
 	
 	if(PRINT != "") {
-		Ctheta_vs_segmA->Print(  Form("img/cut-01-ccthm_sector-all.%s", PRINT.c_str()) );
+		Ctheta_vs_segmA->Print(  Form("img/cut-01-cc-theta-match_sector-all%s", PRINT.c_str()) );
 	}
 	
 }
