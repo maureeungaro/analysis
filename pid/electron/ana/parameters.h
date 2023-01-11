@@ -7,11 +7,10 @@
 // analysis classes
 #include "cc_match.h"
 
-
-
+// global variables
 std::string DATA_PRINT = ".png";
 std::string SIM_PRINT  = "_gsim.png";
-std::string PRINT  = "";
+std::string PRINT  = "none";
 bool is_simulation = false;
 int SECTOR = 1;
 
@@ -23,11 +22,11 @@ std::string data_label     = "data";
 
 
 // common histogram
-chistos *H = nullptr;
-cpars   *Pars;
+chistos *H    = nullptr;
+cpars   *Pars = nullptr;
 
 // analysis classes
-CC_Match *CCMatch ;
+CC_Match *CCMatch = nullptr;
 
 
 //void change_sector();

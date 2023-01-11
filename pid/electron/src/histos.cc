@@ -18,25 +18,21 @@ void histos::fill(map<string, int> passed, particle p)
 	// NPHE
 	// no cuts
 	double npe = p.get("npe");
-	if(p.ccinfos.size() && p.cainfos.size())
-	{
+	if(p.ccinfos.size() && p.cainfos.size()) {
 		nphe[0][sector_i]->Fill(npe);
 		nphe[0][6]->Fill(npe);
 		// all other on
-		if(alloth["NPHE"] == 1)
-		{
+		if(alloth["NPHE"] == 1) {
 			nphe[1][sector_i]->Fill(npe); 
 			nphe[1][6]->Fill(npe);
 		}	
 		// all other off
-		if(othneg["NPHE"] == 1)
-		{
+		if(othneg["NPHE"] == 1) {
 			nphe[2][sector_i]->Fill(npe); 
 			nphe[2][6]->Fill(npe);
 		}
 		// every cut
-		if(passed["PASSED"] == 1)
-		{
+		if(passed["PASSED"] == 1) {
 			nphe[3][sector_i]->Fill(npe); 
 			nphe[3][6]->Fill(npe);
 		}
@@ -55,38 +51,51 @@ void histos::fill(map<string, int> passed, particle p)
 	double ccdtime    = p.get("cctime") + time_corr - p.get("sctime");
 	int    pmt_number = ( p.get("ccpmt") > 0 ? (int) segm*2 :(int) segm*2-1 );
 	// no cuts
-	if(p.ccinfos.size() && p.scinfos.size())
-	{
+	if(p.ccinfos.size() && p.scinfos.size()) {
 		theta_vs_segm[0][sector_i]->Fill(segm, xpos);
 		theta_vs_segm[0][6]->Fill(segm, xpos);
 		phi_match[0][sector_i]->Fill(ccphimatch);
 		phi_match[0][6]->Fill(ccphimatch);
 		cc_timing[0][sector_i]->Fill(pmt_number, ccdtime);
 		cc_timing[0][6]->Fill(pmt_number, ccdtime);
-		
-		// all other on
-		if(alloth["CCMATCH"] == 1)
-		{
+
+
+        if(alloth["CCTHEM"] == 1) {
 			theta_vs_segm[1][sector_i]->Fill(segm, xpos);
 			theta_vs_segm[1][6]->Fill(segm, xpos);
-			phi_match[1][sector_i]->Fill(ccphimatch);
-			phi_match[1][6]->Fill(ccphimatch);
-			cc_timing[1][sector_i]->Fill(pmt_number, ccdtime);
-			cc_timing[1][6]->Fill(pmt_number, ccdtime);
-		}
-		// all other off
-		if(othneg["CCMATCH"] == 1)
-		{
-			theta_vs_segm[2][sector_i]->Fill(segm, xpos);
-			theta_vs_segm[2][6]->Fill(segm, xpos);
+        }
+        if(othneg["CCTHEM"] == 1) {
+            theta_vs_segm[2][sector_i]->Fill(segm, xpos);
+            theta_vs_segm[2][6]->Fill(segm, xpos);
+        }
+        if(alloth["CCPHIM"] == 1) {
+            phi_match[1][sector_i]->Fill(ccphimatch);
+            phi_match[1][6]->Fill(ccphimatch);
+        }
+        if(othneg["CCPHIM"] == 1) {
 			phi_match[2][sector_i]->Fill(ccphimatch);
 			phi_match[2][6]->Fill(ccphimatch);
-			cc_timing[2][sector_i]->Fill(pmt_number, ccdtime);
-			cc_timing[2][6]->Fill(pmt_number, ccdtime);
-		}
+        }
+        if(alloth["CCTIME"] == 1) {
+            cc_timing[1][sector_i]->Fill(pmt_number, ccdtime);
+            cc_timing[1][6]->Fill(pmt_number, ccdtime);
+        }
+        if(othneg["CCTIME"] == 1) {
+            cc_timing[2][sector_i]->Fill(pmt_number, ccdtime);
+            cc_timing[2][6]->Fill(pmt_number, ccdtime);
+        }
+
+        // notice: previosly all cc match plots were filled with the same conditions
+
+//            // all others on
+//		if(alloth["CCMATCH"] == 1) {
+//		}
+//		// all others off
+//		if(othneg["CCMATCH"] == 1) {
+//		}
+
 		// every cut
-		if(passed["PASSED"] == 1)
-		{
+		if(passed["PASSED"] == 1) {
 			theta_vs_segm[3][sector_i]->Fill(segm, xpos);
 			theta_vs_segm[3][6]->Fill(segm, xpos);
 			phi_match[3][sector_i]->Fill(ccphimatch);
@@ -94,6 +103,9 @@ void histos::fill(map<string, int> passed, particle p)
 			cc_timing[3][sector_i]->Fill(pmt_number, ccdtime);
 			cc_timing[3][6]->Fill(pmt_number, ccdtime);
 		}
+
+
+
 	}
 	// End CCMATCH
 	// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

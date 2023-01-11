@@ -204,8 +204,8 @@ void CC_Match::calc_cc_match(int sector)
 	lab.DrawLatex(0.18, 0.94,  Form("CC #theta Matching Pars  -  Sector %d", sector));
 
 
-	if(PRINT != "") {
-        Csum->Print( Form("img/cut-01-cc-theta-match-pars_sector-%d%s", s+1, PRINT.c_str()) );
+	if(PRINT != "none") {
+        Csum->Print( Form("img/cut-01-cc-theta-match-pars_sector-%d%s", sector, PRINT.c_str()) );
 	}
 	
 	cout << " done " << endl;

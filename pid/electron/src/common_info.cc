@@ -13,7 +13,7 @@
 chistos::chistos(string filename, int READ)
 {
 	string cut[4]     = {"no_cuts_on", "all_other_cuts_on", "all_other_cuts_neg", "all_cuts_on"};
-	//Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
+	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
 	
 	// Default: filename is output file
 	if(READ == 0)
@@ -90,16 +90,28 @@ chistos::chistos(string filename, int READ)
 			for(int s=0; s<7; s++) {
 				for(int c=0; c<4; c++) {
 
-					cc_timing[c][s]     = (TH2F*)f.Get(Form("cc_timing_%s_sect%d",     cut[c].c_str(), s+1));
                     theta_vs_segm[c][s] = (TH2F*)f.Get(Form("theta_vs_segm_%s_sect%d", cut[c].c_str(), s+1));
+                    phi_match[c][s]     = (TH1F*)f.Get(Form("phi_match_%s_sect%d",     cut[c].c_str(), s+1));
 
+
+					cc_timing[c][s]     = (TH2F*)f.Get(Form("cc_timing_%s_sect%d",     cut[c].c_str(), s+1));
+
+
+                    // set dir
 					cc_timing[c][s]    ->SetDirectory(0);
 					theta_vs_segm[c][s]->SetDirectory(0);
+                    phi_match[c][s]    ->SetDirectory(0);
 
+                    // colors
+                    phi_match[c][s]    ->SetLineColor(colors[c]);
+
+
+                    // titles
+                    theta_vs_segm[c][s]->GetXaxis()->SetTitle(Form("Sector %d             [segment]", s+1));
+					theta_vs_segm[c][s]->GetYaxis()->SetTitle(Form("#theta on CC plane    [degrees]"));
 
 
 //					nphe[c][s]          = (TH1F*)f.Get(Form("nphe_%s_sect%d",          cut[c].c_str(), s+1));
-//					phi_match[c][s]     = (TH1F*)f.Get(Form("phi_match_%s_sect%d",     cut[c].c_str(), s+1));
 //					ecthr[c][s]         = (TH1F*)f.Get(Form("ecthr_%s_sect%d",         cut[c].c_str(), s+1));
 //					ecp[c][s]           = (TH2F*)f.Get(Form("ecp_%s_sect%d",           cut[c].c_str(), s+1));
 //					ECu[c][s]           = (TH1F*)f.Get(Form("ECu_%s_sect%d",           cut[c].c_str(), s+1));
@@ -108,7 +120,6 @@ chistos::chistos(string filename, int READ)
 //					EoutEin[c][s]       = (TH2F*)f.Get(Form("EoutEin_%s_sect%d",       cut[c].c_str(), s+1));
 //					EinEtot[c][s]       = (TH2F*)f.Get(Form("EinEtot_%s_sect%d",       cut[c].c_str(), s+1));
 //					nphe[c][s]         ->SetDirectory(0);
-//					phi_match[c][s]    ->SetDirectory(0);
 //					ecthr[c][s]        ->SetDirectory(0);
 //					ecp[c][s]          ->SetDirectory(0);
 //					ECu[c][s]          ->SetDirectory(0);
@@ -116,9 +127,7 @@ chistos::chistos(string filename, int READ)
 //					ECw[c][s]          ->SetDirectory(0);
 //					EoutEin[c][s]      ->SetDirectory(0);
 //					EinEtot[c][s]      ->SetDirectory(0);
-//					// colors
 //					nphe[c][s]         ->SetLineColor(colors[c]);
-//					phi_match[c][s]    ->SetLineColor(colors[c]);
 //					ecthr[c][s]        ->SetLineColor(colors[c]);
 //					ECu[c][s]          ->SetLineColor(colors[c]);
 //					ECv[c][s]          ->SetLineColor(colors[c]);
@@ -126,8 +135,6 @@ chistos::chistos(string filename, int READ)
 //
 //					ecp[c][s]          ->GetXaxis()->SetTitle(Form("p  [GeV]"));
 //					ecp[c][s]          ->GetYaxis()->SetTitle(Form("E_{EC} / p"));
-//					theta_vs_segm[c][s]->GetXaxis()->SetTitle(Form("Sector %d              segment", s+1));
-//					theta_vs_segm[c][s]->GetYaxis()->SetTitle(Form("#theta on CC plane    [degrees]"));
 //					cc_timing[c][s]    ->GetXaxis()->SetTitle(Form("Sector %d              pmt", s+1));
 //					cc_timing[c][s]    ->GetYaxis()->SetTitle(Form("#Delta T    [ns]"));
 //					EoutEin[c][s]      ->GetXaxis()->SetTitle(Form("E_{in} / p"));
@@ -138,16 +145,16 @@ chistos::chistos(string filename, int READ)
 				// X title
 				if(s < 6) {
 //					nphe[0][s]      ->GetXaxis()->SetTitle(Form("Sector %d          [nphe#times10]", s+1));
-//					phi_match[0][s] ->GetXaxis()->SetTitle(Form("Sector %d              match index",  s+1));
+					phi_match[0][s] ->GetXaxis()->SetTitle(Form("Sector %d                [match index]",  s+1));
 //					ecthr[0][s]     ->GetXaxis()->SetTitle(Form("Sector %d              p [GeV]", s+1));
 //					ECu[1][s]       ->GetXaxis()->SetTitle(Form("Sector %d              U [cm]",  s+1));
 //					ECv[1][s]       ->GetXaxis()->SetTitle(Form("Sector %d              V [cm]",  s+1));
 //					ECw[1][s]       ->GetXaxis()->SetTitle(Form("Sector %d              W [cm]",  s+1));
 				} else {
+					theta_vs_segm[0][s]->GetXaxis()->SetTitle("All Sectors      Segment ");
+					phi_match[0][s]    ->GetXaxis()->SetTitle("All Sectors");
 //					nphe[0][s]         ->GetXaxis()->SetTitle("All Sectors                         [nphe#times10]");
-//					theta_vs_segm[0][s]->GetXaxis()->SetTitle("All Sectors      Segment ");
 //					cc_timing[0][s]    ->GetXaxis()->SetTitle("All Sectors      Segment ");
-//					phi_match[0][s]    ->GetXaxis()->SetTitle("All Sectors");
 //					ecthr[0][s]        ->GetXaxis()->SetTitle("All Sectors                          p [GeV]");
 //					ecp[0][s]          ->GetXaxis()->SetTitle("All Sectors");
 //					ECu[1][s]          ->GetXaxis()->SetTitle("All Sectors                              U [cm]");
@@ -182,6 +189,7 @@ chistos::chistos(string filename, int READ)
 			}
 //			ECpos[4] = (TH2F*)f.Get("ECpos_UVW_cut");
 //			ECpos[4] ->SetDirectory(0);
+
 			f.Close();
 		} else {
 			cout << " No Input File selected. Exiting constructor..." << endl;

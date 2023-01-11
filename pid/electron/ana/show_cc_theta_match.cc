@@ -23,7 +23,7 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 	lab.SetNDC();
 	
 	for(int c=0; c<4; c++) {
-		H->theta_vs_segm[c][s]->GetXaxis()->SetTitleSize(0.052);
+		H->theta_vs_segm[c][s]->GetXaxis()->SetTitleSize(0.044);
 		H->theta_vs_segm[c][s]->GetXaxis()->SetTitleOffset(1.14);
 		H->theta_vs_segm[c][s]->GetYaxis()->SetTitleSize(0.054);
 		H->theta_vs_segm[c][s]->GetYaxis()->SetTitleOffset(1.1);
@@ -51,8 +51,7 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 	cc_match_dn->SetParameter(0, SECTOR);
 	cc_match_dn->SetParameter(1, Pars->CC_NSIGMAS[1]);
 	cc_match_dn->SetParameter(2, -1);
-	
-	
+
 	TPaletteAxis *palette;
 	for(int c=0; c<4; c++) {
 		Ptheta_vs_segmS->cd(c+1);
@@ -88,16 +87,13 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 		lab.SetTextSize(0.050);
 		if(c==0) {
 			lab.DrawLatex(0.48, 0.91,  "a: no cuts applied");
-		}
-		else if(c==1) {
+		} else if(c==1) {
 			lab.DrawLatex(0.31, 0.91,  "b: calorimeter cuts applied");
 			lab.DrawLatex(0.37, 0.15,  Form("percentage of a : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
-		}
-		else if(c==2) {
+		} else if(c==2) {
 			lab.DrawLatex(0.18, 0.91,  "c: calorimeter negative cuts applied");
 			lab.DrawLatex(0.33, 0.85,  Form("percentage of a : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
-		}
-		else if(c==3) {
+		} else if(c==3) {
 			lab.DrawLatex(0.48, 0.91,  "d: all cuts applied");
 			lab.DrawLatex(0.36, 0.21,  Form("percentage of a: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
 			lab.DrawLatex(0.36, 0.15,  Form("percentage of b: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[1][s]->GetEntries()));
@@ -110,7 +106,7 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 	lab.SetTextSize(0.038);
 	lab.DrawLatex(0.26, 0.95,  Form("CC #theta Matching  -  Sector %d", SECTOR));
 
-	if(PRINT != "") {
+	if(PRINT != "none") {
 		Ctheta_vs_segmS->Print( Form("img/cut-01-cc-theta-match-cuts_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
@@ -187,7 +183,7 @@ void CC_Match::show_cc_theta_match(int SECTOR) {
     lab.DrawLatex(0.65, 0.92, Form("Lower Limit: #mu - %3.2f #sigma", Pars->CC_NSIGMAS[1]));
 
 
-    if (PRINT != "") {
+    if (PRINT != "none") {
         Ctheta_vs_segm->Print(Form("img/cut-01-cc-theta-match_sector-%d%s", s + 1, PRINT.c_str()));
     }
 
@@ -281,7 +277,7 @@ void CC_Match::CC_DrawFit_ThetaSlice(int s, int hid)
 	c2->Update();
 	padsav->cd();
 	
-	if(PRINT != "") {
+	if(PRINT != "none") {
 		if(hid>=9) {
             c2->Print(Form("img_slices/slice-%d_cut-01-cc-theta-slice_sector-%d%s",  hid + 1, s + 1, PRINT.c_str()));
         } else {
@@ -375,7 +371,7 @@ void CC_Match::show_theta_vs_segm_all_sectors()
 	lab.DrawLatex(0.62, 0.94,  "All Other Cuts Applied");
 	
 	
-	if(PRINT != "") {
+	if(PRINT != "none") {
 		Ctheta_vs_segmA->Print(  Form("img/cut-01-cc-theta-match_sector-all%s", PRINT.c_str()) );
 	}
 	

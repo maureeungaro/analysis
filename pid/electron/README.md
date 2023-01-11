@@ -14,7 +14,7 @@
 - cut-12: nphe (not a cut)
 
 
-## Apply cut and create histogram:
+## Apply cut and create histograms:
 
 
 

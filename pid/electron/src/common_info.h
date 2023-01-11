@@ -23,11 +23,12 @@ public:
 
 	// indeces: 4 scenarios, 6 sectors + all sectors
 	TH2F *theta_vs_segm[4][7];  // Theta position in CC plane vs segment (CC theta segment matching)
+    TH1F *phi_match[4][7];      // +1: right match. +2 right mismatch. -1: left match. -2: left mistmatch
 
 
+    // not yet refurbished
 	TH1F *nphe[4][7];           // 10*number of photoelectrons
 	TH1F *enphe[7];             // 10*number of photoelectrons, utility histo to draw the zero line
-	TH1F *phi_match[4][7];      // +1: right match. +2 right mismatch. -1: left match. -2: left mistmatch
 	TH2F *cc_timing[4][7];      // CC time - TOF time + Dpath/c vs segment  (CC timing)
 	TH1F *ecthr[4][7];          // Momentum
 	TH2F *ecp[4][7];            // Etot/p vs p
@@ -55,13 +56,16 @@ public:
 	// additional infos in the file: cuts informations
 	vector<string> addInfos;
 
-	// theta matching paramters
+	// theta matching
 	double cc_match_mean_a[6];                     // CCMA: CC theta matching mean A: a + bx + cx2
 	double cc_match_mean_b[6];                     // CCMB: CC theta matching mean B: a + bx + cx2
 	double cc_match_mean_c[6];                     // CCMC: CC theta matching mean C: a + bx + cx2
 	double cc_match_low[6][18];                    // CCMS#: CC theta matching lower limit for each sector, segment
 	double CC_NSIGMAS[2];                          // CCNS: CC Matching number of sigmas for upper/lower theta curve
 
+
+
+    // not yet refurbished
 
 	// all cuts are stored in the file specified in the constructor
 	double min_nphe[6];                            // NPHE: min number of photoelectrons / sector

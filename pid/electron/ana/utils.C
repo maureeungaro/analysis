@@ -1,5 +1,19 @@
 #include"parameters.h"
 
+void switch_print() {
+    if ( PRINT == "none") {
+        if (is_simulation) {
+            PRINT = SIM_PRINT;
+        } else {
+            PRINT = DATA_PRINT;
+        }
+        CCMatch->set_print(PRINT);
+    } else {
+        PRINT = "none";
+    }
+
+    cout << " > PRINT set to  " << PRINT << endl;
+}
 
 
 void change_sector()
@@ -18,9 +32,10 @@ void print_all()
 	if (is_simulation) {
 		PRINT = SIM_PRINT;
 	}
-    CCMatch->set_print(PRINT);
 
     // CC matching
+
+    CCMatch->set_print(PRINT);
 
     // This will also print the pars plots
     CCMatch->calc_all_cc_match();
