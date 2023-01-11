@@ -1,16 +1,19 @@
-#!/bin/csh
+#!/usr/bin/env zsh
 
-if($1 == "-h" || $1 == ""  || $#argv < 3) then
+export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+# if the first option is -h or empty, print help and exit
+if [[ $1 == "-h" || $# -eq 0 || $# -lt 3 ]]; then
 	echo " "
 	echo "Usage:   "
 	echo "  >> go_SEL ORIG_DIR DEST_DIR COMMAND [PAR_FILE]"
 	echo "  "
-	echo "   ORIG_DIR: Input files directory"
-	echo "   DEST_DIR: Output files directory"
-	echo "    COMMAND: Command Line"
-	echo " [PAR_FILE]: Parameter File "
+	echo "     ORIG_DIR: Input files directory"
+	echo "     DEST_DIR: Output files directory"
+	echo "     COMMAND: Command Line"
+	echo "     [PAR_FILE]: Parameter File, optional in some cases "
 	echo " "
-	echo "Example: "
+	echo "Examples: "
 	echo " go_SEL /Volumes/e1-6/pass4/fullRuns    /Volumes/e1-6Proc/pass4/e_pid   /opt/projects/analysis/pid/electron/e_pid             /opt/projects/analysis/pid/electron/electron_id_par.txt   "
 	echo " go_SEL /Volumes/e1-6Proc/pass4/e_pid   /Volumes/e1-6Proc/pass4/p_pid   /opt/projects/analysis/pid/proton/proton_pid          /opt/projects/analysis/pid/proton/proton_id_par.txt    "
 	echo " go_SEL /Volumes/e1-6Proc/pass4/p_pid   /Volumes/e1-6Proc/pass4/vertex  /opt/projects/analysis/vertex/vertex_corr_sel         /opt/projects/analysis/vertex/vertex_par.txt    "
@@ -40,24 +43,33 @@ if($1 == "-h" || $1 == ""  || $#argv < 3) then
 	echo " acceptance calculation:"
 	echo " go_SEL /Volumes/e1-6Proc/gsim/pi0s   /Volumes/e1-6Proc/gsim/pi0_acceptance  /opt/projects/analysis/acceptance/acc_histos/acc_histos"
 	echo " "
-exit 0
-endif
-
-set ORIG_DIR = $1
-set DEST_DIR = $2
-set ROOT_DIR = $DEST_DIR/root
-set LOG_DIR  = $DEST_DIR/log
-set COMMAND  = $3
-set PAR_FILE = "aaa"
-
-
-if($#argv == 4) then
-	set PAR_FILE = $4
-	endif
-if(`filetest -e $COMMAND` == 0) then
-	echo $COMMAND not found. Exiting
 	exit 0
-endif
+fi
+
+
+ORIG_DIR=$1
+DEST_DIR=$2
+COMMAND=$3
+ROOT_DIR=$DEST_DIR/root
+LOG_DIR=$DEST_DIR/log
+PAR_FILE="none"
+
+# if 4 arguments, set the last one to PAR_FILE
+if [ $# -eq 4 ]; then
+	PAR_FILE=$4
+	echo " PAR FILE:               "   $PAR_FILE
+	# check that PAR_FILE exist
+	if [ ! -f $PAR_FILE ]; then
+		echo " ERROR: PAR_FILE does not exist: " $PAR_FILE
+		exit 1
+	fi
+fi
+
+# if the file COMMAND doesn't exist, exit
+if [ ! -f $COMMAND ]; then
+	echo "ERROR: $COMMAND doesn't exist"
+	exit 1
+fi
 
 mkdir -p $ROOT_DIR
 mkdir -p $LOG_DIR
@@ -67,24 +79,20 @@ echo " Input files directory:  "  $ORIG_DIR
 echo " Output files directory: "  $DEST_DIR
 echo " ROOT files directory:   "  $ROOT_DIR
 echo " Command line:           "  $COMMAND
-if($PAR_FILE != "aaa") then
-	echo " PAR FILE:               "   $PAR_FILE
-endif
 echo " "
 
 rm -rf DONE_SEL ; touch DONE_SEL
 rm -rf TOTA_SEL ; touch TOTA_SEL
 rm -rf TODO_SEL ; touch TODO_SEL
 
-# Making sure no 1/2 job left: deleting last run done
-set MAXD = `\ls $DEST_DIR | awk -F_ '{print $2}' | awk -F. '{print $1}' | sort -g | tail -1`  # max sim to consider
+# deleting last file created in directory $DEST_DIR
+last_file=$(ls -t $DEST_DIR/*.mu | head -1)
+if [ -f $last_file ]; then
+	echo " Deleting last file: " $last_file
+	rm -f $last_file
+fi
 
 
-set last_file = (`\ls -rt $DEST_DIR  | grep ".mu" | tail -1`)
-if(`filetest -e $DEST_DIR/$last_file` != 0 && $last_file != "") then
-	echo " "Removing $DEST_DIR/$last_file
-	rm $DEST_DIR/$last_file
-endif
 
 \ls  $ORIG_DIR  | grep ".mu" | awk -F. '{print $1}' |  sort -u  >> TOTA_SEL
 \ls  $DEST_DIR  | grep ".mu" | awk -F. '{print $1}' |  sort -u  >> DONE_SEL
@@ -96,13 +104,21 @@ echo " Number of files to process:        " `wc TODO_SEL | awk '{print $1}'`
 echo " Total number of files              " `wc TOTA_SEL | awk '{print $1}'`
 echo " "
 
-foreach r (`cat TODO_SEL`)
-echo " > executing $COMMAND on run: "  $ORIG_DIR/$r.mu  " with output: " $DEST_DIR/$r.mu
-if($PAR_FILE != "") then
+runs_to_process=$(cat TODO_SEL)
+
+for r in $=runs_to_process
+do
 	rm -rf $LOG_DIR/$r.log
-	$COMMAND  $ORIG_DIR/$r.mu -BEAM_E=5.754 -TARGET=proton -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root -PARS_FILE=$PAR_FILE > $LOG_DIR/$r.log
-endif
-end
+
+	# if PAR_FILE is different than "none":
+	if [ $PAR_FILE != "none" ]; then
+		echo " > executing $COMMAND on run: "  $ORIG_DIR/$r.mu  " with output: " $DEST_DIR/$r.mu using pars file $PAR_FILE
+		$COMMAND  $ORIG_DIR/$r.mu -BEAM_E=5.754 -TARGET=proton -OUTPUT=$DEST_DIR/$r.mu -ROOT_OUTPUT=$ROOT_DIR/$r.root -PARS_FILE=$PAR_FILE > $LOG_DIR/$r.log
+	else
+		echo not set yet
+	fi
+
+done
 
 
 

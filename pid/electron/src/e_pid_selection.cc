@@ -92,43 +92,45 @@ map<string, int> e_pid_selection::selection(particle p)
 
 	
 	// EC Threshold min p cut
-	if(mom >= p_ec_threshold/GeV) 
-		selection["ECTHR"] = 1;
+	if(mom >= p_ec_threshold/GeV) {
+        selection["ECTHR"] = 1;
+    }
 	
 	// Sampling Fraction cut
 	double Etot = p.get("Emax")/GeV;
 	double min = ecp_limit(mom, sector_i+1, -1);
 	double max = ecp_limit(mom, sector_i+1,  1);
 	double ecp = Etot/mom;	
-	if(ecp >= min && ecp <= max)
-		selection["ECP"] = 1;	
+	if(ecp >= min && ecp <= max) {
+        selection["ECP"] = 1;
+    }
 	
 	// EC x vs y track Position
 	V3 uvw = p.vget("ECuvw");	
 	double u = uvw.x;
 	double v = uvw.y;
 	double w = uvw.z;
-	if(u>=umin && u<=umax)
-		selection["EPOU"]  = 1;
-	if(v<=vmax)
-		selection["EPOV"]  = 1;
-	if(w<=wmax)
-		selection["EPOW"]  = 1;
-	if(selection["EPOU"]*selection["EPOV"]*selection["EPOW"] == 1)
-		selection["ECUVW"] = 1;
+	if(u>=umin && u<=umax) { selection["EPOU"] = 1; }
+	if(v<=vmax)            { selection["EPOV"] = 1; }
+	if(w<=wmax)            { selection["EPOW"] = 1; }
+	if(selection["EPOU"]*selection["EPOV"]*selection["EPOW"] == 1) {
+        selection["ECUVW"] = 1;
+    }
 	
 	// EC Eout/p vs Ein/p
 	double EinP  = (p.get("Ein")/GeV) /mom;
 	double EoutP = (p.get("Eout")/GeV)/mom;
 	double ecmin = ecop_vs_ecip_a[sector_i] + ecop_vs_ecip_b[sector_i]*EinP;
 	// 	if(EinP == 0 && EoutP == 0) cout << " Attention: Ein and Eout are zero." << endl;
-	if(EoutP > ecmin && EoutP > 0.001)
-		selection["ECIO"] = 1;	
+	if(EoutP > ecmin && EoutP > 0.001) {
+        selection["ECIO"] = 1;
+    }
 	
 	// EC inner/total
 	double Ein  = p.get("Ein")/GeV;
-	if(Ein/Etot >= min_ecit[sector_i]) 
-		selection["INTO"] = 1;
+	if(Ein/Etot >= min_ecit[sector_i]) {
+        selection["INTO"] = 1;
+    }
 		
 	if(  p.ccinfos.size() && p.cainfos.size() &&
 		  selection["CCMATCH"]*
@@ -136,8 +138,9 @@ map<string, int> e_pid_selection::selection(particle p)
 		  selection["ECP"]*
 		  selection["ECUVW"]*
 		  selection["ECIO"]*
-		  selection["INTO"] == 1)
-		selection["PASSED"] = 1;
+		  selection["INTO"] == 1) {
+        selection["PASSED"] = 1;
+    }
 
 	return selection;
 }

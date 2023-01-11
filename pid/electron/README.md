@@ -14,12 +14,20 @@
 - cut-12: nphe (not a cut)
 
 
-## Apply cut and create histograms:
+## Re-run e_pid to apply cut and create histograms:
 
+Single file example:
 
+`/opt/projects/analysis/pid/electron/e_pid   /Volumes/e1-6/pass4/fullRuns/30540.mu  -BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root -PARS_FILE=/opt/projects/analysis/pid/electron/electron_id_par.txt
+`
 
-## Run analysis
+All files:
 
+`go_SEL /Volumes/e1-6/pass4/fullRuns    /Volumes/e1-6Proc/pass4/e_pid   /opt/projects/analysis/pid/electron/e_pid             /opt/projects/analysis/pid/electron/electron_id_par.txt
+`
+## Run analysis:
+
+`root e_pid.C`
 
 
 ## Create web pages based on the output of the analysis
