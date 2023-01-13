@@ -94,7 +94,7 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 			lab.DrawLatex(0.18, 0.91,  "c: calorimeter negative cuts applied");
 			lab.DrawLatex(0.33, 0.85,  Form("percentage of a : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
 		} else if(c==3) {
-			lab.DrawLatex(0.48, 0.91,  "d: all cuts applied");
+			lab.DrawLatex(0.48, 0.91,  "d: all e pid cuts applied");
 			lab.DrawLatex(0.36, 0.21,  Form("percentage of a: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
 			lab.DrawLatex(0.36, 0.15,  Form("percentage of b: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[1][s]->GetEntries()));
 		}

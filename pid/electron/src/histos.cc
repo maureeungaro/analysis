@@ -52,6 +52,7 @@ void histos::fill(map<string, int> passed, particle p)
 	int    pmt_number = ( p.get("ccpmt") > 0 ? (int) segm*2 :(int) segm*2-1 );
 	// no cuts
 	if(p.ccinfos.size() && p.scinfos.size()) {
+
 		theta_vs_segm[0][sector_i]->Fill(segm, xpos);
 		theta_vs_segm[0][6]->Fill(segm, xpos);
 		phi_match[0][sector_i]->Fill(ccphimatch);
@@ -84,13 +85,6 @@ void histos::fill(map<string, int> passed, particle p)
             cc_timing[2][sector_i]->Fill(pmt_number, ccdtime);
             cc_timing[2][6]->Fill(pmt_number, ccdtime);
         }
-
-        // all others other than cc match on
-//		if(alloth["CCMATCH"] == 1) {
-//		}
-//		// all others off
-//		if(othneg["CCMATCH"] == 1) {
-//		}
 
 		// all cuts
 		if(passed["PASSED"] == 1) {
@@ -450,17 +444,29 @@ void histos::set_vars(map<string, int> passed)
 
     // CCMATCH cut
 
-	if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"]* passed["CCPHIM"] *passed["CCTIME"] == 1) { alloth["CCTHEM"] = 1; }
-    if( passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"]*!passed["CCPHIM"]*!passed["CCTIME"] == 1) { othneg["CCTHEM"] = 1; }
+    // to be consistent between theta, phi and timing, the same 'other' and 'otherneg' are used for all three cuts
 
-    if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"]* passed["CCTHEM"] *passed["CCTIME"] == 1) { alloth["CCPHIM"] = 1; }
-    if(!passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"]*!passed["CCTHEM"]*!passed["CCTIME"] == 1) { othneg["CCPHIM"] = 1; }
+//	if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"]* passed["CCPHIM"] *passed["CCTIME"] == 1) { alloth["CCTHEM"] = 1; }
+//    if( passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"]*!passed["CCPHIM"]*!passed["CCTIME"] == 1) { othneg["CCTHEM"] = 1; }
+//
+//    if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"]* passed["CCTHEM"] *passed["CCTIME"] == 1) { alloth["CCPHIM"] = 1; }
+//    if(!passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"]*!passed["CCTHEM"]*!passed["CCTIME"] == 1) { othneg["CCPHIM"] = 1; }
+//
+//    if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"]* passed["CCTHEM"] *passed["CCPHIM"] == 1) { alloth["CCTIME"] = 1; }
+//    if( passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"]*!passed["CCTHEM"]*!passed["CCPHIM"] == 1) { othneg["CCTIME"] = 1; }
 
-    if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"]* passed["CCTHEM"] *passed["CCPHIM"] == 1) { alloth["CCTIME"] = 1; }
-    if( passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"]*!passed["CCTHEM"]*!passed["CCPHIM"] == 1) { othneg["CCTIME"] = 1; }
-
-    if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"] == 1) { alloth["CCMATCH"] = 1; }
-    if(!passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"] == 1) { othneg["CCMATCH"] = 1; }
+    if( passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"]* passed["ECTHR"] == 1) {
+        alloth["CCTHEM"] = 1;
+        alloth["CCMATCH"] = 1;
+        alloth["CCPHIM"] = 1;
+        alloth["CCTIME"] = 1;
+    }
+    if(!passed["ECP"]*!passed["ECUVW"]*!passed["ECIO"]*!passed["INTO"]*!passed["ECTHR"] == 1) {
+        othneg["CCMATCH"] = 1;
+        othneg["CCTHEM"] = 1;
+        othneg["CCPHIM"] = 1;
+        othneg["CCTIME"] = 1;
+    }
 
 	// ECTHR cut
 	if( passed["CCMATCH"]* passed["ECP"]* passed["ECUVW"]* passed["ECIO"]* passed["INTO"] == 1)

@@ -26,7 +26,8 @@ void CC_Match::show_phi_match(int sector)
 
 	H->phi_match[1][s]->SetFillColor(colors[1]);
 	H->phi_match[3][s]->SetFillColor(kGreen);
-	H->phi_match[1][s]->SetFillStyle(3004);
+
+    H->phi_match[1][s]->SetFillStyle(3004);
 	H->phi_match[3][s]->SetFillStyle(3001);
 
 	for(int c=0; c<4; c++) {
@@ -43,19 +44,19 @@ void CC_Match::show_phi_match(int sector)
 	H->phi_match[0][s]->SetMinimum(hist_minimum);
 	H->phi_match[0][s]->Draw();
 	H->phi_match[1][s]->Draw("same");
-	H->phi_match[2][s]->Draw("same");
+	//H->phi_match[2][s]->Draw("same");
 	H->phi_match[3][s]->Draw("same");
 	gPad->SetLogy();
 	lab.SetTextColor(colors[0]);
 	lab.SetTextFont(42);
 	lab.SetTextSize(0.04);
-	lab.DrawLatex(0.350, 0.44,  Form("#phi match / no cut:  %3.1f%%",       100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[0][s]->GetEntries()   ));
+	lab.DrawLatex(0.350, 0.32,  Form("#phi match / no cut:  %3.1f%%",       100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[0][s]->GetEntries()  ));
 	lab.SetTextColor(colors[1]);
-	lab.DrawLatex(0.320, 0.38,  Form("#phi match / calorimeter:  %3.1f%%",  100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[1][s]->GetEntries()   ));
-	lab.SetTextColor(kRed);
-	lab.DrawLatex(0.245, 0.32,  Form("#phi match / no cut : %3.1f%%",       100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[2][s]->GetEntries()   ));
+	lab.DrawLatex(0.320, 0.26,  Form("#phi match / calorimeter:  %3.1f%%",  100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[1][s]->GetEntries()  ));
+//	lab.SetTextColor(kRed);
+//	lab.DrawLatex(0.245, 0.32,  Form("All cuts   / no cut : %3.1f%%",       100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[0][s]->GetEntries()  ));
 //	lab.SetTextColor(kBlack);
-//	lab.DrawLatex(0.28, 0.26,   Form("#phi match  / calorimeter: %3.1f%%",   100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[1][s]->GetEntries()  ));
+//	lab.DrawLatex(0.32, 0.26,   Form("All cuts  / calorimeter: %3.1f%%",    100.0*H->phi_match[3][s]->GetEntries() / H->phi_match[1][s]->GetEntries()  ));
 
 
 	lab.SetTextFont(102);
