@@ -53,6 +53,8 @@ public:
 	cpars(string filename);
 	~cpars(){;}
 
+    string parameter_file;
+
 	// additional infos in the file: cuts informations
 	vector<string> addInfos;
 
@@ -97,7 +99,7 @@ public:
 	double CC_Sigma(    double segm, int sector);
 	double CC_limit(    double segm, int sector, int which);
 	
-	void write_vars(string);
+	void write_vars();
 };
 
 #endif

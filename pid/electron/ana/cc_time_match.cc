@@ -1,3 +1,11 @@
+#include "cc_match.h"
+
+// root
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TLatex.h"
+#include "TCanvas.h"
+
 void CC_Match::calc_cc_time_match(int sector)
 {
 	gStyle->SetPadLeftMargin(0.1);
@@ -19,18 +27,11 @@ void CC_Match::calc_cc_time_match(int sector)
 		ybe[b] = 0;
 	}
 
-
-	// reading cuts from original pass - looks like about 5 sigma was saved
-	// reading those values instead of re-doing the fit, which may yield slightly different results
-	// and confuse people.
-	// alternatively, I could re-run all the DST with slightly different cuts
-
 	// Slicing + fitting
 	cout << " Fitting sector " << s+1 << endl;
-	for(int b=0; b<36; b++)
-	{
+	for(int b=0; b<36; b++) {
 		cerr << " Fitting pmt " << b+1 << endl;
-		H.cc_timing[1][s]->ProjectionY(Form("cc_timing1d_s%d_pmt%d", s+1, b+1), b+2, b+3);
+		H->cc_timing[1][s]->ProjectionY(Form("cc_timing1d_s%d_pmt%d", s+1, b+1), b+2, b+3);
 		cc_timing1d[s][b] = (TH1F*)gROOT->Get(Form("cc_timing1d_s%d_pmt%d", s+1, b+1));
 		
 		// Gaussian fit
@@ -42,13 +43,13 @@ void CC_Match::calc_cc_time_match(int sector)
 			cc_timing1d[s][b]->GetFunction("gaus")->SetLineWidth(2);
 			cc_timing1d[s][b]->GetFunction("gaus")->SetLineColor(kRed+3);
 			
-			Pars.cc_timing_low[s][b] = mean - Pars.CC_T_NSIGMAS*sigma;
-			if(fabs(mean - Pars.CC_T_NSIGMAS*sigma) > 20 )Pars.cc_timing_low[s][b] = -100.0;
+			Pars->cc_timing_low[s][b] = mean - Pars->CC_T_NSIGMAS*sigma;
+			if(fabs(mean - Pars->CC_T_NSIGMAS*sigma) > 20 )Pars->cc_timing_low[s][b] = -100.0;
 			
 		}
 	}
 
-	cc_timing_low[s] = new TGraphErrors(36, xb, Pars.cc_timing_low[s], xbe, ybe);
+	cc_timing_low[s] = new TGraphErrors(36, xb, Pars->cc_timing_low[s], xbe, ybe);
 	cc_timing_low[s]->SetMarkerSize(0.2);
 	cc_timing_low[s]->SetLineWidth(2);
 
@@ -58,9 +59,9 @@ void CC_Match::calc_cc_time_match(int sector)
 }
 
 
-void calc_all_cc_timing() {
+void  CC_Match::calc_all_cc_time_match() {
 	for(int s=0; s<6; s++){
-		calc_cc_timing(s+1);
+        calc_cc_time_match(s+1);
 	}
 }
 

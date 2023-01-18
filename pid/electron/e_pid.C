@@ -4,9 +4,6 @@
 // common parameters, analysis classes
 #include"ana/parameters.h"
 
-
-
-
 void e_pid()
 {
 	string type = "data";
@@ -51,7 +48,7 @@ void e_pid()
 
 
     bar->AddButton("### Time Matching ###","");
-    bar->AddButton("Calculate new CC timing cuts",             "calc_cc_timing();");
+    bar->AddButton("Calculate new CC timing cuts",             "CCMatch->calc_cc_time_match(SECTOR);");
     bar->AddButton("Show CC timing",                           "show_cc_timing();");
     bar->AddButton("Show CC timing each sector",               "show_cc_timings();");
     bar->AddButton("Show CC timing all sectors",               "show_cc_timing_all_sectors();");
@@ -94,7 +91,7 @@ void e_pid()
     bar->AddButton("Change Sector",                            "change_sector();");
     bar->AddButton("","");
 	bar->AddButton("Print all electrond ID plots",             "print_all();");
-	//	bar->AddButton("Write Parameters",                         "Pars.write_vars(pars_file);");
+    bar->AddButton("Write Parameters",                         "Pars->write_vars();");
 	bar->AddButton("","");
 	bar->Show();
 	gROOT->SaveContext();

@@ -37,6 +37,7 @@ public:
 
     // time match
     void calc_cc_time_match(int sector);
+    void calc_all_cc_time_match();
 
 private:
 

@@ -210,7 +210,8 @@ void chistos::write_and_close()
 // Reads Parameters and functions
 cpars::cpars(string filename)
 {
-	ifstream parfile(filename.c_str(), ios::in);
+    parameter_file = filename;
+	ifstream parfile(parameter_file.c_str(), ios::in);
 	cout << endl << " > Opening parameter file " << filename << endl << endl;
 	if(!parfile) {
 		cout << " File " <<  filename << " could not be opened. " << endl;
@@ -229,7 +230,6 @@ cpars::cpars(string filename)
 		ecp_sigm_b[s] = 0;
 		ecp_sigm_c[s] = 0;
 		ecp_sigm_d[s] = 0;
-		
 
 		for(int p=0; p<18; p++) {
 			cc_match_low[s][p] = 0;
@@ -400,19 +400,92 @@ cpars::cpars(string filename)
 	//		cout << addInfos[si] << endl;
 }
 
-void cpars::write_vars(string filename)
+void cpars::write_vars()
 {
-	ofstream parfile(filename.c_str());
-	cout << endl << " Opening output parameter file " << filename << endl;
-	
+	ofstream parfile(parameter_file.c_str());
+	cout << endl << " Opening output parameter file " << parameter_file << endl;
+
+    parfile << "NPHE: " ;
+    for(int s=0; s<6; s++) parfile << min_nphe[s] << " ";
+    parfile << "                     # Number of Photoelectrons"  << endl;
+
+    parfile << "CCNS: " ;
+    parfile << CC_NSIGMAS[0] << " " << CC_NSIGMAS[1] ;
+    parfile << "                                    # CC Theta Matching number of sigmas for upper/lower curve" << endl;
+
+    parfile << "CCMA: " ;
+    for(int s=0; s<6; s++) {parfile.width(12) ; parfile << cc_match_mean_a[s] << " ";}
+    parfile << "         # CC Matching mean A: a + bx + cx2" << endl;
+
+    parfile << "CCMB: " ;
+    for(int s=0; s<6; s++) {parfile.width(12) ; parfile << cc_match_mean_b[s] << " ";}
+    parfile << "         # CC Matching mean B: a + bx + cx2" << endl;
+
+    parfile << "CCMC: " ;
+    for(int s=0; s<6; s++) {parfile.width(12) ; parfile << cc_match_mean_c[s] << " ";}
+    parfile << "         # CC Matching mean C: a + bx + cx2" << endl;
+
+    parfile << "CCMS1: " ;
+    for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[0][p] << " ";}
+    parfile << "     # CC Theta Matching Lower Limits for Sector 1" << endl;
+
+    parfile << "CCMS2: " ;
+    for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[1][p] << " ";}
+    parfile << "     # CC Theta Matching Lower Limits for Sector 2" << endl;
+
+    parfile << "CCMS3: " ;
+    for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[2][p] << " ";}
+    parfile << "     # CC Theta Matching Lower Limits for Sector 3" << endl;
+
+    parfile << "CCMS4: " ;
+    for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[3][p] << " ";}
+    parfile << "     # CC Theta Matching Lower Limits for Sector 4" << endl;
+
+    parfile << "CCMS5: " ;
+    for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[4][p] << " ";}
+    parfile << "     # CC Theta Matching Lower Limits for Sector 5" << endl;
+
+    parfile << "CCMS6: " ;
+    for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[5][p] << " ";}
+    parfile << "     # CC Theta Matching Lower Limits for Sector 6" << endl;
+
+    parfile << "CCTNS: " ;
+    parfile << CC_T_NSIGMAS;
+    parfile << "                                     # CC Timing number of sigmas for lower limit" << endl;
+
+    parfile << "CCTS1: " ;
+    for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[0][p] << " ";}
+    parfile << "     # CC Timing Lower Limits for Sector 1" << endl;
+
+    parfile << "CCTS2: " ;
+    for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[1][p] << " ";}
+    parfile << "     # CC Timing Lower Limits for Sector 2" << endl;
+
+    parfile << "CCTS3: " ;
+    for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[2][p] << " ";}
+    parfile << "     # CC Timing Lower Limits for Sector 3" << endl;
+
+    parfile << "CCTS4: " ;
+    for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[3][p] << " ";}
+    parfile << "     # CC Timing Lower Limits for Sector 4" << endl;
+
+    parfile << "CCTS5: " ;
+    for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[4][p] << " ";}
+    parfile << "     # CC Timing Lower Limits for Sector 5" << endl;
+
+    parfile << "CCTS6: " ;
+    for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[5][p] << " ";}
+    parfile << "     # CC Timing Lower Limits for Sector 6" << endl;
+
+
+
+
+
 	parfile << "MINP: " ;
 	parfile << p_ec_threshold;
 	parfile << "                                # Min momentum as given by the EC Threshold in mV" << endl;
 	
-	parfile << "NPHE: " ;
-	for(int s=0; s<6; s++) parfile << min_nphe[s] << " ";
-	parfile << "                     # Number of Photoelectrons"  << endl;
-	
+
 	parfile << "ECIT: " ;
 	for(int s=0; s<6; s++) {parfile.width(5) ; parfile << ecop_vs_ecip_a[s] << " ";}
 	parfile << "   # intercept on the curve ecop_vs_ecip" << endl;
@@ -433,14 +506,8 @@ void cpars::write_vars(string filename)
 	parfile << NSIGMAS[0] << " " << NSIGMAS[1] ;
 	parfile << "                                  # sampling fraction number of sigmas for upper/lower curve" << endl;
 	
-	parfile << "CCNS: " ;
-	parfile << CC_NSIGMAS[0] << " " << CC_NSIGMAS[1] ;
-	parfile << "                                    # CC Theta Matching number of sigmas for upper/lower curve" << endl;
 
-	parfile << "CCTNS: " ;
-	parfile << CC_T_NSIGMAS;
-	parfile << "                                     # CC Timing number of sigmas for lower limit" << endl;
-	
+
 	parfile << "SFMA: " ;
 	for(int s=0; s<6; s++) {parfile.width(12) ; parfile << ecp_mean_a[s] << " ";}
 	parfile << "         # sampling fraction mean A: a + bx + cx2 + dx3" << endl;
@@ -474,66 +541,9 @@ void cpars::write_vars(string filename)
 	parfile << "         # sampling fraction sigma D: a + bx + cx2 + dx3" << endl;
 
 	
-	parfile << "CCMA: " ;
-	for(int s=0; s<6; s++) {parfile.width(12) ; parfile << cc_match_mean_a[s] << " ";}
-	parfile << "         # CC Matching mean A: a + bx + cx2" << endl;
 
-	parfile << "CCMB: " ;
-	for(int s=0; s<6; s++) {parfile.width(12) ; parfile << cc_match_mean_b[s] << " ";}
-	parfile << "         # CC Matching mean B: a + bx + cx2" << endl;
 
-	parfile << "CCMC: " ;
-	for(int s=0; s<6; s++) {parfile.width(12) ; parfile << cc_match_mean_c[s] << " ";}
-	parfile << "         # CC Matching mean C: a + bx + cx2" << endl;
 
-	parfile << "CCMS1: " ;
-	for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[0][p] << " ";}
-	parfile << "     # CC Theta Matching Lower Limits for Sector 1" << endl;
-	
-	parfile << "CCMS2: " ;
-	for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[1][p] << " ";}
-	parfile << "     # CC Theta Matching Lower Limits for Sector 2" << endl;
-	
-	parfile << "CCMS3: " ;
-	for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[2][p] << " ";}
-	parfile << "     # CC Theta Matching Lower Limits for Sector 3" << endl;
-	
-	parfile << "CCMS4: " ;
-	for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[3][p] << " ";}
-	parfile << "     # CC Theta Matching Lower Limits for Sector 4" << endl;
-	
-	parfile << "CCMS5: " ;
-	for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[4][p] << " ";}
-	parfile << "     # CC Theta Matching Lower Limits for Sector 5" << endl;
-	
-	parfile << "CCMS6: " ;
-	for(int p=0; p<18; p++) {parfile.width(9) ; parfile << cc_match_low[5][p] << " ";}
-	parfile << "     # CC Theta Matching Lower Limits for Sector 6" << endl;
-	
-	parfile << "CCTS1: " ;
-	for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[0][p] << " ";}
-	parfile << "     # CC Timing Lower Limits for Sector 1" << endl;
-	
-	parfile << "CCTS2: " ;
-	for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[1][p] << " ";}
-	parfile << "     # CC Timing Lower Limits for Sector 2" << endl;
-	
-	parfile << "CCTS3: " ;
-	for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[2][p] << " ";}
-	parfile << "     # CC Timing Lower Limits for Sector 3" << endl;
-	
-	parfile << "CCTS4: " ;
-	for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[3][p] << " ";}
-	parfile << "     # CC Timing Lower Limits for Sector 4" << endl;
-	
-	parfile << "CCTS5: " ;
-	for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[4][p] << " ";}
-	parfile << "     # CC Timing Lower Limits for Sector 5" << endl;
-	
-	parfile << "CCTS6: " ;
-	for(int p=0; p<36; p++) {parfile.width(9) ; parfile << cc_timing_low[5][p] << " ";}
-	parfile << "     # CC Timing Lower Limits for Sector 6" << endl;
-	
 }
 
 double cpars::Mean(double p, int sector)

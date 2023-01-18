@@ -1,4 +1,4 @@
-void show_cc_timing()
+void CC_Match::show_cc_timing()
 {
 	int s = SECTOR - 1;
 	
@@ -97,7 +97,7 @@ void show_cc_timing()
 
 
 
-void show_cc_timings()
+void CC_Match::show_cc_timings()
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
@@ -167,7 +167,7 @@ void show_cc_timings()
 
 
 
-void CCT_DynamicExec()
+void CC_Match::CCT_DynamicExec()
 {
 	
 	int s = SECTOR - 1;
@@ -198,7 +198,7 @@ void CCT_DynamicExec()
 }
 
 
-void CCT_DrawFit(int s, int hid)
+void CC_Match::CCT_DrawFit(int s, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
@@ -256,7 +256,7 @@ void CCT_DrawFit(int s, int hid)
 }
 
 
-void show_cc_timing_all_sectors()
+void CC_Match::show_cc_timing_all_sectors()
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.12);
@@ -328,10 +328,8 @@ void show_cc_timing_all_sectors()
 	lab.DrawLatex(0.62, 0.94,  "All Other Cuts Applied");
 	
 	
-	if(PRINT != "") 
-	{
+	if(PRINT != ""){
 		Ccc_timingA->Print(Form("img/cut-03cctim_sector-all.%s", PRINT.c_str()));
-
 	}
 	
 }
