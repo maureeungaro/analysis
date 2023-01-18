@@ -50,11 +50,16 @@ void e_pid()
     bar->AddButton("","");
 
 
-	//	bar->AddButton("Calculate new CC timing cuts",             "calc_cc_timing();");
-	//	bar->AddButton("Show CC timing",                           "show_cc_timing();");
-	//	bar->AddButton("Show CC timing each sector",               "show_cc_timings();");
-	//	bar->AddButton("Show CC timing all sectors",               "show_cc_timing_all_sectors();");
-	//	bar->AddButton("","");
+    bar->AddButton("### Time Matching ###","");
+    bar->AddButton("Calculate new CC timing cuts",             "calc_cc_timing();");
+    bar->AddButton("Show CC timing",                           "show_cc_timing();");
+    bar->AddButton("Show CC timing each sector",               "show_cc_timings();");
+    bar->AddButton("Show CC timing all sectors",               "show_cc_timing_all_sectors();");
+    bar->AddButton("","");
+
+
+
+
 	//	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
 	//	bar->AddButton("Show minimum momentum cut all sectors",    "show_ecthrAll();");
 	//	bar->AddButton("","");

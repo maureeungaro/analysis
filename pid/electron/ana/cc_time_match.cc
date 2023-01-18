@@ -1,4 +1,4 @@
-void calc_cc_timing()
+void CC_Match::calc_cc_time_match(int sector)
 {
 	gStyle->SetPadLeftMargin(0.1);
 	gStyle->SetPadRightMargin(0.12);
@@ -10,11 +10,10 @@ void calc_cc_timing()
 	
 	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", 800, 800);
 
-	
-	int s = SECTOR - 1;
+    int s = sector - 1;
 	double xb[36], xbe[36], ybe[36];
-	for(int b=0; b<36; b++)
-	{
+
+    for(int b=0; b<36; b++) {
 		xb[b]  = b+1.5;
 		xbe[b] = 0.5;
 		ybe[b] = 0;
@@ -26,7 +25,7 @@ void calc_cc_timing()
 	// and confuse people.
 	// alternatively, I could re-run all the DST with slightly different cuts
 
-//	// Slicing + fitting
+	// Slicing + fitting
 	cout << " Fitting sector " << s+1 << endl;
 	for(int b=0; b<36; b++)
 	{
@@ -37,8 +36,7 @@ void calc_cc_timing()
 		// Gaussian fit
 		cc_timing1d[s][b]->Fit("gaus", "QEM");
 		cout << "  N. events: " << cc_timing1d[s][b]->Integral() << endl;
-		if(cc_timing1d[s][b]->Integral() > 0)
-		{
+		if(cc_timing1d[s][b]->Integral() > 0) {
 			double mean  = cc_timing1d[s][b]->GetFunction("gaus")->GetParameter(1);
 			double sigma = cc_timing1d[s][b]->GetFunction("gaus")->GetParameter(2);
 			cc_timing1d[s][b]->GetFunction("gaus")->SetLineWidth(2);
@@ -60,19 +58,11 @@ void calc_cc_timing()
 }
 
 
-void calc_all_cc_timing()
-{
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s+1;
-		calc_cc_timing();
+void calc_all_cc_timing() {
+	for(int s=0; s<6; s++){
+		calc_cc_timing(s+1);
 	}
-	SECTOR = 1;
 }
-
-
-
-
 
 
 

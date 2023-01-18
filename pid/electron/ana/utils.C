@@ -144,7 +144,7 @@ void print_all()
 //	show_summary();
 
 
-	PRINT = "";
+	PRINT = "none";
 }
 
 

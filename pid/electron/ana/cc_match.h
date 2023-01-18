@@ -35,6 +35,9 @@ public:
     void show_phi_match(int sector);
     void show_phi_matchAll();
 
+    // time match
+    void calc_cc_time_match(int sector);
+
 private:
 
     chistos *H;
