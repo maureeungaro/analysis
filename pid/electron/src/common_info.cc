@@ -94,6 +94,7 @@ chistos::chistos(string filename, int READ)
                     phi_match[c][s]     = (TH1F*)f.Get(Form("phi_match_%s_sect%d",     cut[c].c_str(), s+1));
 					cc_timing[c][s]     = (TH2F*)f.Get(Form("cc_timing_%s_sect%d",     cut[c].c_str(), s+1));
 					nphe[c][s]          = (TH1F*)f.Get(Form("nphe_%s_sect%d",          cut[c].c_str(), s+1));
+					ecthr[c][s]         = (TH1F*)f.Get(Form("ecthr_%s_sect%d",         cut[c].c_str(), s+1));
 
                     // not sure why this is needed
                     enphe[s] = (TH1F*) nphe[0][s]->Clone();
@@ -107,11 +108,13 @@ chistos::chistos(string filename, int READ)
                     phi_match[c][s]    ->SetDirectory(0);
 					nphe[c][s]         ->SetDirectory(0);
                     enphe[s]           ->SetDirectory(0);
+					ecthr[c][s]        ->SetDirectory(0);
 
 
                     // colors
                     phi_match[c][s]    ->SetLineColor(colors[c]);
 					nphe[c][s]         ->SetLineColor(colors[c]);
+					ecthr[c][s]        ->SetLineColor(colors[c]);
 
 
                     // titles
@@ -120,24 +123,22 @@ chistos::chistos(string filename, int READ)
                     phi_match[c][s]    ->GetXaxis()->SetTitle(Form("Sector %d                [match index]",  s+1));
 					cc_timing[c][s]    ->GetXaxis()->SetTitle(Form("Sector %d              [pmt]", s+1));
 					cc_timing[c][s]    ->GetYaxis()->SetTitle(Form("#Delta T    [ns]"));
-					nphe[0][s]         ->GetXaxis()->SetTitle(Form("Sector %d          [nphe#times10]", s+1));
+					nphe[c][s]         ->GetXaxis()->SetTitle(Form("Sector %d          [nphe#times10]", s+1));
+					ecthr[c][s]        ->GetXaxis()->SetTitle(Form("Sector %d              p [GeV]", s+1));
 
 
-//					ecthr[c][s]         = (TH1F*)f.Get(Form("ecthr_%s_sect%d",         cut[c].c_str(), s+1));
 //					ecp[c][s]           = (TH2F*)f.Get(Form("ecp_%s_sect%d",           cut[c].c_str(), s+1));
 //					ECu[c][s]           = (TH1F*)f.Get(Form("ECu_%s_sect%d",           cut[c].c_str(), s+1));
 //					ECv[c][s]           = (TH1F*)f.Get(Form("ECv_%s_sect%d",           cut[c].c_str(), s+1));
 //					ECw[c][s]           = (TH1F*)f.Get(Form("ECw_%s_sect%d",           cut[c].c_str(), s+1));
 //					EoutEin[c][s]       = (TH2F*)f.Get(Form("EoutEin_%s_sect%d",       cut[c].c_str(), s+1));
 //					EinEtot[c][s]       = (TH2F*)f.Get(Form("EinEtot_%s_sect%d",       cut[c].c_str(), s+1));
-//					ecthr[c][s]        ->SetDirectory(0);
 //					ecp[c][s]          ->SetDirectory(0);
 //					ECu[c][s]          ->SetDirectory(0);
 //					ECv[c][s]          ->SetDirectory(0);
 //					ECw[c][s]          ->SetDirectory(0);
 //					EoutEin[c][s]      ->SetDirectory(0);
 //					EinEtot[c][s]      ->SetDirectory(0);
-//					ecthr[c][s]        ->SetLineColor(colors[c]);
 //					ECu[c][s]          ->SetLineColor(colors[c]);
 //					ECv[c][s]          ->SetLineColor(colors[c]);
 //					ECw[c][s]          ->SetLineColor(colors[c]);
@@ -151,7 +152,6 @@ chistos::chistos(string filename, int READ)
 				}
 				// X title
 //				if(s < 6) {
-//					ecthr[0][s]     ->GetXaxis()->SetTitle(Form("Sector %d              p [GeV]", s+1));
 //					ECu[1][s]       ->GetXaxis()->SetTitle(Form("Sector %d              U [cm]",  s+1));
 //					ECv[1][s]       ->GetXaxis()->SetTitle(Form("Sector %d              V [cm]",  s+1));
 //					ECw[1][s]       ->GetXaxis()->SetTitle(Form("Sector %d              W [cm]",  s+1));
@@ -161,7 +161,7 @@ chistos::chistos(string filename, int READ)
 					phi_match[0][s]    ->GetXaxis()->SetTitle("All Sectors");
 					cc_timing[0][s]    ->GetXaxis()->SetTitle("All Sectors      [Segment] ");
 					nphe[0][s]         ->GetXaxis()->SetTitle("All Sectors                         [nphe#times10]");
-//					ecthr[0][s]        ->GetXaxis()->SetTitle("All Sectors                          p [GeV]");
+					ecthr[0][s]        ->GetXaxis()->SetTitle("All Sectors                          p [GeV]");
 //					ecp[0][s]          ->GetXaxis()->SetTitle("All Sectors");
 //					ECu[1][s]          ->GetXaxis()->SetTitle("All Sectors                              U [cm]");
 //					ECv[1][s]          ->GetXaxis()->SetTitle("All Sectors                              V [cm]");

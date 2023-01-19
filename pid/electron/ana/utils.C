@@ -24,16 +24,10 @@ void change_sector()
 	cout << " Sector set to: " << SECTOR << endl;
 }
 
-void print_all()
+
+void print_cc_match()
 {
-    cout << " > Printing all histograms " << endl;
-
-	PRINT = DATA_PRINT;
-	if (is_simulation) {
-		PRINT = SIM_PRINT;
-	}
-
-    // CC theta matching
+    // theta matching
     CCMatch->set_print(PRINT);
 
     // This will also print the pars plots
@@ -54,10 +48,10 @@ void print_all()
 
     }
 
-    // CC theta matching all sectors for calorimeter cuts in one plot
+    // theta matching all sectors for calorimeter cuts in one plot
     CCMatch->show_theta_vs_segm_all_sectors();
 
-    // CC phi match
+    // phi match
     for (int s = 0; s < 6; s++) {
         SECTOR = s + 1;
         CCMatch->show_phi_match(SECTOR);
@@ -65,7 +59,7 @@ void print_all()
     CCMatch->show_phi_match_all_sectors();
 
 
-	// CC time match all
+    // time match all
     CCMatch->calc_all_cc_time_match();
 
     for (int s = 0; s < 6; s++) {
@@ -74,16 +68,16 @@ void print_all()
         CCMatch->show_cc_timings(SECTOR);
 
         // cc timing slices
-		for(int b=0; b<36; b++) {
+        for(int b=0; b<36; b++) {
             CCMatch->CCT_DrawFit_TimeSlice(s,b);
-		}
+        }
     }
 
-	// cc timing all sectors
+    // cc timing all sectors
     CCMatch->show_cc_timing_all_sectors();
 
 
-    // CC npe
+    // npe
     for (int s = 0; s < 6; s++) {
         SECTOR = s + 1;
         CCMatch->show_npe(SECTOR);
@@ -91,16 +85,40 @@ void print_all()
     CCMatch->show_npe_all_sectors();
 
 
+}
+
+
+void print_ec_match()
+{
+    // thresholds
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+        ECMatch->show_ecthr(SECTOR);
+    }
+
+    ECMatch->show_ecthr_all_sectors();
+
+}
+
+void print_all()
+{
+    cout << " > Printing all histograms " << endl;
+
+	PRINT = DATA_PRINT;
+	if (is_simulation) {
+		PRINT = SIM_PRINT;
+	}
+
+    //print_cc_match();
+
+    print_ec_match();
+
 //
 //	// sampling
 //	calc_all_ecp();
 
 
-//		SECTOR = s+1;
-//		show_npeSingle();
-//
 
-//		show_ecthr();
 //
 //		show_ecp();
 //		show_ecps();

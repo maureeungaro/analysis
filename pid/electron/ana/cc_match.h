@@ -85,8 +85,6 @@ private:
     TH1F *cc_timing1d[6][36];      // 1 dimensional projections, fitted with GAUSS
     TGraphErrors *cc_timing_low[6];
 
-
-
 };
 
 

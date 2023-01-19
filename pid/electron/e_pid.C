@@ -24,8 +24,9 @@ void e_pid()
 	H       = new chistos(root_file, 1);
 	Pars    = new cpars(pars_file);
 
-    // CC matching
-	CCMatch = new CC_Match(H, Pars, PRINT, colors);
+    // CC, EC matching classes
+    CCMatch = new CC_Match(H, Pars, PRINT, colors);
+    ECMatch = new EC_Match(H, Pars, PRINT, colors);
 
 	// load utils.C
 	gROOT->ProcessLine(".L ana/utils.C");
@@ -57,10 +58,12 @@ void e_pid()
     bar->AddButton("### Time Matching ###","");
     bar->AddButton("Show nphe in sector",                      "CCMatch->show_npe(SECTOR);");
     bar->AddButton("Show nphe all sectors",                    "CCMatch->show_npe_all_sectors();");
+    bar->AddButton("","");
 
-	//	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
-	//	bar->AddButton("Show minimum momentum cut all sectors",    "show_ecthrAll();");
-	//	bar->AddButton("","");
+    bar->AddButton("### EC Threshold ###","");
+    bar->AddButton("Show minimum momentum cut",                "ECMatch->show_ecthr(SECTOR);");
+    bar->AddButton("Show minimum momentum cut all sectors",    "ECMatch->show_ecthr_all_sectors();");
+    bar->AddButton("","");
 	//	bar->AddButton("Calculate new fraction cuts",              "calc_all_ecp();");
 	//	bar->AddButton("Calculate new fraction cuts this sector",  "calc_ecp();");
 	//	bar->AddButton("Show sampling fraction cuts",              "show_ecp();");

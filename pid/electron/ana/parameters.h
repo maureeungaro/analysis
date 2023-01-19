@@ -6,6 +6,7 @@
 
 // analysis classes
 #include "cc_match.h"
+#include "ec_match.h"
 
 // global variables
 std::string DATA_PRINT = ".png";
@@ -27,8 +28,9 @@ std::string data_label     = "data";
 chistos *H    = nullptr;
 cpars   *Pars = nullptr;
 
-// analysis classes
+// analysis classes - cannot be local to e_pid.C
 CC_Match *CCMatch = nullptr;
+EC_Match *ECMatch = nullptr;
 
 
 //const int NDIV = 15;       // divisions of sampling fraction
