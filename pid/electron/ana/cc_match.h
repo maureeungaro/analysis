@@ -17,7 +17,7 @@ public:
     ~CC_Match();
 
     // constructor using chisto and cpars
-    CC_Match(chistos *common_histo, cpars *common_pars, string P, Color_t colors[4]);
+    CC_Match(chistos *common_histo, cpars *common_pars, string P, const Color_t colors[4]);
 
     // set print
     void set_print(string P) { PRINT = P; }
@@ -27,7 +27,7 @@ public:
     void calc_all_cc_match();
     void show_cc_theta_match_all_cuts(int sector);
     void show_cc_theta_match(int sector);
-    void CC_DrawFit_ThetaSlice(int sector, int hid);
+    void CC_DrawFit_ThetaSlice(int sectorIndex, int hid);
     void show_theta_vs_segm_all_sectors();
     void CC_DynamicExec(int sector);
 
@@ -40,9 +40,15 @@ public:
     void calc_all_cc_time_match();
     void show_cc_timing(int sector);
     void show_cc_timings(int sector);
-    void CCT_DrawFit_TimeSlice(int sector, int hid);
+    void CCT_DrawFit_TimeSlice(int sectorIndex, int hid);
     void show_cc_timing_all_sectors();
     void CCT_DynamicExec(int sector);
+
+    // npe
+    void show_npe(int sector);
+    void show_npe_all_sectors();
+
+
 
 private:
 
@@ -73,7 +79,6 @@ private:
     TF1 *cc_match_me;
     TF1 *cc_match_up;
     TF1 *cc_match_dn;
-
 
 
     // CC timing histos, variables, functions

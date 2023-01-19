@@ -54,8 +54,9 @@ void e_pid()
     bar->AddButton("Show CC timing all sectors",               "CCMatch->show_cc_timing_all_sectors();");
     bar->AddButton("","");
 
-
-
+    bar->AddButton("### Time Matching ###","");
+    bar->AddButton("Show nphe in sector",                      "CCMatch->show_npe(SECTOR);");
+    bar->AddButton("Show nphe all sectors",                    "CCMatch->show_npe_all_sectors();");
 
 	//	bar->AddButton("Show minimum momentum cut",                "show_ecthr();");
 	//	bar->AddButton("Show minimum momentum cut all sectors",    "show_ecthrAll();");
@@ -80,13 +81,8 @@ void e_pid()
 	//	bar->AddButton("Show Ein/Etot vs p",                       "show_EinEtot();");
 	//	bar->AddButton("Show Ein/Etot vs p all sectors",           "show_EinEtotAll();");
 	//	bar->AddButton("","");
-	//	bar->AddButton("Show number of photoelectrons",            "show_npe();");
-	//	bar->AddButton("Show number of photoelectrons in sector",  "show_npeSingle();");
 	//	bar->AddButton("","");
 	//	bar->AddButton("Show Summary",                             "show_summary();");
-	//	bar->AddButton("","");
-	//	bar->AddButton("Change Sector",                            "change_sector();");
-
 
     bar->AddButton("","");
     bar->AddButton("Switch PRINT",                             "switch_print();");

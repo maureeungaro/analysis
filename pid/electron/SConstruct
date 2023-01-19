@@ -23,6 +23,7 @@ ana_e_pid_sources = Split("""ana/cc_match.cc
                              ana/show_cc_phi_match.cc
                              ana/cc_time_match.cc
                              ana/show_cc_time_match.cc
+                             ana/show_npe.cc
                              """)
 
 env.SharedLibrary(source = ana_e_pid_sources, target = 'ana_epid')

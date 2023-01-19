@@ -67,6 +67,7 @@ void print_all()
 
 	// CC time match all
     CCMatch->calc_all_cc_time_match();
+
     for (int s = 0; s < 6; s++) {
         SECTOR = s + 1;
         CCMatch->show_cc_timing(SECTOR);
@@ -80,6 +81,14 @@ void print_all()
 
 	// cc timing all sectors
     CCMatch->show_cc_timing_all_sectors();
+
+
+    // CC npe
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+        CCMatch->show_npe(SECTOR);
+    }
+    CCMatch->show_npe_all_sectors();
 
 
 //
@@ -115,9 +124,6 @@ void print_all()
 //
 //	}
 
-//	// NPHE all sectors
-//	show_npe();
-//
 
 
 

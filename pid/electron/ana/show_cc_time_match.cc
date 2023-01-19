@@ -70,14 +70,14 @@ void CC_Match::show_cc_timing(int sector)
             lab.DrawLatex(0.48, 0.91,  "a: no cuts applied");
         } else if(c==1) {
             lab.DrawLatex(0.31, 0.91,  "b: calorimeter cuts applied");
-            lab.DrawLatex(0.37, 0.21,  Form("percentage of a : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
+            lab.DrawLatex(0.37, 0.21,  Form("percentage of a : %3.1f%%", 100.0*H->cc_timing[c][s]->GetEntries()/H->cc_timing[0][s]->GetEntries()));
         } else if(c==2) {
             lab.DrawLatex(0.18, 0.91,  "c: calorimeter negative cuts applied");
-            lab.DrawLatex(0.33, 0.85,  Form("percentage of a : %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
+            lab.DrawLatex(0.33, 0.85,  Form("percentage of a : %3.1f%%", 100.0*H->cc_timing[c][s]->GetEntries()/H->cc_timing[0][s]->GetEntries()));
         } else if(c==3) {
             lab.DrawLatex(0.35, 0.91,  "d: all e pid cuts applied");
-            lab.DrawLatex(0.25, 0.26,  Form("percentage of a: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[0][s]->GetEntries()));
-            lab.DrawLatex(0.25, 0.20,  Form("percentage of b: %3.1f%%", 100.0*H->theta_vs_segm[c][s]->GetEntries()/H->theta_vs_segm[1][s]->GetEntries()));
+            lab.DrawLatex(0.25, 0.26,  Form("percentage of a: %3.1f%%", 100.0*H->cc_timing[c][s]->GetEntries()/H->cc_timing[0][s]->GetEntries()));
+            lab.DrawLatex(0.25, 0.20,  Form("percentage of b: %3.1f%%", 100.0*H->cc_timing[c][s]->GetEntries()/H->cc_timing[1][s]->GetEntries()));
         }
 
     }
@@ -91,7 +91,7 @@ void CC_Match::show_cc_timing(int sector)
 	lab.DrawLatex(0.55, 0.95,  Form("#Delta T = T_{CC} + |#vec{R}_{SC}-#vec{R}_{CC}|/c - T_{SC}"));
 
 	if(PRINT != "none") {
-		Ccc_timingS->Print( Form("img/cut-03-cc-time-match-cuts_sector-%d.%s", s+1, PRINT.c_str()) );
+		Ccc_timingS->Print( Form("img/cut-03-cc-time-match-cuts_sector-%d%s", s+1, PRINT.c_str()) );
     }
 }
 
@@ -155,8 +155,7 @@ void CC_Match::show_cc_timings(int sector) {
 
 
     if (PRINT != "none") {
-        Ccc_timing->Print(Form("img/cut-03-cc-time-match_sector-%d.%s", s + 1, PRINT.c_str()));
-
+        Ccc_timing->Print(Form("img/cut-03-cc-time-match_sector-%d%s", s + 1, PRINT.c_str()));
     }
 
     if (cc_timing_low[s]) {
@@ -197,7 +196,7 @@ void CC_Match::CCT_DynamicExec(int sector)
 }
 
 
-void CC_Match::CCT_DrawFit_TimeSlice(int sector, int hid)
+void CC_Match::CCT_DrawFit_TimeSlice(int s, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
@@ -207,9 +206,7 @@ void CC_Match::CCT_DrawFit_TimeSlice(int sector, int hid)
 	TLatex lab;
 	lab.SetNDC();
 
-    int s = sector - 1;
-
-   // create or set the new canvas c2
+    // create or set the new canvas c2
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
@@ -225,13 +222,13 @@ void CC_Match::CCT_DrawFit_TimeSlice(int sector, int hid)
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
 		if(hid<11) {
-			lab.DrawLatex(0.66, 0.82,  Form("Sector %d", sector));
+			lab.DrawLatex(0.66, 0.82,  Form("Sector %d", s+1));
 			lab.DrawLatex(0.67, 0.76,  Form("pmt: %d", hid+1));
 			lab.SetTextColor(kRed+2);
 			lab.DrawLatex(0.59, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(1), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(1)));
 			lab.DrawLatex(0.59, 0.62,  Form("#sigma = %4.3f #pm %2.1e", cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(2), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(2)));
 		} else {
-			lab.DrawLatex(0.26, 0.82,  Form("Sector %d", sector));
+			lab.DrawLatex(0.26, 0.82,  Form("Sector %d", s+1));
 			lab.DrawLatex(0.27, 0.76,  Form("pmt: %d", hid+1));
 			lab.SetTextColor(kRed+2);
 			lab.DrawLatex(0.19, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(1), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(1)));
@@ -244,9 +241,9 @@ void CC_Match::CCT_DrawFit_TimeSlice(int sector, int hid)
 	
 	if(PRINT != "none") {
 		if(hid>=9) {
-            c2->Print(Form("img_slices/slice-%d_cut-03-cc-time-match_sector-%d.%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-%d_cut-03-cc-time-match_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         } else {
-            c2->Print(Form("img_slices/slice-0%d_cut-03-cc-time-match_sector-%d.%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-0%d_cut-03-cc-time-match_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         }
 	}
 
@@ -324,7 +321,7 @@ void CC_Match::show_cc_timing_all_sectors()
 	
 	
 	if(PRINT != "none" ) {
-		Ccc_timingA->Print(Form("img/cut-03cctim_sector-all.%s", PRINT.c_str()));
+		Ccc_timingA->Print(Form("img/cut-03-cc-time-match_sector-all%s", PRINT.c_str()));
 	}
 	
 }

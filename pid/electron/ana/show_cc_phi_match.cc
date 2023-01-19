@@ -81,7 +81,7 @@ void CC_Match::show_phi_match(int sector)
 	lab.DrawLatex(0.72, 0.89,  "-2, 2: track/pmt opposite side");
 
 	if(PRINT != "none") {
-        Cphi_match->Print( Form("img/cut-02-cc-phi-match-sector-%d%s", sector, PRINT.c_str()) );
+        Cphi_match->Print( Form("img/cut-02-cc-phi-match_sector-%d%s", sector, PRINT.c_str()) );
     }
 
 }
@@ -162,7 +162,7 @@ void CC_Match::show_phi_match_all_sectors()
 
 	
 	if(PRINT != "none") {
-        CAphi_match->Print( Form("img/cut-02-cc-phi-match-all%s", PRINT.c_str()) );
+        CAphi_match->Print( Form("img/cut-02-cc-phi-match_sector-all%s", PRINT.c_str()) );
     }
 	
 }

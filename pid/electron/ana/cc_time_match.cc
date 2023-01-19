@@ -33,7 +33,9 @@ void CC_Match::calc_cc_time_match(int sector)
 		cerr << " Fitting pmt " << b+1 << endl;
 		H->cc_timing[1][s]->ProjectionY(Form("cc_timing1d_s%d_pmt%d", s+1, b+1), b+2, b+3);
 		cc_timing1d[s][b] = (TH1F*)gROOT->Get(Form("cc_timing1d_s%d_pmt%d", s+1, b+1));
-		
+
+        cc_timing1d[s][b]->SetDirectory(0);
+
 		// Gaussian fit
 		cc_timing1d[s][b]->Fit("gaus", "QEM");
 		cout << "  N. events: " << cc_timing1d[s][b]->Integral() << endl;

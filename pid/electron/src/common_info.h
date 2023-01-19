@@ -58,24 +58,28 @@ public:
 	// additional infos in the file: cuts informations
 	vector<string> addInfos;
 
-	// theta matching
+	// cc matching
 	double cc_match_mean_a[6];                     // CCMA: CC theta matching mean A: a + bx + cx2
 	double cc_match_mean_b[6];                     // CCMB: CC theta matching mean B: a + bx + cx2
 	double cc_match_mean_c[6];                     // CCMC: CC theta matching mean C: a + bx + cx2
 	double cc_match_low[6][18];                    // CCMS#: CC theta matching lower limit for each sector, segment
 	double CC_NSIGMAS[2];                          // CCNS: CC Matching number of sigmas for upper/lower theta curve
 
+    double cc_timing_low[6][36];                   // CCTS#:   CC timing lower limit for each sector, pmt
+    double CC_T_NSIGMAS;                           // CCTNS:   CC timing number of sigmas for lower limit
+    double min_nphe[6];                            // NPHE: min number of photoelectrons / sector
+
+    double CC_Mean(     double segm, int sector);
+    double CC_Sigma(    double segm, int sector);
+    double CC_limit(    double segm, int sector, int which);
+
 
 
     // not yet refurbished
 
 	// all cuts are stored in the file specified in the constructor
-	double min_nphe[6];                            // NPHE: min number of photoelectrons / sector
 	double p_ec_threshold;                         // ECTHR:  momentum as given by EC threshold in mV.
 
-
-	double cc_timing_low[6][36];                   // CCTS#:   CC timing lower limit for each sector, pmt
-	double CC_T_NSIGMAS;                           // CCTNS:   CC timing number of sigmas for lower limit
 
 	double ecp_mean_a[6];                          // SFMA: sampling fraction mean A: a + bx + cx2 + dx3
 	double ecp_mean_b[6];                          // SFMB: sampling fraction mean B: a + bx + cx2 + dx3
@@ -95,10 +99,7 @@ public:
 	double Sigma(    double p, int sector);
 	double ecp_limit(double p, int sector, int which);
 
-	double CC_Mean(     double segm, int sector);
-	double CC_Sigma(    double segm, int sector);
-	double CC_limit(    double segm, int sector, int which);
-	
+
 	void write_vars();
 };
 

@@ -13,7 +13,7 @@ std::string SIM_PRINT  = "_gsim.png";
 std::string PRINT  = "none";
 bool is_simulation = false;
 int SECTOR = 1;
-Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
+const Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
 
 
 const std::string data_pars_file = "electron_id_par.txt";
@@ -29,11 +29,6 @@ cpars   *Pars = nullptr;
 
 // analysis classes
 CC_Match *CCMatch = nullptr;
-
-
-//void change_sector();
-//void print_all();
-
 
 
 //const int NDIV = 15;       // divisions of sampling fraction

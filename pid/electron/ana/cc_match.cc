@@ -47,7 +47,7 @@ double CC_Match::cc_match_limit(double *x, double *par)
 
 
 // constructor using chisto and cpars
-CC_Match::CC_Match(chistos *common_histo, cpars *common_pars, string P, Color_t c[4]) {
+CC_Match::CC_Match(chistos *common_histo, cpars *common_pars, string P, const Color_t c[4]) {
     H = common_histo;
     Pars = common_pars;
     PRINT = P;

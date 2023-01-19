@@ -95,12 +95,18 @@ chistos::chistos(string filename, int READ)
 					cc_timing[c][s]     = (TH2F*)f.Get(Form("cc_timing_%s_sect%d",     cut[c].c_str(), s+1));
 					nphe[c][s]          = (TH1F*)f.Get(Form("nphe_%s_sect%d",          cut[c].c_str(), s+1));
 
+                    // not sure why this is needed
+                    enphe[s] = (TH1F*) nphe[0][s]->Clone();
+                    for(int b=0; b<enphe[s]->GetNbinsX(); b++) {
+                        enphe[s]->SetBinContent(b, 0);
+                    }
 
                     // set dir
 					cc_timing[c][s]    ->SetDirectory(0);
 					theta_vs_segm[c][s]->SetDirectory(0);
                     phi_match[c][s]    ->SetDirectory(0);
 					nphe[c][s]         ->SetDirectory(0);
+                    enphe[s]           ->SetDirectory(0);
 
 
                     // colors
@@ -163,11 +169,7 @@ chistos::chistos(string filename, int READ)
 				}
 
 
-//				enphe[s] = (TH1F*) nphe[0][s]->Clone();
-//				enphe[s]->SetDirectory(0);
-//				for(int b=0; b<enphe[s]->GetNbinsX(); b++) {
-//					enphe[s]->SetBinContent(b, 0);
-//				}
+
 
 
 			}
