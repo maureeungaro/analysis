@@ -25,13 +25,13 @@ void e_pid()
 	Pars    = new cpars(pars_file);
 
     // CC matching
-	CCMatch = new CC_Match(H, Pars, PRINT);
+	CCMatch = new CC_Match(H, Pars, PRINT, colors);
 
 	// load utils.C
 	gROOT->ProcessLine(".L ana/utils.C");
 
     // last arguments are the positions on screen
-	TControlBar* bar = new TControlBar("vertical", data_label.c_str(), 30, 30);
+	TControlBar* bar = new TControlBar("vertical", data_label.c_str(), 1400, 30);
 	bar->AddButton("Electron Particle ID", "");
 	bar->AddButton("","");
     bar->AddButton("### Theta Matching ###","");
@@ -49,9 +49,9 @@ void e_pid()
 
     bar->AddButton("### Time Matching ###","");
     bar->AddButton("Calculate new CC timing cuts",             "CCMatch->calc_cc_time_match(SECTOR);");
-    bar->AddButton("Show CC timing",                           "show_cc_timing();");
-    bar->AddButton("Show CC timing each sector",               "show_cc_timings();");
-    bar->AddButton("Show CC timing all sectors",               "show_cc_timing_all_sectors();");
+    bar->AddButton("Show CC timing",                           "CCMatch->show_cc_timing(SECTOR);");
+    bar->AddButton("Show CC timing each sector",               "CCMatch->show_cc_timings(SECTOR);");
+    bar->AddButton("Show CC timing all sectors",               "CCMatch->show_cc_timing_all_sectors();");
     bar->AddButton("","");
 
 
@@ -86,6 +86,8 @@ void e_pid()
 	//	bar->AddButton("Show Summary",                             "show_summary();");
 	//	bar->AddButton("","");
 	//	bar->AddButton("Change Sector",                            "change_sector();");
+
+
     bar->AddButton("","");
     bar->AddButton("Switch PRINT",                             "switch_print();");
     bar->AddButton("Change Sector",                            "change_sector();");

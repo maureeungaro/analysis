@@ -59,11 +59,9 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
         gPad->SetLogz();
         if (c == 1) {
             H->theta_vs_segm[c][s]->SetMinimum(2);
-        }
-        if (c == 2) {
+        } else if (c == 2) {
             H->theta_vs_segm[c][s]->SetMaximum(8000);
-        }
-        if (c == 3) {
+        } else if (c == 3) {
             H->theta_vs_segm[c][s]->SetMinimum(2);
         }
         H->theta_vs_segm[c][s]->Draw("colz");
@@ -82,7 +80,6 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 		cc_match_dn->Draw("same");
 		cc_match_me->Draw("same");
 		
-		//lab.SetTextColor(colors[c]);
 		lab.SetTextFont(40);
 		lab.SetTextSize(0.050);
 		if(c==0) {
@@ -171,7 +168,6 @@ void CC_Match::show_cc_theta_match(int SECTOR) {
     cc_match_dn->Draw("same");
     cc_match_me->Draw("same");
 
-    //lab.SetTextColor(colors[0]);
     lab.SetTextFont(102);
     lab.SetTextSize(0.048);
     lab.DrawLatex(0.13, 0.94, "CC #theta Matching");

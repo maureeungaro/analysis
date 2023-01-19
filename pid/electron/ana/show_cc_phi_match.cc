@@ -8,8 +8,6 @@
 
 void CC_Match::show_phi_match(int sector)
 {
-    Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
-
     int s = sector - 1;
     int hist_minimum = 5;
 
@@ -88,9 +86,8 @@ void CC_Match::show_phi_match(int sector)
 
 }
 
-void CC_Match::show_phi_matchAll()
+void CC_Match::show_phi_match_all_sectors()
 {
-    Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
 
     gStyle->SetPadLeftMargin(0.08);
 	gStyle->SetPadRightMargin(0.04);

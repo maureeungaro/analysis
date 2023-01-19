@@ -17,7 +17,8 @@ e_pid = env.Program(source = e_pid_sources, target = 'e_pid')
 
 env.SharedLibrary(source = e_pid_sources, target = 'epid')
 
-ana_e_pid_sources = Split("""ana/cc_theta_match.cc
+ana_e_pid_sources = Split("""ana/cc_match.cc
+                             ana/cc_theta_match.cc
                              ana/show_cc_theta_match.cc
                              ana/show_cc_phi_match.cc
                              ana/cc_time_match.cc

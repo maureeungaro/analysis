@@ -13,6 +13,8 @@ std::string SIM_PRINT  = "_gsim.png";
 std::string PRINT  = "none";
 bool is_simulation = false;
 int SECTOR = 1;
+Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
+
 
 const std::string data_pars_file = "electron_id_par.txt";
 const std::string gsim_pars_file = "electron_id_par_gsim.txt";

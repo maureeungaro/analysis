@@ -33,8 +33,7 @@ void print_all()
 		PRINT = SIM_PRINT;
 	}
 
-    // CC matching
-
+    // CC theta matching
     CCMatch->set_print(PRINT);
 
     // This will also print the pars plots
@@ -55,28 +54,43 @@ void print_all()
 
     }
 
-    // CC matching show all sectors for all other cuts in one plot
+    // CC theta matching all sectors for calorimeter cuts in one plot
     CCMatch->show_theta_vs_segm_all_sectors();
 
-//
-//	// cc TIMING
-//	calc_all_cc_timing();
+    // CC phi match
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+        CCMatch->show_phi_match(SECTOR);
+    }
+    CCMatch->show_phi_match_all_sectors();
+
+
+	// CC time match all
+    CCMatch->calc_all_cc_time_match();
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+        CCMatch->show_cc_timing(SECTOR);
+        CCMatch->show_cc_timings(SECTOR);
+
+        // cc timing slices
+		for(int b=0; b<36; b++) {
+            CCMatch->CCT_DrawFit_TimeSlice(s,b);
+		}
+    }
+
+	// cc timing all sectors
+    CCMatch->show_cc_timing_all_sectors();
+
+
 //
 //	// sampling
 //	calc_all_ecp();
 
-	// indivicual sectors plots
 
 //		SECTOR = s+1;
 //		show_npeSingle();
 //
-//		show_theta_vs_segms();
-//
-//		show_phi_match();
-//
-//		show_cc_timing();
-//		show_cc_timings();
-//
+
 //		show_ecthr();
 //
 //		show_ecp();
@@ -90,15 +104,9 @@ void print_all()
 //
 //		show_EinEtot();
 //
-//		// cc theta slices
-//		for(int b=0; b<18; b++) {
-//			CC_DrawFit(s, b);
-//		}
+
 //
-//		// cc timing slices
-//		for(int b=0; b<36; b++) {
-//			CCT_DrawFit(s,b);
-//		}
+
 //
 //		// sampling slices
 //		for(int b=0; b<NDIV; b++) {
@@ -110,14 +118,8 @@ void print_all()
 //	// NPHE all sectors
 //	show_npe();
 //
-//	// cc theta all sectors
-//	show_theta_vs_segm_all_sectors();
-//
-//	// cc phi all sectors
-//	show_phi_matchAll();
-//
-//	// cc timing all sectors
-//	show_cc_timing_all_sectors();
+
+
 
 //	// P MIN all sectors
 //	show_ecthrAll();

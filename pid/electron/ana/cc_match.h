@@ -17,7 +17,7 @@ public:
     ~CC_Match();
 
     // constructor using chisto and cpars
-    CC_Match(chistos *common_histo, cpars *common_pars, string P);
+    CC_Match(chistos *common_histo, cpars *common_pars, string P, Color_t colors[4]);
 
     // set print
     void set_print(string P) { PRINT = P; }
@@ -27,17 +27,22 @@ public:
     void calc_all_cc_match();
     void show_cc_theta_match_all_cuts(int sector);
     void show_cc_theta_match(int sector);
-    void CC_DrawFit_ThetaSlice(int sector_index, int hid);
+    void CC_DrawFit_ThetaSlice(int sector, int hid);
     void show_theta_vs_segm_all_sectors();
     void CC_DynamicExec(int sector);
 
     // phi match
     void show_phi_match(int sector);
-    void show_phi_matchAll();
+    void show_phi_match_all_sectors();
 
     // time match
     void calc_cc_time_match(int sector);
     void calc_all_cc_time_match();
+    void show_cc_timing(int sector);
+    void show_cc_timings(int sector);
+    void CCT_DrawFit_TimeSlice(int sector, int hid);
+    void show_cc_timing_all_sectors();
+    void CCT_DynamicExec(int sector);
 
 private:
 
@@ -46,6 +51,8 @@ private:
     string PRINT;
     const int NDIV = 15;
     const int csize = 1200; // common canvas size
+    Color_t colors[4];
+
 
     // CC theta match histos, variables, functions
 
