@@ -65,12 +65,11 @@ void e_pid()
     bar->AddButton("Show minimum momentum cut all sectors",    "ECMatch->show_ecthr_all_sectors();");
     bar->AddButton("","");
     bar->AddButton("### EC Sampling Fraction ###","");
-	//	bar->AddButton("Calculate new fraction cuts",              "calc_all_ecp();");
-	//	bar->AddButton("Calculate new fraction cuts this sector",  "calc_ecp();");
-	//	bar->AddButton("Show sampling fraction cuts",              "show_ecp();");
-	//	bar->AddButton("Show sampling fraction sector by sector",  "show_ecps();");
-	//	bar->AddButton("Show Sampling Fraction for all sectors",   "show_ecp_all_sectors();");
-	//	bar->AddButton("","");
+    bar->AddButton("Calculate new fraction cuts this sector",  "ECMatch->calc_sf();");
+    bar->AddButton("Show sampling fraction cuts",              "ECMatch->show_sf();");
+    bar->AddButton("Show sampling fraction sector by sector",  "ECMatch->show_sfs();");
+    bar->AddButton("Show Sampling Fraction for all sectors",   "ECMatch->show_sf_all_sectors();");
+    bar->AddButton("","");
 	//	bar->AddButton("Show U (all sectors)",                     "show_uvwAll(H.ECu);");
 	//	bar->AddButton("Show V (all sectors)",                     "show_uvwAll(H.ECv);");
 	//	bar->AddButton("Show W (all sectors)",                     "show_uvwAll(H.ECw);");

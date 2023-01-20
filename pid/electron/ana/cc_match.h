@@ -62,7 +62,6 @@ private:
 
 
     // CC theta match histos, variables, functions
-
     TH1F *cc_match1d[6][18];      // 1 dimensional projections, fitted with GAUSS+PARABOLE
     double cc_matchmean[6][18];
     double cc_matchsigm[6][18];
@@ -81,8 +80,6 @@ private:
     TF1 *cc_match_up;
     TF1 *cc_match_dn;
 
-
-    // CC timing histos, variables, functions
     TH1F *cc_timing1d[6][36];      // 1 dimensional projections, fitted with GAUSS
     TGraphErrors *cc_timing_low[6];
 

@@ -1,7 +1,7 @@
 #include "cc_match.h"
 
 
-double CC_Match::cc_match_Mean(double *x, double *par)
+Double_t CC_Match::cc_match_Mean(double *x, double *par)
 {
     // par[0] is sector
     int s = (int) par[0] - 1;
@@ -11,7 +11,7 @@ double CC_Match::cc_match_Mean(double *x, double *par)
            Pars->cc_match_mean_c[s]*x[0]*x[0];
 }
 
-double CC_Match::cc_match_Mean2(double *x, double *par)
+Double_t CC_Match::cc_match_Mean2(double *x, double *par)
 {
     // par[0] is sector
     int s = (int) par[0] - 1;
@@ -24,7 +24,7 @@ double CC_Match::cc_match_Mean2(double *x, double *par)
            Pars->cc_match_mean_c[s]*segment*segment;
 }
 
-double CC_Match::cc_match_Sigma(double *x, double *par)
+Double_t CC_Match::cc_match_Sigma(double *x, double *par)
 {
     // par[0] is sector
     int s = (int) par[0] - 1;
@@ -35,7 +35,7 @@ double CC_Match::cc_match_Sigma(double *x, double *par)
     return Pars->cc_match_low[s][segment];
 }
 
-double CC_Match::cc_match_limit(double *x, double *par)
+Double_t CC_Match::cc_match_limit(double *x, double *par)
 {
     // par[1] is # of sigmas
     double nsigmas = par[1];

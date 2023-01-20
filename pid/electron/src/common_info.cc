@@ -95,8 +95,9 @@ chistos::chistos(string filename, int READ)
 					cc_timing[c][s]     = (TH2F*)f.Get(Form("cc_timing_%s_sect%d",     cut[c].c_str(), s+1));
 					nphe[c][s]          = (TH1F*)f.Get(Form("nphe_%s_sect%d",          cut[c].c_str(), s+1));
 					ecthr[c][s]         = (TH1F*)f.Get(Form("ecthr_%s_sect%d",         cut[c].c_str(), s+1));
+                    ecp[c][s]           = (TH2F*)f.Get(Form("ecp_%s_sect%d",           cut[c].c_str(), s+1));
 
-                    // not sure why this is needed
+                    // utility histo to draw zero line (not sure if it's needed)
                     enphe[s] = (TH1F*) nphe[0][s]->Clone();
                     for(int b=0; b<enphe[s]->GetNbinsX(); b++) {
                         enphe[s]->SetBinContent(b, 0);
@@ -109,6 +110,7 @@ chistos::chistos(string filename, int READ)
 					nphe[c][s]         ->SetDirectory(0);
                     enphe[s]           ->SetDirectory(0);
 					ecthr[c][s]        ->SetDirectory(0);
+					ecp[c][s]          ->SetDirectory(0);
 
 
                     // colors
@@ -125,15 +127,14 @@ chistos::chistos(string filename, int READ)
 					cc_timing[c][s]    ->GetYaxis()->SetTitle(Form("#Delta T    [ns]"));
 					nphe[c][s]         ->GetXaxis()->SetTitle(Form("Sector %d          [nphe#times10]", s+1));
 					ecthr[c][s]        ->GetXaxis()->SetTitle(Form("Sector %d              p [GeV]", s+1));
+					ecp[c][s]          ->GetXaxis()->SetTitle(Form("p  [GeV]"));
+					ecp[c][s]          ->GetYaxis()->SetTitle(Form("E_{EC} / p"));
 
-
-//					ecp[c][s]           = (TH2F*)f.Get(Form("ecp_%s_sect%d",           cut[c].c_str(), s+1));
-//					ECu[c][s]           = (TH1F*)f.Get(Form("ECu_%s_sect%d",           cut[c].c_str(), s+1));
+                    //					ECu[c][s]           = (TH1F*)f.Get(Form("ECu_%s_sect%d",           cut[c].c_str(), s+1));
 //					ECv[c][s]           = (TH1F*)f.Get(Form("ECv_%s_sect%d",           cut[c].c_str(), s+1));
 //					ECw[c][s]           = (TH1F*)f.Get(Form("ECw_%s_sect%d",           cut[c].c_str(), s+1));
 //					EoutEin[c][s]       = (TH2F*)f.Get(Form("EoutEin_%s_sect%d",       cut[c].c_str(), s+1));
 //					EinEtot[c][s]       = (TH2F*)f.Get(Form("EinEtot_%s_sect%d",       cut[c].c_str(), s+1));
-//					ecp[c][s]          ->SetDirectory(0);
 //					ECu[c][s]          ->SetDirectory(0);
 //					ECv[c][s]          ->SetDirectory(0);
 //					ECw[c][s]          ->SetDirectory(0);
@@ -143,8 +144,6 @@ chistos::chistos(string filename, int READ)
 //					ECv[c][s]          ->SetLineColor(colors[c]);
 //					ECw[c][s]          ->SetLineColor(colors[c]);
 //
-//					ecp[c][s]          ->GetXaxis()->SetTitle(Form("p  [GeV]"));
-//					ecp[c][s]          ->GetYaxis()->SetTitle(Form("E_{EC} / p"));
 //					EoutEin[c][s]      ->GetXaxis()->SetTitle(Form("E_{in} / p"));
 //					EoutEin[c][s]      ->GetYaxis()->SetTitle(Form("E_{out} / P"));
 //					EinEtot[c][s]      ->GetXaxis()->SetTitle(Form("p  [GeV]"));
@@ -162,7 +161,7 @@ chistos::chistos(string filename, int READ)
 					cc_timing[0][s]    ->GetXaxis()->SetTitle("All Sectors      [Segment] ");
 					nphe[0][s]         ->GetXaxis()->SetTitle("All Sectors                         [nphe#times10]");
 					ecthr[0][s]        ->GetXaxis()->SetTitle("All Sectors                          p [GeV]");
-//					ecp[0][s]          ->GetXaxis()->SetTitle("All Sectors");
+					ecp[0][s]          ->GetXaxis()->SetTitle("All Sectors");
 //					ECu[1][s]          ->GetXaxis()->SetTitle("All Sectors                              U [cm]");
 //					ECv[1][s]          ->GetXaxis()->SetTitle("All Sectors                              V [cm]");
 //					ECw[1][s]          ->GetXaxis()->SetTitle("All Sectors                              W [cm]");
