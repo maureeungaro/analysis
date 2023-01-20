@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # copy all sectors theta match to cuts and pars
-cp img/cut-01-cc-theta-match_sector-all.png img/cut-01-cc-theta-match-cuts_sector-all.png
+cp img/cut-01-cc-theta-match_sector-all.png img/cut-01-cc-theta-match-compare_sector-all.png
 cp img/cut-01-cc-theta-match_sector-all.png img/cut-01-cc-theta-match-pars_sector-all.png
 
 
@@ -11,7 +11,7 @@ cp img/cut-01-cc-theta-match_sector-all.png img/cut-01-cc-theta-match-pars_secto
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/cut-01-cc-theta-match-cuts_sector-1.png -imagesSize="1200 1200"
+-defaultPlot=img/cut-01-cc-theta-match-compare_sector-1.png -imagesSize="1200 1200"
 mv page.html cuts.html
 
 

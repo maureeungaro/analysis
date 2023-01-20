@@ -50,7 +50,7 @@ void show_uvwAll(TH1F* UVW[4][7])
 	}
 
 
-	TCanvas *Cuvw  = new TCanvas(Form("Cuvw%s", hname.c_str()), "Cuvw", 1000, 1000);
+	TCanvas *Cuvw  = new TCanvas(Form("Cuvw%s", hname.c_str()), "Cuvw", csize, csize);
 	TPad    *Puvw  = new TPad(   Form("Puvw%s", hname.c_str()), "Puvw", 0.02, 0.00,  0.98, 0.92);
 	Puvw->Draw();
 
@@ -178,7 +178,7 @@ void show_uvw(TH1F* UVW[4][7])
 	}
 
 
-	TCanvas *Cuvw  = new TCanvas(Form("Cuvw%s", hname.c_str()), "Cuvw", 1000, 1000);
+	TCanvas *Cuvw  = new TCanvas(Form("Cuvw%s", hname.c_str()), "Cuvw", csize, csize);
 	TPad    *Puvw  = new TPad(   Form("Puvw%s", hname.c_str()), "Puvw", 0.02, 0.00,  0.98, 0.92);
 	Puvw->Draw();
 

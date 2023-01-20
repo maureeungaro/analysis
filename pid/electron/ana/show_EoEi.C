@@ -51,7 +51,7 @@ show_EoEi()
 	TCanvas *CEoutEinS;
 	TPad    *PEoutEinS;
 	
-	CEoutEinS = new TCanvas(Form("CEoutEinS%d", s+1), Form("CEoutEinS%d", s+1), 1000, 1000);
+	CEoutEinS = new TCanvas(Form("CEoutEinS%d", s+1), Form("CEoutEinS%d", s+1), csize, csize);
 	PEoutEinS = new TPad(Form("PEoutEinS%d", s+1), Form("PEoutEinS%d", s+1), 0.02, 0.00,  0.98, 0.90);
 	PEoutEinS->Divide(2, 2);
 	PEoutEinS->Draw();
@@ -166,7 +166,7 @@ void show_EoEi_all()
 	}
 
 	
-	TCanvas *CEoutEinA  = new TCanvas("CEoutEinA", "CEoutEinA", 1000, 1000);
+	TCanvas *CEoutEinA  = new TCanvas("CEoutEinA", "CEoutEinA", csize, csize);
 	TPad    *PEoutEinA  = new TPad("PEoutEinA", "PEoutEinA", 0.02, 0.00,  0.98, 0.92);
 	PEoutEinA->Divide(3, 2);
 	PEoutEinA->Draw();

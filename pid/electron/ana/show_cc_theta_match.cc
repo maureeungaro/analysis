@@ -104,7 +104,7 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 	lab.DrawLatex(0.26, 0.95,  Form("CC #theta Matching  -  Sector %d", SECTOR));
 
 	if(PRINT != "none") {
-		Ctheta_vs_segmS->Print( Form("img/cut-01-cc-theta-match-cuts_sector-%d%s", s+1, PRINT.c_str()) );
+		Ctheta_vs_segmS->Print( Form("img/cut-01-cc-theta-match-compare_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -233,7 +233,7 @@ void CC_Match::CC_DynamicExec(int SECTOR)
 void CC_Match::CC_DrawFit_ThetaSlice(int s, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
-	gStyle->SetPadRightMargin(0.16);
+	gStyle->SetPadRightMargin(0.06);
 	gStyle->SetPadTopMargin(0.12);
 	gStyle->SetPadBottomMargin(0.14);
 	
@@ -255,12 +255,12 @@ void CC_Match::CC_DrawFit_ThetaSlice(int s, int hid)
 		lab.DrawLatex(0.28, 0.92,  "#theta on CC plane");
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
-		if(hid<11) {
-			lab.DrawLatex(0.66, 0.82,  Form("Sector %d",   s+1));
-			lab.DrawLatex(0.64, 0.76,  Form("segment: %d", hid+1));
+		if(hid<10) {
+			lab.DrawLatex(0.61, 0.82,  Form("Sector %d",   s+1));
+			lab.DrawLatex(0.60, 0.76,  Form("Segment: %d", hid+1));
 			lab.SetTextColor(kRed+2);
-			lab.DrawLatex(0.59, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_match1d[s][hid]->GetFunction("MyFit")->GetParameter(4), cc_match1d[s][hid]->GetFunction("MyFit")->GetParError(4)));
-			lab.DrawLatex(0.59, 0.62,  Form("#sigma = %4.3f #pm %2.1e", cc_match1d[s][hid]->GetFunction("MyFit")->GetParameter(5), cc_match1d[s][hid]->GetFunction("MyFit")->GetParError(5)));
+			lab.DrawLatex(0.54, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_match1d[s][hid]->GetFunction("MyFit")->GetParameter(4), cc_match1d[s][hid]->GetFunction("MyFit")->GetParError(4)));
+			lab.DrawLatex(0.54, 0.62,  Form("#sigma = %4.3f #pm %2.1e", cc_match1d[s][hid]->GetFunction("MyFit")->GetParameter(5), cc_match1d[s][hid]->GetFunction("MyFit")->GetParError(5)));
 		} else {
 			lab.DrawLatex(0.26, 0.82,  Form("Sector %d",   s+1));
 			lab.DrawLatex(0.24, 0.76,  Form("segment: %d", hid+1));
@@ -304,10 +304,7 @@ void CC_Match::show_theta_vs_segm_all_sectors()
 	hor->SetParameter(0, 0.3);
 	
 	for(int s=0; s<6; s++) {
-		// Changing titles
 		H->theta_vs_segm[1][s]->GetXaxis()->CenterTitle(0);
-		H->theta_vs_segm[1][s]->GetXaxis()->SetTitle(Form("Sector %d     [segment]", s+1));
-		H->theta_vs_segm[1][s]->GetYaxis()->SetTitle(Form("#theta on CC plane         [degrees]"));
 		H->theta_vs_segm[1][s]->GetXaxis()->SetTitleSize(0.06);
 		H->theta_vs_segm[1][s]->GetYaxis()->SetTitleSize(0.06);
 		H->theta_vs_segm[1][s]->GetXaxis()->SetTitleOffset(1.0);

@@ -8,7 +8,7 @@ void show_ecyx()
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *CECpos  = new TCanvas("CECpos", "CECpos", 1000, 1000);
+	TCanvas *CECpos  = new TCanvas("CECpos", "CECpos", csize, csize);
 	
 	H.ECpos[0]->GetXaxis()->SetTitleSize(0.040);
 	H.ECpos[0]->GetYaxis()->SetTitleSize(0.040);

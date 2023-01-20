@@ -25,6 +25,7 @@ public:
 
     void show_ecthr(int sector);
     void show_ecthr_all_sectors();
+    void show_ecthr_integral_over_sectors();
 
 private:
 

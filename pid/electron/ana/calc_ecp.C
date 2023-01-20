@@ -45,7 +45,7 @@ void calc_ecp()
 	gStyle->SetPadTopMargin(0.12);
 	gStyle->SetPadBottomMargin(0.14);
 	
-	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 800, 800);
+	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", csize, csize);
 	
 	TF1 *MyFit = new TF1("MyFit", gauss_para, 0.15, 0.45, 6);
 	MyFit->SetLineColor(kRed+2);

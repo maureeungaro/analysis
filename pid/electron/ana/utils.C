@@ -1,13 +1,19 @@
 #include"parameters.h"
 
+void activate_PRINT()
+{
+    if (is_simulation) {
+        PRINT = SIM_PRINT;
+    } else {
+        PRINT = DATA_PRINT;
+    }
+    CCMatch->set_print(PRINT);
+    ECMatch->set_print(PRINT);
+}
+
 void switch_print() {
     if ( PRINT == "none") {
-        if (is_simulation) {
-            PRINT = SIM_PRINT;
-        } else {
-            PRINT = DATA_PRINT;
-        }
-        CCMatch->set_print(PRINT);
+        activate_PRINT();
     } else {
         PRINT = "none";
     }
@@ -27,8 +33,7 @@ void change_sector()
 
 void print_cc_match()
 {
-    // theta matching
-    CCMatch->set_print(PRINT);
+    activate_PRINT();
 
     // This will also print the pars plots
     CCMatch->calc_all_cc_match();
@@ -109,7 +114,7 @@ void print_all()
 		PRINT = SIM_PRINT;
 	}
 
-    //print_cc_match();
+    print_cc_match();
 
     print_ec_match();
 

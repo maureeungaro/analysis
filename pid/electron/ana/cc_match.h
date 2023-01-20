@@ -34,6 +34,7 @@ public:
     // phi match
     void show_phi_match(int sector);
     void show_phi_match_all_sectors();
+    void show_phi_match_integral_over_sectors();
 
     // time match
     void calc_cc_time_match(int sector);

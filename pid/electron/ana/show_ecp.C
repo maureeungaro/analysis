@@ -28,7 +28,7 @@ void show_ecp()
 	TCanvas *CecpS;
 	TPad    *PecpS;
 	
-	CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), 1000, 1000);
+	CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), csize, csize);
 	PecpS = new TPad(Form("PecpS%d", s+1), Form("PecpS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	PecpS->Divide(2, 2);
 	PecpS->Draw();
@@ -119,7 +119,7 @@ void show_ecps()
 	int NBINS = H.ecp[1][0]->GetNbinsX();
 	int db = NBINS/NDIV;
 	
-	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 1000, 1000);
+	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", csize, csize);
 	
 	// Changing titles
 	H.ecp[1][s]->GetXaxis()->CenterTitle(0);
@@ -251,7 +251,7 @@ void DrawFit(int s, int hid)
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
+	else   c2 = new TCanvas("c2","Projection Canvas",710,10,csize,csize);
 	c2->cd();
 	
 	if(ecp1d[s][hid])
@@ -324,7 +324,7 @@ void show_ecp_all_sectors()
 	}
 
 	
-	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", 1000, 1000);
+	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", csize, csize);
 	TPad    *PecpA  = new TPad("PecpA", "PecpA", 0.02, 0.00,  0.98, 0.92);
 	PecpA->Divide(3, 2);
 	PecpA->Draw();

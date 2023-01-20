@@ -36,7 +36,7 @@ All files:
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/cut-01-cc-theta-match_sector-1.png -imagesSize="1000 1000"
+-defaultPlot=img/cut-01-cc-theta-match_sector-1.png -imagesSize="1200 1200"
 mv page.html cuts.html
 ```
 
@@ -48,6 +48,6 @@ rm -rf imageslist.txt ; ls img_slices > imageslist.txt
                                         -addColumnTableVariable=cut \
                                         -addSelectableVariable=sector \
 -defaultPlot=img_slices/slice-01_cut-01-cc-theta-slice_sector-1.png \
--imagesSize="800 800" -d=img_slices
+-imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
 ```

@@ -36,7 +36,7 @@ void CC_Match::show_cc_timing(int sector)
 	TCanvas *Ccc_timingS;
 	TPad    *Pcc_timingS;
 	
-	Ccc_timingS = new TCanvas(Form("Ccc_timingS%d", s+1), Form("Ccc_timingS%d", s+1), 1000, 1000);
+	Ccc_timingS = new TCanvas(Form("Ccc_timingS%d", s+1), Form("Ccc_timingS%d", s+1), csize, csize);
 	Pcc_timingS = new TPad(Form("Pcc_timingS%d", s+1), Form("Pcc_timingS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Pcc_timingS->Divide(2, 2);
 	Pcc_timingS->Draw();
@@ -91,7 +91,7 @@ void CC_Match::show_cc_timing(int sector)
 	lab.DrawLatex(0.55, 0.95,  Form("#Delta T = T_{CC} + |#vec{R}_{SC}-#vec{R}_{CC}|/c - T_{SC}"));
 
 	if(PRINT != "none") {
-		Ccc_timingS->Print( Form("img/cut-03-cc-time-match-cuts_sector-%d%s", s+1, PRINT.c_str()) );
+		Ccc_timingS->Print( Form("img/cut-03-cc-time-match-compare_sector-%d%s", s+1, PRINT.c_str()) );
     }
 }
 
@@ -111,7 +111,7 @@ void CC_Match::show_cc_timings(int sector) {
     //int NBINS = H->cc_timing[1][0]->GetNbinsX();
     //int db = NBINS / NDIV;
 
-    TCanvas *Ccc_timing = new TCanvas("Ccc_timing", "Ccc_timing", 800, 800);
+    TCanvas *Ccc_timing = new TCanvas("Ccc_timing", "Ccc_timing", csize, csize);
     gPad->SetLogz();
 
     // Changing titles
@@ -200,8 +200,8 @@ void CC_Match::CCT_DrawFit_TimeSlice(int s, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
-	gStyle->SetPadTopMargin(0.12);
-	gStyle->SetPadBottomMargin(0.14);
+	gStyle->SetPadTopMargin(0.14);
+	gStyle->SetPadBottomMargin(0.12);
 	
 	TLatex lab;
 	lab.SetNDC();
@@ -210,7 +210,7 @@ void CC_Match::CCT_DrawFit_TimeSlice(int s, int hid)
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
+	else   c2 = new TCanvas("c2","Projection Canvas",710,10, csize, csize);
 	c2->cd();
 	
 	if(cc_timing1d[s][hid]) {
@@ -218,22 +218,14 @@ void CC_Match::CCT_DrawFit_TimeSlice(int s, int hid)
 		cc_timing1d[s][hid]->Draw();
 		lab.SetTextFont(102);
 		lab.SetTextSize(0.045);
-		lab.DrawLatex(0.15, 0.92,  "#Delta T = T_{CC} + |#vec{R}_{SC}-#vec{R}_{CC}|/c - T_{SC}");
+		lab.DrawLatex(0.16, 0.93,  "#Delta T = T_{CC} + |#vec{R}_{SC}-#vec{R}_{CC}|/c - T_{SC}");
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
-		if(hid<11) {
-			lab.DrawLatex(0.66, 0.82,  Form("Sector %d", s+1));
-			lab.DrawLatex(0.67, 0.76,  Form("pmt: %d", hid+1));
-			lab.SetTextColor(kRed+2);
-			lab.DrawLatex(0.59, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(1), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(1)));
-			lab.DrawLatex(0.59, 0.62,  Form("#sigma = %4.3f #pm %2.1e", cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(2), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(2)));
-		} else {
-			lab.DrawLatex(0.26, 0.82,  Form("Sector %d", s+1));
-			lab.DrawLatex(0.27, 0.76,  Form("pmt: %d", hid+1));
-			lab.SetTextColor(kRed+2);
-			lab.DrawLatex(0.19, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(1), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(1)));
-			lab.DrawLatex(0.19, 0.62,  Form("#sigma = %4.3f #pm %2.1e", cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(2), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(2)));
-		}
+        lab.DrawLatex(0.62, 0.82,  Form("Sector %d", s+1));
+        lab.DrawLatex(0.60, 0.76,  Form("Pmt: %d", hid+1));
+        lab.SetTextColor(kRed+2);
+        lab.DrawLatex(0.50, 0.68,  Form("#mu = %4.3f #pm %2.1e",    cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(1), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(1)));
+        lab.DrawLatex(0.50, 0.62,  Form("#sigma = %4.3f #pm %2.1e", cc_timing1d[s][hid]->GetFunction("gaus")->GetParameter(2), cc_timing1d[s][hid]->GetFunction("gaus")->GetParError(2)));
 	}
 
 	c2->Update();
@@ -281,7 +273,7 @@ void CC_Match::show_cc_timing_all_sectors()
 		H->cc_timing[1][s]->GetZaxis()->SetLabelSize(0.04);
 	}
 	
-	TCanvas *Ccc_timingA  = new TCanvas("Ccc_timingA", "Ccc_timingA", 1000, 1000);
+	TCanvas *Ccc_timingA  = new TCanvas("Ccc_timingA", "Ccc_timingA", csize, csize);
 	TPad    *Pcc_timingA  = new TPad("Pcc_timingA", "Pcc_timingA", 0.02, 0.00,  0.98, 0.92);
 	Pcc_timingA->Divide(3, 2);
 	Pcc_timingA->Draw();

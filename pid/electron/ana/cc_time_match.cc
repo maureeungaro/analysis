@@ -16,7 +16,7 @@ void CC_Match::calc_cc_time_match(int sector)
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", 800, 800);
+	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", csize, csize);
 
     int s = sector - 1;
 	double xb[36], xbe[36], ybe[36];

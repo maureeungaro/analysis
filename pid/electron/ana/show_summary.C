@@ -71,7 +71,7 @@ show_summary()
 	};
 	
 	
-	TCanvas *Csum  = new TCanvas("Csum", "Csum", 1200, 1100);
+	TCanvas *Csum  = new TCanvas("Csum", "Csum", csize, csize);
 	TPad    *Psum  = new TPad("Psum", "Psum", 0.02, 0.02,  0.98, 0.92);
 	Psum->Divide(1, 3);
 	Psum->Draw();

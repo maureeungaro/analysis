@@ -33,7 +33,7 @@ void CC_Match::show_npe(int sector)
     npe_cut->SetLineStyle(2);
 
 
-    TCanvas *Cnpe  = new TCanvas("Cnpe", "Cnpe", 1000, 1000);
+    TCanvas *Cnpe  = new TCanvas("Cnpe", "Cnpe", csize, csize);
     TPad    *Pnpe  = new TPad("Pnpe", "Pnpe", 0.02, 0.00,  0.98, 0.92);
     Pnpe->Draw();
 
@@ -108,7 +108,7 @@ void CC_Match::show_npe_all_sectors()
 		npe_cut[s]->SetLineStyle(2);
 	}
 	
-	TCanvas *Cnpe  = new TCanvas("Cnpe", "Cnpe", 1000, 1000);
+	TCanvas *Cnpe  = new TCanvas("Cnpe", "Cnpe", csize, csize);
 	TPad    *Pnpe  = new TPad("Pnpe", "Pnpe", 0.02, 0.00,  0.98, 0.92);
     Pnpe->Divide(3, 2);
 	Pnpe->Draw();

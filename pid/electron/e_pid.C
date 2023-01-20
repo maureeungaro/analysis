@@ -44,7 +44,7 @@ void e_pid()
 
     bar->AddButton("### Phi Matching ###","");
     bar->AddButton("Show CC phi matching",                     "CCMatch->show_phi_match(SECTOR);");
-    bar->AddButton("Show CC phi matching cuts all sector",     "CCMatch->show_phi_matchAll();");
+    bar->AddButton("Show CC phi matching cuts all sector",     "CCMatch->show_phi_match_all_sectors();");
     bar->AddButton("","");
 
 
@@ -64,6 +64,7 @@ void e_pid()
     bar->AddButton("Show minimum momentum cut",                "ECMatch->show_ecthr(SECTOR);");
     bar->AddButton("Show minimum momentum cut all sectors",    "ECMatch->show_ecthr_all_sectors();");
     bar->AddButton("","");
+    bar->AddButton("### EC Sampling Fraction ###","");
 	//	bar->AddButton("Calculate new fraction cuts",              "calc_all_ecp();");
 	//	bar->AddButton("Calculate new fraction cuts this sector",  "calc_ecp();");
 	//	bar->AddButton("Show sampling fraction cuts",              "show_ecp();");
@@ -96,8 +97,7 @@ void e_pid()
 	bar->AddButton("","");
 	bar->Show();
 	gROOT->SaveContext();
-	
-	
+
 }
 
 
