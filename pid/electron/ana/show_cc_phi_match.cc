@@ -135,13 +135,12 @@ void CC_Match::show_phi_match_all_sectors()
     }
 
     CAphi_match->cd(0);
+
     lab.SetTextFont(102);
     lab.SetTextColor(kBlack);
     lab.SetTextSize(0.032);
     lab.DrawLatex(0.04, 0.96,  "CC #phi matching ");
     lab.SetTextSize(0.026);
-
-
 
 	lab.SetTextFont(102);
 	lab.SetTextSize(0.03);
@@ -175,6 +174,7 @@ void CC_Match::show_phi_match_all_sectors()
 
 
 void CC_Match::show_phi_match_integral_over_sectors() {
+
     gStyle->SetPadLeftMargin(0.08);
     gStyle->SetPadRightMargin(0.04);
     gStyle->SetPadTopMargin(0.15);

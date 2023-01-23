@@ -37,6 +37,11 @@ public:
     void DynamicExec(int sector);
     void DrawFit_SF(int sectorIndex, int hid);
 
+    // uvw, which is 0, 1, 2 for u, v, w
+    void show_uvw(int sector, int which);
+    void show_uvw_all_sectors(int which);
+    void show_uvw_integrated_sectors(int which);
+
 
 private:
 

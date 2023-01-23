@@ -92,8 +92,7 @@ void print_cc_match()
 }
 
 
-void print_ec_match()
-{
+void print_ec_match() {
     activate_PRINT();
 
     // thresholds
@@ -115,13 +114,23 @@ void print_ec_match()
         ECMatch->show_sf(SECTOR);
 
         // sf slices
-        for(int b=0; b<EC_Match::NDIV; b++) {
+        for (int b = 0; b < EC_Match::NDIV; b++) {
             ECMatch->DrawFit_SF(s, b);
         }
     }
 
     ECMatch->show_sf_all_sectors();
 
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+        ECMatch->show_uvw(SECTOR, 0);
+        ECMatch->show_uvw(SECTOR, 1);
+        ECMatch->show_uvw(SECTOR, 2);
+    }
+
+    ECMatch->show_uvw_all_sectors(0);
+    ECMatch->show_uvw_all_sectors(1);
+    ECMatch->show_uvw_all_sectors(2);
 }
 
 void print_all()

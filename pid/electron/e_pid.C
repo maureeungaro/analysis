@@ -64,18 +64,29 @@ void e_pid()
     bar->AddButton("Show minimum momentum cut",                "ECMatch->show_ecthr(SECTOR);");
     bar->AddButton("Show minimum momentum cut all sectors",    "ECMatch->show_ecthr_all_sectors();");
     bar->AddButton("","");
+
     bar->AddButton("### EC Sampling Fraction ###","");
     bar->AddButton("Calculate new fraction cuts this sector",  "ECMatch->calc_sf(SECTOR);");
     bar->AddButton("Show sampling fraction cuts",              "ECMatch->show_sf_comparison(SECTOR);");
     bar->AddButton("Show sampling fraction sector by sector",  "ECMatch->show_sf(SECTOR);");
     bar->AddButton("Show Sampling Fraction for all sectors",   "ECMatch->show_sf_all_sectors();");
     bar->AddButton("","");
-	//	bar->AddButton("Show U (all sectors)",                     "show_uvwAll(H.ECu);");
-	//	bar->AddButton("Show V (all sectors)",                     "show_uvwAll(H.ECv);");
-	//	bar->AddButton("Show W (all sectors)",                     "show_uvwAll(H.ECw);");
-	//	bar->AddButton("Show U (single)",                          "show_uvw(H.ECu);");
-	//	bar->AddButton("Show V (single)",                          "show_uvw(H.ECv);");
-	//	bar->AddButton("Show W (single)",                          "show_uvw(H.ECw);");
+
+    bar->AddButton("### EC Track Coordinates ###","");
+
+    bar->AddButton("Show EC U",                          "ECMatch->show_uvw(SECTOR, 0);");
+    bar->AddButton("Show EC V",                          "ECMatch->show_uvw(SECTOR, 1);");
+    bar->AddButton("Show EC W",                          "ECMatch->show_uvw(SECTOR, 2);");
+    bar->AddButton("","");
+    bar->AddButton("Show U (integrated)",                     "ECMatch->show_uvw_integrated_sectors(0);");
+    bar->AddButton("Show V (integrated)",                     "ECMatch->show_uvw_integrated_sectors(1);");
+	bar->AddButton("Show W (integrated)",                     "ECMatch->show_uvw_integrated_sectors(2);");
+    bar->AddButton("","");
+    bar->AddButton("Show U (all sectors)",                     "ECMatch->show_uvw_all_sectors(0);");
+    bar->AddButton("Show V (all sectors)",                     "ECMatch->show_uvw_all_sectors(1);");
+    bar->AddButton("Show W (all sectors)",                     "ECMatch->show_uvw_all_sectors(2);");
+
+
 	//	bar->AddButton("Show EC Y vs X",                           "show_ecyx();");
 	//	bar->AddButton("","");
 	//	bar->AddButton("Show EC Eout/p vs Ein/p",                  "show_EoEi();");
