@@ -32,7 +32,7 @@ void e_pid()
 	gROOT->ProcessLine(".L ana/utils.C");
 
     // last arguments are the positions on screen
-	TControlBar* bar = new TControlBar("vertical", data_label.c_str(), 1400, 30);
+	TControlBar* bar = new TControlBar("vertical", data_label.c_str(), 1600, 30);
 	bar->AddButton("Electron Particle ID", "");
 	bar->AddButton("","");
     bar->AddButton("### Theta Matching ###","");
@@ -65,9 +65,9 @@ void e_pid()
     bar->AddButton("Show minimum momentum cut all sectors",    "ECMatch->show_ecthr_all_sectors();");
     bar->AddButton("","");
     bar->AddButton("### EC Sampling Fraction ###","");
-    bar->AddButton("Calculate new fraction cuts this sector",  "ECMatch->calc_sf();");
-    bar->AddButton("Show sampling fraction cuts",              "ECMatch->show_sf();");
-    bar->AddButton("Show sampling fraction sector by sector",  "ECMatch->show_sfs();");
+    bar->AddButton("Calculate new fraction cuts this sector",  "ECMatch->calc_sf(SECTOR);");
+    bar->AddButton("Show sampling fraction cuts",              "ECMatch->show_sf_comparison(SECTOR);");
+    bar->AddButton("Show sampling fraction sector by sector",  "ECMatch->show_sf(SECTOR);");
     bar->AddButton("Show Sampling Fraction for all sectors",   "ECMatch->show_sf_all_sectors();");
     bar->AddButton("","");
 	//	bar->AddButton("Show U (all sectors)",                     "show_uvwAll(H.ECu);");

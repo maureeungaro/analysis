@@ -6,11 +6,15 @@
 #include "TLatex.h"
 #include "TCanvas.h"
 
-
+// Ugly: these functions have to be global to be used by TF1
+// but compiling them here means we cannot use them in other files (e.g. ec_match.cc)
+// thus we have to copy them in ec_match.cc with a different name otherwise the compiler will find
+// about duplicate definitions
+//
 // gaussian + parabole
-Double_t parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
-Double_t gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
-Double_t gauss_para( Double_t *x, Double_t *par)  { return parabole(x, par) + gaussian(x, &par[3]) ; }
+Double_t ecm_parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
+Double_t ecm_gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
+Double_t ecm_gauss_para( Double_t *x, Double_t *par)  { return ecm_parabole(x, par) + ecm_gaussian(x, &par[3]) ; }
 
 void EC_Match::calc_sf(int sector)
 {
@@ -21,19 +25,19 @@ void EC_Match::calc_sf(int sector)
 	
 	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", csize, csize);
 	
-	TF1 *MyFit = new TF1("MyFit", gauss_para, 0.15, 0.45, 6);
+	TF1 *MyFit = new TF1("MyFit", ecm_gauss_para, 0.15, 0.45, 6);
 	MyFit->SetLineColor(kRed+2);
 	MyFit->SetLineWidth(1);
 	
 	int NBINS = H->ecp[1][0]->GetNbinsX();
 
-    int db = NBINS/NDIV;
+    int db = NBINS/EC_Match::NDIV;
 	int s = sector - 1;
 
-    double xb[NDIV], xbe[NDIV];
-	double dp = ( H->ecp[1][0]->GetXaxis()->GetXmax() - H->ecp[1][0]->GetXaxis()->GetXmin() ) / NDIV;
+    double xb[EC_Match::NDIV], xbe[EC_Match::NDIV];
+	double dp = ( H->ecp[1][0]->GetXaxis()->GetXmax() - H->ecp[1][0]->GetXaxis()->GetXmin() ) / EC_Match::NDIV;
 
-    for(int b=0; b<NDIV; b++) {
+    for(int b=0; b<EC_Match::NDIV; b++) {
 		xb[b]  = H->ecp[1][0]->GetXaxis()->GetXmin() + (b+0.5)*dp;
 		xbe[b] = 0;
 	}
@@ -41,7 +45,8 @@ void EC_Match::calc_sf(int sector)
 	// Slicing + fitting
 	cout << " Fitting sector " << s+1 << endl;
 
-	for(int b=0; b<NDIV; b++) {
+	for(int b=0; b<EC_Match::NDIV; b++) {
+
 		H->ecp[1][s]->ProjectionY(Form("ecp1d_s%d_b%d", s+1, b+1), b*db, (b+1)*db);
 		ecp1d[s][b] = (TH1F*)gROOT->Get(Form("ecp1d_s%d_b%d", s+1, b+1));
 
@@ -66,8 +71,8 @@ void EC_Match::calc_sf(int sector)
 	}
 	
 	// Now creating / fitting the graphs
-	sf_mean[s] = new TGraphErrors(NDIV, xb, ecpmean[s], xbe, ecpmeane[s]);
-	sf_sigm[s] = new TGraphErrors(NDIV, xb, ecpsigm[s], xbe, ecpsigme[s]);
+	sf_mean[s] = new TGraphErrors(EC_Match::NDIV, xb, ecpmean[s], xbe, ecpmeane[s]);
+	sf_sigm[s] = new TGraphErrors(EC_Match::NDIV, xb, ecpsigm[s], xbe, ecpsigme[s]);
 		
 	sf_mean[s]->Fit("pol3", "REM", "", min_limit_sf, max_limit_sf);
 	sf_sigm[s]->Fit("pol3", "REM", "", min_limit_sf, max_limit_sf);
@@ -81,6 +86,8 @@ void EC_Match::calc_sf(int sector)
 	Pars->ecp_sigm_b[s] = sf_sigm[s]->GetFunction("pol3")->GetParameter(1);
 	Pars->ecp_sigm_c[s] = sf_sigm[s]->GetFunction("pol3")->GetParameter(2);
 	Pars->ecp_sigm_d[s] = sf_sigm[s]->GetFunction("pol3")->GetParameter(3);
+
+    Cecp->Close();
 
 }
 

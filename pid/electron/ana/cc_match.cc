@@ -60,7 +60,7 @@ CC_Match::CC_Match(chistos *common_histo, cpars *common_pars, string P, const Co
         cc_timing_low[s] = NULL;
     }
 
-    cc_match_me = new TF1("cc_match_me", [&](double*x, double *p){ return cc_match_Mean(x, p)  ; },  1, 19, 1);
+    cc_match_me = new TF1("cc_match_me", [&](double*x, double *p){ return cc_match_Mean(x, p)  ; }, 1, 19, 1);
     cc_match_up = new TF1("cc_match_up", [&](double*x, double *p){ return cc_match_limit(x, p) ; }, 1, 19, 3);
     cc_match_dn = new TF1("cc_match_dn", [&](double*x, double *p){ return cc_match_limit(x, p) ; }, 1, 19, 3);
 }

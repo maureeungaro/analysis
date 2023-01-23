@@ -19,9 +19,9 @@ void CC_Match::calc_cc_time_match(int sector)
 	TCanvas *Ccc_timing  = new TCanvas("Ccc_timing", "Ccc_timing", csize, csize);
 
     int s = sector - 1;
-	double xb[36], xbe[36], ybe[36];
+	double xb[2*CC_Match::NDIV], xbe[2*CC_Match::NDIV], ybe[2*CC_Match::NDIV];
 
-    for(int b=0; b<36; b++) {
+    for(int b=0; b<2*CC_Match::NDIV; b++) {
 		xb[b]  = b+1.5;
 		xbe[b] = 0.5;
 		ybe[b] = 0;
@@ -29,7 +29,7 @@ void CC_Match::calc_cc_time_match(int sector)
 
 	// Slicing + fitting
 	cout << " Fitting sector " << s+1 << endl;
-	for(int b=0; b<36; b++) {
+	for(int b=0; b<2*CC_Match::NDIV; b++) {
 		cerr << " Fitting pmt " << b+1 << endl;
 		H->cc_timing[1][s]->ProjectionY(Form("cc_timing1d_s%d_pmt%d", s+1, b+1), b+2, b+3);
 		cc_timing1d[s][b] = (TH1F*)gROOT->Get(Form("cc_timing1d_s%d_pmt%d", s+1, b+1));
@@ -51,7 +51,7 @@ void CC_Match::calc_cc_time_match(int sector)
 		}
 	}
 
-	cc_timing_low[s] = new TGraphErrors(36, xb, Pars->cc_timing_low[s], xbe, ybe);
+	cc_timing_low[s] = new TGraphErrors(2*CC_Match::NDIV, xb, Pars->cc_timing_low[s], xbe, ybe);
 	cc_timing_low[s]->SetMarkerSize(0.2);
 	cc_timing_low[s]->SetLineWidth(2);
 

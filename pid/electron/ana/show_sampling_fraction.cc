@@ -11,7 +11,7 @@
 #include "TExec.h"
 
 
-void EC_Match::show_sf(int sector)
+void EC_Match::show_sf_comparison(int sector)
 {
 	int s = sector - 1;
 	
@@ -35,31 +35,34 @@ void EC_Match::show_sf(int sector)
 			H->ecp[c][s]->GetXaxis()->SetTitleOffset(1.1);
 		}
 	}
-	
-	TCanvas *CecpS;
-	TPad    *PecpS;
-	
-	CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), csize, csize);
-	PecpS = new TPad(Form("PecpS%d", s+1), Form("PecpS%d", s+1), 0.02, 0.00,  0.98, 0.92);
+
+
+    TCanvas *CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), csize, csize);
+    TPad    *PecpS = new TPad(Form("PecpS%d", s+1), Form("PecpS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	PecpS->Divide(2, 2);
 	PecpS->Draw();
 
 	sf_me->SetParameter(0, sector);
 	sf_up->SetParameter(0, sector);
+    sf_dn->SetParameter(0, sector);
+
 	sf_up->SetParameter(1, Pars->NSIGMAS[0]);
-	sf_up->SetParameter(2, 1);
-	sf_dn->SetParameter(0, sector);
-	sf_dn->SetParameter(1, Pars->NSIGMAS[1]);
+    sf_dn->SetParameter(1, Pars->NSIGMAS[1]);
+
+	sf_up->SetParameter(2,  1);
 	sf_dn->SetParameter(2, -1);
-	
-	
+
+    sf_up->SetLineWidth(2);
+    sf_dn->SetLineWidth(2);
+
 	TPaletteAxis *palette;
 	for(int c=0; c<4; c++) {
+
 		PecpS->cd(c+1);
 		H->ecp[c][s]->Draw("colz");
 		CecpS->Update();
-		if(H->ecp[c][s]->GetMaximum()>1)
-		{
+
+        if(H->ecp[c][s]->GetMaximum()>1) {
 			palette = (TPaletteAxis*)H->ecp[c][s]->FindObject("palette");
 			palette->SetLabelSize(0.035);
 			palette->SetLabelOffset(0.01);
@@ -67,16 +70,18 @@ void EC_Match::show_sf(int sector)
 			palette->SetX2NDC(0.92);
 			palette->SetY2NDC(0.96);
 		}
-		sf_up->SetLineWidth(2);
-		sf_dn->SetLineWidth(2);
-		sf_up->Draw("same");
+
+
+
+        sf_up->Draw("same");
 		sf_dn->Draw("same");
 		sf_me->Draw("same");
 		
 		lab.SetTextColor(colors[c]);
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.050);
-		if(c==0) {
+
+        if(c==0) {
 			lab.DrawLatex(0.50, 0.90,  "a. no cuts applied");
 		} else if(c==1) {
 			lab.DrawLatex(0.39, 0.30,  "b. all other cuts applied");
@@ -100,14 +105,16 @@ void EC_Match::show_sf(int sector)
 	lab.SetTextSize(0.038);
 	lab.DrawLatex(0.18, 0.95,  Form("Sampling Fraction  -   Sector %d", sector));
 
-	if(PRINT != "") {
-		CecpS->Print( Form("img/cut-05-sampling-f_sector-%d%s", s+1, PRINT.c_str()) );
+	if(PRINT != "none") {
+		CecpS->Print( Form("img/cut-05-sampling-f-compare_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
 
 
 
-void EC_Match::show_sfs() {
+void EC_Match::show_sf(int sector) {
+
+
     gStyle->SetPadLeftMargin(0.14);
     gStyle->SetPadRightMargin(0.16);
     gStyle->SetPadTopMargin(0.12);
@@ -116,9 +123,9 @@ void EC_Match::show_sfs() {
     TLatex lab;
     lab.SetNDC();
 
-    int s = SECTOR - 1;
-    int NBINS = H->ecp[1][0]->GetNbinsX();
-    int db = NBINS / NDIV;
+    int s = sector - 1;
+    //int NBINS = H->ecp[1][0]->GetNbinsX();
+    //int db = NBINS / NDIV;
 
     TCanvas *Cecp = new TCanvas("Cecp", "Cecp", csize, csize);
 
@@ -134,14 +141,17 @@ void EC_Match::show_sfs() {
     H->ecp[1][s]->GetZaxis()->SetLabelSize(0.032);
 
     H->ecp[1][s]->Draw("colz");
-
     Cecp->Update();     // important, otherwise it won't find the palette
+
+
     TPaletteAxis *palette = (TPaletteAxis *) H->ecp[1][s]->FindObject("palette");
     palette->SetLabelSize(0.032);
     palette->SetLabelOffset(0.01);
     palette->SetX1NDC(0.85);
     palette->SetX2NDC(0.89);
     palette->SetY2NDC(0.88);
+
+
 
     if (sf_mean[s]) {
         sf_mean[s]->GetFunction("pol3")->SetLineColor(kRed + 2);
@@ -153,20 +163,23 @@ void EC_Match::show_sfs() {
     }
 
 
-    sf_me->SetParameter(0, SECTOR);
+    sf_me->SetParameter(0, sector);
+    sf_up->SetParameter(0, sector);
+    sf_dn->SetParameter(0, sector);
 
-    sf_up->SetParameter(0, SECTOR);
     sf_up->SetParameter(1, Pars->NSIGMAS[0]);
-    sf_up->SetParameter(2, 1);
-    sf_dn->SetParameter(0, SECTOR);
     sf_dn->SetParameter(1, Pars->NSIGMAS[1]);
+
+    sf_up->SetParameter(2,  1);
     sf_dn->SetParameter(2, -1);
+
 
     sf_up->SetLineWidth(3);
     sf_dn->SetLineWidth(3);
     sf_up->Draw("same");
     sf_dn->Draw("same");
     sf_me->Draw("same");
+
 
     lab.SetTextColor(colors[0]);
     lab.SetTextFont(102);
@@ -203,21 +216,21 @@ void EC_Match::show_sfs() {
 
 
 
-void EC_Match::DynamicExec()
+void EC_Match::DynamicExec(int sector)
 {
 	
-	int s = SECTOR - 1;
+	int s = sector - 1;
 	
 	TObject *select = gPad->GetSelected();
 	if(!select) return;
 	if (!select->InheritsFrom("TH2")) {gPad->SetUniqueID(0); return;}
-	TH2 *h = (TH2*)select;
+	// TH2 *h = (TH2*)select;
 	gPad->GetCanvas()->FeedbackMode(kTRUE);
 
    // erase old position and draw a line at current position
 	int pxold = gPad->GetUniqueID();
 	int px = gPad->GetEventX();
-	int py = gPad->GetEventY();
+	//int py = gPad->GetEventY();
 	float uymin = gPad->GetUymin();
 	float uymax = gPad->GetUymax();
 	int pymin = gPad->YtoAbsPixel(uymin);
@@ -233,12 +246,12 @@ void EC_Match::DynamicExec()
 	int hid  = floor((x - H->ecp[1][0]->GetXaxis()->GetXmin())/dp);
 	
 //	cout << " x: " << x << " dp: " << dp << "  hid: " << hid << endl;	
-	
-	DrawFit(s, hid);
+
+    DrawFit_SF(s, hid);
 }
 
 
-void EC_Match::DrawFit(int s, int hid)
+void EC_Match::DrawFit_SF(int s, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
@@ -267,7 +280,7 @@ void EC_Match::DrawFit(int s, int hid)
 		lab.DrawLatex(0.26, 0.92,  "Sampling Fraction");
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
-		lab.DrawLatex(0.66, 0.82,  Form("Sector %d", SECTOR));
+		lab.DrawLatex(0.66, 0.82,  Form("Sector %d", s+1));
 		lab.DrawLatex(0.60, 0.76,  Form("p = %3.1f - %3.1f GeV", pmin, pmax ));
 		lab.SetTextColor(kRed+2);
 		lab.DrawLatex(0.59, 0.68,  Form("#mu = %4.3f #pm %2.1e",    ecp1d[s][hid]->GetFunction("MyFit")->GetParameter(4), ecp1d[s][hid]->GetFunction("MyFit")->GetParError(4)));
@@ -279,9 +292,9 @@ void EC_Match::DrawFit(int s, int hid)
 	
 	if(PRINT != "none") {
         if (hid >= 9) {
-            c2->Print(Form("img_slice/slice-%d_cut-05-sampling-f_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-%d_cut-05-sampling-f_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         } else {
-            c2->Print(Form("img_slice/slice-0%d_cut-05-sampling-f_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-0%d_cut-05-sampling-f_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         }
 	}
 
@@ -320,7 +333,7 @@ void EC_Match::show_sf_all_sectors()
 		H->ecp[1][s]->GetXaxis()->SetLabelSize(0.036);
 		H->ecp[1][s]->GetYaxis()->SetLabelSize(0.036);
 		H->ecp[1][s]->GetZaxis()->SetLabelSize(0.036);
-		H->ecp[1][s]->GetYaxis()->SetRangeUser(0.1, 0.45);
+		//H->ecp[1][s]->GetYaxis()->SetRangeUser(0.1, 0.45);
 	}
 
 	
@@ -331,8 +344,7 @@ void EC_Match::show_sf_all_sectors()
 
 	TPaletteAxis *palette;
 	
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		PecpA->cd(s+1);
 		gPad->SetGridx();
 		gPad->SetGridy();

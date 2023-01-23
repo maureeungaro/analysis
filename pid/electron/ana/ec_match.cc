@@ -42,8 +42,8 @@ EC_Match::EC_Match(chistos *common_histo, cpars *common_pars, string P, const Co
         colors[cc] = c[cc];
     }
 
-    sf_me = new TF1("sf_me", [&](double*x, double *p){ return ecsf_Mean(x, p) ; }, 0.2, 5, 1 ) ;
-    sf_up = new TF1("sf_up", [&](double*x, double *p){ return ecsf_limit(x, p) ; }, 0.2, 5, 1 ) ;
-    sf_dn = new TF1("sf_dn", [&](double*x, double *p){ return ecsf_limit(x, p) ; }, 0.2, 5, 1 ) ;
+    sf_me = new TF1("sf_me", [&](double*x, double *p){ return ecsf_Mean(x, p)  ; }, 0.2, 5, 1 ) ;
+    sf_up = new TF1("sf_up", [&](double*x, double *p){ return ecsf_limit(x, p) ; }, 0.2, 5, 3 ) ;
+    sf_dn = new TF1("sf_dn", [&](double*x, double *p){ return ecsf_limit(x, p) ; }, 0.2, 5, 3 ) ;
 
 }

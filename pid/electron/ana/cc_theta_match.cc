@@ -6,10 +6,15 @@
 #include "TLatex.h"
 #include "TCanvas.h"
 
+// Ugly: these functions have to be global to be used by TF1
+// but compiling them here means we cannot use them in other files (e.g. ec_match.cc)
+// thus we have to copy them in ec_match.cc with a different name otherwise the compiler will find
+// about duplicate definitions
+//
 // 2 gaussians + parabole
-Double_t parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
-Double_t gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
-Double_t gauss2_para(Double_t *x, Double_t *par)  { return parabole(x, par) + gaussian(x, &par[3]) + gaussian(x, &par[6]); }
+Double_t cct_parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
+Double_t cct_gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
+Double_t cct_gauss2_para(Double_t *x, Double_t *par)  { return cct_parabole(x, par) + cct_gaussian(x, &par[3]) + cct_gaussian(x, &par[6]); }
 
 void CC_Match::calc_cc_match(int sector)
 {
@@ -23,20 +28,20 @@ void CC_Match::calc_cc_match(int sector)
 	
 	TCanvas *Ccc_match  = new TCanvas("Ccc_match", "Ccc_match", csize, csize);
 	
-	TF1 *MyFit = new TF1("MyFit", gauss2_para, -100, 800, 6);
+	TF1 *MyFit = new TF1("MyFit", cct_gauss2_para, -100, 800, 6);
 	MyFit->SetLineColor(kRed+2);
 	MyFit->SetLineWidth(1);
 	
 	int s = sector - 1;
-	double xb[18], xbe[18];
-	for(int b=0; b<18; b++) {
+	double xb[CC_Match::NDIV], xbe[CC_Match::NDIV];
+	for(int b=0; b<CC_Match::NDIV; b++) {
 		xb[b]  = b+1.5;
 		xbe[b] = 0;
 	}
 	
 	// Slicing + fitting
 	cout << " Fitting sector " << s+1 << endl;
-	for(int b=0; b<18; b++) {
+	for(int b=0; b<CC_Match::NDIV; b++) {
 		cout << " Fitting pmt " << b+1 << endl;
 		H->theta_vs_segm[1][s]->ProjectionY(Form("cc_match1d_s%d_pmt%d", s+1, b+1), b+2, b+3);
 		cc_match1d[s][b] = (TH1F*)gROOT->Get(Form("cc_match1d_s%d_pmt%d", s+1, b+1));
@@ -75,8 +80,8 @@ void CC_Match::calc_cc_match(int sector)
 	}
 	cout << " done " << endl;
 	// Now creating / fitting the graphs
-	cc_match_mean[s] = new TGraphErrors(18, xb, cc_matchmean[s], xbe, cc_matchmeane[s]);
-	cc_match_sigm[s] = new TGraphErrors(18, xb, cc_matchsigm[s], xbe, cc_matchsigme[s]);
+	cc_match_mean[s] = new TGraphErrors(CC_Match::NDIV, xb, cc_matchmean[s], xbe, cc_matchmeane[s]);
+	cc_match_sigm[s] = new TGraphErrors(CC_Match::NDIV, xb, cc_matchsigm[s], xbe, cc_matchsigme[s]);
 
 
 	// will miss the first and last 2 pmts.

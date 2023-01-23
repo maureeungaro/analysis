@@ -177,13 +177,14 @@ chistos::chistos(string filename, int READ)
 //			nphe_phi = (TH2F*)f.Get("nphe_phi");
 //			nphe_phi ->SetDirectory(0);
 
+            // monitor histos
 			for(int s=0; s<7; s++) {
-//				monitor[0][s] = (TH1F*)f.Get(Form("monitor1_sect%d", s+1));
-//				monitor[1][s] = (TH1F*)f.Get(Form("monitor2_sect%d", s+1));
-//				monitor[2][s] = (TH1F*)f.Get(Form("monitor3_sect%d", s+1));
-//				monitor[0][s] ->SetDirectory(0);
-//				monitor[1][s] ->SetDirectory(0);
-//				monitor[2][s] ->SetDirectory(0);
+				monitor[0][s] = (TH1F*)f.Get(Form("monitor1_sect%d", s+1));
+				monitor[1][s] = (TH1F*)f.Get(Form("monitor2_sect%d", s+1));
+				monitor[2][s] = (TH1F*)f.Get(Form("monitor3_sect%d", s+1));
+				monitor[0][s] ->SetDirectory(0);
+				monitor[1][s] ->SetDirectory(0);
+				monitor[2][s] ->SetDirectory(0);
 			}
 
 			for(int c=0; c<4; c++) {

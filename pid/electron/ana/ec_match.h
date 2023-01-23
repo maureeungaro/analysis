@@ -15,6 +15,8 @@ public:
     EC_Match();
     ~EC_Match();
 
+    static const int NDIV = 15;
+
     // constructor using chisto and cpars
     EC_Match(chistos *common_histo, cpars *common_pars, string P, const Color_t colors[4]);
 
@@ -29,10 +31,11 @@ public:
     // sampling fraction
     void calc_sf(int sector);
     void calc_sf_all_sectors();
+    void show_sf_comparison(int sector);
     void show_sf(int sector);
     void show_sf_all_sectors();
-    void DynamicExec();
-    void DrawFit(int s, int hid);
+    void DynamicExec(int sector);
+    void DrawFit_SF(int sectorIndex, int hid);
 
 
 private:
@@ -40,7 +43,7 @@ private:
     chistos *H;
     cpars *Pars;
     string PRINT;
-    static const int NDIV = 15;
+
     const int csize = 1200; // common canvas size
     Color_t colors[4];
 
@@ -53,9 +56,9 @@ private:
     Double_t ecsf_Sigma(Double_t *x, Double_t *par);
     Double_t ecsf_limit(Double_t *x, Double_t *par);
 
-    TF1 *sf_me;
-    TF1 *sf_up;
-    TF1 *sf_dn;
+    TF1 *sf_me = nullptr;
+    TF1 *sf_up = nullptr;
+    TF1 *sf_dn = nullptr;
 
     TH1F *ecp1d[6][EC_Match::NDIV];      // 1 dimensional projections, fitted with GAUS+PARABOLE
 

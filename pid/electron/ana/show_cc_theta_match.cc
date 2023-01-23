@@ -10,7 +10,7 @@
 #include "TVirtualX.h"
 #include "TExec.h"
 
-void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
+void CC_Match::show_cc_theta_match_comparison(int SECTOR)
 {
 	int s = SECTOR - 1;
 	
@@ -34,23 +34,24 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 			H->theta_vs_segm[c][s]->GetXaxis()->SetTitleOffset(1.1);
 		}
 	}
-	
-	TCanvas *Ctheta_vs_segmS;
-	TPad    *Ptheta_vs_segmS;
-	
-	Ctheta_vs_segmS = new TCanvas(Form("Ctheta_vs_segmS%d", s+1), Form("Ctheta_vs_segmS%d", s+1), csize, csize);
-	Ptheta_vs_segmS = new TPad(Form("Ptheta_vs_segmS%d", s+1), Form("Ptheta_vs_segmS%d", s+1), 0.02, 0.00,  0.98, 0.92);
+
+    TCanvas *Ctheta_vs_segmS = new TCanvas(Form("Ctheta_vs_segmS%d", s+1), Form("Ctheta_vs_segmS%d", s+1), csize, csize);
+    TPad    *Ptheta_vs_segmS = new TPad(Form("Ptheta_vs_segmS%d", s+1), Form("Ptheta_vs_segmS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Ptheta_vs_segmS->Divide(2, 2);
 	Ptheta_vs_segmS->Draw();
 
 	cc_match_me->SetParameter(0, SECTOR);
-	
 	cc_match_up->SetParameter(0, SECTOR);
+    cc_match_dn->SetParameter(0, SECTOR);
+
 	cc_match_up->SetParameter(1, Pars->CC_NSIGMAS[0]);
-	cc_match_up->SetParameter(2, 1);
-	cc_match_dn->SetParameter(0, SECTOR);
-	cc_match_dn->SetParameter(1, Pars->CC_NSIGMAS[1]);
+    cc_match_dn->SetParameter(1, Pars->CC_NSIGMAS[1]);
+
+	cc_match_up->SetParameter(2,  1);
 	cc_match_dn->SetParameter(2, -1);
+
+    cc_match_up->SetLineWidth(2);
+    cc_match_dn->SetLineWidth(2);
 
 	TPaletteAxis *palette;
 	for(int c=0; c<4; c++) {
@@ -74,8 +75,6 @@ void CC_Match::show_cc_theta_match_all_cuts(int SECTOR)
 			palette->SetX2NDC(0.92);
 			palette->SetY2NDC(0.96);
 		}
-		cc_match_up->SetLineWidth(2);
-		cc_match_dn->SetLineWidth(2);
 		cc_match_up->Draw("same");
 		cc_match_dn->Draw("same");
 		cc_match_me->Draw("same");
@@ -154,12 +153,13 @@ void CC_Match::show_cc_theta_match(int SECTOR) {
     }
 
     cc_match_me->SetParameter(0, SECTOR);
-
     cc_match_up->SetParameter(0, SECTOR);
-    cc_match_up->SetParameter(1, Pars->CC_NSIGMAS[0]);
-    cc_match_up->SetParameter(2, 1);
     cc_match_dn->SetParameter(0, SECTOR);
+
+    cc_match_up->SetParameter(1, Pars->CC_NSIGMAS[0]);
     cc_match_dn->SetParameter(1, Pars->CC_NSIGMAS[1]);
+
+    cc_match_up->SetParameter(2, 1);
     cc_match_dn->SetParameter(2, -1);
 
     cc_match_up->SetLineWidth(3);
@@ -196,9 +196,9 @@ void CC_Match::show_cc_theta_match(int SECTOR) {
 
 
 // this does not work anymore because CC_DynamicExec is not static
-void CC_Match::CC_DynamicExec(int SECTOR)
+void CC_Match::CC_DynamicExec(int sector)
 {
-    int s = SECTOR - 1;
+    int s = sector - 1;
 
 	TObject *select = gPad->GetSelected();
     if (!select) return;
@@ -224,7 +224,7 @@ void CC_Match::CC_DynamicExec(int SECTOR)
     float x = gPad->PadtoX(upx);
 
     // draw slice corresponding to mouse position
-    if ((int) (x - 1) < 18) {
+    if ((int) (x - 1) < CC_Match::NDIV) {
         CC_DrawFit_ThetaSlice(s, (int) (x - 1));
     }
 }

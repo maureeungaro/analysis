@@ -11,6 +11,7 @@ void activate_PRINT()
     ECMatch->set_print(PRINT);
 }
 
+
 void switch_print() {
     if ( PRINT == "none") {
         activate_PRINT();
@@ -40,14 +41,12 @@ void print_cc_match()
 
     for (int s = 0; s < 6; s++) {
         SECTOR = s+1;
-        // show all cuts for this sector
-        CCMatch->show_cc_theta_match_all_cuts(SECTOR);
 
-        // show cc match for this sector
+        CCMatch->show_cc_theta_match_comparison(SECTOR);
         CCMatch->show_cc_theta_match(SECTOR);
 
         // cc theta slices
-        for(int b=0; b<18; b++) {
+        for(int b=0; b<CC_Match::NDIV; b++) {
             CCMatch->CC_DrawFit_ThetaSlice(s, b);
         }
 
@@ -73,7 +72,7 @@ void print_cc_match()
         CCMatch->show_cc_timings(SECTOR);
 
         // cc timing slices
-        for(int b=0; b<36; b++) {
+        for(int b=0; b<2*CC_Match::NDIV; b++) {
             CCMatch->CCT_DrawFit_TimeSlice(s,b);
         }
     }
@@ -95,6 +94,8 @@ void print_cc_match()
 
 void print_ec_match()
 {
+    activate_PRINT();
+
     // thresholds
     for (int s = 0; s < 6; s++) {
         SECTOR = s + 1;
@@ -102,6 +103,24 @@ void print_ec_match()
     }
 
     ECMatch->show_ecthr_all_sectors();
+
+
+    // sampling fraction
+    ECMatch->calc_sf_all_sectors();
+
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+
+        ECMatch->show_sf_comparison(SECTOR);
+        ECMatch->show_sf(SECTOR);
+
+        // sf slices
+        for(int b=0; b<EC_Match::NDIV; b++) {
+            ECMatch->DrawFit_SF(s, b);
+        }
+    }
+
+    ECMatch->show_sf_all_sectors();
 
 }
 
@@ -114,19 +133,11 @@ void print_all()
 		PRINT = SIM_PRINT;
 	}
 
-    print_cc_match();
+// print_cc_match();
 
     print_ec_match();
 
-//
-//	// sampling
-//	calc_all_ecp();
 
-
-
-//
-//		show_ecp();
-//		show_ecps();
 //
 //		show_uvw(H.ECu);
 //		show_uvw(H.ECv);
@@ -137,21 +148,12 @@ void print_all()
 //		show_EinEtot();
 //
 
-//
 
-//
-//		// sampling slices
-//		for(int b=0; b<NDIV; b++) {
-//			DrawFit(s, b);
-//		}
 //
 //	}
 
 
 
-
-//	// P MIN all sectors
-//	show_ecthrAll();
 //
 //	// sampling fraction all sectors
 //	show_ecp_all_sectors();
