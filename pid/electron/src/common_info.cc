@@ -166,10 +166,6 @@ chistos::chistos(string filename, int READ)
 					ECw[1][s]          ->GetXaxis()->SetTitle("All Sectors                              W [cm]");
 				}
 
-
-
-
-
 			}
 			
 			// utility histos
@@ -187,13 +183,13 @@ chistos::chistos(string filename, int READ)
 			}
 
 			for(int c=0; c<4; c++) {
-//				ECpos[c] = (TH2F*)f.Get(Form("ECpos_%s", cut[c].c_str()));
-//				ECpos[c] ->SetDirectory(0);
-//				ECpos[c] ->GetXaxis()->SetTitle("EC Track x Position                 [cm]");
-//				ECpos[c] ->GetYaxis()->SetTitle("EC Track y Position         [cm]");
+				ECpos[c] = (TH2F*)f.Get(Form("ECpos_%s", cut[c].c_str()));
+				ECpos[c] ->SetDirectory(0);
+				ECpos[c] ->GetXaxis()->SetTitle("EC Track x Position                 [cm]");
+				ECpos[c] ->GetYaxis()->SetTitle("EC Track y Position         [cm]");
 			}
-//			ECpos[4] = (TH2F*)f.Get("ECpos_UVW_cut");
-//			ECpos[4] ->SetDirectory(0);
+			ECpos[4] = (TH2F*)f.Get("ECpos_UVW_cut");
+			ECpos[4] ->SetDirectory(0);
 
 			f.Close();
 		} else {

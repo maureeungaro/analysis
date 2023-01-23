@@ -85,11 +85,12 @@ void e_pid()
     bar->AddButton("Show U (all sectors)",                     "ECMatch->show_uvw_all_sectors(0);");
     bar->AddButton("Show V (all sectors)",                     "ECMatch->show_uvw_all_sectors(1);");
     bar->AddButton("Show W (all sectors)",                     "ECMatch->show_uvw_all_sectors(2);");
+    bar->AddButton("","");
+    bar->AddButton("Show EC Y vs X",                           "ECMatch->show_ecyx();");
+    bar->AddButton("","");
 
-
-	//	bar->AddButton("Show EC Y vs X",                           "show_ecyx();");
-	//	bar->AddButton("","");
 	//	bar->AddButton("Show EC Eout/p vs Ein/p",                  "show_EoEi();");
+
 	//	bar->AddButton("Show EC Eout/p vs Ein/p for all sectors",  "show_EoEi_all();");
 	//	bar->AddButton("","");
 	//	bar->AddButton("Show Ein/Etot vs p",                       "show_EinEtot();");

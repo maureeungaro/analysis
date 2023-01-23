@@ -42,6 +42,8 @@ public:
     void show_uvw_all_sectors(int which);
     void show_uvw_integrated_sectors(int which);
 
+    // Y vs X coordinates
+    void show_ecyx();
 
 private:
 

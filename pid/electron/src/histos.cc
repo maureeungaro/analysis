@@ -113,20 +113,17 @@ void histos::fill(map<string, int> passed, particle p)
 		ecthr[0][sector_i]->Fill(mom);
 		ecthr[0][6]->Fill(mom);
 		// all other on
-		if(alloth["ECTHR"] == 1)
-		{
+		if(alloth["ECTHR"] == 1) {
 			ecthr[1][sector_i]->Fill(mom);
 			ecthr[1][6]->Fill(mom);
 		}
 		// all other off
-		if(othneg["ECTHR"] == 1)
-		{
+		if(othneg["ECTHR"] == 1) {
 			ecthr[2][sector_i]->Fill(mom);
 			ecthr[2][6]->Fill(mom);
 		}
 		// every cut
-		if(passed["PASSED"] == 1)
-		{
+		if(passed["PASSED"] == 1) {
 			ecthr[3][sector_i]->Fill(mom);
 			ecthr[3][6]->Fill(mom);
 		}
@@ -140,25 +137,24 @@ void histos::fill(map<string, int> passed, particle p)
 	// no cuts
 	double Etot  = p.get("Emax")/GeV;
 	double ecvsp = Etot/mom;
-	if(p.ccinfos.size() && p.cainfos.size() && p.scinfos.size())
-	{
+	if(p.ccinfos.size() && p.cainfos.size() && p.scinfos.size()) {
 		ecp[0][sector_i]->Fill(mom, ecvsp);
 		ecp[0][6]->Fill(mom, ecvsp);
+
 		// all other on
-		if(alloth["ECP"] == 1)
-		{
+		if(alloth["ECP"] == 1) {
 			ecp[1][sector_i]->Fill(mom, ecvsp);
 			ecp[1][6]->Fill(mom, ecvsp);
 		}
+
 		// all other off
-		if(othneg["ECP"] == 1)
-		{
+		if(othneg["ECP"] == 1) {
 			ecp[2][sector_i]->Fill(mom, ecvsp);
 			ecp[2][6]->Fill(mom, ecvsp);
 		}
+
 		// every cut
-		if(passed["PASSED"] == 1)
-		{
+		if(passed["PASSED"] == 1) {
 			ecp[3][sector_i]->Fill(mom, ecvsp);
 			ecp[3][6]->Fill(mom, ecvsp);
 		}
@@ -171,8 +167,7 @@ void histos::fill(map<string, int> passed, particle p)
 	// no cuts
 	V3 uvw    = p.vget("ECuvw");
 	V3 hitpos = p.vget("ECxyz");;
-	if(p.ccinfos.size() && p.cainfos.size())
-	{
+	if(p.ccinfos.size() && p.cainfos.size()) {
 		ECu[0][sector_i]->Fill(uvw.x/cm);
 		ECu[0][6]->Fill(uvw.x/cm);
 		ECv[0][sector_i]->Fill(uvw.y/cm);
@@ -180,9 +175,9 @@ void histos::fill(map<string, int> passed, particle p)
 		ECw[0][sector_i]->Fill(uvw.z/cm);
 		ECw[0][6]->Fill(uvw.z/cm);
 		ECpos[0]->Fill(hitpos.x/cm, hitpos.y/cm);
+
 		// all other on
-		if(alloth["ECUVW"] == 1)
-		{
+		if(alloth["ECUVW"] == 1) {
 			ECu[1][sector_i]->Fill(uvw.x/cm);
 			ECu[1][6]->Fill(uvw.x/cm);
 			ECv[1][sector_i]->Fill(uvw.y/cm);
@@ -191,9 +186,9 @@ void histos::fill(map<string, int> passed, particle p)
 			ECw[1][6]->Fill(uvw.z/cm);
 			ECpos[1]->Fill(hitpos.x/cm, hitpos.y/cm);
 		}
+
 		// all other off
-		if(othneg["ECUVW"] == 1)
-		{
+		if(othneg["ECUVW"] == 1) {
 			ECu[2][sector_i]->Fill(uvw.x/cm);
 			ECu[2][6]->Fill(uvw.x/cm);
 			ECv[2][sector_i]->Fill(uvw.y/cm);
@@ -202,30 +197,30 @@ void histos::fill(map<string, int> passed, particle p)
 			ECw[2][6]->Fill(uvw.z/cm);
 			ECpos[2]->Fill(hitpos.x/cm, hitpos.y/cm);
 		}
+
 		// every cut
-		if(passed["CCMATCH"]*passed["ECTHR"]*passed["ECP"]*passed["EPOU"]*passed["ECIO"]*passed["INTO"] == 1)
-		{
+		if(passed["CCMATCH"]*passed["ECTHR"]*passed["ECP"]*passed["EPOU"]*passed["ECIO"]*passed["INTO"] == 1) {
 			ECu[3][sector_i]->Fill(uvw.x/cm);
 			ECu[3][6]->Fill(uvw.x/cm);
 		}
-		if(passed["CCMATCH"]*passed["ECTHR"]*passed["ECP"]*passed["EPOV"]*passed["ECIO"]*passed["INTO"] == 1)
-		{
+		if(passed["CCMATCH"]*passed["ECTHR"]*passed["ECP"]*passed["EPOV"]*passed["ECIO"]*passed["INTO"] == 1) {
 			ECv[3][sector_i]->Fill(uvw.y/cm);
 			ECv[3][6]->Fill(uvw.y/cm);
 		}
-		if(passed["CCMATCH"]*passed["ECTHR"]*passed["ECP"]*passed["EPOW"]*passed["ECIO"]*passed["INTO"] == 1)
-		{
+		if(passed["CCMATCH"]*passed["ECTHR"]*passed["ECP"]*passed["EPOW"]*passed["ECIO"]*passed["INTO"] == 1) {
 			ECw[3][sector_i]->Fill(uvw.z/cm);
 			ECw[3][6]->Fill(uvw.z/cm);
 		}
+
 		// every cut
-		if(passed["PASSED"] == 1)
-		{
+		if(passed["PASSED"] == 1) {
 			ECpos[3]->Fill(hitpos.x/cm, hitpos.y/cm);
 		}
+
 		// Only UVW cut
-		if(passed["ECUVW"] == 1)
-			ECpos[4]->Fill(hitpos.x/cm, hitpos.y/cm);
+		if(passed["ECUVW"] == 1) {
+            ECpos[4]->Fill(hitpos.x / cm, hitpos.y / cm);
+        }
 	}
 	// End ECP: u,v,w coordinate cut
 	// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
