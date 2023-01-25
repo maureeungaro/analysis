@@ -2,6 +2,8 @@
 
 export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
+export DATA_PATH=/Volumes/e16
+
 # if the first option is -h or empty, print help and exit
 if [[ $1 == "-h" || $# -eq 0 || $# -lt 3 ]]; then
 	echo " "
@@ -14,7 +16,7 @@ if [[ $1 == "-h" || $# -eq 0 || $# -lt 3 ]]; then
 	echo "     [PAR_FILE]: Parameter File, optional in some cases "
 	echo " "
 	echo "Examples: "
-	echo " go_SEL /Volumes/e1-6/pass4/fullRuns    /Volumes/e1-6Proc/pass4/e_pid   /opt/projects/analysis/pid/electron/e_pid             /opt/projects/analysis/pid/electron/electron_id_par.txt   "
+	echo " go_SEL $DATA_PATH/fullRuns $DATA_PATH/e_pid   /opt/projects/analysis/pid/electron/e_pid             /opt/projects/analysis/pid/electron/electron_id_par.txt   "
 	echo " go_SEL /Volumes/e1-6Proc/pass4/e_pid   /Volumes/e1-6Proc/pass4/p_pid   /opt/projects/analysis/pid/proton/proton_pid          /opt/projects/analysis/pid/proton/proton_id_par.txt    "
 	echo " go_SEL /Volumes/e1-6Proc/pass4/p_pid   /Volumes/e1-6Proc/pass4/vertex  /opt/projects/analysis/vertex/vertex_corr_sel         /opt/projects/analysis/vertex/vertex_par.txt    "
 	echo " go_SEL /Volumes/e1-6Proc/pass4/vertex  /Volumes/e1-6Proc/pass4/e_fid   /opt/projects/analysis/fiducial/electron/e_fiducial   /opt/projects/analysis/fiducial/electron/fiducial_par.txt  "
