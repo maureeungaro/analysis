@@ -95,42 +95,53 @@ void print_cc_match()
 void print_ec_match() {
     activate_PRINT();
 
-    // thresholds
+//    // thresholds
+//    for (int s = 0; s < 6; s++) {
+//        SECTOR = s + 1;
+//        ECMatch->show_ecthr(SECTOR);
+//    }
+//
+//    ECMatch->show_ecthr_all_sectors();
+//
+//
+//    // sampling fraction
+//    ECMatch->calc_sf_all_sectors();
+//
+//    for (int s = 0; s < 6; s++) {
+//        SECTOR = s + 1;
+//
+//        ECMatch->show_sf_comparison(SECTOR);
+//        ECMatch->show_sf(SECTOR);
+//
+//        // sf slices
+//        for (int b = 0; b < EC_Match::NDIV; b++) {
+//            ECMatch->DrawFit_SF(s, b);
+//        }
+//    }
+//
+//    ECMatch->show_sf_all_sectors();
+//
+//    for (int s = 0; s < 6; s++) {
+//        SECTOR = s + 1;
+//        ECMatch->show_uvw(SECTOR, 0);
+//        ECMatch->show_uvw(SECTOR, 1);
+//        ECMatch->show_uvw(SECTOR, 2);
+//    }
+//
+//    ECMatch->show_uvw_all_sectors(0);
+//    ECMatch->show_uvw_all_sectors(1);
+//    ECMatch->show_uvw_all_sectors(2);
+//
+//
+//    ECMatch->show_ecyx();
+
     for (int s = 0; s < 6; s++) {
         SECTOR = s + 1;
-        ECMatch->show_ecthr(SECTOR);
+        ECMatch->show_EoEi(SECTOR);
     }
 
-    ECMatch->show_ecthr_all_sectors();
+    ECMatch->show_EoEi_all_sectors();
 
-
-    // sampling fraction
-    ECMatch->calc_sf_all_sectors();
-
-    for (int s = 0; s < 6; s++) {
-        SECTOR = s + 1;
-
-        ECMatch->show_sf_comparison(SECTOR);
-        ECMatch->show_sf(SECTOR);
-
-        // sf slices
-        for (int b = 0; b < EC_Match::NDIV; b++) {
-            ECMatch->DrawFit_SF(s, b);
-        }
-    }
-
-    ECMatch->show_sf_all_sectors();
-
-    for (int s = 0; s < 6; s++) {
-        SECTOR = s + 1;
-        ECMatch->show_uvw(SECTOR, 0);
-        ECMatch->show_uvw(SECTOR, 1);
-        ECMatch->show_uvw(SECTOR, 2);
-    }
-
-    ECMatch->show_uvw_all_sectors(0);
-    ECMatch->show_uvw_all_sectors(1);
-    ECMatch->show_uvw_all_sectors(2);
 }
 
 void print_all()
@@ -142,38 +153,18 @@ void print_all()
 		PRINT = SIM_PRINT;
 	}
 
-// print_cc_match();
+//    print_cc_match();
 
     print_ec_match();
 
 
-//
-//		show_uvw(H.ECu);
-//		show_uvw(H.ECv);
-//		show_uvw(H.ECw);
+
 //
 //		show_EoEi();
 //
 //		show_EinEtot();
 //
 
-
-//
-//	}
-
-
-
-//
-//	// sampling fraction all sectors
-//	show_ecp_all_sectors();
-//
-//	// uvw all sectors
-//	show_uvwAll(H.ECu);
-//	show_uvwAll(H.ECv);
-//	show_uvwAll(H.ECw);
-//
-//	// y vs x
-//	show_ecyx();
 //
 //	// eout vs ein
 //	show_EoEi_all();

@@ -45,6 +45,10 @@ public:
     // Y vs X coordinates
     void show_ecyx();
 
+    // mip: E outer vs E Inner
+    void show_EoEi(int sector);
+    void show_EoEi_all_sectors();
+
 private:
 
     chistos *H;

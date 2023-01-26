@@ -1,3 +1,4 @@
 # general optimization
 # solve DrawFit interactive problem
 # add integral to all plots - some are already existing
+# calculate no_cuts, etc like in show_ec_EoEi

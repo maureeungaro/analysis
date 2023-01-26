@@ -99,6 +99,8 @@ chistos::chistos(string filename, int READ)
                     ECu[c][s]           = (TH1F*)f.Get(Form("ECu_%s_sect%d",           cut[c].c_str(), s+1));
                     ECv[c][s]           = (TH1F*)f.Get(Form("ECv_%s_sect%d",           cut[c].c_str(), s+1));
                     ECw[c][s]           = (TH1F*)f.Get(Form("ECw_%s_sect%d",           cut[c].c_str(), s+1));
+					EoutEin[c][s]       = (TH2F*)f.Get(Form("EoutEin_%s_sect%d",       cut[c].c_str(), s+1));
+					EinEtot[c][s]       = (TH2F*)f.Get(Form("EinEtot_%s_sect%d",       cut[c].c_str(), s+1));
 
                     // utility histo to draw zero line (not sure if it's needed)
                     enphe[s] = (TH1F*) nphe[0][s]->Clone();
@@ -117,6 +119,8 @@ chistos::chistos(string filename, int READ)
 					ECu[c][s]          ->SetDirectory(0);
 					ECv[c][s]          ->SetDirectory(0);
 					ECw[c][s]          ->SetDirectory(0);
+                    EoutEin[c][s]      ->SetDirectory(0);
+                    EinEtot[c][s]      ->SetDirectory(0);
 
                     // colors
                     phi_match[c][s]    ->SetLineColor(colors[c]);
@@ -139,19 +143,10 @@ chistos::chistos(string filename, int READ)
 					ECu[c][s]          ->GetXaxis()->SetTitle(Form("Sector %d                    U [cm]",  s+1));
 					ECv[c][s]          ->GetXaxis()->SetTitle(Form("Sector %d                    V [cm]",  s+1));
 					ECw[c][s]          ->GetXaxis()->SetTitle(Form("Sector %d                    W [cm]",  s+1));
-
-
-//					EoutEin[c][s]       = (TH2F*)f.Get(Form("EoutEin_%s_sect%d",       cut[c].c_str(), s+1));
-//					EinEtot[c][s]       = (TH2F*)f.Get(Form("EinEtot_%s_sect%d",       cut[c].c_str(), s+1));
-
-//					EoutEin[c][s]      ->SetDirectory(0);
-//					EinEtot[c][s]      ->SetDirectory(0);
-
-//
-//					EoutEin[c][s]      ->GetXaxis()->SetTitle(Form("E_{in} / p"));
-//					EoutEin[c][s]      ->GetYaxis()->SetTitle(Form("E_{out} / P"));
-//					EinEtot[c][s]      ->GetXaxis()->SetTitle(Form("p  [GeV]"));
-//					EinEtot[c][s]      ->GetYaxis()->SetTitle(Form("E_{in} / E_{TOT}"));
+					EoutEin[c][s]      ->GetXaxis()->SetTitle(Form("E_{in} / p"));
+					EoutEin[c][s]      ->GetYaxis()->SetTitle(Form("E_{out} / P"));
+					EinEtot[c][s]      ->GetXaxis()->SetTitle(Form("p  [GeV]"));
+					EinEtot[c][s]      ->GetYaxis()->SetTitle(Form("E_{in} / E_{TOT}"));
 				}
 
                 if (s == 6) {
