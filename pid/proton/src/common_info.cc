@@ -15,8 +15,9 @@ chistos::chistos(string filename, int READ)
 		output = NULL;
 		if(filename!= "none") {
             // check if filename exists
-            if( file_exists(filename) ) {
-                cout << " File " << filename << " already exists. Exiting..." << endl;
+            std::filesystem::path p(filename);
+            if( ! std::filesystem::exists(p) ) {
+                cout << " File " << filename << " does not exists. Exiting..." << endl;
                 exit(1);
             }
 
@@ -53,14 +54,20 @@ chistos::chistos(string filename, int READ)
             }
         }
 	} else {
-        // Reading from Input file
 
+        // Reading from Input file
         if(filename!= "none") {
+            // check if filename exists
+            std::filesystem::path p(filename);
+            if( ! std::filesystem::exists(p) ) {
+                cout << " File " << filename << " does not exist. Exiting..." << endl;
+                exit(1);
+            }
+
 			TFile f(filename.c_str());
 			cout << " Loading histos from: " << filename << endl;
 		
-			for(int s=0; s<7; s++)
-			{
+			for(int s=0; s<7; s++) {
 				dt_mom[s]   = (TH2F*)f.Get(Form("dt_momsect%d",    s+1));
 				dt_momz[s]  = (TH2F*)f.Get(Form("dt_mom_z_sect%d", s+1));
 				dt_mom[s]->SetDirectory(0);
@@ -72,18 +79,16 @@ chistos::chistos(string filename, int READ)
 		
 	
 			string what[2] = {"before", "after"};
-			for(int s=0; s<7; s++)
-				for(int w=0; w<2; w++)
-			{
-				beta_vs_mom[w][s] = (TH2F*)f.Get(Form("beta_vs_mom_%s_sect%d", what[w].c_str(), s+1));
-				mass_vs_mom[w][s] = (TH2F*)f.Get(Form("mass_vs_mom_%s_sect%d", what[w].c_str(), s+1));
-				beta_vs_mom[w][s]->SetDirectory(0);
-				mass_vs_mom[w][s]->SetDirectory(0);
-			}
+			for(int s=0; s<7; s++) {
+                for (int w = 0; w < 2; w++) {
+                    beta_vs_mom[w][s] = (TH2F *) f.Get(Form("beta_vs_mom_%s_sect%d", what[w].c_str(), s + 1));
+                    mass_vs_mom[w][s] = (TH2F *) f.Get(Form("mass_vs_mom_%s_sect%d", what[w].c_str(), s + 1));
+                    beta_vs_mom[w][s]->SetDirectory(0);
+                    mass_vs_mom[w][s]->SetDirectory(0);
+                }
+            }
 			f.Close();
-		}
-		else
-		{	
+		} else {
 			cout << " No Input File selected. Exiting constructor..." << endl;
 			return;
 		}	
@@ -93,8 +98,7 @@ chistos::chistos(string filename, int READ)
 
 void chistos::write_and_close()
 {
-	if(output)
-	{
+	if(output) {
 		cout << endl << " Writing ROOT file...  " << endl;
 		output->Write();
 		output->Close();
@@ -106,8 +110,7 @@ cpars::cpars(string filename)
 {
 	ifstream parfile(filename.c_str(), ios::in);
 	cout << endl << " Opening parameter file " << filename << endl;
-	if(!parfile)
-	{
+	if(!parfile) {
 		cout << " File " <<  filename << " could not be opened. " << endl;
 		cout << " Specify parameters file with -PARS_FILE=filename. Exiting. " << endl;
 		exit(0);
@@ -116,8 +119,7 @@ cpars::cpars(string filename)
 	string line;
 	string addinfo;
 	
-	for(int s=0; s<6; s++) 
-	{
+	for(int s=0; s<6; s++) {
 		dt_mom_mean_a[s] = 0;
 		dt_mom_mean_b[s] = 0;
 		dt_mom_mean_c[s] = 0;
@@ -133,72 +135,44 @@ cpars::cpars(string filename)
 	}
 	
 	
-	while(getline( parfile, line))
-	{
+	while(getline( parfile, line)) {
 		istringstream cuts(line);
 	
-		while(!cuts.eof())
-		{
+		while(!cuts.eof()) {
 			string al;
 			cuts >> al;
-			if(al == "DTMA:")
-			{
+			if(al == "DTMA:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_mean_a[s];
-			}
-			else if(al == "DTMB:")
-			{
+			} else if(al == "DTMB:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_mean_b[s];
-			}
-			else if(al == "DTMC:")
-			{
+			} else if(al == "DTMC:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_mean_c[s];
-			}
-			else if(al == "DTMD:")
-			{
+			} else if(al == "DTMD:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_mean_d[s];
-			}
-			else if(al == "DTME:")
-			{
+			} else if(al == "DTME:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_mean_e[s];
-			}
-			else if(al == "DTMF:")
-			{
+			} else if(al == "DTMF:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_mean_f[s];
-			}
-			else if(al == "DTSA:")
-			{
+			} else if(al == "DTSA:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_sigm_a[s];
-			}
-			else if(al == "DTSB:")
-			{
+			} else if(al == "DTSB:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_sigm_b[s];
-			}
-			else if(al == "DTSC:")
-			{
+			} else if(al == "DTSC:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_sigm_c[s];
-			}
-			else if(al == "DTSD:")
-			{
+			} else if(al == "DTSD:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_sigm_d[s];
-			}
-			else if(al == "DTSE:")
-			{
+			} else if(al == "DTSE:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_sigm_e[s];
-			}
-			else if(al == "DTSF:")
-			{
+			} else if(al == "DTSF:") {
 				for(int s=0; s<6; s++) cuts >> dt_mom_sigm_f[s];
-			}
-			else if(al == "DTNS:")
-			{
+			} else if(al == "DTNS:") {
 				cuts >> NSIGMAS[0] >> NSIGMAS[1];
 			}
 		
 		}
 	}
 	addInfos.push_back(" > Delta T MEAN pars: ");
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		addinfo  = "   > S" + stringify(s+1); 
 		addinfo += "  a: "  + stringify(dt_mom_mean_a[s]);
 		addinfo += "  b: "  + stringify(dt_mom_mean_b[s]);
@@ -209,8 +183,7 @@ cpars::cpars(string filename)
 		addInfos.push_back(addinfo);
 	}
 	addInfos.push_back(" > Delta T SIGMA pars: ");
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		addinfo  = "   > S" + stringify(s+1); 
 		addinfo += "  a: "  + stringify(dt_mom_sigm_a[s]);
 		addinfo += "  b: "  + stringify(dt_mom_sigm_b[s]);
@@ -303,6 +276,7 @@ double cpars::Mean(double p, int sector)
 			dt_mom_mean_e[s]*p*p*p*p +
 			dt_mom_mean_f[s]*p*p*p*p*p;
 }
+
 double cpars::rMean(double *x, double *par)
 {
 	// par[0] is sector
@@ -320,12 +294,12 @@ double cpars::Sigma(double p, int sector)
 			dt_mom_sigm_e[s]*p*p*p*p +
 			dt_mom_sigm_f[s]*p*p*p*p*p;
 }
+
 double cpars::rSigma(double *x, double *par)
 {
 	// par[0] is sector
 	return Sigma(x[0], (int) par[0]);
 }
-
 
 double cpars::dt_mom_limit(double p, int sector, int nsigmas, int which)
 {

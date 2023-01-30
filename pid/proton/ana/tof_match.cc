@@ -48,12 +48,9 @@ TOF_Match::TOF_Match(chistos *common_histo, cpars *common_pars, string P, const 
         colors[cc] = c[cc];
     }
 
-//    sf_me = new TF1("sf_me", [&](double*x, double *p){ return ecsf_Mean(x, p)  ; }, 0.2, 5, 1 ) ;
-//    sf_up = new TF1("sf_up", [&](double*x, double *p){ return ecsf_limit(x, p) ; }, 0.2, 5, 3 ) ;
-//    sf_dn = new TF1("sf_dn", [&](double*x, double *p){ return ecsf_limit(x, p) ; }, 0.2, 5, 3 ) ;
 
-//    TF1 *dt_me = new TF1("mass_me", dt_mom_mean,         0.2, 5.0, 1);
-//    TF1 *dt_up = new TF1("mass_up", dt_mom_limit, 0.2, 5.0, 3);
-//    TF1 *dt_dn = new TF1("mass_dn", dt_mom_limit, 0.2, 5.0, 3);
+    dt_me = new TF1("mass_me", [&](double*x, double *p){ return dt_mom_mean(x, p)  ; }, 0.2, 5.0, 1);
+    dt_up = new TF1("mass_up", [&](double*x, double *p){ return dt_mom_limit(x, p) ; }, 0.2, 5.0, 3);
+    dt_dn = new TF1("mass_dn", [&](double*x, double *p){ return dt_mom_limit(x, p) ; }, 0.2, 5.0, 3);
 
 }

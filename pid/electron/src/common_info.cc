@@ -20,8 +20,9 @@ chistos::chistos(string filename, int READ)
 		output = NULL;
 		if( filename != "none" ) {
             // check if filename exists
-            if( file_exists(filename) ) {
-                cout << " File " << filename << " already exists. Exiting..." << endl;
+            std::filesystem::path p(filename);
+            if( ! std::filesystem::exists(p) ) {
+                cout << " File " << filename << " does not exist. Exiting..." << endl;
                 exit(1);
             }
 			output = new TFile(filename.c_str(), "RECREATE");
@@ -88,6 +89,12 @@ chistos::chistos(string filename, int READ)
 									  "Y versus X in EC plane: UVW Cut Applied", 500, -500, 500, 500, -500, 500);
 	} else { // Reading from Input file
 		if( filename != "none" ) {
+            // check if filename exists
+            std::filesystem::path p(filename);
+            if( ! std::filesystem::exists(p) ) {
+                cout << " File " << filename << " does not exist. Exiting..." << endl;
+                exit(1);
+            }
 			TFile f(filename.c_str());
 			cout << "\n > Loading histos from: " << filename << endl;
 

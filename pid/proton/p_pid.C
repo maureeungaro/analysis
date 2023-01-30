@@ -18,17 +18,16 @@ void p_pid() {
         is_simulation = true;
     }
 
-
     // load common histos and parameters
     // second parameters instructs to read the root file
     H = new chistos(root_file, 1);
     Pars = new cpars(pars_file);
 
+    // TOF cuts
+    TOFMatch = new TOF_Match(H, Pars, PRINT, colors);
 
     // load utils.C
     gROOT->ProcessLine(".L ana/utils.C");
-
-
 
 
     // last arguments are the positions on screen

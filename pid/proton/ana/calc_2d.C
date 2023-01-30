@@ -1,17 +1,4 @@
 
-double dt_mom_limit(double *x, double *par)
-{ 
-	// par[0] is sector
-	int s = (int) par[0] - 1;
-	
-	// par[1] is # of sigmas
-	double nsigmas = par[1];
-	
-	// par[2] is which limit (upper or lower)
-	if(par[2] >= 0) return Mean(x, par) + nsigmas*Sigma(x, par);
-	else            return Mean(x, par) - nsigmas*Sigma(x, par);
-}
-
 void calc_2d(TH2F *h, TH2F *h2)
 {
 	string hname = h->GetName();

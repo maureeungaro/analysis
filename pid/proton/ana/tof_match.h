@@ -13,6 +13,7 @@ class TOF_Match {
 public:
 
     TOF_Match();
+
     ~TOF_Match();
 
     static const int NDIV = 9;       // divisions of DT and Mass vs momentum
@@ -37,13 +38,20 @@ private:
     const double max_limit_dt = 5.5;   // Fit range x max
 
     // functions based on parameters in Pars
-    Double_t dt_mom_mean(  Double_t *x, Double_t *par);
-    Double_t dt_mom_sigma( Double_t *x, Double_t *par);
-    Double_t dt_mom_limit( Double_t *x, Double_t *par);
-//
-//
-//    TH1F *dt_1d[6][TOF_Match::NDIV];        // 1 dimensional projections of DT vs momentum, fitted with GAUS + PARABOLE
-//
+    Double_t dt_mom_mean(Double_t *x, Double_t *par);
+
+    Double_t dt_mom_sigma(Double_t *x, Double_t *par);
+
+    Double_t dt_mom_limit(Double_t *x, Double_t *par);
+
+    TF1 *dt_me = nullptr;
+    TF1 *dt_up = nullptr;
+    TF1 *dt_dn = nullptr;
+
+
+
+    TH1F *dt_1d[6][TOF_Match::NDIV];        // 1 dimensional projections of DT vs momentum, fitted with GAUS + PARABOLE
+
 //    TF1 *MySignal[6][TOF_Match::NDIV];
 //    TF1 *MyBackground[6][TOF_Match::NDIV];
 //
