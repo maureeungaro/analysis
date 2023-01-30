@@ -49,6 +49,11 @@ public:
     void show_EoEi(int sector);
     void show_EoEi_all_sectors();
 
+    // shower shape
+    void show_EinEtot(int sector);
+    void show_EinEtot_all_sectors();
+
+
 private:
 
     chistos *H;

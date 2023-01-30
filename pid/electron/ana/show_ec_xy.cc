@@ -71,7 +71,7 @@ void EC_Match::show_ecyx()
 
 	
 	if(PRINT != "none"){
-		CECpos->Print( Form("img/cut-09-uvw_sector-all%s", PRINT.c_str()) );
+		CECpos->Print( Form("img/cut-09-UVW_sector-all%s", PRINT.c_str()) );
 	}
 }
 

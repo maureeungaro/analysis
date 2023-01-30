@@ -54,7 +54,7 @@ void e_pid() {
     bar->AddButton("Show CC timing all sectors", "CCMatch->show_cc_timing_all_sectors();");
     bar->AddButton("", "");
 
-    bar->AddButton("### Time Matching ###", "");
+    bar->AddButton("### Number of photo-electrons ###", "");
     bar->AddButton("Show nphe in sector", "CCMatch->show_npe(SECTOR);");
     bar->AddButton("Show nphe all sectors", "CCMatch->show_npe_all_sectors();");
     bar->AddButton("", "");
@@ -93,13 +93,15 @@ void e_pid() {
     bar->AddButton("Show EC Eout/p vs Ein/p for all sectors", "ECMatch->show_EoEi_all_sectors();");
     bar->AddButton("", "");
 
-    //	bar->AddButton("","");
-    //	bar->AddButton("Show Ein/Etot vs p",                       "show_EinEtot();");
-    //	bar->AddButton("Show Ein/Etot vs p all sectors",           "show_EinEtotAll();");
-    //	bar->AddButton("","");
-    //	bar->AddButton("","");
-    //	bar->AddButton("Show Summary",                             "show_summary();");
+    bar->AddButton("### EC Shower Shape ###", "");
+    bar->AddButton("Show Ein/Etot vs p",             "ECMatch->show_EinEtot(SECTOR);");
+    bar->AddButton("Show Ein/Etot vs p all sectors", "ECMatch->show_EinEtot_all_sectors();");
+    bar->AddButton("", "");
 
+    bar->AddButton("### Summary ###", "");
+    bar->AddButton("Show Summary",                             "print_summary();");
+
+    bar->AddButton("", "");
     bar->AddButton("", "");
     bar->AddButton("Switch PRINT", "switch_print();");
     bar->AddButton("Change Sector", "change_sector();");

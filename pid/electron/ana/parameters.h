@@ -13,7 +13,6 @@ std::string DATA_PRINT = ".png";
 std::string SIM_PRINT  = "_gsim.png";
 std::string PRINT  = "none";
 
-
 bool is_simulation = false;
 int SECTOR = 1;
 const Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
@@ -24,7 +23,6 @@ const std::string data_root_file = "data_epid.root";
 const std::string gsim_root_file = "gsim_epid.root";
 std::string data_label     = "data";
 
-
 // common histogram
 chistos *H    = nullptr;
 cpars   *Pars = nullptr;
@@ -33,13 +31,8 @@ cpars   *Pars = nullptr;
 CC_Match *CCMatch = nullptr;
 EC_Match *ECMatch = nullptr;
 
+const int csize = 1200; // common canvas size
 
-
-
-
-
-
-//
 
 #endif
 
