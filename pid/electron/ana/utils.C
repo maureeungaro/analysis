@@ -315,8 +315,8 @@ void print_all()
 {
     cout << " > Printing all histograms " << endl;
 
-//    print_cc_match();
-//    print_ec_match();
+    print_cc_match();
+    print_ec_match();
 
     print_summary();
 

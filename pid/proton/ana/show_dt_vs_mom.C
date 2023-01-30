@@ -9,29 +9,29 @@ void show_dt_vs_mom()
 	lab.SetNDC();
 	
 	int s = SECTOR - 1;
-	int NBINS = H.dt_momz[s]->GetNbinsX();
+	int NBINS = H->dt_momz[s]->GetNbinsX();
 	int db = NBINS/NDIV;
 	
 	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 1000, 1000);
 	
 	// Changing titles
-	H.dt_momz[s]->GetXaxis()->CenterTitle(0);
-	H.dt_momz[s]->GetXaxis()->SetTitle(Form("Sector %d                            p [GeV]", SECTOR));
-	H.dt_momz[s]->GetYaxis()->SetTitle("#Delta T     [ns]");
-	H.dt_momz[s]->GetXaxis()->SetTitleSize(0.042);
-	H.dt_momz[s]->GetYaxis()->SetTitleSize(0.046);
-	H.dt_momz[s]->GetXaxis()->SetTitleOffset(1.3);
-	H.dt_momz[s]->GetYaxis()->SetTitleOffset(0.9);
-	H.dt_momz[s]->GetXaxis()->SetLabelSize(0.034);
-	H.dt_momz[s]->GetYaxis()->SetLabelSize(0.034);
-	H.dt_momz[s]->GetZaxis()->SetLabelSize(0.034);
-	H.dt_momz[s]->GetXaxis()->SetRangeUser(0.0, 4.5);
+	H->dt_momz[s]->GetXaxis()->CenterTitle(0);
+	H->dt_momz[s]->GetXaxis()->SetTitle(Form("Sector %d                            p [GeV]", SECTOR));
+	H->dt_momz[s]->GetYaxis()->SetTitle("#Delta T     [ns]");
+	H->dt_momz[s]->GetXaxis()->SetTitleSize(0.042);
+	H->dt_momz[s]->GetYaxis()->SetTitleSize(0.046);
+	H->dt_momz[s]->GetXaxis()->SetTitleOffset(1.3);
+	H->dt_momz[s]->GetYaxis()->SetTitleOffset(0.9);
+	H->dt_momz[s]->GetXaxis()->SetLabelSize(0.034);
+	H->dt_momz[s]->GetYaxis()->SetLabelSize(0.034);
+	H->dt_momz[s]->GetZaxis()->SetLabelSize(0.034);
+	H->dt_momz[s]->GetXaxis()->SetRangeUser(0.0, 4.5);
 
 	gPad->SetLogz();
-	H.dt_momz[s]->Draw("colz");
+	H->dt_momz[s]->Draw("colz");
 	
 	Cecp->Update();     // important, otherwise it won't find the palette
-	TPaletteAxis *palette = (TPaletteAxis*)H.dt_momz[s]->FindObject("palette");
+	TPaletteAxis *palette = (TPaletteAxis*)H->dt_momz[s]->FindObject("palette");
 	palette->SetLabelSize(0.032);
 	palette->SetLabelOffset(0.01);
 	palette->SetX1NDC(0.85);
@@ -51,10 +51,10 @@ void show_dt_vs_mom()
 	dt_me->SetParameter(0, SECTOR);
 	
 	dt_up->SetParameter(0, SECTOR);
-	dt_up->SetParameter(1, Pars.NSIGMAS[0]);
+	dt_up->SetParameter(1, Pars->NSIGMAS[0]);
 	dt_up->SetParameter(2, 1);
 	dt_dn->SetParameter(0, SECTOR);
-	dt_dn->SetParameter(1, Pars.NSIGMAS[1]);
+	dt_dn->SetParameter(1, Pars->NSIGMAS[1]);
 	dt_dn->SetParameter(2, -1);
 	
 	dt_me->SetLineWidth(2);
@@ -80,8 +80,8 @@ void show_dt_vs_mom()
 	lab.SetTextFont(42);
 	lab.SetTextSize(0.024);
 	lab.SetTextColor(kRed+2);
-	lab.DrawLatex(0.4, 0.96,  Form("Upper Limit: larger between (#mu_{P}+ 3 #sigma) and (#mu_{#pi} - 3 #sigma)", Pars.NSIGMAS[0]));
-	lab.DrawLatex(0.4, 0.91,  Form("Lower Limit: #mu - %3.2f #sigma", Pars.NSIGMAS[1]));
+	lab.DrawLatex(0.4, 0.96,  Form("Upper Limit: larger between (#mu_{P}+ 3 #sigma) and (#mu_{#pi} - 3 #sigma)", Pars->NSIGMAS[0]));
+	lab.DrawLatex(0.4, 0.91,  Form("Lower Limit: #mu - %3.2f #sigma", Pars->NSIGMAS[1]));
 	
 	if(PRINT != "") 
 	{
@@ -123,8 +123,8 @@ void DynamicExec()
 	float x = gPad->PadtoX(upx);
 	
 	// draw slice corresponding to mouse position
-	double dp   = (H.dt_momz[s]->GetXaxis()->GetXmax() - H.dt_momz[s]->GetXaxis()->GetXmin())/NDIV;
-	int hid  = floor((x - H.dt_momz[s]->GetXaxis()->GetXmin())/dp);
+	double dp   = (H->dt_momz[s]->GetXaxis()->GetXmax() - H->dt_momz[s]->GetXaxis()->GetXmin())/NDIV;
+	int hid  = floor((x - H->dt_momz[s]->GetXaxis()->GetXmin())/dp);
 	
 //	cout << " x: " << x << " dp: " << dp << "  hid: " << hid << endl;	
 	
@@ -142,7 +142,7 @@ void DrawFit(int s, int hid)
 	
 	TLatex lab;
 	lab.SetNDC();
-	double dp   = (H.dt_momz[s]->GetXaxis()->GetXmax() - H.dt_momz[s]->GetXaxis()->GetXmin())/NDIV;
+	double dp   = (H->dt_momz[s]->GetXaxis()->GetXmax() - H->dt_momz[s]->GetXaxis()->GetXmin())/NDIV;
 
    // create or set the new canvas c2
 	TVirtualPad *padsav = gPad;
@@ -153,8 +153,8 @@ void DrawFit(int s, int hid)
 	
 	if(dt_1d[s][hid])
 	{
-		double pmin = H.dt_momz[s]->GetXaxis()->GetXmin() + hid*dp;
-		double pmax = H.dt_momz[s]->GetXaxis()->GetXmin() + (hid+1)*dp;
+		double pmin = H->dt_momz[s]->GetXaxis()->GetXmin() + hid*dp;
+		double pmax = H->dt_momz[s]->GetXaxis()->GetXmin() + (hid+1)*dp;
 		dt_1d[s][hid]->GetXaxis()->SetTitleOffset(1.3);
 		dt_1d[s][hid]->Draw();
 		lab.SetTextFont(102);
@@ -217,19 +217,19 @@ void show_dt_vs_moms()
 	for(int s=0; s<6; s++)
 	{
 		// Changing titles
-		H.dt_momz[s]->GetXaxis()->CenterTitle(0);
-		H.dt_momz[s]->GetXaxis()->SetTitle(Form("Sector %d             p [GeV]", s+1));
-		H.dt_momz[s]->GetYaxis()->SetTitle("#Delta T     [ns]");
-		H.dt_momz[s]->GetXaxis()->SetTitleSize(0.050);
-		H.dt_momz[s]->GetYaxis()->SetTitleSize(0.050);
-		H.dt_momz[s]->GetXaxis()->SetTitleOffset(1.1);
-		H.dt_momz[s]->GetYaxis()->SetTitleOffset(1.2);
-		H.dt_momz[s]->GetXaxis()->SetLabelSize(0.042);
-		H.dt_momz[s]->GetXaxis()->SetLabelOffset(0.008);
-		H.dt_momz[s]->GetYaxis()->SetLabelOffset(0.009);
-		H.dt_momz[s]->GetYaxis()->SetLabelSize(0.042);
-		H.dt_momz[s]->GetZaxis()->SetLabelSize(0.042);
-		H.dt_momz[s]->GetXaxis()->SetRangeUser(0.0, 4.5);
+		H->dt_momz[s]->GetXaxis()->CenterTitle(0);
+		H->dt_momz[s]->GetXaxis()->SetTitle(Form("Sector %d             p [GeV]", s+1));
+		H->dt_momz[s]->GetYaxis()->SetTitle("#Delta T     [ns]");
+		H->dt_momz[s]->GetXaxis()->SetTitleSize(0.050);
+		H->dt_momz[s]->GetYaxis()->SetTitleSize(0.050);
+		H->dt_momz[s]->GetXaxis()->SetTitleOffset(1.1);
+		H->dt_momz[s]->GetYaxis()->SetTitleOffset(1.2);
+		H->dt_momz[s]->GetXaxis()->SetLabelSize(0.042);
+		H->dt_momz[s]->GetXaxis()->SetLabelOffset(0.008);
+		H->dt_momz[s]->GetYaxis()->SetLabelOffset(0.009);
+		H->dt_momz[s]->GetYaxis()->SetLabelSize(0.042);
+		H->dt_momz[s]->GetZaxis()->SetLabelSize(0.042);
+		H->dt_momz[s]->GetXaxis()->SetRangeUser(0.0, 4.5);
 	}
 
 	
@@ -257,20 +257,20 @@ void show_dt_vs_moms()
 		gPad->SetGridx();
 		gPad->SetGridy();
 		gPad->SetLogz();
-		H.dt_momz[s]->Draw("colz");
+		H->dt_momz[s]->Draw("colz");
 		CecpA->Update();
 		
-		palette = (TPaletteAxis*)H.dt_momz[s]->FindObject("palette");
+		palette = (TPaletteAxis*)H->dt_momz[s]->FindObject("palette");
 		palette->SetLabelSize(0.042);
 		palette->SetLabelOffset(0.01);
 		palette->SetX1NDC(0.89);
 		
 	
 		dt_up->SetParameter(0, s+1);
-		dt_up->SetParameter(1, Pars.NSIGMAS[0]);
+		dt_up->SetParameter(1, Pars->NSIGMAS[0]);
 		dt_up->SetParameter(2, 1);
 		dt_dn->SetParameter(0, s+1);
-		dt_dn->SetParameter(1, Pars.NSIGMAS[1]);
+		dt_dn->SetParameter(1, Pars->NSIGMAS[1]);
 		dt_dn->SetParameter(2, -1);
 	
 		dt_me->SetParameter(0, s+1);

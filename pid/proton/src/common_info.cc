@@ -13,14 +13,18 @@ chistos::chistos(string filename, int READ)
 	if(READ == 0)
 	{
 		output = NULL;
-		if(filename!= "none") 
-		{
-			output = new TFile(filename.c_str(), "RECREATE");
+		if(filename!= "none") {
+            // check if filename exists
+            if( file_exists(filename) ) {
+                cout << " File " << filename << " already exists. Exiting..." << endl;
+                exit(1);
+            }
+
+            output = new TFile(filename.c_str(), "RECREATE");
 			cout << " Opening ROOT file " << filename << " for writing..." << endl;
 		}
 	
-		for(int s=0; s<7; s++)
-		{
+		for(int s=0; s<7; s++) {
 			dt_mom[s]   = new TH2F(Form("dt_momsect%d",        s+1), 
 										  Form("DT vs P, sector %d",  s+1), 550, 0.0, 5.5, 600, -30.0, 30.0);
 			dt_momz[s]  = new TH2F(Form("dt_mom_z_sect%d",     s+1), 
@@ -33,24 +37,25 @@ chistos::chistos(string filename, int READ)
 		//  3: after
 		//  4: recovered
 		//  5: thrown away
-		for(int s=0; s<7; s++)
+		for(int s=0; s<7; s++) {
 			monitor[s] = new TH1F(Form("monitor_sect%d", s+1), Form("Individual cuts pass rate, sector %d", s+1), 5, 0, 5);
-	
+        }
+
 		string what[2] = {"before", "after"};
-		for(int s=0; s<7; s++)
-			for(int w=0; w<2; w++)
-		{
-			beta_vs_mom[w][s] = new TH2F(Form("beta_vs_mom_%s_sect%d",               what[w].c_str(), s+1),
-												  Form("Beta versus momentum, %s, sector %d", what[w].c_str(), s+1), 550, 0.0, 5.5, 500,  0.0, 1.2);
-			mass_vs_mom[w][s] = new TH2F(Form("mass_vs_mom_%s_sect%d",               what[w].c_str(), s+1),
-												  Form("Mass versus momentum, %s, sector %d", what[w].c_str(), s+1), 550, 0.0, 5.5, 500, -0.4, 2.3);
-		}
-	}
-	// Reading from Input file
-	else
-	{
-		if(filename!= "none") 
-		{
+		for(int s=0; s<7; s++) {
+            for (int w = 0; w < 2; w++) {
+                beta_vs_mom[w][s] = new TH2F(Form("beta_vs_mom_%s_sect%d", what[w].c_str(), s + 1),
+                                             Form("Beta versus momentum, %s, sector %d", what[w].c_str(), s + 1), 550,
+                                             0.0, 5.5, 500, 0.0, 1.2);
+                mass_vs_mom[w][s] = new TH2F(Form("mass_vs_mom_%s_sect%d", what[w].c_str(), s + 1),
+                                             Form("Mass versus momentum, %s, sector %d", what[w].c_str(), s + 1), 550,
+                                             0.0, 5.5, 500, -0.4, 2.3);
+            }
+        }
+	} else {
+        // Reading from Input file
+
+        if(filename!= "none") {
 			TFile f(filename.c_str());
 			cout << " Loading histos from: " << filename << endl;
 		

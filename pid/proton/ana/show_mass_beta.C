@@ -12,29 +12,29 @@ void show_mass_beta()
 	
 	for(int c=0; c<2; c++)
 	{
-		H.mass_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
-		H.mass_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Mass  [GeV]");
+		H->mass_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
+		H->mass_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Mass  [GeV]");
 		
-		H.mass_vs_mom[c][s]->GetXaxis()->SetTitleSize(0.052);
-		H.mass_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.14);
-		H.mass_vs_mom[c][s]->GetYaxis()->SetTitleSize(0.054);
-		H.mass_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.12);
-		H.mass_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.042);
-		H.mass_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.042);
-		H.mass_vs_mom[c][s]->GetZaxis()->SetNdivisions(8);
-		H.mass_vs_mom[c][s]->GetXaxis()->SetRangeUser(0.0, 4.5);
+		H->mass_vs_mom[c][s]->GetXaxis()->SetTitleSize(0.052);
+		H->mass_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.14);
+		H->mass_vs_mom[c][s]->GetYaxis()->SetTitleSize(0.054);
+		H->mass_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.12);
+		H->mass_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.042);
+		H->mass_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.042);
+		H->mass_vs_mom[c][s]->GetZaxis()->SetNdivisions(8);
+		H->mass_vs_mom[c][s]->GetXaxis()->SetRangeUser(0.0, 4.5);
 		
-		H.beta_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
-		H.beta_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Beta  [GeV]");
+		H->beta_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
+		H->beta_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Beta  [GeV]");
 		
-		H.beta_vs_mom[c][s]->GetXaxis()->SetTitleSize(0.052);
-		H.beta_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.14);
-		H.beta_vs_mom[c][s]->GetYaxis()->SetTitleSize(0.054);
-		H.beta_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.12);
-		H.beta_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.042);
-		H.beta_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.042);
-		H.beta_vs_mom[c][s]->GetZaxis()->SetNdivisions(8);
-		H.beta_vs_mom[c][s]->GetXaxis()->SetRangeUser(0.0, 4.5);
+		H->beta_vs_mom[c][s]->GetXaxis()->SetTitleSize(0.052);
+		H->beta_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.14);
+		H->beta_vs_mom[c][s]->GetYaxis()->SetTitleSize(0.054);
+		H->beta_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.12);
+		H->beta_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.042);
+		H->beta_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.042);
+		H->beta_vs_mom[c][s]->GetZaxis()->SetNdivisions(8);
+		H->beta_vs_mom[c][s]->GetXaxis()->SetRangeUser(0.0, 4.5);
 	
 	}
 	
@@ -49,10 +49,10 @@ void show_mass_beta()
 	
 	dt_me->SetParameter(0, SECTOR);
 	dt_up->SetParameter(0, SECTOR);
-	dt_up->SetParameter(1, Pars.NSIGMAS[0]);
+	dt_up->SetParameter(1, Pars->NSIGMAS[0]);
 	dt_up->SetParameter(2, 1);
 	dt_dn->SetParameter(0, SECTOR);
-	dt_dn->SetParameter(1, Pars.NSIGMAS[1]);
+	dt_dn->SetParameter(1, Pars->NSIGMAS[1]);
 	dt_dn->SetParameter(2, -1);
 	
 	dt_me->SetLineWidth(2);
@@ -76,9 +76,9 @@ void show_mass_beta()
 	
 	PecpS->cd(1);
 	gPad->SetLogz();
-	H.mass_vs_mom[0][s]->Draw("colz");
+	H->mass_vs_mom[0][s]->Draw("colz");
 	CecpS->Update();
-	palette = (TPaletteAxis*)H.mass_vs_mom[0][s]->FindObject("palette");
+	palette = (TPaletteAxis*)H->mass_vs_mom[0][s]->FindObject("palette");
 	palette->SetLabelSize(0.035);
 	palette->SetLabelOffset(0.01);
 	palette->SetX1NDC(0.88);
@@ -88,9 +88,9 @@ void show_mass_beta()
 	
 	PecpS->cd(2);
 	gPad->SetLogz();
-	H.mass_vs_mom[1][s]->Draw("colz");
+	H->mass_vs_mom[1][s]->Draw("colz");
 	CecpS->Update();
-	palette = (TPaletteAxis*)H.mass_vs_mom[1][s]->FindObject("palette");
+	palette = (TPaletteAxis*)H->mass_vs_mom[1][s]->FindObject("palette");
 	palette->SetLabelSize(0.035);
 	palette->SetLabelOffset(0.01);
 	palette->SetX1NDC(0.88);
@@ -100,9 +100,9 @@ void show_mass_beta()
 	
 	PecpS->cd(3);
 	gPad->SetLogz();
-	H.beta_vs_mom[0][s]->Draw("colz");
+	H->beta_vs_mom[0][s]->Draw("colz");
 	CecpS->Update();
-	palette = (TPaletteAxis*)H.beta_vs_mom[0][s]->FindObject("palette");
+	palette = (TPaletteAxis*)H->beta_vs_mom[0][s]->FindObject("palette");
 	palette->SetLabelSize(0.035);
 	palette->SetLabelOffset(0.01);
 	palette->SetX1NDC(0.88);
@@ -112,9 +112,9 @@ void show_mass_beta()
 	
 	PecpS->cd(4);
 	gPad->SetLogz();
-	H.beta_vs_mom[1][s]->Draw("colz");
+	H->beta_vs_mom[1][s]->Draw("colz");
 	CecpS->Update();
-	palette = (TPaletteAxis*)H.beta_vs_mom[1][s]->FindObject("palette");
+	palette = (TPaletteAxis*)H->beta_vs_mom[1][s]->FindObject("palette");
 	palette->SetLabelSize(0.035);
 	palette->SetLabelOffset(0.01);
 	palette->SetX1NDC(0.88);
@@ -152,17 +152,17 @@ void show_betaAll()
 		for(int c=0; c<2; c++)
 		{
 
-			H.beta_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
-			H.beta_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Beta  [GeV]");
+			H->beta_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
+			H->beta_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Beta  [GeV]");
 
-			H.beta_vs_mom[c][s]->GetXaxis()->SetTitleSize(0.052);
-			H.beta_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.13);
-			H.beta_vs_mom[c][s]->GetYaxis()->SetTitleSize(0.054);
-			H.beta_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.2);
-			H.beta_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.05);
-			H.beta_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.05);
-			H.beta_vs_mom[c][s]->GetZaxis()->SetNdivisions(8);
-			H.beta_vs_mom[c][s]->GetXaxis()->SetRangeUser(0.0, 4.5);
+			H->beta_vs_mom[c][s]->GetXaxis()->SetTitleSize(0.052);
+			H->beta_vs_mom[c][s]->GetXaxis()->SetTitleOffset(1.13);
+			H->beta_vs_mom[c][s]->GetYaxis()->SetTitleSize(0.054);
+			H->beta_vs_mom[c][s]->GetYaxis()->SetTitleOffset(1.2);
+			H->beta_vs_mom[c][s]->GetXaxis()->SetLabelSize(0.05);
+			H->beta_vs_mom[c][s]->GetYaxis()->SetLabelSize(0.05);
+			H->beta_vs_mom[c][s]->GetZaxis()->SetNdivisions(8);
+			H->beta_vs_mom[c][s]->GetXaxis()->SetRangeUser(0.0, 4.5);
 			
 		}
 	}
@@ -180,10 +180,10 @@ void show_betaAll()
 	{
 		PecpS->cd(s+1);
 		gPad->SetLogz();
-		H.beta_vs_mom[1][s]->Draw("colz");
+		H->beta_vs_mom[1][s]->Draw("colz");
 		CecpS->Update();
 
-		palette = (TPaletteAxis*)H.beta_vs_mom[1][s]->FindObject("palette");
+		palette = (TPaletteAxis*)H->beta_vs_mom[1][s]->FindObject("palette");
 		palette->SetLabelSize(0.035);
 		palette->SetLabelOffset(0.01);
 		palette->SetX1NDC(0.88);

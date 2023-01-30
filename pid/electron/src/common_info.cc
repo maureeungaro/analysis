@@ -16,10 +16,14 @@ chistos::chistos(string filename, int READ)
 	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
 	
 	// Default: filename is output file
-	if(READ == 0)
-	{
+	if(READ == 0) {
 		output = NULL;
 		if( filename != "none" ) {
+            // check if filename exists
+            if( file_exists(filename) ) {
+                cout << " File " << filename << " already exists. Exiting..." << endl;
+                exit(1);
+            }
 			output = new TFile(filename.c_str(), "RECREATE");
 			cout << " Opening ROOT file " << filename << " for writing..." << endl;
 		}

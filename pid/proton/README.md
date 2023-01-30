@@ -1,17 +1,8 @@
-# Electron Identification
+# Proton Identification
 
 ## Cuts
 
-- cut-01: theta match
-- cut-02: phi match
-- cut-03: time match
-- cut-04: p threshold
-- cut-05: sampling fraction
-- cut-06,7,8: u,v,w
-- cut-09: 2d uvw (not a cut)
-- cut-10: EoVsEi
-- cut-11: shshape
-- cut-12: nphe (not a cut)
+- cut-01: delta time vs momentum
 
 
 ## Re-run e_pid to apply cut and create histograms:
@@ -19,16 +10,16 @@
 Single file example:
 
 ```
-./e_pid \
-/Volumes/e16/fullRuns/30540.mu \
+./proton_pid \
+/Volumes/e16/e_pid/30540.mu \
 -BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
--PARS_FILE=/opt/projects/analysis/pid/electron/electron_id_par.txt
+-PARS_FILE=/opt/projects/analysis/pid/proton/proton_id_par.txt
 ```
 
 
 ## Run analysis:
 
-`root e_pid.C`
+`root p_pid.C`
 
 
 ## Create web pages based on the output of the analysis

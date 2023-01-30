@@ -33,6 +33,7 @@ void e_pid() {
     // last arguments are the positions on screen
     TControlBar *bar = new TControlBar("vertical", data_label.c_str(), 1600, 30);
     bar->AddButton("Electron Particle ID", "");
+    bar->AddButton("","");
     bar->AddButton("", "");
     bar->AddButton("### Theta Matching ###", "");
     bar->AddButton("Calculate new CC theta matching cuts ", "CCMatch->calc_cc_match(SECTOR)", "Hint");

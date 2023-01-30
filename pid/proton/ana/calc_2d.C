@@ -1,28 +1,3 @@
-double Mean(double *x, double *par)
-{
-	// par[0] is sector
-	int s = (int) par[0] - 1;
-	
-	return Pars.dt_mom_mean_a[s] +
-			Pars.dt_mom_mean_b[s]*x[0] +
-			Pars.dt_mom_mean_c[s]*x[0]*x[0] +
-			Pars.dt_mom_mean_d[s]*x[0]*x[0]*x[0] +
-			Pars.dt_mom_mean_e[s]*x[0]*x[0]*x[0]*x[0] +
-			Pars.dt_mom_mean_f[s]*x[0]*x[0]*x[0]*x[0]*x[0];
-}
-
-double Sigma(double *x, double *par)
-{
-	// par[0] is sector
-	int s = (int) par[0] - 1;
-
-	return Pars.dt_mom_sigm_a[s] +
-			Pars.dt_mom_sigm_b[s]*x[0] +
-			Pars.dt_mom_sigm_c[s]*x[0]*x[0] +
-			Pars.dt_mom_sigm_d[s]*x[0]*x[0]*x[0] +
-			Pars.dt_mom_sigm_e[s]*x[0]*x[0]*x[0]*x[0] +
-			Pars.dt_mom_sigm_f[s]*x[0]*x[0]*x[0]*x[0]*x[0];
-}
 
 double dt_mom_limit(double *x, double *par)
 { 
@@ -157,29 +132,29 @@ void calc_2d(TH2F *h, TH2F *h2)
 	dt_mean[s]->Fit("pol5", "REM", "", min_limit_dt, max_limit_dt);
 	dt_sigm[s]->Fit("pol5", "REM", "", min_limit_dt, max_limit_dt);
 		
-	Pars.dt_mom_mean_a[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(0);
-	Pars.dt_mom_mean_b[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(1);
-	Pars.dt_mom_mean_c[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(2);
-	Pars.dt_mom_mean_d[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(3);
-	Pars.dt_mom_mean_e[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(4);
-	Pars.dt_mom_mean_f[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(5);
+	Pars->dt_mom_mean_a[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(0);
+	Pars->dt_mom_mean_b[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(1);
+	Pars->dt_mom_mean_c[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(2);
+	Pars->dt_mom_mean_d[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(3);
+	Pars->dt_mom_mean_e[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(4);
+	Pars->dt_mom_mean_f[s] = dt_mean[s]->GetFunction("pol5")->GetParameter(5);
 		
-	Pars.dt_mom_sigm_a[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(0);
-	Pars.dt_mom_sigm_b[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(1);
-	Pars.dt_mom_sigm_c[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(2);
-	Pars.dt_mom_sigm_d[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(3);
-	Pars.dt_mom_sigm_e[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(4);
-	Pars.dt_mom_sigm_f[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(5);
+	Pars->dt_mom_sigm_a[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(0);
+	Pars->dt_mom_sigm_b[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(1);
+	Pars->dt_mom_sigm_c[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(2);
+	Pars->dt_mom_sigm_d[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(3);
+	Pars->dt_mom_sigm_e[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(4);
+	Pars->dt_mom_sigm_f[s] = dt_sigm[s]->GetFunction("pol5")->GetParameter(5);
 
 	// sector 5 fits do not work. Using sector 6 sigmas for sector 6.
 
 	if(s==5) {
-		Pars.dt_mom_sigm_a[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(0);
-		Pars.dt_mom_sigm_b[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(1);
-		Pars.dt_mom_sigm_c[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(2);
-		Pars.dt_mom_sigm_d[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(3);
-		Pars.dt_mom_sigm_e[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(4);
-		Pars.dt_mom_sigm_f[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(5);
+		Pars->dt_mom_sigm_a[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(0);
+		Pars->dt_mom_sigm_b[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(1);
+		Pars->dt_mom_sigm_c[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(2);
+		Pars->dt_mom_sigm_d[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(3);
+		Pars->dt_mom_sigm_e[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(4);
+		Pars->dt_mom_sigm_f[4] = dt_sigm[s]->GetFunction("pol5")->GetParameter(5);
 
 	}
 
