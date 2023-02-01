@@ -7,8 +7,7 @@ void activate_PRINT()
     } else {
         PRINT = DATA_PRINT;
     }
-    CCMatch->set_print(PRINT);
-    ECMatch->set_print(PRINT);
+    TOFMatch->set_print(PRINT);
 }
 
 
@@ -32,36 +31,39 @@ void change_sector()
 }
 
 
-//void calc_all_parameters()
-//{
-//	for(int s=0; s<6; s++)
-//	{
-//		SECTOR = s+1;
-//		calc_2d(H->dt_momz[s], H->dt_mom[s]);
-//	}
-//	Pars->write_vars("new_Pars->txt");
-//}
+void print_dt_vs_mom() {
+
+    activate_PRINT();
+
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+        TOFMatch->fit_and_calculate_pars(H->dt_momz[SECTOR-1], H->dt_mom[SECTOR-1], SECTOR);
+        TOFMatch->show_dt_vs_mom(SECTOR);
+
+        // dt slices
+        for (int b = 0; b < TOF_Match::NDIV; b++) {
+            TOFMatch->DrawFit(s, b);
+        }
+    }
+
+    TOFMatch->show_dt_vs_mom_all_sectors();
+
+}
+
 
 void print_all()
 {
-    activate_PRINT();
 
-//	if(dt_mean[5] == 0) {
-//        calc_all();
-//    }
-//
-//	for(int s=0; s<6; s++) {
-//		SECTOR = s+1;
-//		show_dt_vs_mom();
-//		for(int b=0; b<NDIV; b++)
-//			DrawFit(s, b);
+    print_dt_vs_mom();
 //
 //		show_mass_beta();
 //	}
 	
-//	show_dt_vs_moms();
 //	show_betaAll();
 	
 	PRINT = "none";
+
+    Pars->write_vars();
+
 }
 

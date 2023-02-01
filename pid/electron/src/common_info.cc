@@ -19,12 +19,6 @@ chistos::chistos(string filename, int READ)
 	if(READ == 0) {
 		output = NULL;
 		if( filename != "none" ) {
-            // check if filename exists
-            std::filesystem::path p(filename);
-            if( ! std::filesystem::exists(p) ) {
-                cout << " File " << filename << " does not exist. Exiting..." << endl;
-                exit(1);
-            }
 			output = new TFile(filename.c_str(), "RECREATE");
 			cout << " Opening ROOT file " << filename << " for writing..." << endl;
 		}
@@ -224,7 +218,7 @@ cpars::cpars(string filename)
 	if(!parfile) {
 		cout << " File " <<  filename << " could not be opened. " << endl;
 		cout << " Specify parameters file with -PARS_FILE=filename. Exiting. " << endl;
-		exit(0);
+		exit(1);
 	}
 	
 	string line;
@@ -404,8 +398,9 @@ cpars::cpars(string filename)
 		addInfos.push_back(addinfo);
 	}
 
-	//	for(unsigned int si=0; si<addInfos.size(); si++)
-	//		cout << addInfos[si] << endl;
+    for(unsigned int si=0; si<addInfos.size(); si++) {
+        cout << addInfos[si] << endl;
+    }
 }
 
 void cpars::write_vars()

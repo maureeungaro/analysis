@@ -37,7 +37,7 @@ void e_pid() {
     bar->AddButton("", "");
     bar->AddButton("### Theta Matching ###", "");
     bar->AddButton("Calculate new CC theta matching cuts ", "CCMatch->calc_cc_match(SECTOR)", "Hint");
-    bar->AddButton("Show CC theta matching cuts", "CCMatch->show_cc_theta_match_all_cuts(SECTOR)");
+    bar->AddButton("Show CC theta matching cuts", "CCMatch->show_cc_theta_match_comparison(SECTOR)");
     bar->AddButton("Show CC theta matching", "CCMatch->show_cc_theta_match(SECTOR);");
     bar->AddButton("Show CC theta matching cuts all sectors", "CCMatch->show_theta_vs_segm_all_sectors();");
     bar->AddButton("", "");

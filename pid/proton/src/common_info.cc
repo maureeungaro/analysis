@@ -10,17 +10,9 @@
 chistos::chistos(string filename, int READ)
 {
 	// Default: filename is output file
-	if(READ == 0)
-	{
+	if(READ == 0) {
 		output = NULL;
 		if(filename!= "none") {
-            // check if filename exists
-            std::filesystem::path p(filename);
-            if( ! std::filesystem::exists(p) ) {
-                cout << " File " << filename << " does not exists. Exiting..." << endl;
-                exit(1);
-            }
-
             output = new TFile(filename.c_str(), "RECREATE");
 			cout << " Opening ROOT file " << filename << " for writing..." << endl;
 		}
@@ -68,9 +60,11 @@ chistos::chistos(string filename, int READ)
 			cout << " Loading histos from: " << filename << endl;
 		
 			for(int s=0; s<7; s++) {
-				dt_mom[s]   = (TH2F*)f.Get(Form("dt_momsect%d",    s+1));
+
+                dt_mom[s]   = (TH2F*)f.Get(Form("dt_momsect%d",    s+1));
 				dt_momz[s]  = (TH2F*)f.Get(Form("dt_mom_z_sect%d", s+1));
-				dt_mom[s]->SetDirectory(0);
+
+                dt_mom[s]->SetDirectory(0);
 				dt_momz[s]->SetDirectory(0);
 				
 				monitor[s] = (TH1F*)f.Get(Form("monitor_sect%d", s+1));
@@ -108,12 +102,14 @@ void chistos::write_and_close()
 // Reads Parameters and functions
 cpars::cpars(string filename)
 {
-	ifstream parfile(filename.c_str(), ios::in);
+    parameter_file = filename;
+
+    ifstream parfile(parameter_file.c_str(), ios::in);
 	cout << endl << " Opening parameter file " << filename << endl;
 	if(!parfile) {
 		cout << " File " <<  filename << " could not be opened. " << endl;
 		cout << " Specify parameters file with -PARS_FILE=filename. Exiting. " << endl;
-		exit(0);
+		exit(1);
 	}
 	
 	string line;
@@ -137,7 +133,6 @@ cpars::cpars(string filename)
 	
 	while(getline( parfile, line)) {
 		istringstream cuts(line);
-	
 		while(!cuts.eof()) {
 			string al;
 			cuts >> al;
@@ -197,17 +192,17 @@ cpars::cpars(string filename)
 	addInfos.push_back(" > Number of Sigmas for upper Delta T Curve: " + stringify(NSIGMAS[0]));
 	addInfos.push_back(" > Number of Sigmas for lower Delta T Curve: " + stringify(NSIGMAS[1]));
 		
-	for(unsigned int si=0; si<addInfos.size(); si++)
-		cout << addInfos[si] << endl;
-	
+	for(unsigned int si=0; si<addInfos.size(); si++) {
+        cout << addInfos[si] << endl;
+    }
 }
 
-void cpars::write_vars(string filename)
+void cpars::write_vars()
 {
 	// NOTE: for gsim, can write just one sector.
 	
-	ofstream parfile(filename.c_str());
-	cout << endl << " Opening output parameter file " << filename << endl;
+	ofstream parfile(parameter_file.c_str());
+	cout << endl << " Opening output parameter file " << parameter_file << endl;
 	
 	parfile << "DTMA: ";
 	for(int s=0; s<6; s++) {parfile.width(12) ; parfile << dt_mom_mean_a[s] << " ";}

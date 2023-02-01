@@ -321,6 +321,8 @@ void print_all()
     print_summary();
 
     PRINT = "none";
+
+    Pars->write_vars();
 }
 
 

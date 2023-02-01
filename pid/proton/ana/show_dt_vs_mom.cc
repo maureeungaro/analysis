@@ -1,4 +1,17 @@
-void show_dt_vs_mom()
+#include "tof_match.h"
+
+// root
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TCanvas.h"
+#include "TLatex.h"
+#include "TCanvas.h"
+#include "TF1.h"
+#include "TPaletteAxis.h"
+#include "TVirtualX.h"
+#include "TExec.h"
+
+void TOF_Match::show_dt_vs_mom(int sector)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
@@ -8,17 +21,16 @@ void show_dt_vs_mom()
 	TLatex lab;
 	lab.SetNDC();
 	
-	int s = SECTOR - 1;
-	int NBINS = H->dt_momz[s]->GetNbinsX();
-	int db = NBINS/NDIV;
-	
-	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 1000, 1000);
+	int s = sector - 1;
+	//int NBINS = H->dt_momz[s]->GetNbinsX();
+
+	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", csize, csize);
 	
 	// Changing titles
 	H->dt_momz[s]->GetXaxis()->CenterTitle(0);
-	H->dt_momz[s]->GetXaxis()->SetTitle(Form("Sector %d                            p [GeV]", SECTOR));
+	H->dt_momz[s]->GetXaxis()->SetTitle(Form("Sector %d                   p [GeV]", sector));
 	H->dt_momz[s]->GetYaxis()->SetTitle("#Delta T     [ns]");
-	H->dt_momz[s]->GetXaxis()->SetTitleSize(0.042);
+	H->dt_momz[s]->GetXaxis()->SetTitleSize(0.034);
 	H->dt_momz[s]->GetYaxis()->SetTitleSize(0.046);
 	H->dt_momz[s]->GetXaxis()->SetTitleOffset(1.3);
 	H->dt_momz[s]->GetYaxis()->SetTitleOffset(0.9);
@@ -38,8 +50,7 @@ void show_dt_vs_mom()
 	palette->SetX2NDC(0.89);
 	palette->SetY2NDC(0.88);
 	
-	if(dt_mean[s])
-	{
+	if(dt_mean[s]) {
 		dt_mean[s]->GetFunction("pol5")->SetLineColor(kRed+2);
 		dt_mean[s]->GetFunction("pol5")->SetLineWidth(1);
 		dt_mean[s]->GetFunction("pol5")->SetLineStyle(2);
@@ -48,12 +59,12 @@ void show_dt_vs_mom()
 		dt_mean[s]->Draw("P");
 	}
 	
-	dt_me->SetParameter(0, SECTOR);
+	dt_me->SetParameter(0, sector);
 	
-	dt_up->SetParameter(0, SECTOR);
+	dt_up->SetParameter(0, sector);
 	dt_up->SetParameter(1, Pars->NSIGMAS[0]);
 	dt_up->SetParameter(2, 1);
-	dt_dn->SetParameter(0, SECTOR);
+	dt_dn->SetParameter(0, sector);
 	dt_dn->SetParameter(1, Pars->NSIGMAS[1]);
 	dt_dn->SetParameter(2, -1);
 	
@@ -80,37 +91,34 @@ void show_dt_vs_mom()
 	lab.SetTextFont(42);
 	lab.SetTextSize(0.024);
 	lab.SetTextColor(kRed+2);
-	lab.DrawLatex(0.4, 0.96,  Form("Upper Limit: larger between (#mu_{P}+ 3 #sigma) and (#mu_{#pi} - 3 #sigma)", Pars->NSIGMAS[0]));
+	lab.DrawLatex(0.4, 0.96,  Form("Upper Limit: larger between (#mu_{P} + %3.2f #sigma) and (#mu_{#pi} - %3.2f #sigma)", Pars->NSIGMAS[0], Pars->NSIGMAS[0]));
 	lab.DrawLatex(0.4, 0.91,  Form("Lower Limit: #mu - %3.2f #sigma", Pars->NSIGMAS[1]));
 	
-	if(PRINT != "") 
-	{
-		Cecp->Print(Form("img/dist-dtfit_sector-%d.%s", s+1, PRINT.c_str()));
+	if(PRINT != "none") {
+		Cecp->Print(Form("img/dist-dtfit_sector-%d%s", s+1, PRINT.c_str()));
 	}
 	
-	if(dt_mean[s])
-		Cecp->AddExec("dynamic","DynamicExec()");
+	// if(dt_mean[s]) { Cecp->AddExec("dynamic", "DynamicExec()"); }
 	
 }
 
 
 
-void DynamicExec()
+void TOF_Match::DynamicExec(int sector)
 {
 	
-	int s = SECTOR - 1;
+	int s = sector - 1;
 	
 	TObject *select = gPad->GetSelected();
 	if(!select) return;
 	if (!select->InheritsFrom("TH2")) {gPad->SetUniqueID(0); return;}
-	TH2 *h = (TH2*)select;
+	//TH2 *h = (TH2*)select;
 	gPad->GetCanvas()->FeedbackMode(kTRUE);
 
    // erase old position and draw a line at current position
 	int pxold = gPad->GetUniqueID();
 	int px    = gPad->GetEventX();
-	int py    = gPad->GetEventY();
-	
+
 	float uymin = gPad->GetUymin();
 	float uymax = gPad->GetUymax();
 	
@@ -133,7 +141,7 @@ void DynamicExec()
 
 
 
-void DrawFit(int s, int hid)
+void TOF_Match::DrawFit(int s, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);
@@ -148,11 +156,10 @@ void DrawFit(int s, int hid)
 	TVirtualPad *padsav = gPad;
 	TCanvas *c2 = (TCanvas*)gROOT->GetListOfCanvases()->FindObject("c2");
 	if(c2) delete c2->GetPrimitive("Projection");
-	else   c2 = new TCanvas("c2","Projection Canvas",710,10,800,800);
+	else   c2 = new TCanvas("c2","Projection Canvas",710,10,csize,csize);
 	c2->cd();
 	
-	if(dt_1d[s][hid])
-	{
+	if(dt_1d[s][hid]) {
 		double pmin = H->dt_momz[s]->GetXaxis()->GetXmin() + hid*dp;
 		double pmax = H->dt_momz[s]->GetXaxis()->GetXmin() + (hid+1)*dp;
 		dt_1d[s][hid]->GetXaxis()->SetTitleOffset(1.3);
@@ -162,7 +169,7 @@ void DrawFit(int s, int hid)
 		lab.DrawLatex(0.36, 0.92,  "Delta T");
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
-		lab.DrawLatex(0.66, 0.82,  Form("Sector %d", SECTOR));
+		lab.DrawLatex(0.66, 0.82,  Form("Sector %d", s+1));
 		lab.DrawLatex(0.60, 0.76,  Form("p = %3.1f - %3.1f GeV", pmin, pmax ));
 		lab.SetTextColor(kRed+2);
 		lab.DrawLatex(0.59, 0.68,  Form("#mu = %4.3f #pm %2.1e",    dt_1d[s][hid]->GetFunction("MyFit")->GetParameter(4), dt_1d[s][hid]->GetFunction("MyFit")->GetParError(4)));
@@ -186,15 +193,14 @@ void DrawFit(int s, int hid)
 	c2->Update();
 	padsav->cd();
 	
-	if(PRINT != "") 
-	{
-		c2->Print(Form("imgs/slice-%d_sector-%d.%s", hid+1, s+1, PRINT.c_str()) );
+	if(PRINT != "none") {
+		c2->Print(Form("img_slices/slice-%d-_dtfit_sector-%d%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }
 
 
-void show_dt_vs_moms()
+void TOF_Match::show_dt_vs_mom_all_sectors()
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.12);
@@ -214,8 +220,7 @@ void show_dt_vs_moms()
 	hor->SetParameter(0, 0.0);
 
 	
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		// Changing titles
 		H->dt_momz[s]->GetXaxis()->CenterTitle(0);
 		H->dt_momz[s]->GetXaxis()->SetTitle(Form("Sector %d             p [GeV]", s+1));
@@ -233,7 +238,7 @@ void show_dt_vs_moms()
 	}
 
 	
-	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", 1000, 1000);
+	TCanvas *CecpA  = new TCanvas("CecpA", "CecpA", csize, csize);
 	TPad    *PecpA  = new TPad("PecpA", "PecpA", 0.02, 0.00,  0.98, 0.92);
 	PecpA->Divide(3, 2);
 	PecpA->Draw();
@@ -251,8 +256,7 @@ void show_dt_vs_moms()
 	dt_dn->SetLineStyle(9);
 	dt_dn->SetLineColor(kRed+3);
 	
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		PecpA->cd(s+1);
 		gPad->SetGridx();
 		gPad->SetGridy();
@@ -272,10 +276,8 @@ void show_dt_vs_moms()
 		dt_dn->SetParameter(0, s+1);
 		dt_dn->SetParameter(1, Pars->NSIGMAS[1]);
 		dt_dn->SetParameter(2, -1);
-	
 		dt_me->SetParameter(0, s+1);
-		
-		
+
 		dt_up->Draw("same");
 		dt_dn->Draw("same");
 		dt_me->Draw("same");
@@ -287,11 +289,10 @@ void show_dt_vs_moms()
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.044);
-	lab.DrawLatex(0.32, 0.95,  "#Delta T vs p - All Sectors");
+	lab.DrawLatex(0.25, 0.95,  "#Delta T vs p - All Sectors");
 	
-	if(PRINT != "") 
-	{
-		CecpA->Print(  Form("img/dist-dtfit_sector-all.%s", PRINT.c_str()) );
+	if(PRINT != "none"){
+		CecpA->Print(  Form("img/dist-dtfit_sector-all%s", PRINT.c_str()) );
 	}
 }
 

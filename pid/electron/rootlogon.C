@@ -1,5 +1,5 @@
 {
-    cout << endl << " Electron PID Root loogon by Maurizio Ungaro" << endl;
+    cout << endl << " Root loogon by Maurizio Ungaro" << endl;
 
     TStyle *mystyle  = new TStyle("mystyle","Plain Style");
     mystyle->SetPalette(1);
@@ -15,14 +15,9 @@
     mystyle->SetFillStyle(0);
     mystyle->SetNumberContours(80);
     mystyle->SetErrorX(0);
-
-
     mystyle->SetFrameFillColor(kWhite);
     mystyle->SetPadColor(kWhite);
-
-
     mystyle->SetNdivisions(505);
-
     mystyle->SetPaperSize(16, 20);
     mystyle->SetHeaderPS("220 500 translate");
 
@@ -32,14 +27,13 @@
 
     gROOT->SetStyle("mystyle");
 
-    gROOT->LoadMacro("/opt/projects/analysis/rootUtils/definitions.C");
-
-    // load e_pid shared libraries
-    gROOT->ProcessLine(".L libepid.dylib");
-
-    // load e_pid analysis libraries
-    gROOT->ProcessLine(".L libana_epid.dylib");
-
+//    gROOT->LoadMacro("/opt/projects/analysis/rootUtils/definitions.C");
+//
+//    // load e_pid shared libraries
+//    gROOT->ProcessLine(".L libepid.dylib");
+//
+//    // load e_pid analysis libraries
+//    gROOT->ProcessLine(".L libana_epid.dylib");
 
 }
 

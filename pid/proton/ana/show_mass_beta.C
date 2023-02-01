@@ -41,7 +41,7 @@ void show_mass_beta()
 	TCanvas *CecpS;
 	TPad    *PecpS;
 	
-	CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), 1000, 1000);
+	CecpS = new TCanvas(Form("CecpS%d", s+1), Form("CecpS%d", s+1), csize, csize);
 	PecpS = new TPad(Form("PecpS%d", s+1), Form("PecpS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	PecpS->Divide(2, 2);
 	PecpS->Draw();
@@ -170,7 +170,7 @@ void show_betaAll()
 	TCanvas *CecpS;
 	TPad    *PecpS;
 
-	CecpS = new TCanvas("CecpS", "CecpS", 1000, 1000);
+	CecpS = new TCanvas("CecpS", "CecpS", csize, csize);
 	PecpS = new TPad("PecpS", "PecpS", 0.02, 0.00,  0.98, 0.92);
 	PecpS->Divide(3, 2);
 	PecpS->Draw();

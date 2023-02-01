@@ -39,15 +39,16 @@ Double_t TOF_Match::dt_mom_limit(double *x, double *par)
 
 
 // constructor using chisto and cpars
-TOF_Match::TOF_Match(chistos *common_histo, cpars *common_pars, string P, const Color_t c[4]) {
+TOF_Match::TOF_Match(chistos *common_histo, cpars *common_pars, string P, const Color_t c[4], bool is_sim) {
 
     H = common_histo;
     Pars = common_pars;
     PRINT = P;
+    is_simulation = is_sim;
+
     for(int cc=0; cc<4; cc++) {
         colors[cc] = c[cc];
     }
-
 
     dt_me = new TF1("mass_me", [&](double*x, double *p){ return dt_mom_mean(x, p)  ; }, 0.2, 5.0, 1);
     dt_up = new TF1("mass_up", [&](double*x, double *p){ return dt_mom_limit(x, p) ; }, 0.2, 5.0, 3);
