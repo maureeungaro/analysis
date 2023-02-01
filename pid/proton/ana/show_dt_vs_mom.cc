@@ -107,7 +107,7 @@ void TOF_Match::show_dt_vs_mom(int sector)
 void TOF_Match::DynamicExec(int sector)
 {
 	
-	int s = sector - 1;
+	//int s = sector - 1;
 	
 	TObject *select = gPad->GetSelected();
 	if(!select) return;
@@ -127,12 +127,12 @@ void TOF_Match::DynamicExec(int sector)
 	if(pxold) gVirtualX->DrawLine(pxold, pymin, pxold ,pymax);
 	gVirtualX->DrawLine(px, pymin, px, pymax);
 	gPad->SetUniqueID(px);
-	float upx = gPad->AbsPixeltoX(px);
-	float x = gPad->PadtoX(upx);
+	//float upx = gPad->AbsPixeltoX(px);
+	//float x = gPad->PadtoX(upx);
 	
 	// draw slice corresponding to mouse position
-	double dp   = (H->dt_momz[s]->GetXaxis()->GetXmax() - H->dt_momz[s]->GetXaxis()->GetXmin())/NDIV;
-	int hid  = floor((x - H->dt_momz[s]->GetXaxis()->GetXmin())/dp);
+	//double dp   = (H->dt_momz[s]->GetXaxis()->GetXmax() - H->dt_momz[s]->GetXaxis()->GetXmin())/NDIV;
+	//int hid  = floor((x - H->dt_momz[s]->GetXaxis()->GetXmin())/dp);
 	
 //	cout << " x: " << x << " dp: " << dp << "  hid: " << hid << endl;	
 	
