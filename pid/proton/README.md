@@ -37,8 +37,8 @@ For the slices:
 ```
 rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=slice \
-                                        -addSelectableVariable=sector \
--defaultPlot=img_slices/slice-01_cut-01-dtfit_sector-1.png \
+                                        -addColumnTableVariable=sector \
+-defaultPlot=img_slices/slice-2_sector-1.png \
 -imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
 ```

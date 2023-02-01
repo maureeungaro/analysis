@@ -1,6 +1,16 @@
-void show_mass_beta()
+#include "tof_match.h"
+
+// root
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TCanvas.h"
+#include "TLatex.h"
+#include "TCanvas.h"
+#include "TPaletteAxis.h"
+
+void TOF_Match::show_mass_and_beta(int sector)
 {
-	int s = SECTOR - 1;
+	int s = sector - 1;
 	
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.14);
@@ -10,8 +20,7 @@ void show_mass_beta()
 	TLatex lab;
 	lab.SetNDC();
 	
-	for(int c=0; c<2; c++)
-	{
+	for(int c=0; c<2; c++) {
 		H->mass_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
 		H->mass_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Mass  [GeV]");
 		
@@ -47,11 +56,11 @@ void show_mass_beta()
 	PecpS->Draw();
 
 	
-	dt_me->SetParameter(0, SECTOR);
-	dt_up->SetParameter(0, SECTOR);
+	dt_me->SetParameter(0, sector);
+	dt_up->SetParameter(0, sector);
 	dt_up->SetParameter(1, Pars->NSIGMAS[0]);
 	dt_up->SetParameter(2, 1);
-	dt_dn->SetParameter(0, SECTOR);
+	dt_dn->SetParameter(0, sector);
 	dt_dn->SetParameter(1, Pars->NSIGMAS[1]);
 	dt_dn->SetParameter(2, -1);
 	
@@ -126,19 +135,16 @@ void show_mass_beta()
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.038);
-	lab.DrawLatex(0.14, 0.95,  Form("TOF Mass and Beta vs p  -   Sector %d", SECTOR));
+	lab.DrawLatex(0.14, 0.95,  Form("TOF Mass and Beta vs p  -   Sector %d", sector));
 
-	if(PRINT != "") 
-	{
-		CecpS->Print( Form("img/dist-massNbeta_sector-%d.%s", s+1, PRINT.c_str()) );
+	if(PRINT != "none") {
+		CecpS->Print( Form("img/dist-massandbeta_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
 
 
-void show_betaAll()
+void TOF_Match::show_mass_and_beta_all_sectors()
 {
-	int s = SECTOR - 1;
-
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.14);
 	gStyle->SetPadTopMargin(0.08);
@@ -147,10 +153,8 @@ void show_betaAll()
 	TLatex lab;
 	lab.SetNDC();
 
-	for(int s=0; s<6; s++)
-	{
-		for(int c=0; c<2; c++)
-		{
+	for(int s=0; s<6; s++) {
+		for(int c=0; c<2; c++) {
 
 			H->beta_vs_mom[c][s]->GetXaxis()->SetTitle("p  [GeV]");
 			H->beta_vs_mom[c][s]->GetYaxis()->SetTitle("TOF Beta  [GeV]");
@@ -176,8 +180,7 @@ void show_betaAll()
 	PecpS->Draw();
 
 	TPaletteAxis *palette;
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		PecpS->cd(s+1);
 		gPad->SetLogz();
 		H->beta_vs_mom[1][s]->Draw("colz");
@@ -189,7 +192,6 @@ void show_betaAll()
 		palette->SetX1NDC(0.88);
 		palette->SetX2NDC(0.92);
 		lab.DrawLatex(0.36, 0.95,  "#Delta T cut applied");
-
 	}
 
 
@@ -199,9 +201,8 @@ void show_betaAll()
 	lab.SetTextSize(0.038);
 	lab.DrawLatex(0.4, 0.95,  Form("Beta vs p"));
 
-	if(PRINT != "")
-	{
-		CecpS->Print( Form("img/dist-massNbeta_sector-all.%s", PRINT.c_str()) );
+	if(PRINT != "none") {
+		CecpS->Print( Form("img/dist-massandbeta_sector-all%s", PRINT.c_str()) );
 	}
 }
 

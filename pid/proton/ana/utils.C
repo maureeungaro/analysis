@@ -50,20 +50,26 @@ void print_dt_vs_mom() {
 
 }
 
+void print_mass_and_beta() {
+
+    activate_PRINT();
+
+    for (int s = 0; s < 6; s++) {
+        SECTOR = s + 1;
+        TOFMatch->show_mass_and_beta(SECTOR);
+    }
+
+    TOFMatch->show_mass_and_beta_all_sectors();
+
+}
 
 void print_all()
 {
 
-    print_dt_vs_mom();
-//
-//		show_mass_beta();
-//	}
-	
-//	show_betaAll();
+//    print_dt_vs_mom();
+    print_mass_and_beta();
 	
 	PRINT = "none";
-
-    Pars->write_vars();
 
 }
 

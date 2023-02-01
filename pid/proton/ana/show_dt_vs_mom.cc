@@ -136,7 +136,7 @@ void TOF_Match::DynamicExec(int sector)
 	
 //	cout << " x: " << x << " dp: " << dp << "  hid: " << hid << endl;	
 	
-	DrawFit(s, hid);
+	// DrawFit(s, hid);
 }
 
 
@@ -194,7 +194,7 @@ void TOF_Match::DrawFit(int s, int hid)
 	padsav->cd();
 	
 	if(PRINT != "none") {
-		c2->Print(Form("img_slices/slice-%d-_dtfit_sector-%d%s", hid+1, s+1, PRINT.c_str()) );
+		c2->Print(Form("img_slices/slice-%d_sector-%d%s", hid+1, s+1, PRINT.c_str()) );
 	}
 
 }

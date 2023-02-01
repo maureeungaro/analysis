@@ -33,6 +33,10 @@ public:
     void DrawFit(int s, int hid);
     void show_dt_vs_mom_all_sectors();
 
+    // beta vs momentum
+    void show_mass_and_beta(int sector);
+    void show_mass_and_beta_all_sectors();
+
 
 private:
 

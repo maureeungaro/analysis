@@ -21,6 +21,7 @@ env.SharedLibrary(source = proton_pid_sources, target = 'ppid')
 ana_proton_pid_sources = Split("""ana/tof_match.cc
                                   ana/fit_and_calculate_pars.cc
                                   ana/show_dt_vs_mom.cc
+                                  ana/show_mass_beta.cc
                                """)
 
 env.SharedLibrary(source = ana_proton_pid_sources, target = 'ana_ppid')

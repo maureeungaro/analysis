@@ -39,8 +39,8 @@ void p_pid() {
 	bar->AddButton("Show DT vs mom",                "TOFMatch->show_dt_vs_mom(SECTOR)");
 	bar->AddButton("Show DT all sectors",           "TOFMatch->show_dt_vs_mom_all_sectors()");
 	bar->AddButton("","");
-	bar->AddButton("Show Beta and Mass vs p",       "TOFMatch->show_mass_beta(SECTOR)");
-	bar->AddButton("Show Beta vs p all sectors",    "TOFMatch->show_betaAll()");
+	bar->AddButton("Show Beta and Mass vs p",       "TOFMatch->show_mass_and_beta(SECTOR)");
+	bar->AddButton("Show Beta vs p all sectors",    "TOFMatch->show_mass_and_beta_all_sectors()");
 
     bar->AddButton("", "");
     bar->AddButton("", "");
