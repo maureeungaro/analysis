@@ -47,3 +47,26 @@ rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 -imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
 ```
+
+
+
+## Create new plots
+
+The script `update_mauriPlots.zsh` will compile the code, run it in batch
+to produce the plots, create the web pages and move the images and html files
+onto mauriPlots repo. It will also reset the git repo to the last commit.
+
+#### Documentation on the git reset:
+
+`git checkout --orphan new-main`: create a temporary branch
+
+`git add -A`:  Add all files and commit them
+
+`git commit -m 'new files'`
+
+`git branch -D main`: Deletes the master branch
+
+`git branch -m main`: Rename the current branch to main
+
+`git push -f origin main`: Force push main branch to Git server
+
