@@ -2,7 +2,7 @@
 
 ## Cuts
 
-- cut-01: delta time vs momentum
+- delta time vs momentum
 
 
 ## Re-run e_pid to apply cut and create histograms:
@@ -19,8 +19,13 @@ Single file example:
 
 ## Run analysis:
 
+### Interactive:
+
 `root p_pid.C`
 
+### Batch and print all plots:
+
+`root -b -q p_pid.C\(1\)`
 
 ## Create web pages based on the output of the analysis
 

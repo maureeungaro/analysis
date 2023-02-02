@@ -4,7 +4,8 @@
 // common parameters, analysis classes
 #include"ana/parameters.h"
 
-void e_pid() {
+void e_pid(bool printa = false) {
+
     string type = "data";
 
     string pars_file = data_pars_file;
@@ -113,6 +114,9 @@ void e_pid() {
     bar->Show();
     gROOT->SaveContext();
 
+    if (printa) {
+        gROOT->ProcessLine("print_all();");
+    }
 }
 
 

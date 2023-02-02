@@ -69,8 +69,8 @@ void print_all()
 {
 
     print_dt_vs_mom();
-    //print_mass_and_beta();
-	
+    print_mass_and_beta();
+
 	PRINT = "none";
 
 }

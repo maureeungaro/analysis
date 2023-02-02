@@ -4,7 +4,9 @@
 // common parameters, analysis classes
 #include"ana/parameters.h"
 
-void p_pid() {
+
+void p_pid(bool printa = false) {
+
     string type = "data";
 
     string pars_file = data_pars_file;
@@ -29,7 +31,6 @@ void p_pid() {
     // load utils.C
     gROOT->ProcessLine(".L ana/utils.C");
 
-
     // last arguments are the positions on screen
     TControlBar *bar = new TControlBar("vertical", data_label.c_str(), 1800, 30);
 	bar->AddButton("Proton Particle ID", "");
@@ -52,6 +53,12 @@ void p_pid() {
     bar->AddButton("", "");
     bar->Show();
     gROOT->SaveContext();
+
+
+    if (printa) {
+        gROOT->ProcessLine("print_all();");
+    }
+
 }
 
 

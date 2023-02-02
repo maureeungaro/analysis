@@ -28,8 +28,13 @@ Single file example:
 
 ## Run analysis:
 
+### Interactive:
+
 `root e_pid.C`
 
+### Batch and print all plots:
+
+`root -b -q e_pid.C\(1\)`
 
 ## Create web pages based on the output of the analysis
 
