@@ -50,6 +50,7 @@ void print_dt_vs_mom() {
 
 }
 
+
 void print_mass_and_beta() {
 
     activate_PRINT();
@@ -64,10 +65,8 @@ void print_mass_and_beta() {
 }
 
 
-
 void print_all()
 {
-
     print_dt_vs_mom();
     print_mass_and_beta();
 

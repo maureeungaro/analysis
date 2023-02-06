@@ -12,8 +12,7 @@
 
 using namespace std;
 
-// Common Classes with ROOT analysis macro
-
+// Common Histos
 class chistos {
 public:
     chistos(string filename, int READ = 0);
@@ -35,9 +34,8 @@ public:
     void write_and_close();    // Write out histos and close ROOT file
 };
 
-// %%%%%%%%%%%%%%%%%%%%%%%%
-// Parameters and functions
-// %%%%%%%%%%%%%%%%%%%%%%%%
+
+// Common Parameters and functions
 class cpars {
 
 public:
@@ -67,15 +65,11 @@ public:
     double NSIGMAS[2];          // SFNS: delta t number of sigmas for upper/lower DT curve
 
     double Mean(double p, int sector);
-
     double Sigma(double p, int sector);
 
     double dt_mom_limit(double p, int sector, int nsigmas, int which);
-
     double rMean(double *x, double *par);
-
     double rSigma(double *x, double *par);
-
     double rdt_mom_limit(double *x, double *par);
 
     void write_vars();

@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 {
 	CLAS_Event_opts Opts;
 	Opts.Set(argc, argv);
-	string hd_msg        = Opts.args["LOG_MSG"].args + " proton_pid >> " ;
+	string hd_msg        = Opts.args["LOG_MSG"].args + " vertex_corr_sel >> " ;
 	string hd_msg_scaler = Opts.args["LOG_MSG"].args + " Scaler Event" ;
 	int max_n            = (int) Opts.args["N"].arg;
 	int print            = (int) Opts.args["PRINT"].arg;

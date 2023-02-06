@@ -12,8 +12,7 @@
 
 using namespace std;
 
-
-// Common Classes with ROOT analysis macro
+// Common Histos
 class chistos {
 public:
     chistos(string filename, int READ = 0);
@@ -46,7 +45,7 @@ public:
     void write_and_close();    // Write out histos and close ROOT file
 };
 
-// Parameters and functions
+// Common Parameters and functions
 class cpars {
 
 public:
@@ -93,7 +92,6 @@ public:
     double min_ecit[6];                            // INTO: min EC inner/total / sector
 
     double Mean(double p, int sector);
-
     double Sigma(double p, int sector);
 
     double ecp_limit(double p, int sector, int which);

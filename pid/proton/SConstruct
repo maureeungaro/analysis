@@ -7,7 +7,8 @@ env.Append(CXXFLAGS=['-std=c++17']) # need c++17 for std::filesystem
 incpath = ['src']
 env.Append(CPPPATH = incpath)
 
-proton_pid_sources = Split("""src/proton_pid.cc
+proton_pid_sources = Split("""
+                              src/proton_pid.cc
                               src/common_info.cc
                               src/histos.cc
                               src/proton_pid_selection.cc
@@ -18,7 +19,8 @@ proton_pid = env.Program(source = proton_pid_sources, target = 'proton_pid')
 env.SharedLibrary(source = proton_pid_sources, target = 'ppid')
 
 
-ana_proton_pid_sources = Split("""ana/tof_match.cc
+ana_proton_pid_sources = Split("""
+                                  ana/tof_match.cc
                                   ana/fit_and_calculate_pars.cc
                                   ana/show_dt_vs_mom.cc
                                   ana/show_mass_beta.cc

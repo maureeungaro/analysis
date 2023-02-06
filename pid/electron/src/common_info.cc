@@ -216,7 +216,7 @@ cpars::cpars(string filename)
 
     cout << endl << " > Opening parameter file " << filename << endl << endl;
 	if(!parfile) {
-		cout << " File " <<  filename << " could not be opened. " << endl;
+		cout << " File " <<  parameter_file << " could not be opened. " << endl;
 		cout << " Specify parameters file with -PARS_FILE=filename. Exiting. " << endl;
 		exit(1);
 	}

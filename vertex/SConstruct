@@ -1,15 +1,27 @@
 from init_env import init_environment
 
 env = init_environment("clhep mu root")
+env.Append(CXXFLAGS=['-std=c++17']) # need c++17 for std::filesystem
 
 
 # Include Path
 incpath = ['src']
 env.Append(CPPPATH = incpath)
 
-vertex_sources = Split("""src/vertex.cc
+vertex_sources = Split("""
+                          src/vertex.cc
                           src/common_info.cc
                           src/histos.cc
                           src/vertex_corrsel.cc""")
 
 vertex = env.Program(source = vertex_sources, target = 'vertex_corr_sel')
+
+env.SharedLibrary(source = vertex_sources, target = 'vertex')
+
+
+ana_vertex_sources = Split("""
+                              ana/show_vertex.cc
+                              ana/show_2D_vertex.cc
+                           """)
+
+env.SharedLibrary(source = ana_vertex_sources, target = 'ana_vertex')

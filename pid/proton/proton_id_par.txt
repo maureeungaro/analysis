@@ -10,4 +10,4 @@ DTSC:    0.0632898    0.0598531    0.0501105    0.0641582    0.0653663    0.0658
 DTSD:            0            0            0            0            0            0   # Delta T sigma D: a + bx + cx2 + dx3 + ex4 + fx5
 DTSE:            0            0            0            0            0            0   # Delta T sigma E: a + bx + cx2 + dx3 + ex4 + fx5
 DTSF:            0            0            0            0            0            0   # Delta T sigma F: a + bx + cx2 + dx3 + ex4 + fx5
-DTNS: 3.5 3.5                                                                             # Delta T number of sigmas for upper/lower curve
+DTNS: 3.5 3.5                                                                         # Delta T number of sigmas for upper/lower curve

@@ -36,12 +36,15 @@ mv img_slices/*.png $mdir/img_slices/
 mv cuts.html $mdir/
 mv slices.html $mdir/
 
-## resetting repository to latest content
-cd $mdir
-git checkout --orphan new-main
-git add -A
-git commit -m 'new files'
-git branch -D main
-git branch -m main
-git push -f origin main
+# reset history message
+echo
+echo Check the changes in the repository with:
+echo
+echo cd $mdir
+echo gista
+echo
+echo if necessary, reset history:
+echo
+echo gitRemoveHistory
+echo
 
