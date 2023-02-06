@@ -58,4 +58,5 @@ if [[ $1 == "reset" ]]; then
 	git branch -D main
 	git branch -m main
 	git push -f origin main
+	git branch --set-upstream-to=origin/main main
 fi
