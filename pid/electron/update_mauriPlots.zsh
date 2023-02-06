@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+alias scons='ncpu=$(getconf _NPROCESSORS_ONLN); echo using $ncpu cores and OPT=1;  scons -j$ncpu OPT=1'
+
 # if -h given print the reset option
 if [[ $1 == "-h" ]]; then
   echo
@@ -15,7 +17,9 @@ mdir=/opt/projects/mauriplots/epid
 export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 scons -c
-scons
+ncpu=$(getconf _NPROCESSORS_ONLN)
+echo using $ncpu cores and OPT=1
+scons -j$ncpu OPT=1
 root -b -q e_pid.C\(1\)
 scons -c
 
@@ -25,14 +29,14 @@ rm -f *.html
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/cut-01-cc-theta-match_sector-1.png -imagesSize="1200 1200"
+-defaultPlot=img/cut-01-tm_sector-1.png -imagesSize="1200 1200"
 mv page.html cuts.html
 
 rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=slice \
                                         -addColumnTableVariable=cut \
                                         -addSelectableVariable=sector \
--defaultPlot=img_slices/slice-01_cut-01-cc-theta-slice_sector-1.png \
+-defaultPlot=img_slices/slice-01_cut-01-ts_sector-1.png \
 -imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
 

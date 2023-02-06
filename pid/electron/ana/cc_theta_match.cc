@@ -148,7 +148,7 @@ void CC_Match::calc_cc_match(int sector)
 
 
 	if(PRINT != "none") {
-        Csum->Print( Form("img/cut-01-cc-theta-match-pars_sector-%d%s", sector, PRINT.c_str()) );
+        Csum->Print( Form("img/cut-01-tmp_sector-%d%s", sector, PRINT.c_str()) );
 	}
 	
 	cout << " done " << endl;

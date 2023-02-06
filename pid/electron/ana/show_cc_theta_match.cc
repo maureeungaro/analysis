@@ -103,7 +103,7 @@ void CC_Match::show_cc_theta_match_comparison(int SECTOR)
 	lab.DrawLatex(0.26, 0.95,  Form("CC #theta Matching  -  Sector %d", SECTOR));
 
 	if(PRINT != "none") {
-		Ctheta_vs_segmS->Print( Form("img/cut-01-cc-theta-match-compare_sector-%d%s", s+1, PRINT.c_str()) );
+		Ctheta_vs_segmS->Print( Form("img/cut-01-tmc_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -180,7 +180,7 @@ void CC_Match::show_cc_theta_match(int SECTOR) {
 
 
     if (PRINT != "none") {
-        Ctheta_vs_segm->Print(Form("img/cut-01-cc-theta-match_sector-%d%s", s + 1, PRINT.c_str()));
+        Ctheta_vs_segm->Print(Form("img/cut-01-tm_sector-%d%s", s + 1, PRINT.c_str()));
     }
 
 
@@ -275,9 +275,9 @@ void CC_Match::CC_DrawFit_ThetaSlice(int s, int hid)
 	
 	if(PRINT != "none") {
 		if(hid>=9) {
-            c2->Print(Form("img_slices/slice-%d_cut-01-cc-theta-slice_sector-%d%s",  hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-%d_cut-01-ts_sector-%d%s",  hid + 1, s + 1, PRINT.c_str()));
         } else {
-            c2->Print(Form("img_slices/slice-0%d_cut-01-cc-theta-slice_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-0%d_cut-01-ts_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         }
 	}
 
@@ -365,7 +365,7 @@ void CC_Match::show_theta_vs_segm_all_sectors()
 	
 	
 	if(PRINT != "none") {
-		Ctheta_vs_segmA->Print(  Form("img/cut-01-cc-theta-match_sector-all%s", PRINT.c_str()) );
+		Ctheta_vs_segmA->Print(  Form("img/cut-01-tm_sector-all%s", PRINT.c_str()) );
 	}
 	
 }

@@ -5,12 +5,12 @@
 - cut-01: theta match
 - cut-02: phi match
 - cut-03: time match
-- cut-04: p threshold
+- cut-04: ec threshold
 - cut-05: sampling fraction
 - cut-06,7,8: u,v,w
 - cut-09: 2d uvw (not a cut)
-- cut-10: EoVsEi
-- cut-11: shshape
+- cut-10: EoVsEi (mip cut)
+- cut-11: shower shape
 - cut-12: nphe (not a cut)
 
 
@@ -42,7 +42,7 @@ Single file example:
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/cut-01-cc-theta-match_sector-1.png -imagesSize="1200 1200"
+-defaultPlot=img/cut-01-tmc_sector-1.png -imagesSize="1200 1200"
 mv page.html cuts.html
 ```
 
@@ -53,7 +53,7 @@ rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=slice \
                                         -addColumnTableVariable=cut \
                                         -addSelectableVariable=sector \
--defaultPlot=img_slices/slice-01_cut-01-cc-theta-slice_sector-1.png \
+-defaultPlot=img_slices/slice-01_tmc-slice_sector-1.png \
 -imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
 ```

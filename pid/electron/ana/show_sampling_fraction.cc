@@ -106,7 +106,7 @@ void EC_Match::show_sf_comparison(int sector)
 	lab.DrawLatex(0.18, 0.95,  Form("Sampling Fraction  -   Sector %d", sector));
 
 	if(PRINT != "none") {
-		CecpS->Print( Form("img/cut-05-sampling-f-compare_sector-%d%s", s+1, PRINT.c_str()) );
+		CecpS->Print( Form("img/cut-05-sfc_sector-%d%s", s+1, PRINT.c_str()) );
 	}
 }
 
@@ -206,7 +206,7 @@ void EC_Match::show_sf(int sector) {
     lab.DrawLatex(0.48, 0.84, "All Other Cuts Applied");
 
     if (PRINT != "none") {
-        Cecp->Print(Form("img/cut-05-sampling-f_sector-%d%s", s + 1, PRINT.c_str()));
+        Cecp->Print(Form("img/cut-05-sf_sector-%d%s", s + 1, PRINT.c_str()));
     }
 
     if (sf_mean[s]) {
@@ -292,9 +292,9 @@ void EC_Match::DrawFit_SF(int s, int hid)
 	
 	if(PRINT != "none") {
         if (hid >= 9) {
-            c2->Print(Form("img_slices/slice-%d_cut-05-sampling-f_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-%d_cut-05-sf_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         } else {
-            c2->Print(Form("img_slices/slice-0%d_cut-05-sampling-f_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-0%d_cut-05-sf_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         }
 	}
 
@@ -384,7 +384,7 @@ void EC_Match::show_sf_all_sectors()
 	
 
 	if(PRINT != "none") {
-		CecpA->Print(Form("img/cut-05-sampling-f_sector-all%s", PRINT.c_str()));
+		CecpA->Print(Form("img/cut-05-sf_sector-all%s", PRINT.c_str()));
 
 	}
 }

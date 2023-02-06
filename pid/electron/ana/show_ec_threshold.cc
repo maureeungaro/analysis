@@ -71,7 +71,7 @@ void EC_Match::show_ecthr(int sector)
 	lab.DrawLatex(0.65, 0.93,  "#rightarrow all cuts applied");
 
     if(PRINT != "none") {
-		Cecthr->Print(  Form("img/cut-04-ec-threshold_sector-%d%s", sector, PRINT.c_str()) );
+		Cecthr->Print(  Form("img/cut-04-thr_sector-%d%s", sector, PRINT.c_str()) );
     }
 	
 }
@@ -158,7 +158,7 @@ void EC_Match::show_ecthr_all_sectors()
 
 
     if(PRINT != "none") {
-		Cecthr->Print(  Form("img/cut-04-ec-threshold_sector-all%s", PRINT.c_str()) );
+		Cecthr->Print(  Form("img/cut-04-thr_sector-all%s", PRINT.c_str()) );
 	}
 	
 }
@@ -226,7 +226,7 @@ void EC_Match::show_ecthr_integral_over_sectors() {
     lab.DrawLatex(0.65, 0.93,  "#rightarrow all cuts applied");
 
     if(PRINT != "none") {
-        Cecthr->Print(  Form("img/cut-04-ec-threshold_sector-integral%s", PRINT.c_str()) );
+        Cecthr->Print(  Form("img/cut-04-thr_sector-integral%s", PRINT.c_str()) );
     }
 
 }

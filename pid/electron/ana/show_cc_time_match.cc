@@ -91,7 +91,7 @@ void CC_Match::show_cc_timing(int sector)
 	lab.DrawLatex(0.55, 0.95,  Form("#Delta T = T_{CC} + |#vec{R}_{SC}-#vec{R}_{CC}|/c - T_{SC}"));
 
 	if(PRINT != "none") {
-		Ccc_timingS->Print( Form("img/cut-03-cc-time-match-compare_sector-%d%s", s+1, PRINT.c_str()) );
+		Ccc_timingS->Print( Form("img/cut-03-timc_sector-%d%s", s+1, PRINT.c_str()) );
     }
 }
 
@@ -155,7 +155,7 @@ void CC_Match::show_cc_timings(int sector) {
 
 
     if (PRINT != "none") {
-        Ccc_timing->Print(Form("img/cut-03-cc-time-match_sector-%d%s", s + 1, PRINT.c_str()));
+        Ccc_timing->Print(Form("img/cut-03-tim_sector-%d%s", s + 1, PRINT.c_str()));
     }
 
     if (cc_timing_low[s]) {
@@ -233,9 +233,9 @@ void CC_Match::CCT_DrawFit_TimeSlice(int s, int hid)
 	
 	if(PRINT != "none") {
 		if(hid>=9) {
-            c2->Print(Form("img_slices/slice-%d_cut-03-cc-time-match_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-%d_cut-03-tim_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         } else {
-            c2->Print(Form("img_slices/slice-0%d_cut-03-cc-time-match_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
+            c2->Print(Form("img_slices/slice-0%d_cut-03-tim_sector-%d%s", hid + 1, s + 1, PRINT.c_str()));
         }
 	}
 
@@ -313,7 +313,7 @@ void CC_Match::show_cc_timing_all_sectors()
 	
 	
 	if(PRINT != "none" ) {
-		Ccc_timingA->Print(Form("img/cut-03-cc-time-match_sector-all%s", PRINT.c_str()));
+		Ccc_timingA->Print(Form("img/cut-03-tim_sector-all%s", PRINT.c_str()));
 	}
 	
 }

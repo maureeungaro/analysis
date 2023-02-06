@@ -99,7 +99,7 @@ void EC_Match::show_EinEtot(int sector)
 	
 	
 	if(PRINT != "none") {
-		CEinEtotS->Print(Form("img/cut-11-shower-shape_sector-%d%s", sector, PRINT.c_str() ));
+		CEinEtotS->Print(Form("img/cut-11-shsh_sector-%d%s", sector, PRINT.c_str() ));
 	}
 
 }
@@ -187,7 +187,7 @@ void EC_Match::show_EinEtot_all_sectors()
 	lab.DrawLatex(0.65, 0.945,  "All Other Cuts Applied");
 
 	if(PRINT != "none") {
-        CEinEtotS->Print(  Form("img/cut-11-shower-shape_sector-all%s", PRINT.c_str()) );
+        CEinEtotS->Print(  Form("img/cut-11-shsh_sector-all%s", PRINT.c_str()) );
 	}
 	
 }
