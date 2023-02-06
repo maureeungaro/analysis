@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-mdir=/opt/projects/mauriplots/ppid
+mdir=/opt/projects/mauriplots/vertex
 
 export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
@@ -12,14 +12,9 @@ scons -c
 
 # updating mauriPlots repository
 
-rm -rf $mdir/img/*
-rm -rf $mdir/img_slices/*
-mkdir -p $mdir/img $mdir/img_slices
 
-mv img/*.png $mdir/img/
-mv img_slices/*.png $mdir/img_slices/
-mv cuts.html $mdir/
-mv slices.html $mdir/
+mv *.png $mdir
+
 
 # reset history message
 echo
