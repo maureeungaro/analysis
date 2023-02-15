@@ -41,15 +41,15 @@ void slice_plane()
 
 	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 700, 700);
 
-	int NBINS = H.x_y_tot[0][s][pl]->GetNbinsY();
+	int NBINS = H->x_y_tot[0][s][pl]->GetNbinsY();
 	int db = NBINS/NDIV_XY;
 	
 	double yb[FiducialCut::NDIV_XY], ybe[FiducialCut::NDIV_XY];
-	double dy = ( H.x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
+	double dy = ( H->x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
 	
 	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin; b++)
 	{
-		yb[b]  = H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + (b+0.5)*dy;
+		yb[b]  = H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + (b+0.5)*dy;
 		ybe[b] = 0.001;
 	}
 
@@ -95,7 +95,7 @@ void slice_plane()
 	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin; b++)
 	{
 		cout << " Fitting slice " << b+1 << endl;
-		H.x_y_tot[0][s][pl]->ProjectionX(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1), b*db, (b+1)*db);
+		H->x_y_tot[0][s][pl]->ProjectionX(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1), b*db, (b+1)*db);
 		y_slice[s][pl][b] = (TH1F*)gROOT->Get(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1));
 		
 		Tent.SetParameter(4, y_slice[s][pl][b]->GetMaximum()/1.4);
@@ -139,8 +139,8 @@ void slice_plane()
 	double c_rite = my_fit2->GetParameter(2);
 
 	// fitting again with new parameters
-	a_left = Pars.XMIN[pl] - b_left*Pars.YMIN[pl][s] - c_left*Pars.YMIN[pl][s]*Pars.YMIN[pl][s];
-	a_rite = Pars.XMIN[pl] - b_rite*Pars.YMIN[pl][s] - c_rite*Pars.YMIN[pl][s]*Pars.YMIN[pl][s];
+	a_left = Pars->XMIN[pl] - b_left*Pars->YMIN[pl][s] - c_left*Pars->YMIN[pl][s]*Pars->YMIN[pl][s];
+	a_rite = Pars->XMIN[pl] - b_rite*Pars->YMIN[pl][s] - c_rite*Pars->YMIN[pl][s]*Pars->YMIN[pl][s];
 
 	my_fit1->FixParameter(0, a_left);
 	my_fit2->FixParameter(0, a_rite);
@@ -160,36 +160,36 @@ void slice_plane()
 
 	if(PLANE==1)
 	{
-		Pars.r1_b_left[s] = my_fit1->GetParameter(1);
-		Pars.r1_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.r1_c_left[s] = my_fit1->GetParameter(2);
-		Pars.r1_c_rite[s] = my_fit2->GetParameter(2);
+		Pars->r1_b_left[s] = my_fit1->GetParameter(1);
+		Pars->r1_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->r1_c_left[s] = my_fit1->GetParameter(2);
+		Pars->r1_c_rite[s] = my_fit2->GetParameter(2);
 	}
 	if(PLANE==2)
 	{
-		Pars.r2_b_left[s] = my_fit1->GetParameter(1);
-		Pars.r2_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.r2_c_left[s] = my_fit1->GetParameter(2);
-		Pars.r2_c_rite[s] = my_fit2->GetParameter(2);
+		Pars->r2_b_left[s] = my_fit1->GetParameter(1);
+		Pars->r2_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->r2_c_left[s] = my_fit1->GetParameter(2);
+		Pars->r2_c_rite[s] = my_fit2->GetParameter(2);
 	}
 	if(PLANE==3)
 	{
-		Pars.r3_b_left[s] = my_fit1->GetParameter(1);
-		Pars.r3_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.r3_c_left[s] = my_fit1->GetParameter(2);
-		Pars.r3_c_rite[s] = my_fit2->GetParameter(2);
-		if(fabs(Pars.r3_c_left[s]) < 0.00001) Pars.r3_c_left[s] = 0;
-		if(fabs(Pars.r3_c_rite[s]) < 0.00001) Pars.r3_c_rite[s] = 0;
+		Pars->r3_b_left[s] = my_fit1->GetParameter(1);
+		Pars->r3_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->r3_c_left[s] = my_fit1->GetParameter(2);
+		Pars->r3_c_rite[s] = my_fit2->GetParameter(2);
+		if(fabs(Pars->r3_c_left[s]) < 0.00001) Pars->r3_c_left[s] = 0;
+		if(fabs(Pars->r3_c_rite[s]) < 0.00001) Pars->r3_c_rite[s] = 0;
 		
 	}
 	if(PLANE==5)
 	{
-		Pars.sc_b_left[s] = my_fit1->GetParameter(1);
-		Pars.sc_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.sc_c_left[s] = my_fit1->GetParameter(2);
-		Pars.sc_c_rite[s] = my_fit2->GetParameter(2);
-		if(fabs(Pars.sc_c_left[s]) < 0.00001) Pars.sc_c_left[s] = 0;
-		if(fabs(Pars.sc_c_rite[s]) < 0.00001) Pars.sc_c_rite[s] = 0;
+		Pars->sc_b_left[s] = my_fit1->GetParameter(1);
+		Pars->sc_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->sc_c_left[s] = my_fit1->GetParameter(2);
+		Pars->sc_c_rite[s] = my_fit2->GetParameter(2);
+		if(fabs(Pars->sc_c_left[s]) < 0.00001) Pars->sc_c_left[s] = 0;
+		if(fabs(Pars->sc_c_rite[s]) < 0.00001) Pars->sc_c_rite[s] = 0;
 	}
 	Cecp->Close();
 }

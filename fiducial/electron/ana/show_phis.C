@@ -21,18 +21,18 @@ void show_phis()
 	PphisS->Draw();
 	
 	// ndivisions in theta
-	int NBINS        = H.phi_theta[0][s][m]->GetNbinsX();
+	int NBINS        = H->phi_theta[0][s][m]->GetNbinsX();
 	int DB =  NBINS/NDIV_T; 
 	
-	double theta_min =  H.phi_theta[0][s][m]->GetXaxis()->GetXmin();
-	double theta_max =  H.phi_theta[0][s][m]->GetXaxis()->GetXmax();
+	double theta_min =  H->phi_theta[0][s][m]->GetXaxis()->GetXmin();
+	double theta_max =  H->phi_theta[0][s][m]->GetXaxis()->GetXmax();
 	
 	
 	TPaletteAxis *palette;
 	for(int t=0; t<NDIV_T; t++)
 	{
-		H.phi_theta[0][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_befor", t+1, s+1, m+1), t*DB, (t+1)*DB);
-		H.phi_theta[3][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_after", t+1, s+1, m+1), t*DB, (t+1)*DB);
+		H->phi_theta[0][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_befor", t+1, s+1, m+1), t*DB, (t+1)*DB);
+		H->phi_theta[3][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_after", t+1, s+1, m+1), t*DB, (t+1)*DB);
 		phis_befor[s][pl][m][t] = (TH1F*)gROOT->Get(Form("theta_slice_theta%d_s%d_m%d_befor", t+1, s+1, m+1));
 		phis_after[s][pl][m][t] = (TH1F*)gROOT->Get(Form("theta_slice_theta%d_s%d_m%d_after", t+1, s+1, m+1));
 		
@@ -55,8 +55,8 @@ void show_phis()
 		phis_befor[s][pl][m][t]->Draw();
 		phis_after[s][pl][m][t]->Draw("same");
 
-		double tmin = H.phi_theta[0][s][m]->GetXaxis()->GetBinCenter(t*DB);
-		double tmax = H.phi_theta[0][s][m]->GetXaxis()->GetBinCenter((t+1)*DB);
+		double tmin = H->phi_theta[0][s][m]->GetXaxis()->GetBinCenter(t*DB);
+		double tmax = H->phi_theta[0][s][m]->GetXaxis()->GetBinCenter((t+1)*DB);
 		
 		lab.DrawLatex(0.30, 0.88,  Form("%3.1f #leq #theta #leq %3.1f deg", tmin, tmax ) );
 	}
@@ -65,7 +65,7 @@ void show_phis()
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.035);
-	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - Momentum: %3.1f#pm%3.2f GeV", SECTOR, H.mom[m], H.dp/2));
+	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - Momentum: %3.1f#pm%3.2f GeV", SECTOR, H->mom[m], H->dp/2));
 
 	lab.SetTextFont(42);
 	lab.DrawLatex(0.1, 0.02, "                        #leftarrow          #phi  [degrees]           #rightarrow ");

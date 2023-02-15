@@ -33,7 +33,7 @@ Single file example:
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/01-tmc_sector-1.png -imagesSize="1200 1200"
+-defaultPlot=img/cut-01-tmc_sector-1.png -imagesSize="1200 1200"
 mv page.html cuts.html
 ```
 

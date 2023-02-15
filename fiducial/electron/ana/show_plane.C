@@ -14,16 +14,16 @@ void show_plane()
 	
 	for(int c=0; c<4; c++)
 	{
-		H.x_y[c][s][pl][m]->GetXaxis()->SetTitleSize(0.052);
-		H.x_y[c][s][pl][m]->GetXaxis()->SetTitleOffset(1.14);
-		H.x_y[c][s][pl][m]->GetYaxis()->SetTitleSize(0.054);
-		H.x_y[c][s][pl][m]->GetYaxis()->SetTitleOffset(1.32);
-		H.x_y[c][s][pl][m]->GetXaxis()->SetLabelSize(0.042);
-		H.x_y[c][s][pl][m]->GetYaxis()->SetLabelSize(0.042);
-		H.x_y[c][s][pl][m]->GetZaxis()->SetNdivisions(8);
+		H->x_y[c][s][pl][m]->GetXaxis()->SetTitleSize(0.052);
+		H->x_y[c][s][pl][m]->GetXaxis()->SetTitleOffset(1.14);
+		H->x_y[c][s][pl][m]->GetYaxis()->SetTitleSize(0.054);
+		H->x_y[c][s][pl][m]->GetYaxis()->SetTitleOffset(1.32);
+		H->x_y[c][s][pl][m]->GetXaxis()->SetLabelSize(0.042);
+		H->x_y[c][s][pl][m]->GetYaxis()->SetLabelSize(0.042);
+		H->x_y[c][s][pl][m]->GetZaxis()->SetNdivisions(8);
 		if(s == 6)
 		{
-			H.x_y[c][s][pl][m]->GetXaxis()->SetTitleOffset(1.1);
+			H->x_y[c][s][pl][m]->GetXaxis()->SetTitleOffset(1.1);
 		}
 	}
 	
@@ -37,10 +37,10 @@ void show_plane()
 	for(int c=0; c<4; c++)
 	{
 		Px_yS->cd(c+1);
-		H.x_y[c][s][pl][m]->Draw("colz");
+		H->x_y[c][s][pl][m]->Draw("colz");
 		draw_limits();
 		Cx_yS->Update();
-		palette = (TPaletteAxis*)H.x_y[c][s][pl][m]->FindObject("palette");
+		palette = (TPaletteAxis*)H->x_y[c][s][pl][m]->FindObject("palette");
 		if(palette)
 		{
 			palette->SetLabelSize(0.035);
@@ -62,18 +62,18 @@ void show_plane()
 		if(c==1)
 		{
 			lab.DrawLatex(0.16, 0.91,  "b. #phi vs #theta cuts applied");
-			lab.DrawLatex(0.59, 0.18,  Form("b. / a. : %3.1f%%", 100.0*H.x_y[c][s][pl][m]->GetEntries()/H.x_y[0][s][pl][m]->GetEntries()));
+			lab.DrawLatex(0.59, 0.18,  Form("b. / a. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
 		}
 		if(c==2) 
 		{
 			lab.DrawLatex(0.16, 0.91,  "c. #phi vs #theta negative cuts applied");
-			lab.DrawLatex(0.59, 0.18,  Form("c. / a. : %3.1f%%", 100.0*H.x_y[c][s][pl][m]->GetEntries()/H.x_y[0][s][pl][m]->GetEntries()));
+			lab.DrawLatex(0.59, 0.18,  Form("c. / a. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
 		}
 		if(c==3) 
 		{
 			lab.DrawLatex(0.16, 0.91,  "d. plane cuts applied");
-			lab.DrawLatex(0.59, 0.22,  Form("d. / a. : %3.1f%%", 100.0*H.x_y[c][s][pl][m]->GetEntries()/H.x_y[0][s][pl][m]->GetEntries()));
-			lab.DrawLatex(0.575, 0.17,  Form("d. / b. : %3.1f%%", 100.0*H.x_y[c][s][pl][m]->GetEntries()/H.x_y[1][s][pl][m]->GetEntries()));
+			lab.DrawLatex(0.59, 0.22,  Form("d. / a. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
+			lab.DrawLatex(0.575, 0.17,  Form("d. / b. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[1][s][pl][m]->GetEntries()));
 		}
 	}
 	
@@ -83,7 +83,7 @@ void show_plane()
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.035);
-	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - %s -  p:%3.1f#pm%3.2f GeV", SECTOR, planes[pl].c_str(), H.mom[m], H.dp/2));
+	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - %s -  p:%3.1f#pm%3.2f GeV", SECTOR, planes[pl].c_str(), H->mom[m], H->dp/2));
 
 	if(PRINT != "") 
 	{
@@ -113,14 +113,14 @@ void show_planes()
 	lab.SetTextSize(0.08);
 	lab.SetTextColor(kBlue+3);
 	TPaletteAxis *palette;
-	for(int m=0; m<H.NDIV_P; m++)
+	for(int m=0; m<chistos::NDIV_P; m++)
 	{
 		Px_yS->cd(m+1);
 		if(LOGZ) Px_yS->SetLogz();
-		H.x_y[0][s][pl][m]->SetMinimum(1);
-		H.x_y[0][s][pl][m]->Draw("colz");
+		H->x_y[0][s][pl][m]->SetMinimum(1);
+		H->x_y[0][s][pl][m]->Draw("colz");
 		Cx_ysS->Update();
-		palette = (TPaletteAxis*)H.x_y[0][s][pl][m]->FindObject("palette");
+		palette = (TPaletteAxis*)H->x_y[0][s][pl][m]->FindObject("palette");
 		if(palette)
 		{
 			palette->SetLabelSize(0.08);
@@ -129,7 +129,7 @@ void show_planes()
 			palette->SetX2NDC(0.92);
 			palette->SetY2NDC(0.96);
 		}
-		lab.DrawLatex(0.28, 0.94,  Form("momentum: %3.2f #leq p #leq %3.2f GeV", H.mom[m]-H.dp/2, H.mom[m]+H.dp/2 ) );
+		lab.DrawLatex(0.28, 0.94,  Form("momentum: %3.2f #leq p #leq %3.2f GeV", H->mom[m]-H->dp/2, H->mom[m]+H->dp/2 ) );
 
 		if(PLANE != 4)
 		{
@@ -173,9 +173,9 @@ void show_integrated_plane()
 
 	if(LOGZ) gPad->SetLogz();
 	TPaletteAxis *palette;
-	H.x_y_tot[0][s][pl]->Draw("colz");
+	H->x_y_tot[0][s][pl]->Draw("colz");
 	Cx_yIS->Update();
-	palette = (TPaletteAxis*)H.x_y_tot[0][s][pl]->FindObject("palette");
+	palette = (TPaletteAxis*)H->x_y_tot[0][s][pl]->FindObject("palette");
 	if(palette)
 	{
 		palette->SetLabelOffset(0.01);
@@ -245,8 +245,8 @@ void DynamicExec()
 	float y = gPad->PadtoY(upy);
 
 	// draw slice corresponding to mouse position
-	double dy = ( H.x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
-	int hid  = floor((y - H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin())/dy);
+	double dy = ( H->x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
+	int hid  = floor((y - H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin())/dy);
 
 //	cout << " y: " << y << " dy: " << dy << "  hid: " << hid << endl;
 
@@ -265,7 +265,7 @@ void DrawFit(int s, int pl, int hid)
 
 	TLatex lab;
 	lab.SetNDC();
-	double dy = ( H.x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
+	double dy = ( H->x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
 
    // create or set the new canvas c2
 	TVirtualPad *padsav = gPad;
@@ -294,8 +294,8 @@ void DrawFit(int s, int pl, int hid)
 		
 
 		y_slice[s][pl][hid]->GetXaxis()->SetTitleOffset(1.3);
-		double pmin = H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + hid*dy;
-		double pmax = H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + (hid+1)*dy;
+		double pmin = H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + hid*dy;
+		double pmax = H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + (hid+1)*dy;
 
 		lab.SetTextFont(102);
 		lab.SetTextSize(0.058);

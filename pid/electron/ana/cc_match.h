@@ -85,10 +85,6 @@ private:
     TH1F *cc_timing1d[6][2*CC_Match::NDIV];      // 1 dimensional projections, fitted with GAUSS
     TGraphErrors *cc_timing_low[6];
 
-    Double_t parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
-    Double_t gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
-    Double_t gauss2_para(Double_t *x, Double_t *par)  { return parabole(x, par) + gaussian(x, &par[3]) + gaussian(x, &par[6]); }
-
 };
 
 

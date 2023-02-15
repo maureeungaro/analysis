@@ -4,7 +4,7 @@
 // common parameters, analysis classes
 #include"ana/parameters.h"
 
-void e_pid(bool printa = false) {
+void e_fid(bool printa = false) {
 
     string type = "data";
 
@@ -13,7 +13,6 @@ void e_pid(bool printa = false) {
 
     // if the first argument is the string 'gsim' then:
     if (type == "gsim") {
-        pars_file = gsim_pars_file;
         root_file = gsim_root_file;
         data_label = "gsim";
         is_simulation = true;
@@ -24,6 +23,9 @@ void e_pid(bool printa = false) {
     H = new chistos(root_file, 1);
     Pars = new cpars(pars_file);
 
+    // Fiducial Cut Class
+    Fiducial = new FiducialCut(H, Pars, PRINT, colors);
+
     // load utils.C
     gROOT->ProcessLine(".L ana/utils.C");
 
@@ -32,11 +34,11 @@ void e_pid(bool printa = false) {
 	bar->AddButton("Fiducial Cuts",  "");
 	bar->AddButton("","");
     bar->AddButton("","");
-//	bar->AddButton("Show phi vs theta",                      "show_phi_theta()");
-//	bar->AddButton("Show phi vs theta in p bins - before",   "show_phi_thetas(0)");
-//	bar->AddButton("Show phi vs theta in p bins - after",    "show_phi_thetas(3)");
-//	bar->AddButton("Show phis"            ,                  "show_phis()");
-//	bar->AddButton("","");
+	bar->AddButton("Show phi vs theta",                      "Fiducial->show_phi_theta(SECTOR, MOM)");
+	bar->AddButton("Show phi vs theta in p bins - before",   "Fiducial->show_phi_thetas(SECTOR, 0)");
+	bar->AddButton("Show phi vs theta in p bins - after",    "Fiducial->show_phi_thetas(SECTOR, 3)");
+//	bar->AddButton("Show phis"            ,                  "Fiducial->show_phis()");
+	bar->AddButton("","");
 //	bar->AddButton("Show y vs x in current plane",  "show_plane()");
 //	bar->AddButton("Show y vs x in current planes", "show_planes()");
 //	bar->AddButton("Show y vs x for all momenta",   "show_integrated_plane()");
@@ -64,7 +66,7 @@ void e_pid(bool printa = false) {
     if (printa) {
         gROOT->ProcessLine("print_all();");
     }
-}
+
 }
 
 

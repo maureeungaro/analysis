@@ -1,6 +1,5 @@
 *.o
 *.mu
-.sconsign.dblite
 *.root
 pid/proton/proton_pid
 pid/proton/common_runs
@@ -23,4 +22,4 @@ acceptance/acc_histos/acc_histos
 meson_histos/meson_histos
 gemc/flux/lib
 gemc/ltccStudy/lib/
-.DS_Store
+.idea
