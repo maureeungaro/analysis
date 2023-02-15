@@ -35,20 +35,17 @@ void histos::fill(map<string, int> passed, particle e)
 	phi_theta[0][sector][binp]->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);	
 	phi_theta[0][6][binp]     ->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);
 	
-	if(alloth["FID_PT"] == 1)
-	{
+	if(alloth["FID_PT"] == 1) {
 		phi_theta[1][sector][binp]->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);
 		phi_theta[1][6][binp]     ->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);
 	}
 	
-	if(othneg["FID_PT"] == 1)
-	{
+	if(othneg["FID_PT"] == 1) {
 		phi_theta[2][sector][binp]->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);
 		phi_theta[2][6][binp]     ->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);
 	}
 	
-	if(passed["PASSED"] == 1)
-	{
+	if(passed["PASSED"] == 1) {
 		phi_theta[3][sector][binp]->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);
 		phi_theta[3][6][binp]     ->Fill(e.p.theta()/degree, loc_phi(e.p)/degree);
 	}
@@ -58,18 +55,15 @@ void histos::fill(map<string, int> passed, particle e)
 	// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	// FID_XY: X vs Y fiducial cuts
 	// no cuts
-	for(int p=0; p<5; p++)
-	{
+	for(int p=0; p<5; p++) {
 		x_y[0][sector][p][binp]->Fill(pos[p].y/cm, pos[p].x/cm);
 		x_y[0][6][p][binp]     ->Fill(pos[p].y/cm, pos[p].x/cm);
 		x_y_tot[0][sector][p]  ->Fill(pos[p].y/cm, pos[p].x/cm);
 		x_y_tot[0][6][p]       ->Fill(pos[p].y/cm, pos[p].x/cm);
 	}
 	
-	if(alloth["FID_XY"] == 1)
-	{
-		for(int p=0; p<5; p++)
-		{
+	if(alloth["FID_XY"] == 1) {
+		for(int p=0; p<5; p++) {
 			x_y[1][sector][p][binp]->Fill(pos[p].y/cm, pos[p].x/cm);
 			x_y[1][6][p][binp]     ->Fill(pos[p].y/cm, pos[p].x/cm);
 			x_y_tot[1][sector][p]  ->Fill(pos[p].y/cm, pos[p].x/cm);
@@ -77,10 +71,8 @@ void histos::fill(map<string, int> passed, particle e)
 		}
 	}
 	
-	if(othneg["FID_XY"] == 1)
-	{
-		for(int p=0; p<5; p++)
-		{
+	if(othneg["FID_XY"] == 1) {
+		for(int p=0; p<5; p++) {
 			x_y[2][sector][p][binp]->Fill(pos[p].y/cm, pos[p].x/cm);
 			x_y[2][6][p][binp]     ->Fill(pos[p].y/cm, pos[p].x/cm);
 			x_y_tot[2][sector][p]  ->Fill(pos[p].y/cm, pos[p].x/cm);
@@ -88,10 +80,8 @@ void histos::fill(map<string, int> passed, particle e)
 		}
 	}
 	
-	if(passed["PASSED"] == 1)
-	{
-		for(int p=0; p<5; p++)
-		{
+	if(passed["PASSED"] == 1) {
+		for(int p=0; p<5; p++) {
 			x_y[3][sector][p][binp]->Fill(pos[p].y/cm, pos[p].x/cm);
 			x_y[3][6][p][binp]     ->Fill(pos[p].y/cm, pos[p].x/cm);
 			x_y_tot[3][sector][p]  ->Fill(pos[p].y/cm, pos[p].x/cm);

@@ -16,8 +16,7 @@ chistos::chistos(string filename, int READ)
 	maxp   = 5.0;
 
 	dp = (maxp-minp)/NDIV_P;
-	for(int m=0; m<NDIV_P; m++)
-	{
+	for(int m=0; m<NDIV_P; m++) {
 		mom[m]  = minp + (m + 0.5)*dp;
 		mom2[m] = minp + (m + 1.0)*dp;
 	}
@@ -31,21 +30,16 @@ chistos::chistos(string filename, int READ)
 	double limyf2[5] = { 3.0, 10.0,  16.0, 28.0,  28.0};
 	
 	// Default: filename is output file
-	if(READ == 0)
-	{
+	if(READ == 0) {
 		output = NULL;
-		if(filename!= "none") 
-		{
+		if(filename!= "none") {
 			output = new TFile(filename.c_str(), "RECREATE");
 			cout << " Opening ROOT file " << filename << " for writing..." << endl;
 		}
 		
-		for(int s=0; s<7; s++)
-		{
-			for(int c=0; c<4; c++)
-			{
-				for(int p=0; p<5; p++)
-				{
+		for(int s=0; s<7; s++) {
+			for(int c=0; c<4; c++) {
+				for(int p=0; p<5; p++) {
 					x_y_tot[c][s][p] = new TH2F(Form("x_y_tot_plane%d_%s_sect%d",       p+1, cut[c].c_str(), s+1),
 														 Form("x vs y, plane %d, %s, sector %d", p+1, cut[c].c_str(), s+1),
 																400, x_min[p],                  x_max[p],
@@ -53,14 +47,12 @@ chistos::chistos(string filename, int READ)
 				}
 				
 				
-				for(int m=0; m<NDIV_P; m++)
-				{
+				for(int m=0; m<NDIV_P; m++) {
 					phi_theta[c][s][m] = new TH2F(Form("phi_theta_mom%d_%s_sect%d",                 m+1, cut[c].c_str(), s+1),
 															Form("phi vs theta, mom=%2.1f, %s, sector %d", mom[m], cut[c].c_str(), s+1),
 																	280, 24.0 - m*1.8, 65.0 - m*4.5, 240, -32+m, 32-m);
 				
-					for(int p=0; p<5; p++)
-					{
+					for(int p=0; p<5; p++) {
 						x_y[c][s][p][m] = new TH2F(Form("x_y_mom%d_plane%d_%s_sect%d",                   m+1, p+1, cut[c].c_str(), s+1),
 															Form("x vs y, mom=%2.1f, plane %d, %s, sector %d", mom[m], p+1, cut[c].c_str(), s+1),
 																	200, x_min[p]+m*limxf[p],  x_max[p]-m*limxf[p],
@@ -73,20 +65,22 @@ chistos::chistos(string filename, int READ)
 			// 2: after vzcuts
 			monitor[s]  = new TH1F(Form("monitor_sect%d", s+1), Form("Vtx monitor, sector %d", s+1), 2, 0, 2);
 		}
-	}
-	// Reading from Input file
-	else
-	{
-		if(filename!= "none") 
-		{
-			TFile f(filename.c_str());
+	} else {
+        // Reading from Input file
+		if(filename!= "none") {
+
+            // check if filename exists
+            std::filesystem::path p(filename);
+            if( ! std::filesystem::exists(p) ) {
+                cout << " File " << filename << " does not exist. Exiting..." << endl;
+                exit(1);
+            }
+
+            TFile f(filename.c_str());
 			cout << " Loading histos from: " << filename << endl;
-			for(int s=0; s<7; s++)
-			{
-				for(int c=0; c<4; c++)
-				{
-					for(int p=0; p<5; p++)
-					{
+			for(int s=0; s<7; s++) {
+				for(int c=0; c<4; c++) {
+					for(int p=0; p<5; p++) {
 						x_y_tot[c][s][p] = (TH2F*)f.Get(Form("x_y_tot_plane%d_%s_sect%d", p+1, cut[c].c_str(), s+1));
 						x_y_tot[c][s][p]->SetDirectory(0);
 						
@@ -104,12 +98,10 @@ chistos::chistos(string filename, int READ)
 						x_y_tot[c][s][p]->GetZaxis()->SetNdivisions(8);
 						x_y_tot[c][s][p]->SetMinimum(1);
 					}
-					for(int m=0; m<NDIV_P; m++)
-					{
+					for(int m=0; m<NDIV_P; m++) {
 						phi_theta[c][s][m] = (TH2F*)f.Get(Form("phi_theta_mom%d_%s_sect%d", m+1, cut[c].c_str(), s+1));
 						phi_theta[c][s][m]->SetDirectory(0);
-						for(int p=0; p<5; p++)
-						{
+						for(int p=0; p<5; p++) {
 							x_y[c][s][p][m] = (TH2F*)f.Get(Form("x_y_mom%d_plane%d_%s_sect%d", m+1, p+1, cut[c].c_str(), s+1));
 							x_y[c][s][p][m]->SetDirectory(0);
 							
@@ -133,9 +125,7 @@ chistos::chistos(string filename, int READ)
 				monitor[s]->SetDirectory(0);
 			}
 			f.Close();
-		}
-		else
-		{
+		} else {
 			cout << " No Input File selected. Exiting constructor..." << endl;
 			return;
 		}
@@ -144,8 +134,7 @@ chistos::chistos(string filename, int READ)
 
 void chistos::write_and_close()
 {
-	if(output)
-	{
+	if(output) {
 		cout << endl << " Writing ROOT file...  " << endl;
 		output->Write();
 		output->Close();
@@ -155,14 +144,15 @@ void chistos::write_and_close()
 // Reads Parameters and functions
 cpars::cpars(string filename)
 {
-	// DC are at 6 degrees, but projected slope is somehow less than tan(6) = 0.1051
+    parameter_file = filename;
+
+    // DC are at 6 degrees, but projected slope is somehow less than tan(6) = 0.1051
 	stereo_angle_slope = 0.064;
 	
-	ifstream parfile(filename.c_str(), ios::in);
-	cout << endl << " Opening parameter file " << filename << endl;
-	if(!parfile)
-	{
-		cout << " File " <<  filename << " could not be opened. " << endl;
+	ifstream parfile(parameter_file.c_str(), ios::in);
+	cout << endl << " Opening parameter file " << parameter_file << endl;
+	if(!parfile) {
+		cout << " File " <<  parameter_file << " could not be opened. " << endl;
 		cout << " Specify parameters file with -PARS_FILE=filename. Exiting. " << endl;
 		exit(0);
 	}
@@ -206,104 +196,56 @@ cpars::cpars(string filename)
 	YMIN[4][5] = -1.5;
 	
 	
-	while(getline( parfile, line))
-	{
+	while(getline( parfile, line)) {
 		istringstream cuts(line);
-		while(!cuts.eof())
-		{
+		while(!cuts.eof()) {
 			string al;
 			cuts >> al;
-			if(al == "C1:")
-			{
+			if(al == "C1:") {
 				for(int s=0; s<6; s++) cuts >> c1[s];
-			}
-			if(al == "C2:")
-			{
+			} else if(al == "C2:") {
 				for(int s=0; s<6; s++) cuts >> c2[s];
-			}
-			if(al == "C3:")
-			{
+			} else if(al == "C3:") {
 				for(int s=0; s<6; s++) cuts >> c3[s];
-			}
-			if(al == "C4:")
-			{
+			} else if(al == "C4:") {
 				for(int s=0; s<6; s++) cuts >> c4[s];
-			}
-			if(al == "C5:")
-			{
+			} else if(al == "C5:") {
 				for(int s=0; s<6; s++) cuts >> c5[s];
-			}
-			if(al == "C6:")
-			{
+			} else if(al == "C6:") {
 				for(int s=0; s<6; s++) cuts >> c6[s];
-			}
-			if(al == "R1_B_LEFT:")
-			{
+			} else if(al == "R1_B_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> r1_b_left[s];
-			}
-			if(al == "R1_B_RITE:")
-			{
+			} else if(al == "R1_B_RITE:") {
 				for(int s=0; s<6; s++) cuts >> r1_b_rite[s];
-			}
-			if(al == "R2_B_LEFT:")
-			{
+			} else if(al == "R2_B_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> r2_b_left[s];
-			}
-			if(al == "R2_B_RITE:")
-			{
+			} else if(al == "R2_B_RITE:") {
 				for(int s=0; s<6; s++) cuts >> r2_b_rite[s];
-			}
-			if(al == "R3_B_LEFT:")
-			{
+			} else if(al == "R3_B_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> r3_b_left[s];
-			}
-			if(al == "R3_B_RITE:")
-			{
+			} else if(al == "R3_B_RITE:") {
 				for(int s=0; s<6; s++) cuts >> r3_b_rite[s];
-			}
-			if(al == "SC_B_LEFT:")
-			{
+			} else if(al == "SC_B_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> sc_b_left[s];
-			}
-			if(al == "SC_B_RITE:")
-			{
+			} else if(al == "SC_B_RITE:") {
 				for(int s=0; s<6; s++) cuts >> sc_b_rite[s];
-			}
-			if(al == "R1_C_LEFT:")
-			{
+			} else if(al == "R1_C_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> r1_c_left[s];
-			}
-			if(al == "R1_C_RITE:")
-			{
+			} else if(al == "R1_C_RITE:") {
 				for(int s=0; s<6; s++) cuts >> r1_c_rite[s];
-			}
-			if(al == "R2_C_LEFT:")
-			{
+			} else if(al == "R2_C_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> r2_c_left[s];
-			}
-			if(al == "R2_C_RITE:")
-			{
+			} else if(al == "R2_C_RITE:") {
 				for(int s=0; s<6; s++) cuts >> r2_c_rite[s];
-			}
-			if(al == "R3_C_LEFT:")
-			{
+			} else if(al == "R3_C_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> r3_c_left[s];
-			}
-			if(al == "R3_C_RITE:")
-			{
+			} else if(al == "R3_C_RITE:") {
 				for(int s=0; s<6; s++) cuts >> r3_c_rite[s];
-			}
-			if(al == "SC_C_LEFT:")
-			{
+			} else if(al == "SC_C_LEFT:") {
 				for(int s=0; s<6; s++) cuts >> sc_c_left[s];
-			}
-			if(al == "SC_C_RITE:")
-			{
+			} else if(al == "SC_C_RITE:") {
 				for(int s=0; s<6; s++) cuts >> sc_c_rite[s];
-			}
-
-			if(al == "R1_AXIAL_LIMITS:")
-			{
+			} else if(al == "R1_AXIAL_LIMITS:") {
 				double tmp;
 				cuts >> tmp; r1_axial_limits.push_back(tmp);
 				addinfo = " > R1 Axial Hole in Sector: " + stringify(tmp);
@@ -314,9 +256,7 @@ cpars::cpars(string filename)
 				cuts >> tmp; r1_axial_limits.push_back(tmp);
 				addinfo += stringify(tmp);
 				addInfos.push_back(addinfo);
-			}
-			if(al == "R2_AXIAL_LIMITS:")
-			{
+			} else if(al == "R2_AXIAL_LIMITS:") {
 				double tmp;
 				cuts >> tmp; r2_axial_limits.push_back(tmp);
 				addinfo = " > R2 Axial Hole in Sector: " + stringify(tmp);
@@ -327,9 +267,7 @@ cpars::cpars(string filename)
 				cuts >> tmp; r2_axial_limits.push_back(tmp);
 				addinfo += stringify(tmp);
 				addInfos.push_back(addinfo);
-			}
-			if(al == "R3_AXIAL_LIMITS:")
-			{
+			} else if(al == "R3_AXIAL_LIMITS:") {
 				double tmp;
 				cuts >> tmp; r3_axial_limits.push_back(tmp);
 				addinfo = " > R3 Axial Hole in Sector: " + stringify(tmp);
@@ -340,9 +278,7 @@ cpars::cpars(string filename)
 				cuts >> tmp; r3_axial_limits.push_back(tmp);
 				addinfo += stringify(tmp);
 				addInfos.push_back(addinfo);
-			}
-			if(al == "SC_AXIAL_LIMITS:")
-			{
+			} else if(al == "SC_AXIAL_LIMITS:") {
 				double tmp;
 				cuts >> tmp; sc_axial_limits.push_back(tmp);
 				addinfo = " > SC Axial Hole in Sector: " + stringify(tmp);
@@ -353,10 +289,7 @@ cpars::cpars(string filename)
 				cuts >> tmp; sc_axial_limits.push_back(tmp);
 				addinfo += stringify(tmp);
 				addInfos.push_back(addinfo);
-			}
-			
-			if(al == "R1_STEREO_LIMITS:")
-			{
+			} else if(al == "R1_STEREO_LIMITS:") {
 				double tmp;
 				cuts >> tmp; r1_stereo_limits.push_back(tmp);
 				addinfo = " > R1 Stereo Hole in Sector: " + stringify(tmp);
@@ -367,9 +300,7 @@ cpars::cpars(string filename)
 				cuts >> tmp; r1_stereo_limits.push_back(tmp);
 				addinfo += stringify(tmp);
 				addInfos.push_back(addinfo);
-			}
-			if(al == "R2_STEREO_LIMITS:")
-			{
+			} else if(al == "R2_STEREO_LIMITS:") {
 				double tmp;
 				cuts >> tmp; r2_stereo_limits.push_back(tmp);
 				addinfo = " > R2 Stereo Hole in Sector: " + stringify(tmp);
@@ -380,9 +311,7 @@ cpars::cpars(string filename)
 				cuts >> tmp; r2_stereo_limits.push_back(tmp);
 				addinfo += stringify(tmp);
 				addInfos.push_back(addinfo);
-			}
-			if(al == "R3_STEREO_LIMITS:")
-			{
+			} else if(al == "R3_STEREO_LIMITS:") {
 				double tmp;
 				cuts >> tmp; r3_stereo_limits.push_back(tmp);
 				addinfo = " > R3 Stereo Hole in Sector: " + stringify(tmp);
@@ -393,9 +322,7 @@ cpars::cpars(string filename)
 				cuts >> tmp; r3_stereo_limits.push_back(tmp);
 				addinfo += stringify(tmp);
 				addInfos.push_back(addinfo);
-			}
-			if(al == "SC_STEREO_LIMITS:")
-			{
+			} else if(al == "SC_STEREO_LIMITS:") {
 				double tmp;
 				cuts >> tmp; sc_stereo_limits.push_back(tmp);
 				addinfo = " > SC Stereo Hole in Sector: " + stringify(tmp);
@@ -410,8 +337,7 @@ cpars::cpars(string filename)
 		}
 	}
 	addInfos.push_back(" > Theta vs Phi Cut Pars: ");
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		addinfo  = "   > S"  + stringify(s+1);
 		addinfo += "  C1: "  + stringify(c1[s]);
 		addinfo += "  C2: "  + stringify(c2[s]);
@@ -424,8 +350,7 @@ cpars::cpars(string filename)
 	
 	addInfos.push_back(" > XY XMIN positions: ");
 	addinfo  = "";
-	for(int p=0; p<5; p++)
-	{
+	for(int p=0; p<5; p++) {
 		addinfo += "   P" + stringify(p+1);
 		addinfo += ": "  + stringify(XMIN[p]);
 	}
@@ -440,8 +365,7 @@ cpars::cpars(string filename)
 	addInfos.push_back("   left:   x = a + b_left*y + c_left*y2");
 	addInfos.push_back("   right:  x = a + b_rite*y + c_rite*y2");
 	addInfos.push_back("   with parameter 'a' fixed to: XMIN - b YMIN - c YMIN*YMIN");
-	for(int s=0; s<6; s++)
-	{
+	for(int s=0; s<6; s++) {
 		addinfo  = "   > S" + stringify(s+1);
 		addinfo += "  R1 B left: "  + stringify(r1_b_left[s]);
 		addinfo += "  R1 B rite: "  + stringify(r1_b_rite[s]);
@@ -464,8 +388,7 @@ cpars::cpars(string filename)
 		addInfos.push_back(addinfo);
 	}
 
-	for(unsigned int ss=0; ss<addInfos.size(); ss++)
-		cout << addInfos[ss] << endl;
+	for(unsigned int ss=0; ss<addInfos.size(); ss++) { cout << addInfos[ss] << endl; }
 }
 
 void cpars::write_vars(string filename)
@@ -561,8 +484,7 @@ void cpars::write_vars(string filename)
 	for(int s=0; s<6; s++) {parfile.width(12) ; parfile << sc_c_rite[s] << " ";}
 	parfile << "   # XY parameters cuts for SC C RITE" << endl;
 
-	for(unsigned int c=0; c<r1_axial_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<r1_axial_limits.size()/3; c++) {
 		parfile << "R1_AXIAL_LIMITS:  " ;
 		parfile.width(3);
 		parfile << r1_axial_limits[c*3] << " ";
@@ -572,8 +494,7 @@ void cpars::write_vars(string filename)
 		parfile << r1_axial_limits[c*3+2] << " ";
 		parfile << "   # Sector, Min and Max X of R1 Axial Limits" << endl;
 	}
-	for(unsigned int c=0; c<r2_axial_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<r2_axial_limits.size()/3; c++) {
 		parfile << "R2_AXIAL_LIMITS:  " ;
 		parfile.width(3);
 		parfile << r2_axial_limits[c*3] << " ";
@@ -583,8 +504,7 @@ void cpars::write_vars(string filename)
 		parfile << r2_axial_limits[c*3+2] << " ";
 		parfile << "   # Sector, Min and Max X of R2 Axial Limits" << endl;
 	}
-	for(unsigned int c=0; c<r3_axial_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<r3_axial_limits.size()/3; c++) {
 		parfile << "R3_AXIAL_LIMITS:  " ;
 		parfile.width(3);
 		parfile << r3_axial_limits[c*3] << " ";
@@ -594,8 +514,7 @@ void cpars::write_vars(string filename)
 		parfile << r3_axial_limits[c*3+2] << " ";
 		parfile << "   # Sector, Min and Max X of R3 Axial Limits" << endl;
 	}
-	for(unsigned int c=0; c<sc_axial_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<sc_axial_limits.size()/3; c++) {
 		parfile << "SC_AXIAL_LIMITS:  " ;
 		parfile.width(3);
 		parfile << sc_axial_limits[c*3] << " ";
@@ -606,8 +525,7 @@ void cpars::write_vars(string filename)
 		parfile << "   # Sector, Min and Max X of SC Axial Limits" << endl;
 	}
 
-	for(unsigned int c=0; c<r1_stereo_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<r1_stereo_limits.size()/3; c++) {
 		parfile << "R1_STEREO_LIMITS: " ;
 		parfile.width(3);
 		parfile << r1_stereo_limits[c*3] << " ";
@@ -617,8 +535,7 @@ void cpars::write_vars(string filename)
 		parfile << r1_stereo_limits[c*3+2] << " ";
 		parfile << "   # Sector, Min and Max X of R1 Stereo Limits" << endl;
 	}
-	for(unsigned int c=0; c<r2_stereo_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<r2_stereo_limits.size()/3; c++) {
 		parfile << "R2_STEREO_LIMITS: " ;
 		parfile.width(3);
 		parfile << r2_stereo_limits[c*3] << " ";
@@ -628,8 +545,7 @@ void cpars::write_vars(string filename)
 		parfile << r2_stereo_limits[c*3+2] << " ";
 		parfile << "   # Sector, Min and Max X of R2 Stereo Limits" << endl;
 	}
-	for(unsigned int c=0; c<r3_stereo_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<r3_stereo_limits.size()/3; c++) {
 		parfile << "R3_STEREO_LIMITS: " ;
 		parfile.width(3);
 		parfile << r3_stereo_limits[c*3] << " ";
@@ -639,8 +555,7 @@ void cpars::write_vars(string filename)
 		parfile << r3_stereo_limits[c*3+2] << " ";
 		parfile << "   # Sector, Min and Max X of R3 Stereo Limits" << endl;
 	}
-	for(unsigned int c=0; c<sc_stereo_limits.size()/3; c++)
-	{
+	for(unsigned int c=0; c<sc_stereo_limits.size()/3; c++) {
 		parfile << "SC_STEREO_LIMITS: " ;
 		parfile.width(3);
 		parfile << sc_stereo_limits[c*3] << " ";
@@ -690,8 +605,7 @@ double cpars::xycut(int sector, int plane, double x, double y)
 	double a_left;
 	double a_rite;
 	
-	if(plane == 1)
-	{
+	if(plane == 1) {
 		a_left = XMIN[pl] - r1_b_left[s]*YMIN[pl][s] - r1_c_left[s]*YMIN[pl][s]*YMIN[pl][s];
 		a_rite = XMIN[pl] - r1_b_rite[s]*YMIN[pl][s] - r1_c_rite[s]*YMIN[pl][s]*YMIN[pl][s];
 		if(y<=0)
@@ -700,9 +614,7 @@ double cpars::xycut(int sector, int plane, double x, double y)
 		if(y>0)
 			if(x > a_rite + r1_b_rite[s]*y + r1_c_rite[s]*y*y)
 				return 1;
-	}
-	if(plane == 2)
-	{
+	} else if(plane == 2) {
 		a_left = XMIN[pl] - r2_b_left[s]*YMIN[pl][s] - r2_c_left[s]*YMIN[pl][s]*YMIN[pl][s];
 		a_rite = XMIN[pl] - r2_b_rite[s]*YMIN[pl][s] - r2_c_rite[s]*YMIN[pl][s]*YMIN[pl][s];
 		if(y<=0)
@@ -711,9 +623,7 @@ double cpars::xycut(int sector, int plane, double x, double y)
 		if(y>0)
 			if(x > a_rite + r2_b_rite[s]*y + r2_c_rite[s]*y*y)
 				return 1;
-	}
-	if(plane == 3)
-	{
+	} else if(plane == 3) {
 		a_left = XMIN[pl] - r3_b_left[s]*YMIN[pl][s] - r3_c_left[s]*YMIN[pl][s]*YMIN[pl][s];
 		a_rite = XMIN[pl] - r3_b_rite[s]*YMIN[pl][s] - r3_c_rite[s]*YMIN[pl][s]*YMIN[pl][s];
 		if(y<=0)
@@ -722,57 +632,42 @@ double cpars::xycut(int sector, int plane, double x, double y)
 		if(y>0)
 			if(x > a_rite + r3_b_rite[s]*y + r3_c_rite[s]*y*y)
 				return 1;
-	}
-	if(plane == 5)
-	{
+	} else if(plane == 5) {
 		a_left = XMIN[pl] - sc_b_left[s]*YMIN[pl][s] - sc_c_left[s]*YMIN[pl][s]*YMIN[pl][s];
 		a_rite = XMIN[pl] - sc_b_rite[s]*YMIN[pl][s] - sc_c_rite[s]*YMIN[pl][s]*YMIN[pl][s];
-		if(y<=0)
-			if(x > a_left + sc_b_left[s]*y + sc_c_left[s]*y*y)
-				return 1;
-		if(y>0)
-			if(x > a_rite + sc_b_rite[s]*y + sc_c_rite[s]*y*y)
-				return 1;
+		if(y<=0) {
+            if (x > a_left + sc_b_left[s] * y + sc_c_left[s] * y * y) { return 1; }
+        } else {
+            if (x > a_rite + sc_b_rite[s] * y + sc_c_rite[s] * y * y) { return 1; }
+        }
 	}
    return 0;
 }
 
 double cpars::xyholes(int sector, int plane, double x, double y)
 {
-	
-	if(plane == 1)
-	{
-		for(unsigned int c=0; c<r1_axial_limits.size()/3; c++)
-		{
-			if(sector == r1_axial_limits[c*3])
-			{
+	if(plane == 1) {
+		for(unsigned int c=0; c<r1_axial_limits.size()/3; c++) {
+			if(sector == r1_axial_limits[c*3]) {
 				double min_x = r1_axial_limits[c*3+1];
 				double max_x = r1_axial_limits[c*3+2];
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
-		for(unsigned int c=0; c<r1_stereo_limits.size()/3; c++)
-		{
-			if(sector == r1_stereo_limits[c*3])
-			{
+		for(unsigned int c=0; c<r1_stereo_limits.size()/3; c++) {
+			if(sector == r1_stereo_limits[c*3]) {
 				double min_x = r1_stereo_limits[c*3+1] - y*stereo_angle_slope;
 				double max_x = r1_stereo_limits[c*3+2] - y*stereo_angle_slope;
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
-	}
-	if(plane == 2)
-	{
-		for(unsigned int c=0; c<r2_axial_limits.size()/3; c++)
-		{
+	} else if(plane == 2) {
+		for(unsigned int c=0; c<r2_axial_limits.size()/3; c++) {
 			if(sector == r2_axial_limits[c*3])
 			{
 				double min_x = r2_axial_limits[c*3+1];
 				double max_x = r2_axial_limits[c*3+2];
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
 		for(unsigned int c=0; c<r2_stereo_limits.size()/3; c++)
@@ -781,54 +676,37 @@ double cpars::xyholes(int sector, int plane, double x, double y)
 			{
 				double min_x = r2_stereo_limits[c*3+1] - y*stereo_angle_slope;
 				double max_x = r2_stereo_limits[c*3+2] - y*stereo_angle_slope;
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
-	}
-	if(plane == 3)
-	{
-		for(unsigned int c=0; c<r3_axial_limits.size()/3; c++)
-		{
-			if(sector == r3_axial_limits[c*3])
-			{
+	} else if(plane == 3) {
+		for(unsigned int c=0; c<r3_axial_limits.size()/3; c++) {
+			if(sector == r3_axial_limits[c*3]) {
 				double min_x = r3_axial_limits[c*3+1];
 				double max_x = r3_axial_limits[c*3+2];
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
-		for(unsigned int c=0; c<r3_stereo_limits.size()/3; c++)
-		{
-			if(sector == r3_stereo_limits[c*3])
-			{
+		for(unsigned int c=0; c<r3_stereo_limits.size()/3; c++) {
+			if(sector == r3_stereo_limits[c*3]) {
 				double min_x = r3_stereo_limits[c*3+1] - y*stereo_angle_slope;
 				double max_x = r3_stereo_limits[c*3+2] - y*stereo_angle_slope;
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
-	}
-	if(plane == 5)
-	{
-		for(unsigned int c=0; c<sc_axial_limits.size()/3; c++)
-		{
-			if(sector == sc_axial_limits[c*3])
-			{
+	} else if(plane == 5) {
+		for(unsigned int c=0; c<sc_axial_limits.size()/3; c++) {
+			if(sector == sc_axial_limits[c*3]) {
 				double min_x = sc_axial_limits[c*3+1];
 				double max_x = sc_axial_limits[c*3+2];
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
-		for(unsigned int c=0; c<sc_stereo_limits.size()/3; c++)
-		{
-			if(sector == sc_stereo_limits[c*3])
-			{
+		for(unsigned int c=0; c<sc_stereo_limits.size()/3; c++) {
+			if(sector == sc_stereo_limits[c*3]) {
 				double min_x = sc_stereo_limits[c*3+1] - y*stereo_angle_slope;
 				double max_x = sc_stereo_limits[c*3+2] - y*stereo_angle_slope;
-				if(x > min_x && x < max_x)
-					return 0;
+				if(x > min_x && x < max_x) { return 0; }
 			}
 		}
 	}

@@ -19,8 +19,8 @@ e_fid = env.Program(source = e_fid_sources, target = 'e_fiducial')
 
 env.SharedLibrary(source = e_fid_sources, target = 'efid')
 
-ana_e_fid_sources = Split("""
-
-                          """)
-
-env.SharedLibrary(source = ana_e_fid_sources, target = 'ana_efid')
+# ana_e_fid_sources = Split("""
+#
+#                           """)
+#
+# env.SharedLibrary(source = ana_e_fid_sources, target = 'ana_efid')

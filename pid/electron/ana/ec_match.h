@@ -66,7 +66,6 @@ private:
     const double min_limit_sf = 0.65;  // Fit range x min
     const double max_limit_sf = 5.00;  // Fit range x max
 
-
     // functions based on parameters in Pars
     Double_t ecsf_Mean( Double_t *x, Double_t *par);
     Double_t ecsf_Sigma(Double_t *x, Double_t *par);

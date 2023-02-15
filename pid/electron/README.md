@@ -14,7 +14,7 @@
 - cut-12: nphe (not a cut)
 
 
-## Re-run e_pid to apply cut and create histograms:
+## Re-run e_pid to apply cuts and create histograms:
 
 Single file example:
 

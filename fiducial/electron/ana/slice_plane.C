@@ -44,7 +44,7 @@ void slice_plane()
 	int NBINS = H.x_y_tot[0][s][pl]->GetNbinsY();
 	int db = NBINS/NDIV_XY;
 	
-	double yb[NDIV_XY], ybe[NDIV_XY];	
+	double yb[FiducialCut::NDIV_XY], ybe[FiducialCut::NDIV_XY];
 	double dy = ( H.x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
 	
 	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin; b++)

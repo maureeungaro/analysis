@@ -1,28 +1,19 @@
-# Electron Identification
+# Electron Fiducial Cut
 
 ## Cuts
 
-- cut-01: theta match
-- cut-02: phi match
-- cut-03: time match
-- cut-04: ec threshold
-- cut-05: sampling fraction
-- cut-06,7,8: u,v,w
-- cut-09: 2d uvw (not a cut)
-- cut-10: EoVsEi (mip cut)
-- cut-11: shower shape
-- cut-12: nphe (not a cut)
+-
 
 
-## Re-run e_pid to apply cut and create histograms:
+## Re-run e_fid to apply cuts and create histograms:
 
 Single file example:
 
 ```
-./e_pid \
-/Volumes/e16/fullRuns/30540.mu \
+./e_fiducial \
+/Volumes/e16/vertex/30540.mu \
 -BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
--PARS_FILE=/opt/projects/analysis/pid/electron/electron_id_par.txt
+-PARS_FILE=/opt/projects/analysis/fiducial/electron/fiducial_par.txt
 ```
 
 
@@ -34,7 +25,7 @@ Single file example:
 
 ### Batch and print all plots:
 
-`root -b -q e_pid.C\(1\)`
+`root -b -q e_fid.C\(1\)`
 
 ## Create web pages based on the output of the analysis
 
@@ -42,7 +33,7 @@ Single file example:
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/cut-01-tmc_sector-1.png -imagesSize="1200 1200"
+-defaultPlot=img/01-tmc_sector-1.png -imagesSize="1200 1200"
 mv page.html cuts.html
 ```
 

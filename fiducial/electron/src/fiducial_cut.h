@@ -14,9 +14,7 @@ using namespace std;
 class fiducial_cut : public cpars
 {
 	public:
-		fiducial_cut(string filename) : cpars(filename)
-		{
-		}
+		fiducial_cut(string filename) : cpars(filename) { ; }
 		~fiducial_cut(){;}
 		
 		map<string, int> selection(particle);

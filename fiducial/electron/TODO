@@ -1,0 +1,3 @@
+- change cpars constructor to set filename
+- add check if filename exist in chistos
+

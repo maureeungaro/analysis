@@ -12,7 +12,7 @@ if [[ $1 == "-h" ]]; then
   exit
 fi
 
-mdir=/opt/projects/mauriplots/epid
+mdir=/opt/projects/mauriplots/eid
 
 export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
@@ -29,14 +29,14 @@ rm -f *.html
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/cut-01-tm_sector-1.png -imagesSize="1200 1200"
+-defaultPlot=img/01-tm_sector-1.png -imagesSize="1200 1200"
 mv page.html cuts.html
 
 rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=slice \
                                         -addColumnTableVariable=cut \
                                         -addSelectableVariable=sector \
--defaultPlot=img_slices/slice-01_cut-01-ts_sector-1.png \
+-defaultPlot=img_slices/slice-01_01-ts_sector-1.png \
 -imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
 
