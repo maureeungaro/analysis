@@ -1,32 +1,28 @@
-{
-//	string pars_file = "fiducial_par.txt";
-//	string root_file = "gsim.root";
-//	int GSIM         = 1;
+#include "TControlBar.h"
+#include "TApplication.h"
 
-	string pars_file = "fiducial_par.txt";
-	string root_file = "pass4.root";
-	int GSIM         = 0;
+// common parameters, analysis classes
+#include"ana/parameters.h"
 
-	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
-	#include "utilities.h"
+void e_pid(bool printa = false) {
 
-	gROOT->LoadMacro("src/common_info.cc");
-	gROOT->LoadMacro("ana/utils.C");
-	gROOT->LoadMacro("ana/show_phi_theta.C");
-	gROOT->LoadMacro("ana/show_phis.C");
-	gROOT->LoadMacro("ana/show_plane.C");
-	gROOT->LoadMacro("ana/slice_plane.C");
+    string type = "data";
 
+    string pars_file = data_pars_file;
+    string root_file = data_root_file;
 
-	string PRINT     = "";
-	int SECTOR       = 1;
-	int MOM          = 1;
-	int PLANE        = 1;
-	int LOGZ         = 0;
-	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
+    // if the first argument is the string 'gsim' then:
+    if (type == "gsim") {
+        pars_file = gsim_pars_file;
+        root_file = gsim_root_file;
+        data_label = "gsim";
+        is_simulation = true;
+    }
 
-	chistos H(root_file, 1);
-	cpars   Pars(pars_file);
+    // load common histos and parameters
+    // second parameters instructs to read the root file
+    H = new chistos(root_file, 1);
+    Pars = new cpars(pars_file);
 
 	// slices in momentum, theta
 	TH2F *phi_theta[4][7][H.NDIV_P];
@@ -43,8 +39,7 @@
 	TGraphErrors *y_right[7][5];
 	TF1 *left_para[7][5];
 	TF1 *rite_para[7][5];
-	// histos for 1D XY divisions.
-	const int NDIV_T = 24;
+
 	TH1F *phis_befor[7][5][H.NDIV_P][NDIV_T];
 	TH1F *phis_after[7][5][H.NDIV_P][NDIV_T];
 
