@@ -120,7 +120,7 @@ void print_all()
 
     print_phi_theta();
     print_phis();
-    
+
     PRINT = "none";
 }
 

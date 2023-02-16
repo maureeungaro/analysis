@@ -1,8 +1,17 @@
-void show_plane()
+#include "fiducial.h"
+
+// root
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TLatex.h"
+#include "TCanvas.h"
+#include "TPaletteAxis.h"
+
+void FiducialCut::show_plane(int sector, int mom, int plane)
 {
-	int s  = SECTOR - 1;
-	int m  = MOM - 1;
-	int pl = PLANE - 1;
+	int s  = sector - 1;
+	int m  = mom - 1;
+	int pl = plane - 1;
 	
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.14);
@@ -12,8 +21,7 @@ void show_plane()
 	TLatex lab;
 	lab.SetNDC();
 	
-	for(int c=0; c<4; c++)
-	{
+	for(int c=0; c<4; c++) {
 		H->x_y[c][s][pl][m]->GetXaxis()->SetTitleSize(0.052);
 		H->x_y[c][s][pl][m]->GetXaxis()->SetTitleOffset(1.14);
 		H->x_y[c][s][pl][m]->GetYaxis()->SetTitleSize(0.054);
@@ -21,8 +29,7 @@ void show_plane()
 		H->x_y[c][s][pl][m]->GetXaxis()->SetLabelSize(0.042);
 		H->x_y[c][s][pl][m]->GetYaxis()->SetLabelSize(0.042);
 		H->x_y[c][s][pl][m]->GetZaxis()->SetNdivisions(8);
-		if(s == 6)
-		{
+		if(s == 6) {
 			H->x_y[c][s][pl][m]->GetXaxis()->SetTitleOffset(1.1);
 		}
 	}
@@ -34,15 +41,13 @@ void show_plane()
 	Px_yS->Draw();
 	
 	TPaletteAxis *palette;
-	for(int c=0; c<4; c++)
-	{
+	for(int c=0; c<4; c++) {
 		Px_yS->cd(c+1);
 		H->x_y[c][s][pl][m]->Draw("colz");
 		draw_limits();
 		Cx_yS->Update();
 		palette = (TPaletteAxis*)H->x_y[c][s][pl][m]->FindObject("palette");
-		if(palette)
-		{
+		if(palette) {
 			palette->SetLabelSize(0.035);
 			palette->SetLabelOffset(0.01);
 			palette->SetX1NDC(0.88);
@@ -55,24 +60,17 @@ void show_plane()
 		lab.SetTextColor(colors[c]);
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.050);
-		if(c==0) 
-		{
+		if(c==0) {
 			lab.DrawLatex(0.16, 0.91,  "a. no cuts applied");
-		}
-		if(c==1)
-		{
+		} else if(c==1) {
 			lab.DrawLatex(0.16, 0.91,  "b. #phi vs #theta cuts applied");
-			lab.DrawLatex(0.59, 0.18,  Form("b. / a. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
-		}
-		if(c==2) 
-		{
+			lab.DrawLatex(0.59, 0.18,  Form("b. / a. : %3.1f%%",  100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
+		} else if(c==2) {
 			lab.DrawLatex(0.16, 0.91,  "c. #phi vs #theta negative cuts applied");
-			lab.DrawLatex(0.59, 0.18,  Form("c. / a. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
-		}
-		if(c==3) 
-		{
+			lab.DrawLatex(0.59, 0.18,  Form("c. / a. : %3.1f%%",  100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
+		} else if(c==3) {
 			lab.DrawLatex(0.16, 0.91,  "d. plane cuts applied");
-			lab.DrawLatex(0.59, 0.22,  Form("d. / a. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
+			lab.DrawLatex(0.59, 0.22,  Form("d. / a. : %3.1f%%",  100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[0][s][pl][m]->GetEntries()));
 			lab.DrawLatex(0.575, 0.17,  Form("d. / b. : %3.1f%%", 100.0*H->x_y[c][s][pl][m]->GetEntries()/H->x_y[1][s][pl][m]->GetEntries()));
 		}
 	}
@@ -85,16 +83,15 @@ void show_plane()
 	lab.SetTextSize(0.035);
 	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - %s -  p:%3.1f#pm%3.2f GeV", SECTOR, planes[pl].c_str(), H->mom[m], H->dp/2));
 
-	if(PRINT != "") 
-	{
-		Cx_yS->Print( Form("X_vs_Y_cuts_m%d_sect%d_plane%s.%s", m+1, s+1, planes2[pl].c_str(), PRINT.c_str()) );
+	if(PRINT != "none") {
+		Cx_yS->Print( Form("img/X_vs_Y_cuts_m%d_sector%d_plane%s%s", m+1, s+1, planes2[pl].c_str(), PRINT.c_str()) );
 	}
 }
 
-void show_planes()
+void show_planes(int sector, int plane)
 {
-	int s  = SECTOR - 1;
-	int pl = PLANE - 1;
+	int s  = sector - 1;
+	int pl = plane - 1;
 	
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.14);
@@ -113,16 +110,14 @@ void show_planes()
 	lab.SetTextSize(0.08);
 	lab.SetTextColor(kBlue+3);
 	TPaletteAxis *palette;
-	for(int m=0; m<chistos::NDIV_P; m++)
-	{
+	for(int m=0; m<chistos::NDIV_P; m++) {
 		Px_yS->cd(m+1);
 		if(LOGZ) Px_yS->SetLogz();
 		H->x_y[0][s][pl][m]->SetMinimum(1);
 		H->x_y[0][s][pl][m]->Draw("colz");
 		Cx_ysS->Update();
 		palette = (TPaletteAxis*)H->x_y[0][s][pl][m]->FindObject("palette");
-		if(palette)
-		{
+		if(palette) {
 			palette->SetLabelSize(0.08);
 			palette->SetLabelOffset(0.01);
 			palette->SetX1NDC(0.88);
@@ -131,8 +126,7 @@ void show_planes()
 		}
 		lab.DrawLatex(0.28, 0.94,  Form("momentum: %3.2f #leq p #leq %3.2f GeV", H->mom[m]-H->dp/2, H->mom[m]+H->dp/2 ) );
 
-		if(PLANE != 4)
-		{
+		if(PLANE != 4) {
 			left_para[s][pl]->Draw("same");
 			rite_para[s][pl]->Draw("same");
 		}
@@ -147,15 +141,17 @@ void show_planes()
 	lab.SetTextSize(0.035);
 	lab.DrawLatex(0.1, 0.95,  Form("X vs Y Sector %d, Coordinates in %s ", SECTOR, planes[pl].c_str()));
 
-	if(PRINT != "")
-	{
-		Cx_ysS->Print( Form("X_vs_Y_sect%d_plane%s.%s", s+1, planes2[pl].c_str(), PRINT.c_str()) );
+	if(PRINT != "none") {
+		Cx_ysS->Print( Form("img/X_vs_Y_sect%d_plane%s%s", s+1, planes2[pl].c_str(), PRINT.c_str()) );
 	}
 }
 
 
-void show_integrated_plane()
+void FiducialCut::show_integrated_plane(int sector, int plane)
 {
+    int s  = sector - 1;
+    int pl = plane - 1;
+
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.14);
 	gStyle->SetPadTopMargin(0.1);
@@ -163,9 +159,6 @@ void show_integrated_plane()
 	
 	TLatex lab;
 	lab.SetNDC();
-	
-	int s  = SECTOR - 1;
-	int pl = PLANE - 1;
 	
 	Cx_yIS = new TCanvas(Form("Cx_yIS%d", s+1), Form("Cx_yIS%d", s+1), 700, 700);
 	TPad    *Px_yIS = new TPad(Form("Px_yIS%d", s+1), Form("Px_yIS%d", s+1), 0.02, 0.00,  0.98, 0.90);
@@ -176,20 +169,17 @@ void show_integrated_plane()
 	H->x_y_tot[0][s][pl]->Draw("colz");
 	Cx_yIS->Update();
 	palette = (TPaletteAxis*)H->x_y_tot[0][s][pl]->FindObject("palette");
-	if(palette)
-	{
+	if(palette) {
 		palette->SetLabelOffset(0.01);
 		palette->SetX1NDC(0.87);
 		palette->SetX2NDC(0.91);
 	}
-	if(y_left[s][pl] && PLANE != 4)
-	{
+	if(y_left[s][pl] && PLANE != 4) {
 		y_left[s][pl]->Draw("P");
 		y_right[s][pl]->Draw("P");
 	}
 	
-	if(PLANE != 4)
-	{
+	if(PLANE != 4) {
 		left_para[s][pl]->Draw("same");
 		rite_para[s][pl]->Draw("same");
 	}
@@ -204,14 +194,12 @@ void show_integrated_plane()
 	lab.SetTextSize(0.04);
 	lab.DrawLatex(0.08, 0.94,  Form("X vs Y Sector %d, Coordinates in %s ", SECTOR, planes[pl].c_str()));
 
-	if(PRINT != "")
-	{
-		Cx_yIS->Print( Form("X_vs_Y_integrated_sect%d_plane%s.%s", s+1, planes2[pl].c_str(), PRINT.c_str()) );
+	if(PRINT != "none") {
+		Cx_yIS->Print( Form("img/X_vs_Y_integrated_sect%d_plane%s.%s", s+1, planes2[pl].c_str(), PRINT.c_str()) );
 	}
 
 
-	if(y_left[s][pl] && PLANE != 4)
-		Cx_yIS->AddExec("dynamic","DynamicExec()");
+//	if(y_left[s][pl] && PLANE != 4) { Cx_yIS->AddExec("dynamic", "DynamicExec()"); }
 
 	
 }
@@ -256,7 +244,7 @@ void DynamicExec()
 
 
 
-void DrawFit(int s, int pl, int hid)
+void FiducialCut::DrawFit(int s, int pl, int hid)
 {
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.16);

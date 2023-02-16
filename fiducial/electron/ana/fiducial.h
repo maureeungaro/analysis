@@ -32,7 +32,7 @@ public:
     void show_phi_theta(int sector, int mom);
     void show_phi_thetas(int sector, int which);
     void show_phis(int sector, int mom, int plane);
-
+    void show_plane(int sector, int mom, int plane);
 
 private:
 
