@@ -51,20 +51,47 @@ void switch_logz()
 }
 
 
+void print_phi_theta()
+{
+    activate_PRINT();
+
+    for(int s=0; s<6; s++) {
+        SECTOR = s+1;
+        for(int p=0; p<chistos::NDIV_P; p++) {
+            MOM = p+1;
+            Fiducial->show_phi_theta(SECTOR, MOM);
+        }
+        Fiducial->show_phi_thetas(SECTOR, 0);
+        Fiducial->show_phi_thetas(SECTOR, 3);
+    }
+
+}
+
+void print_phis()
+{
+    activate_PRINT();
+
+    for(int s=0; s<6; s++) {
+        SECTOR = s+1;
+        for(int p=0; p<chistos::NDIV_P; p++) {
+            MOM = p+1;
+            Fiducial->show_phis(SECTOR, MOM, PLANE);
+        }
+        Fiducial->show_phi_thetas(SECTOR, 0);
+        Fiducial->show_phi_thetas(SECTOR, 3);
+    }
+
+}
 
 
-
-//void print_all()
 //{
-//	PRINT = "png";
 //	for(int s=0; s<6; s++)
 //	{
 //		SECTOR = s+1;
 //		for(int p=0; p<chistos::NDIV_P; p++)
 //		{
 //			MOM = p+1;
-////			show_phi_theta();
-//			show_phis();
+////
 ////			for(int pl=1; pl<6; pl++)
 ////			{
 ////				if(pl == 4) continue;
@@ -72,8 +99,6 @@ void switch_logz()
 ////				show_plane();
 ////			}
 //		}
-////		show_phi_thetas(0);  // all phi vs theta before
-////		show_phi_thetas(1);
 ////		for(int pl=1; pl<6; pl++)
 ////		{
 ////			if(pl == 4) continue;
@@ -86,16 +111,16 @@ void switch_logz()
 //			}*/
 ////		}
 //	}
-//	PRINT = "";
-//}
+
 
 
 void print_all()
 {
     cout << " > Printing all histograms " << endl;
 
-
-
+    print_phi_theta();
+    print_phis();
+    
     PRINT = "none";
 }
 

@@ -88,7 +88,6 @@ void print_cc_match()
     }
     CCMatch->show_npe_all_sectors();
 
-
 }
 
 
@@ -153,8 +152,6 @@ void print_ec_match() {
         ECMatch->show_EinEtot(SECTOR);
     }
     ECMatch->show_EinEtot_all_sectors();
-
-
 
 }
 
@@ -306,7 +303,6 @@ void print_summary() {
     if(PRINT != "none") {
         Csum->Print(  Form("img/epidsummary%s", PRINT.c_str()) );
     }
-
 
 }
 

@@ -1,8 +1,17 @@
-void show_phis()
+#include "fiducial.h"
+
+// root
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TLatex.h"
+#include "TCanvas.h"
+//#include "TPaletteAxis.h"
+
+void FiducialCut::show_phis(int sector, int mom, int plane)
 {
-	int s  = SECTOR - 1;
-	int m  = MOM - 1;
-	int pl = PLANE - 1;
+	int s  = sector - 1;
+	int m  = mom - 1;
+	int pl = plane - 1;
 	
 	gStyle->SetPadLeftMargin(0.12);
 	gStyle->SetPadRightMargin(0.12);
@@ -24,13 +33,12 @@ void show_phis()
 	int NBINS        = H->phi_theta[0][s][m]->GetNbinsX();
 	int DB =  NBINS/NDIV_T; 
 	
-	double theta_min =  H->phi_theta[0][s][m]->GetXaxis()->GetXmin();
-	double theta_max =  H->phi_theta[0][s][m]->GetXaxis()->GetXmax();
+//	double theta_min =  H->phi_theta[0][s][m]->GetXaxis()->GetXmin();
+//	double theta_max =  H->phi_theta[0][s][m]->GetXaxis()->GetXmax();
 	
 	
-	TPaletteAxis *palette;
-	for(int t=0; t<NDIV_T; t++)
-	{
+	//TPaletteAxis *palette;
+	for(int t=0; t<NDIV_T; t++) {
 		H->phi_theta[0][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_befor", t+1, s+1, m+1), t*DB, (t+1)*DB);
 		H->phi_theta[3][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_after", t+1, s+1, m+1), t*DB, (t+1)*DB);
 		phis_befor[s][pl][m][t] = (TH1F*)gROOT->Get(Form("theta_slice_theta%d_s%d_m%d_befor", t+1, s+1, m+1));
@@ -49,7 +57,6 @@ void show_phis()
 		phis_befor[s][pl][m][t]->GetXaxis()->SetNdivisions(10);
 		phis_befor[s][pl][m][t]->GetYaxis()->SetNdivisions(5);
 
-		
 		PphisS->cd(t+1);
 		
 		phis_befor[s][pl][m][t]->Draw();
@@ -65,18 +72,19 @@ void show_phis()
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.035);
-	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - Momentum: %3.1f#pm%3.2f GeV", SECTOR, H->mom[m], H->dp/2));
+	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - Momentum: %3.1f#pm%3.2f GeV", sector, H->mom[m], H->dp/2));
 
 	lab.SetTextFont(42);
 	lab.DrawLatex(0.1, 0.02, "                        #leftarrow          #phi  [degrees]           #rightarrow ");
 	
 	
-	if(PRINT != "") 
-	if(m>=9) {
-		CphisS->Print( Form("img/mom-%d_sect-%d_plot-phi.%s", m+1, s+1, PRINT.c_str()) );
-	} else {
-		CphisS->Print( Form("img/mom-0%d_sect-%d_plot-phi.%s", m+1, s+1, PRINT.c_str()) );
-	}
+	if(PRINT != "none") {
+        if (m >= 9) {
+            CphisS->Print(Form("img/mom-%d_sector-%d_plot-phi%s", m + 1, s + 1, PRINT.c_str()));
+        } else {
+            CphisS->Print(Form("img/mom-0%d_sector-%d_plot-phi%s", m + 1, s + 1, PRINT.c_str()));
+        }
+    }
 
 }
 

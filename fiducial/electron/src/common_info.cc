@@ -41,22 +41,22 @@ chistos::chistos(string filename, int READ)
 			for(int c=0; c<4; c++) {
 				for(int p=0; p<5; p++) {
 					x_y_tot[c][s][p] = new TH2F(Form("x_y_tot_plane%d_%s_sect%d",       p+1, cut[c].c_str(), s+1),
-														 Form("x vs y, plane %d, %s, sector %d", p+1, cut[c].c_str(), s+1),
-																400, x_min[p],                  x_max[p],
-					  										400, y_min[p]-NDIV_P*limyf1[p], y_max[p]);
+                                                Form("x vs y, plane %d, %s, sector %d", p+1, cut[c].c_str(), s+1),
+                                                400, x_min[p],                  x_max[p],
+                                                400, y_min[p]-NDIV_P*limyf1[p], y_max[p]);
 				}
 				
 				
 				for(int m=0; m<NDIV_P; m++) {
 					phi_theta[c][s][m] = new TH2F(Form("phi_theta_mom%d_%s_sect%d",                 m+1, cut[c].c_str(), s+1),
-															Form("phi vs theta, mom=%2.1f, %s, sector %d", mom[m], cut[c].c_str(), s+1),
-																	280, 24.0 - m*1.8, 65.0 - m*4.5, 240, -32+m, 32-m);
+                                                  Form("phi vs theta, mom=%2.1f, %s, sector %d", mom[m], cut[c].c_str(), s+1),
+                                                  280, 24.0 - m*1.8, 65.0 - m*4.5, 240, -32+m, 32-m);
 				
 					for(int p=0; p<5; p++) {
 						x_y[c][s][p][m] = new TH2F(Form("x_y_mom%d_plane%d_%s_sect%d",                   m+1, p+1, cut[c].c_str(), s+1),
-															Form("x vs y, mom=%2.1f, plane %d, %s, sector %d", mom[m], p+1, cut[c].c_str(), s+1),
-																	200, x_min[p]+m*limxf[p],  x_max[p]-m*limxf[p],
-																	200, y_min[p]-m*limyf1[p], y_max[p]-m*limyf2[p]);
+                                                   Form("x vs y, mom=%2.1f, plane %d, %s, sector %d", mom[m], p+1, cut[c].c_str(), s+1),
+                                                   200, x_min[p]+m*limxf[p],  x_max[p]-m*limxf[p],
+                                                   200, y_min[p]-m*limyf1[p], y_max[p]-m*limyf2[p]);
 					}
 				}
 			}

@@ -7,7 +7,6 @@
 #include "TCanvas.h"
 #include "TPaletteAxis.h"
 
-
 void FiducialCut::show_phi_theta(int sector, int mom)
 {
 	int s = sector - 1;

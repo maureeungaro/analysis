@@ -23,6 +23,7 @@ ana_e_fid_sources = Split("""
  					         src/common_info.cc
                              ana/fiducial.cc
                              ana/show_phi_theta.cc
+                             ana/show_phis.cc
                           """)
 
 

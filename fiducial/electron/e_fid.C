@@ -37,7 +37,7 @@ void e_fid(bool printa = false) {
 	bar->AddButton("Show phi vs theta",                      "Fiducial->show_phi_theta(SECTOR, MOM)");
 	bar->AddButton("Show phi vs theta in p bins - before",   "Fiducial->show_phi_thetas(SECTOR, 0)");
 	bar->AddButton("Show phi vs theta in p bins - after",    "Fiducial->show_phi_thetas(SECTOR, 3)");
-//	bar->AddButton("Show phis"            ,                  "Fiducial->show_phis()");
+	bar->AddButton("Show phis"            ,                  "Fiducial->show_phis(SECTOR, MOM, PLANE)");
 	bar->AddButton("","");
 //	bar->AddButton("Show y vs x in current plane",  "show_plane()");
 //	bar->AddButton("Show y vs x in current planes", "show_planes()");
