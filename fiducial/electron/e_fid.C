@@ -40,8 +40,8 @@ void e_fid(bool printa = false) {
 	bar->AddButton("Show phis"            ,                  "Fiducial->show_phis(SECTOR, MOM, PLANE)");
 	bar->AddButton("","");
 	bar->AddButton("Show y vs x in current plane",  "Fiducial->show_plane(SECTOR, MOM, PLANE)");
-	bar->AddButton("Show y vs x in all planes", "Fiducial->show_planes(SECTOR, MOM)");
-	bar->AddButton("Show y vs x for all momenta",   "Fiducial->show_integrated_plane(SECTOR, MOM)");
+	bar->AddButton("Show y vs x in all planes", "Fiducial->show_planes(SECTOR, PLANE)");
+	bar->AddButton("Show y vs x for all momenta",   "Fiducial->show_integrated_plane(SECTOR, PLANE)");
 	bar->AddButton("","");
 	bar->AddButton("Slice this plane",              "slice_plane()");
 	bar->AddButton("Slice all Planes",              "slice_all_planes()");

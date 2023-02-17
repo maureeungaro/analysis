@@ -22,6 +22,9 @@ public:
     // histos for 1D XY divisions.
     static const int NDIV_XY = 15;
 
+    // number of planes
+    //static const int NDIV_ = 15;
+
     // constructor using chisto and cpars
     FiducialCut(chistos *common_histo, cpars *common_pars, string P, const Color_t colors[4], bool logz);
 
