@@ -48,6 +48,7 @@ void switch_logz()
 {
     if(LOGZ==0) LOGZ = 1;
     else        LOGZ = 0;
+    Fiducial->set_logz(LOGZ);
 }
 
 

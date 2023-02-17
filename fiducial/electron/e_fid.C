@@ -24,7 +24,7 @@ void e_fid(bool printa = false) {
     Pars = new cpars(pars_file);
 
     // Fiducial Cut Class
-    Fiducial = new FiducialCut(H, Pars, PRINT, colors);
+    Fiducial = new FiducialCut(H, Pars, PRINT, colors, LOGZ);
 
     // load utils.C
     gROOT->ProcessLine(".L ana/utils.C");
@@ -39,14 +39,14 @@ void e_fid(bool printa = false) {
 	bar->AddButton("Show phi vs theta in p bins - after",    "Fiducial->show_phi_thetas(SECTOR, 3)");
 	bar->AddButton("Show phis"            ,                  "Fiducial->show_phis(SECTOR, MOM, PLANE)");
 	bar->AddButton("","");
-//	bar->AddButton("Show y vs x in current plane",  "show_plane()");
-//	bar->AddButton("Show y vs x in current planes", "show_planes()");
-//	bar->AddButton("Show y vs x for all momenta",   "show_integrated_plane()");
-//	bar->AddButton("","");
-//	bar->AddButton("Slice this plane",              "slice_plane()");
-//	bar->AddButton("Slice all Planes",              "slice_all_planes()");
-//	bar->AddButton("","");
-//	bar->AddButton("","");
+	bar->AddButton("Show y vs x in current plane",  "Fiducial->show_plane(SECTOR, MOM, PLANE)");
+	bar->AddButton("Show y vs x in all planes", "Fiducial->show_planes(SECTOR, MOM)");
+	bar->AddButton("Show y vs x for all momenta",   "Fiducial->show_integrated_plane(SECTOR, MOM)");
+	bar->AddButton("","");
+	bar->AddButton("Slice this plane",              "slice_plane()");
+	bar->AddButton("Slice all Planes",              "slice_all_planes()");
+	bar->AddButton("","");
+	bar->AddButton("","");
 
 
     bar->AddButton("", "");

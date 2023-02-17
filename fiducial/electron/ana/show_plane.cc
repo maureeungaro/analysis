@@ -6,6 +6,7 @@
 #include "TLatex.h"
 #include "TCanvas.h"
 #include "TPaletteAxis.h"
+#include "TVirtualX.h"
 
 void FiducialCut::show_plane(int sector, int mom, int plane)
 {
@@ -44,8 +45,8 @@ void FiducialCut::show_plane(int sector, int mom, int plane)
 	for(int c=0; c<4; c++) {
 		Px_yS->cd(c+1);
 		H->x_y[c][s][pl][m]->Draw("colz");
-		draw_limits();
-		Cx_yS->Update();
+        draw_limits(sector, plane);
+        Cx_yS->Update();
 		palette = (TPaletteAxis*)H->x_y[c][s][pl][m]->FindObject("palette");
 		if(palette) {
 			palette->SetLabelSize(0.035);
@@ -81,14 +82,14 @@ void FiducialCut::show_plane(int sector, int mom, int plane)
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.035);
-	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - %s -  p:%3.1f#pm%3.2f GeV", SECTOR, planes[pl].c_str(), H->mom[m], H->dp/2));
+	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - %s -  p:%3.1f#pm%3.2f GeV", sector, planes[pl].c_str(), H->mom[m], H->dp/2));
 
 	if(PRINT != "none") {
 		Cx_yS->Print( Form("img/X_vs_Y_cuts_m%d_sector%d_plane%s%s", m+1, s+1, planes2[pl].c_str(), PRINT.c_str()) );
 	}
 }
 
-void show_planes(int sector, int plane)
+void FiducialCut::show_planes(int sector, int plane)
 {
 	int s  = sector - 1;
 	int pl = plane - 1;
@@ -105,8 +106,7 @@ void show_planes(int sector, int plane)
 	TPad    *Px_yS = new TPad(Form("Px_yS%d", s+1), Form("Px_yS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Px_yS->Divide(2, 5);
 	Px_yS->Draw();
-	
-	
+
 	lab.SetTextSize(0.08);
 	lab.SetTextColor(kBlue+3);
 	TPaletteAxis *palette;
@@ -126,11 +126,11 @@ void show_planes(int sector, int plane)
 		}
 		lab.DrawLatex(0.28, 0.94,  Form("momentum: %3.2f #leq p #leq %3.2f GeV", H->mom[m]-H->dp/2, H->mom[m]+H->dp/2 ) );
 
-		if(PLANE != 4) {
+		if(plane != 4) {
 			left_para[s][pl]->Draw("same");
 			rite_para[s][pl]->Draw("same");
 		}
-		draw_limits();
+        draw_limits(sector, plane);
 	}
 	
 	string planes[5]  = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
@@ -139,7 +139,7 @@ void show_planes(int sector, int plane)
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.035);
-	lab.DrawLatex(0.1, 0.95,  Form("X vs Y Sector %d, Coordinates in %s ", SECTOR, planes[pl].c_str()));
+	lab.DrawLatex(0.1, 0.95,  Form("X vs Y Sector %d, Coordinates in %s ", sector, planes[pl].c_str()));
 
 	if(PRINT != "none") {
 		Cx_ysS->Print( Form("img/X_vs_Y_sect%d_plane%s%s", s+1, planes2[pl].c_str(), PRINT.c_str()) );
@@ -159,8 +159,8 @@ void FiducialCut::show_integrated_plane(int sector, int plane)
 	
 	TLatex lab;
 	lab.SetNDC();
-	
-	Cx_yIS = new TCanvas(Form("Cx_yIS%d", s+1), Form("Cx_yIS%d", s+1), 700, 700);
+
+    TCanvas *Cx_yIS = new TCanvas(Form("Cx_yIS%d", s+1), Form("Cx_yIS%d", s+1), 700, 700);
 	TPad    *Px_yIS = new TPad(Form("Px_yIS%d", s+1), Form("Px_yIS%d", s+1), 0.02, 0.00,  0.98, 0.90);
 	Px_yIS->Draw();
 
@@ -174,17 +174,17 @@ void FiducialCut::show_integrated_plane(int sector, int plane)
 		palette->SetX1NDC(0.87);
 		palette->SetX2NDC(0.91);
 	}
-	if(y_left[s][pl] && PLANE != 4) {
+	if(y_left[s][pl] && plane != 4) {
 		y_left[s][pl]->Draw("P");
 		y_right[s][pl]->Draw("P");
 	}
 	
-	if(PLANE != 4) {
+	if(plane != 4) {
 		left_para[s][pl]->Draw("same");
 		rite_para[s][pl]->Draw("same");
 	}
 
-	draw_limits();
+    draw_limits(sector, plane);
 
 	string planes[5]  = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
 	string planes2[5] = {"DC1_Plane", "DC2_Plane", "DC3_Plane", "EC_Plane", "SC_Plane"};
@@ -192,10 +192,10 @@ void FiducialCut::show_integrated_plane(int sector, int plane)
 	lab.SetTextFont(102);
 	lab.SetTextColor(kBlack);
 	lab.SetTextSize(0.04);
-	lab.DrawLatex(0.08, 0.94,  Form("X vs Y Sector %d, Coordinates in %s ", SECTOR, planes[pl].c_str()));
+	lab.DrawLatex(0.08, 0.94,  Form("X vs Y Sector %d, Coordinates in %s ", sector, planes[pl].c_str()));
 
 	if(PRINT != "none") {
-		Cx_yIS->Print( Form("img/X_vs_Y_integrated_sect%d_plane%s.%s", s+1, planes2[pl].c_str(), PRINT.c_str()) );
+		Cx_yIS->Print( Form("img/X_vs_Y_integrated_sect%d_plane%s%s", s+1, planes2[pl].c_str(), PRINT.c_str()) );
 	}
 
 
@@ -204,21 +204,20 @@ void FiducialCut::show_integrated_plane(int sector, int plane)
 	
 }
 
-void DynamicExec()
+void FiducialCut::DynamicExec(int sector, int plane)
 {
-
-	int s = SECTOR - 1;
-	int pl = PLANE - 1;
+	int s = sector - 1;
+	int pl = plane - 1;
 
 	TObject *select = gPad->GetSelected();
 	if(!select) return;
 	if (!select->InheritsFrom("TH2")) {gPad->SetUniqueID(0); return;}
-	TH2 *h = (TH2*)select;
+	//TH2 *h = (TH2*)select;
 	gPad->GetCanvas()->FeedbackMode(kTRUE);
 
    // erase old position and draw a line at current position
 	int pyold = gPad->GetUniqueID();
-	int px    = gPad->GetEventX();
+	//int px    = gPad->GetEventX();
 	int py    = gPad->GetEventY();
 
 	float uxmin = gPad->GetUxmin();
@@ -279,7 +278,6 @@ void FiducialCut::DrawFit(int s, int pl, int hid)
 	{
 		
 		y_slice[s][pl][hid]->Draw();
-		
 
 		y_slice[s][pl][hid]->GetXaxis()->SetTitleOffset(1.3);
 		double pmin = H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + hid*dy;
@@ -290,7 +288,7 @@ void FiducialCut::DrawFit(int s, int pl, int hid)
 		lab.DrawLatex(0.22, 0.92,  Form("Y coordinates on %s", planes[pl].c_str()));
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.04);
-		lab.DrawLatex(0.66, 0.82,  Form("Sector %d", SECTOR));
+		lab.DrawLatex(0.66, 0.82,  Form("Sector %d", s+1));
 		lab.DrawLatex(0.60, 0.76,  Form("x = %3.1f - %3.1f cm", pmin, pmax ));
 		lab.SetTextColor(kRed+2);
 		lab.DrawLatex(0.59, 0.68,  Form("Y min = %3.1f #pm %3.2f", ymin[s][pl][hid], ymine[s][pl][hid]));
@@ -314,9 +312,8 @@ void FiducialCut::DrawFit(int s, int pl, int hid)
 	c2->Update();
 	padsav->cd();
 
-	if(PRINT != "")
-	{
-		c2->Print(Form("slice%d_%s_sect%d.%s", hid+1, planes2[pl].c_str(), s+1, PRINT.c_str()) );
+	if(PRINT != "none") {
+		c2->Print(Form("slice%d_%s_sect%d%s", hid+1, planes2[pl].c_str(), s+1, PRINT.c_str()) );
 	}
 
 }

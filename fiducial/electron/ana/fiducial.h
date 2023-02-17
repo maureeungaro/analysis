@@ -23,22 +23,28 @@ public:
     static const int NDIV_XY = 15;
 
     // constructor using chisto and cpars
-    FiducialCut(chistos *common_histo, cpars *common_pars, string P, const Color_t colors[4]);
+    FiducialCut(chistos *common_histo, cpars *common_pars, string P, const Color_t colors[4], bool logz);
 
     // set print
     void set_print(string P) { PRINT = P; }
+    void set_logz(bool logz) { LOGZ = logz; }
 
 
     void show_phi_theta(int sector, int mom);
     void show_phi_thetas(int sector, int which);
     void show_phis(int sector, int mom, int plane);
     void show_plane(int sector, int mom, int plane);
+    void show_planes(int sector, int plane);
+    void show_integrated_plane(int sector, int plane);
+    void DynamicExec(int sector, int plane);
+    void DrawFit(int s, int pl, int hid);
 
 private:
 
     chistos *H;
     cpars *Pars;
     string PRINT;
+    bool LOGZ;
     const int csize = 1200; // common canvas size
     Color_t colors[4];
 

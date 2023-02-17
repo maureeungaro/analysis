@@ -12,10 +12,11 @@ Double_t fid_parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x
 
 
 // constructor using chisto and cpars
-FiducialCut::FiducialCut(chistos *common_histo, cpars *common_pars, string P, const Color_t c[4]) {
+FiducialCut::FiducialCut(chistos *common_histo, cpars *common_pars, string P, const Color_t c[4], bool logz ) {
     H = common_histo;
     Pars = common_pars;
     PRINT = P;
+    LOGZ = logz;
     for (int cc = 0; cc < 4; cc++) {
         colors[cc] = c[cc];
     }
