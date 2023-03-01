@@ -39,12 +39,12 @@ void e_fid(bool printa = false) {
 	bar->AddButton("Show phi vs theta in p bins - after",    "Fiducial->show_phi_thetas(SECTOR, 3)");
 	bar->AddButton("Show phis"            ,                  "Fiducial->show_phis(SECTOR, MOM, PLANE)");
 	bar->AddButton("","");
-	bar->AddButton("Show y vs x in current plane",  "Fiducial->show_plane(SECTOR, MOM, PLANE)");
-	bar->AddButton("Show y vs x in all planes", "Fiducial->show_planes(SECTOR, PLANE)");
-	bar->AddButton("Show y vs x for all momenta",   "Fiducial->show_integrated_plane(SECTOR, PLANE)");
+	bar->AddButton("Show y vs x in current plane",           "Fiducial->show_plane(SECTOR, MOM, PLANE)");
+	bar->AddButton("Show y vs x in all planes",              "Fiducial->show_planes(SECTOR, PLANE)");
+	bar->AddButton("Show y vs x for all momenta",            "Fiducial->show_integrated_plane(SECTOR, PLANE)");
 	bar->AddButton("","");
-	bar->AddButton("Slice this plane",              "slice_plane()");
-	bar->AddButton("Slice all Planes",              "slice_all_planes()");
+	bar->AddButton("Slice this plane",                       "Fiducial->slice_plane(SECTOR, PLANE)");
+	bar->AddButton("Slice all Planes",                       "Fiducial->slice_all_planes()");
 	bar->AddButton("","");
 	bar->AddButton("","");
 
@@ -57,8 +57,8 @@ void e_fid(bool printa = false) {
     bar->AddButton("Change Plane",                       "change_plane()");
     bar->AddButton("Switch Logz in the 2D plots",        "switch_logz()");
     bar->AddButton("", "");
-    bar->AddButton("Print all electrond fiducial plots", "print_all();");
-    bar->AddButton("Write Parameters",                    "Pars->write_vars();");
+    bar->AddButton("Print all electron fiducial plots",  "print_all_message();");
+    bar->AddButton("Write Parameters",                   "Pars->write_vars();");
     bar->AddButton("", "");
     bar->Show();
     gROOT->SaveContext();

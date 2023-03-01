@@ -23,7 +23,8 @@ public:
     static const int NDIV_XY = 15;
 
     // number of planes
-    //static const int NDIV_ = 15;
+    static const int MIN_PLANE = 2;
+    static const int NPLANES = 12;
 
     // constructor using chisto and cpars
     FiducialCut(chistos *common_histo, cpars *common_pars, string P, const Color_t colors[4], bool logz);
@@ -41,6 +42,9 @@ public:
     void show_integrated_plane(int sector, int plane);
     void DynamicExec(int sector, int plane);
     void DrawFit(int s, int pl, int hid);
+
+    void slice_plane(int sector, int plane);
+    void slice_all_planes();
 
 private:
 

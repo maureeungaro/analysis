@@ -1,3 +1,19 @@
+#include "fiducial.h"
+
+// root
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TLatex.h"
+#include "TCanvas.h"
+#include "TPaletteAxis.h"
+
+// Ugly: these functions have to be global to be used by TF1
+// but compiling them here means we cannot use them in other files
+// thus we have to call them with a different name otherwise the compiler will detect
+// duplicate definitions
+
+Double_t slice_parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
+
 double tent(double *X, double *par) {
     double x = X[0];
 
@@ -24,10 +40,10 @@ double tent(double *X, double *par) {
     return 0;
 }
 
+void FiducialCut::slice_plane(int sector, int plane) {
 
-void slice_plane() {
-    int s = SECTOR - 1;
-    int pl = PLANE - 1;
+    int s  = sector - 1;
+    int pl = plane - 1;
 
     int skip_start_bin = 2;
     int skip_final_bin = 2;
@@ -37,7 +53,7 @@ void slice_plane() {
     gStyle->SetPadTopMargin(0.12);
     gStyle->SetPadBottomMargin(0.14);
 
-    TCanvas *Cecp = new TCanvas("Cecp", "Cecp", 700, 700);
+    TCanvas *Cecp = new TCanvas("Cecp", "Cecp", csize, csize);
 
     int NBINS = H->x_y_tot[0][s][pl]->GetNbinsY();
     int db = NBINS / NDIV_XY;
@@ -86,7 +102,8 @@ void slice_plane() {
 
 
     // Slicing + fitting
-    cout << " Fitting Sector " << SECTOR << ", Plane " << PLANE << endl;
+    cout << " Fitting Sector " << sector << ", Plane " << plane << endl;
+
     for (int b = skip_start_bin; b < NDIV_XY - skip_final_bin; b++) {
         cout << " Fitting slice " << b + 1 << endl;
         H->x_y_tot[0][s][pl]->ProjectionX(Form("y_slice_s%d_b%d_pl%d", s + 1, b + 1, pl + 1), b * db, (b + 1) * db);
@@ -117,8 +134,8 @@ void slice_plane() {
     y_left[s][pl]->SetMarkerSize(0.8);
     y_right[s][pl]->SetMarkerSize(0.8);
 
-    TF1 *my_fit1 = new TF1("my_fit1", parabole, -y_lims[pl], 0, 3);
-    TF1 *my_fit2 = new TF1("my_fit2", parabole, 0, y_lims[pl], 3);
+    TF1 *my_fit1 = new TF1("my_fit1", slice_parabole, -y_lims[pl], 0, 3);
+    TF1 *my_fit2 = new TF1("my_fit2", slice_parabole, 0, y_lims[pl], 3);
     my_fit1->SetLineWidth(1);
     my_fit2->SetLineWidth(1);
 
@@ -142,7 +159,7 @@ void slice_plane() {
     my_fit2->SetParLimits(1, 0, 3);
 
     // max curvature depends on the plane. Slope does not.
-    double max_slope = -2.4;
+    //double max_slope = -2.4;
     double max_curvature[5] = {-0.05, -0.009, -0.004, -0.003, -0.003};
 /*	my_fit1->SetParLimits(1, max_slope, 0);
 	my_fit2->SetParLimits(1, max_slope, 0);*/
@@ -152,19 +169,19 @@ void slice_plane() {
     y_left[s][pl]->Fit("my_fit1", "REM", "", -y_lims[pl], 0);
     y_right[s][pl]->Fit("my_fit2", "REM", "", 0, y_lims[pl]);
 
-    if (PLANE == 1) {
+    if (plane == 1) {
         Pars->r1_b_left[s] = my_fit1->GetParameter(1);
         Pars->r1_b_rite[s] = my_fit2->GetParameter(1);
         Pars->r1_c_left[s] = my_fit1->GetParameter(2);
         Pars->r1_c_rite[s] = my_fit2->GetParameter(2);
     }
-    if (PLANE == 2) {
+    if (plane == 2) {
         Pars->r2_b_left[s] = my_fit1->GetParameter(1);
         Pars->r2_b_rite[s] = my_fit2->GetParameter(1);
         Pars->r2_c_left[s] = my_fit1->GetParameter(2);
         Pars->r2_c_rite[s] = my_fit2->GetParameter(2);
     }
-    if (PLANE == 3) {
+    if (plane == 3) {
         Pars->r3_b_left[s] = my_fit1->GetParameter(1);
         Pars->r3_b_rite[s] = my_fit2->GetParameter(1);
         Pars->r3_c_left[s] = my_fit1->GetParameter(2);
@@ -173,7 +190,7 @@ void slice_plane() {
         if (fabs(Pars->r3_c_rite[s]) < 0.00001) Pars->r3_c_rite[s] = 0;
 
     }
-    if (PLANE == 5) {
+    if (plane == 5) {
         Pars->sc_b_left[s] = my_fit1->GetParameter(1);
         Pars->sc_b_rite[s] = my_fit2->GetParameter(1);
         Pars->sc_c_left[s] = my_fit1->GetParameter(2);
@@ -184,19 +201,14 @@ void slice_plane() {
     Cecp->Close();
 }
 
-void slice_all_planes() {
-    for (int s = 0; s < 6; s++) {
-        SECTOR = s + 1;
+void FiducialCut::slice_all_planes() {
 
+    for (int s = 0; s < 6; s++) {
         // not slicing EC plane
-        PLANE = 1;
-        slice_plane();
-        PLANE = 2;
-        slice_plane();
-        PLANE = 3;
-        slice_plane();
-        PLANE = 5;
-        slice_plane();
+        slice_plane(s+1, 1);
+        slice_plane(s+1, 2);
+        slice_plane(s+1, 3);
+        slice_plane(s+1, 5);
     }
 }
 

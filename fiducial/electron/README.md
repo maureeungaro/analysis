@@ -29,12 +29,61 @@ Single file example:
 
 ## Create web pages based on the output of the analysis
 
+#### Phi and Phi vs Theta - variable momentum
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
-../../../htmlBrowserCreator/pageCreator -addRowTableVariable=cut  \
+../../../htmlBrowserCreator/pageCreator \
+                                        -addRowTableVariable=mom  \
                                         -addColumnTableVariable=sector \
--defaultPlot=img/cut-01-tmc_sector-1.png -imagesSize="1200 1200"
-mv page.html cuts.html
+                                        -addSelectableVariable=plot  \
+                                        -defaultPlot=img/mom-03_sector-2_plot-phiVsTheta.png \
+                                        -imagesSize="1200 1200"
+mv page.html phi_theta.html
+```
+
+#### Phi vs Theta for all momenta, before and after
+``` 
+rm -rf imageslist.txt ; ls img > imageslist.txt
+../../../htmlBrowserCreator/pageCreator \
+                                        -addRowTableVariable=phiTheta  \
+                                        -addColumnTableVariable=sector \
+                                        -defaultPlot=img/phiTheta-before_sector1.png \
+                                        -imagesSize="1200 1200"
+mv page.html phi_theta_ba.html
+```
+
+#### X vs Y of Track Intersection with Planes - variable momentum
+``` 
+rm -rf imageslist.txt ; ls img > imageslist.txt
+../../../htmlBrowserCreator/pageCreator \
+                                        -addRowTableVariable=XvsYmom  \
+                                        -addColumnTableVariable=sector  \
+                                        -addSelectableVariable=plane  \
+                                        -defaultPlot=img/XvsYmom-3.3_sector-1_plane-DC1.png \
+                                        -imagesSize="1200 1200"
+mv page.html xvsy_mom.html
+```
+
+#### X vs Y of Track Intersection with Planes - all momenta
+``` 
+rm -rf imageslist.txt ; ls img > imageslist.txt
+../../../htmlBrowserCreator/pageCreator \
+                                        -addRowTableVariable=plane  \
+                                        -addColumnTableVariable=sector \
+                                        -defaultPlot=img/sector-1_plane-DC1.png \
+                                        -imagesSize="1200 1200"
+mv page.html xvsy_allmom.html
+```
+
+#### X vs Y of Track Intersection with Planes - instegrated momenta
+``` 
+rm -rf imageslist.txt ; ls img > imageslist.txt
+../../../htmlBrowserCreator/pageCreator \
+                                        -addColumnTableVariable=intsector \
+                                        -addRowTableVariable=plane  \
+                                        -defaultPlot=img/intsector-1_plane-DC1.png \
+                                        -imagesSize="1200 1200"
+mv page.html xvsy_intmom.html
 ```
 
 For the slices:

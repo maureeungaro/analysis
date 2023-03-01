@@ -1,14 +1,15 @@
 #include "fiducial.h"
 
 // Ugly: these functions have to be global to be used by TF1
-// but compiling them here means we cannot use them in other files (e.g. ec_match.cc)
-// thus we have to copy them in ec_match.cc with a different name otherwise the compiler will find
-// about duplicate definitions
+// but compiling them here means we cannot use them in other files
+// thus we have to call them with a different name otherwise the compiler will detect
+// duplicate definitions
 //
 // 2 gaussians + parabole
 Double_t fid_parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
 //Double_t fid_gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
 //Double_t fid_gauss2_para(Double_t *x, Double_t *par)  { return cct_parabole(x, par) + cct_gaussian(x, &par[3]) + cct_gaussian(x, &par[6]); }
+
 
 
 // constructor using chisto and cpars

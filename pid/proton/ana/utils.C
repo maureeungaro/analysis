@@ -71,6 +71,8 @@ void print_all()
     print_mass_and_beta();
 
 	PRINT = "none";
-
 }
 
+void print_all_message() {
+    cout << " > To print all histos see README " << endl;
+}

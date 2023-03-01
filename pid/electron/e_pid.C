@@ -108,7 +108,7 @@ void e_pid(bool printa = false) {
     bar->AddButton("Switch PRINT",                 "switch_print();");
     bar->AddButton("Change Sector",                "change_sector();");
     bar->AddButton("", "");
-    bar->AddButton("Print all electrond ID plots", "print_all();");
+    bar->AddButton("Print all electrond ID plots", "print_all_message();");
     bar->AddButton("Write Parameters",             "Pars->write_vars();");
     bar->AddButton("", "");
     bar->Show();

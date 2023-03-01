@@ -319,6 +319,6 @@ void print_all()
     PRINT = "none";
 }
 
-
-
-
+void print_all_message() {
+    cout << " > To print all histos see README " << endl;
+}

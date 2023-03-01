@@ -45,7 +45,7 @@ void FiducialCut::show_phi_theta(int sector, int mom)
 	TCanvas *Cphi_thetaS;
 	TPad    *Pphi_thetaS;
 	
-	Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 1000, 1000);
+	Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), csize, csize);
 	Pphi_thetaS = new TPad(Form("Pphi_thetaS%d", s+1), Form("Pphi_thetaS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Pphi_thetaS->Divide(2, 2);
 	Pphi_thetaS->Draw();
@@ -125,7 +125,7 @@ void FiducialCut::show_phi_thetas(int sector, int which)
 	TLatex lab;
 	lab.SetNDC();
 	
-	TCanvas *Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), 1000, 1000);
+	TCanvas *Cphi_thetaS = new TCanvas(Form("Cphi_thetaS%d", s+1), Form("Cphi_thetaS%d", s+1), csize, csize);
 	TPad    *Pphi_thetaS = new TPad(Form("Pphi_thetaS%d", s+1), Form("Pphi_thetaS%d", s+1), 0.02, 0.00,  0.98, 0.92);
 	Pphi_thetaS->Divide(2, 5);
 	Pphi_thetaS->Draw();
@@ -173,7 +173,8 @@ void FiducialCut::show_phi_thetas(int sector, int which)
 	if(which == 3) lab.DrawLatex(0.04, 0.95,  Form("#phi versus #theta in Sector %d  -  Planes Cuts Applied", sector));
 
 	if(PRINT != "none") {
-		Cphi_thetaS->Print( Form("img/phi_vs_theta_%d_sector%d%s", which, s+1, PRINT.c_str()) );
+        if (which == 0) { Cphi_thetaS->Print(Form("img/phiTheta-before_sector-%d%s", s + 1, PRINT.c_str())); }
+        else            { Cphi_thetaS->Print(Form("img/phiTheta-after_sector-%d%s",  s + 1, PRINT.c_str())); }
 	}
 }
 

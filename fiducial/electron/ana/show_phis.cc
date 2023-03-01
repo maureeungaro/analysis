@@ -24,7 +24,7 @@ void FiducialCut::show_phis(int sector, int mom, int plane)
 	lab.SetTextFont(42);
 	
 	
-	TCanvas *CphisS = new TCanvas(Form("CphisS%d", s+1), Form("CphisS%d", s+1), 1000, 1000);
+	TCanvas *CphisS = new TCanvas(Form("CphisS%d", s+1), Form("CphisS%d", s+1), csize, csize);
 	TPad    *PphisS = new TPad(Form("PphisS%d", s+1), Form("PphisS%d", s+1), 0.02, 0.05,  0.98, 0.92);
 	PphisS->Divide(3, 8);
 	PphisS->Draw();

@@ -70,14 +70,14 @@ void print_phis() {
             MOM = p + 1;
             Fiducial->show_phis(SECTOR, MOM, PLANE);
         }
-        Fiducial->show_phi_thetas(SECTOR, 0);
-        Fiducial->show_phi_thetas(SECTOR, 3);
     }
 }
 
 
 void print_planes() {
     activate_PRINT();
+
+    Fiducial->slice_all_planes();
 
     for (int s = 0; s < 6; s++) {
         SECTOR = s + 1;
@@ -90,46 +90,37 @@ void print_planes() {
             }
         }
     }
+
     for (int s = 0; s < 6; s++) {
         SECTOR = s + 1;
         for (int pl = 1; pl < 6; pl++) {
             if (pl == 4) continue;
             PLANE = pl;
+
             Fiducial->show_planes(SECTOR, PLANE);
             Fiducial->show_integrated_plane(SECTOR, PLANE);
+
+            for(int y=FiducialCut::MIN_PLANE; y<FiducialCut::NPLANES; y++) {
+                Fiducial->DrawFit(s, pl-1, y);
+            }
         }
+    }
 
 }
-
-
-//{
-//	for(int s=0; s<6; s++)
-//	{
-
-////		for(int pl=1; pl<6; pl++)
-////		{
-////			if(pl == 4) continue;
-////			PLANE = pl;
-
-///*			for(int y=2; y<12; y++)
-//			{
-//				DrawFit(s, pl-1, y);
-//			}*/
-////		}
-//	}
-
-
 
 void print_all() {
     cout << " > Printing all histograms " << endl;
 
-    print_phi_theta();
-    print_phis();
+    //print_phi_theta();
+    //print_phis();
+    print_planes();
 
     PRINT = "none";
 }
 
-
+void print_all_message() {
+    cout << " > To print all histos see README " << endl;
+}
 
 
 

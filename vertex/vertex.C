@@ -39,7 +39,7 @@ void vertex(bool printa = false) {
 	bar->AddButton("","");
     bar->AddButton("Switch PRINT",             "switch_print();");
     bar->AddButton("","");
-	bar->AddButton("Print all vertex plots",   "print_all()");
+	bar->AddButton("Print all vertex plots",   "print_all_message()");
     bar->AddButton("Write Parameters",         "Pars->write_vars();");
     bar->AddButton("","");
     bar->Show();
