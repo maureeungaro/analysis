@@ -1,8 +1,6 @@
 # Electron Fiducial Cut
 
-## Cuts
 
--
 
 
 ## Re-run e_fid to apply cuts and create histograms:
@@ -33,10 +31,10 @@ Single file example:
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
-                                        -addRowTableVariable=mom  \
+                                        -addRowTableVariable=PnPvsTmom  \
                                         -addColumnTableVariable=sector \
                                         -addSelectableVariable=plot  \
-                                        -defaultPlot=img/mom-03_sector-2_plot-phiVsTheta.png \
+                                        -defaultPlot=img/PnPvsTmom-2.4_sector-2_plot-phiVsTheta.png \
                                         -imagesSize="1200 1200"
 mv page.html phi_theta.html
 ```
@@ -47,7 +45,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
                                         -addRowTableVariable=phiTheta  \
                                         -addColumnTableVariable=sector \
-                                        -defaultPlot=img/phiTheta-before_sector1.png \
+                                        -defaultPlot=img/phiTheta-before_sector-1.png \
                                         -imagesSize="1200 1200"
 mv page.html phi_theta_ba.html
 ```
@@ -70,7 +68,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
                                         -addRowTableVariable=plane  \
                                         -addColumnTableVariable=sector \
-                                        -defaultPlot=img/sector-1_plane-DC1.png \
+                                        -defaultPlot=img/plane-DC1_sector-1.png \
                                         -imagesSize="1200 1200"
 mv page.html xvsy_allmom.html
 ```
@@ -79,21 +77,21 @@ mv page.html xvsy_allmom.html
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
-                                        -addColumnTableVariable=intsector \
                                         -addRowTableVariable=plane  \
-                                        -defaultPlot=img/intsector-1_plane-DC1.png \
+                                        -addColumnTableVariable=intsector \
+                                        -defaultPlot=img/plane-DC1_intsector-1.png \
                                         -imagesSize="1200 1200"
 mv page.html xvsy_intmom.html
 ```
 
-For the slices:
+#### For the slices:
 
 ```
 rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=slice \
-                                        -addColumnTableVariable=cut \
-                                        -addSelectableVariable=sector \
--defaultPlot=img_slices/slice-01_tmc-slice_sector-1.png \
+                                        -addColumnTableVariable=sector \
+                                        -addSelectableVariable=plane \
+-defaultPlot=img_slices/slice-03_sector-1_plane-DC1.png \
 -imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
 ```
@@ -102,6 +100,6 @@ mv page.html slices.html
 ## Create new plots
 
 The script `update_mauriPlots.zsh` will compile the code, run it in batch
-to produce the plots, create the web pages and move the images and html files 
-onto mauriPlots repo. It will also reset the git repo to the last commit.
-
+to produce the plots, create the web pages and move the images and html files
+onto mauriPlots repo. It will also reset the git repo to the last commit if the reset
+option is used.

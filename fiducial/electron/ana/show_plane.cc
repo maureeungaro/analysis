@@ -79,8 +79,8 @@ void FiducialCut::show_plane(int sector, int mom, int plane) {
         }
     }
 
-    string planes[5] = { "DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
-    string planes2[5] = {"DC1",       "DC2",       "DC3",       "EC",       "SC"};
+    string planes[5] = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
+    string planes2[5] = {"DC1", "DC2", "DC3", "EC", "SC"};
 
     string mom_str[10] = {"0.4", "0.9", "1.4", "1.9", "2.4", "2.8", "3.3", "3.8", "4.3", "4.8"};
 
@@ -94,7 +94,8 @@ void FiducialCut::show_plane(int sector, int mom, int plane) {
                        H->dp / 2));
 
     if (PRINT != "none") {
-        Cx_yS->Print(Form("img/XvsYmom-%s_sector-%d_plane-%s%s", mom_str[m].c_str(), s + 1, planes2[pl].c_str(), PRINT.c_str()));
+        Cx_yS->Print(Form("img/XvsYmom-%s_sector-%d_plane-%s%s", mom_str[m].c_str(), s + 1, planes2[pl].c_str(),
+                          PRINT.c_str()));
     }
 }
 
@@ -142,8 +143,8 @@ void FiducialCut::show_planes(int sector, int plane) {
         draw_limits(sector, plane);
     }
 
-    string planes[5]  = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
-    string planes2[5] = {"DC1",       "DC2",       "DC3",       "EC",       "SC"};
+    string planes[5] = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
+    string planes2[5] = {"DC1", "DC2", "DC3", "EC", "SC"};
     Cx_ysS->cd(0);
     lab.SetTextFont(102);
     lab.SetTextColor(kBlack);
@@ -151,7 +152,7 @@ void FiducialCut::show_planes(int sector, int plane) {
     lab.DrawLatex(0.1, 0.95, Form("X vs Y Sector %d, Coordinates in %s ", sector, planes[pl].c_str()));
 
     if (PRINT != "none") {
-        Cx_ysS->Print(Form("img/secor-%d_plane-%s%s", s + 1, planes2[pl].c_str(), PRINT.c_str()));
+        Cx_ysS->Print(Form("img/plane-%s_sector-%d%s", planes2[pl].c_str(), s + 1, PRINT.c_str()));
     }
 }
 
@@ -194,8 +195,8 @@ void FiducialCut::show_integrated_plane(int sector, int plane) {
 
     draw_limits(sector, plane);
 
-    string planes[5]  = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
-    string planes2[5] = {"DC1",       "DC2",       "DC3",       "EC",       "SC"};
+    string planes[5] = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
+    string planes2[5] = {"DC1", "DC2", "DC3", "EC", "SC"};
     Cx_yIS->cd(0);
     lab.SetTextFont(102);
     lab.SetTextColor(kBlack);
@@ -203,7 +204,7 @@ void FiducialCut::show_integrated_plane(int sector, int plane) {
     lab.DrawLatex(0.08, 0.94, Form("X vs Y Sector %d, Coordinates in %s ", sector, planes[pl].c_str()));
 
     if (PRINT != "none") {
-        Cx_yIS->Print(Form("img/intsector-%d_plane-%s%s", s + 1, planes2[pl].c_str(), PRINT.c_str()));
+        Cx_yIS->Print(Form("img/plane-%s_intsector-%d%s", planes2[pl].c_str(), s + 1, PRINT.c_str()));
     }
 
 
@@ -269,8 +270,8 @@ void FiducialCut::DrawFit(int s, int pl, int hid) {
     else c2 = new TCanvas("c2", "Projection Canvas", csize, csize);
     c2->cd();
 
-    string planes[5]  = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
-    string planes2[5] = {"DC1",       "DC2",       "DC3",       "EC",       "SC"};
+    string planes[5] = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
+    string planes2[5] = {"DC1", "DC2", "DC3", "EC", "SC"};
 
     double factor;
     if (pl == 0) factor = 2.0;
@@ -291,8 +292,8 @@ void FiducialCut::DrawFit(int s, int pl, int hid) {
         double pmax = H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + (hid + 1) * dy;
 
         lab.SetTextFont(102);
-        lab.SetTextSize(0.058);
-        lab.DrawLatex(0.22, 0.92, Form("Y coordinates on %s", planes[pl].c_str()));
+        lab.SetTextSize(0.05);
+        lab.DrawLatex(0.12, 0.92, Form("Y coordinates on %s", planes[pl].c_str()));
         lab.SetTextFont(42);
         lab.SetTextSize(0.04);
         lab.DrawLatex(0.66, 0.82, Form("Sector %d", s + 1));
@@ -320,7 +321,14 @@ void FiducialCut::DrawFit(int s, int pl, int hid) {
     // padsav->cd();
 
     if (PRINT != "none") {
-        c2->Print(Form("img_slices/slice-%d_%s_sector-%d_plane-%s", hid + 1, planes2[pl].c_str(), s + 1, PRINT.c_str()));
+        if (hid < 9) {
+            c2->Print(Form("img_slices/slice-0%d_sector-%d_plane-%s%s", hid + 1, s + 1, planes2[pl].c_str(),
+                           PRINT.c_str()));
+
+        } else {
+            c2->Print(Form("img_slices/slice-%d_sector-%d_plane-%s%s", hid + 1, s + 1, planes2[pl].c_str(),
+                           PRINT.c_str()));
+        }
     }
 
 }

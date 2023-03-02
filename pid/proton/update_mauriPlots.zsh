@@ -1,6 +1,4 @@
-#!/bin/zsh
-
-alias scons='ncpu=$(getconf _NPROCESSORS_ONLN); echo using $ncpu cores and OPT=1;  scons -j$ncpu OPT=1'
+#!/bin/zsh -i
 
 # if -h given print the reset option
 if [[ $1 == "-h" ]]; then
@@ -17,6 +15,7 @@ mdir=/opt/projects/mauriplots/ppid
 export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 scons -c
+gia
 scons
 root -b -q p_pid.C\(1\)
 scons -c
@@ -45,8 +44,8 @@ mkdir -p $mdir/img $mdir/img_slices
 
 mv img/*.png $mdir/img/
 mv img_slices/*.png $mdir/img_slices/
-mv cuts.html $mdir/
-mv slices.html $mdir/
+mv *.html $mdir/
+
 
 # if the option 'reset' is given to this script, run gitRemoveHistory
 if [[ $1 == "reset" ]]; then

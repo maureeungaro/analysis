@@ -34,4 +34,5 @@ Single file example:
 
 The script `update_mauriPlots.zsh` will compile the code, run it in batch
 to produce the plots, create the web pages and move the images and html files
-onto mauriPlots repo. It will also reset the git repo to the last commit.
+onto mauriPlots repo. It will also reset the git repo to the last commit if the reset
+option is used.

@@ -102,13 +102,10 @@ void FiducialCut::show_phi_theta(int sector, int mom)
 	lab.SetTextSize(0.035);
 	lab.DrawLatex(0.04, 0.95,  Form("Fiducial Cut - Sector %d - Momentum: %3.1f#pm%3.2f GeV", sector, H->mom[m], H->dp/2));
 
-	
-	if(PRINT != "none") {
-		if(m>=9) {
-			Cphi_thetaS->Print( Form("img/mom-%d_sector-%d_plot-phiVsTheta%s",  m+1, s+1, PRINT.c_str()) );
-		} else {
-			Cphi_thetaS->Print( Form("img/mom-0%d_sector-%d_plot-phiVsTheta%s", m+1, s+1, PRINT.c_str()) );
-		}
+    string mom_str[10] = {"0.4", "0.9", "1.4", "1.9", "2.4", "2.8", "3.3", "3.8", "4.3", "4.8"};
+
+    if(PRINT != "none") {
+        Cphi_thetaS->Print( Form("img/PnPvsTmom-%s_sector-%d_plot-phiVsTheta%s",  mom_str[m].c_str(), s+1, PRINT.c_str()) );
 	}
 }
 

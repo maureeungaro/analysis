@@ -100,8 +100,8 @@ void print_planes() {
             Fiducial->show_planes(SECTOR, PLANE);
             Fiducial->show_integrated_plane(SECTOR, PLANE);
 
-            for(int y=FiducialCut::MIN_PLANE; y<FiducialCut::NPLANES; y++) {
-                Fiducial->DrawFit(s, pl-1, y);
+            for (int y = FiducialCut::MIN_PLANE; y < FiducialCut::NPLANES; y++) {
+                Fiducial->DrawFit(s, pl - 1, y);
             }
         }
     }
@@ -111,8 +111,8 @@ void print_planes() {
 void print_all() {
     cout << " > Printing all histograms " << endl;
 
-    //print_phi_theta();
-    //print_phis();
+    print_phi_theta();
+    print_phis();
     print_planes();
 
     PRINT = "none";

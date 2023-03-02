@@ -1,6 +1,4 @@
-#!/bin/zsh
-
-alias scons='ncpu=$(getconf _NPROCESSORS_ONLN); echo using $ncpu cores and OPT=1;  scons -j$ncpu OPT=1'
+#!/bin/zsh -i
 
 # if -h given print the reset option
 if [[ $1 == "-h" ]]; then
@@ -17,6 +15,7 @@ mdir=/opt/projects/mauriplots/vertex
 export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 scons -c
+gia
 scons
 root -b -q vertex.C\(1\)
 scons -c
