@@ -1,7 +1,8 @@
 # Electron Fiducial Cut
 
 
-
+Notice the cuts can be on Phi vs Theta or on X vs Y of the track intersection with the planes.
+The choice is made on line 60 of fiducial_cut.cc
 
 ## Re-run e_fid to apply cuts and create histograms:
 
