@@ -5,6 +5,7 @@ export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export DATA_PATH=/Volumes/e16
 export ANA_PATH=/opt/projects/analysis
 
+module load gemc3
 
 # if the first option is -h or empty, print help and exit
 if [[ $1 == "-h" || $# -eq 0 || $# -lt 3 ]]; then
@@ -18,22 +19,22 @@ if [[ $1 == "-h" || $# -eq 0 || $# -lt 3 ]]; then
 	echo "     [PAR_FILE]: Parameter File, optional in some cases "
 	echo " "
 	echo "Examples: "
-	echo "./go_SEL $DATA_PATH/fullRuns $DATA_PATH/e_pid   $ANA_PATH/pid/electron/e_pid             $ANA_PATH/pid/electron/electron_id_par.txt       "
-	echo "./go_SEL $DATA_PATH/e_pid    $DATA_PATH/p_pid   $ANA_PATH/pid/proton/proton_pid          $ANA_PATH/pid/proton/proton_id_par.txt           "
-	echo "./go_SEL $DATA_PATH/p_pid    $DATA_PATH/vertex  $ANA_PATH/vertex/vertex_corr_sel         $ANA_PATH/vertex/vertex_par.txt                  "
-	echo "./go_SEL $DATA_PATH//vertex  $DATA_PATH//e_fid  $ANA_PATH/fiducial/electron/e_fiducial   $ANA_PATH/fiducial/electron/fiducial_par.txt     "
-	echo "./go_SEL $DATA_PATH/e_fid    $DATA_PATH/p_fid   $ANA_PATH/fiducial/proton/p_fiducial     $ANA_PATH/fiducial/proton/fiducial_par.txt       "
-	echo "./go_SEL $DATA_PATH/p_fid    $DATA_PATH/e_corr  $ANA_PATH/e_kin_cor/momentum/e_mom_corr  $ANA_PATH/e_kin_cor/momentum/emom_corr_pars.txt  "
-	echo "./go_SEL $DATA_PATH/e_corr   $DATA_PATH/pi0s    $ANA_PATH/pi0_selection/pi0_selection    $ANA_PATH/pi0_selection/pi0_selection_pars.txt   "
+	echo "./go_SEL $DATA_PATH/fullRuns $DATA_PATH/e_pid    $ANA_PATH/pid/electron/e_pid             $ANA_PATH/pid/electron/electron_id_par.txt            "
+	echo "./go_SEL $DATA_PATH/e_pid    $DATA_PATH/p_pid    $ANA_PATH/pid/proton/proton_pid          $ANA_PATH/pid/proton/proton_id_par.txt                "
+	echo "./go_SEL $DATA_PATH/p_pid    $DATA_PATH/vertex   $ANA_PATH/vertex/vertex_corr_sel         $ANA_PATH/vertex/vertex_par.txt                       "
+	echo "./go_SEL $DATA_PATH/vertex   $DATA_PATH//e_fidxy $ANA_PATH/fiducial/electron/e_fiducial   $ANA_PATH/fiducial/electron/electron_fiducial_par.txt "
+	echo "./go_SEL $DATA_PATH/e_fidxy  $DATA_PATH/p_fidxy  $ANA_PATH/fiducial/proton/p_fiducial     $ANA_PATH/fiducial/proton/fiducial_par.txt            "
+	echo "./go_SEL $DATA_PATH/p_fidxy  $DATA_PATH/e_corr   $ANA_PATH/e_kin_cor/momentum/e_mom_corr  $ANA_PATH/e_kin_cor/momentum/emom_corr_pars.txt       "
+	echo "./go_SEL $DATA_PATH/e_corr   $DATA_PATH/pi0s     $ANA_PATH/pi0_selection/pi0_selection    $ANA_PATH/pi0_selection/pi0_selection_pars.txt        "
 
 	echo " "
 	echo " GSIM"
 	echo "./go_SEL /Volumes/e1-6Proc/gsim/full   /Volumes/e1-6Proc/gsim/e_pid   $ANA_PATH/pid/electron/e_pid            $ANA_PATH/pid/electron/electron_id_par_gsim.txt   "
-	echo "./go_SEL /Volumes/e1-6Proc/gsim/e_pid  /Volumes/e1-6Proc/gsim/p_pid   $ANA_PATH/pid/proton/proton_pid         $ANA_PATH/pid/proton/proton_id_par_gsim.txt  "
-	echo "./go_SEL /Volumes/e1-6Proc/gsim/p_pid  /Volumes/e1-6Proc/gsim/vertex  $ANA_PATH/vertex/vertex_corr_sel        $ANA_PATH/vertex/vertex_par.txt  "
-	echo "./go_SEL /Volumes/e1-6Proc/gsim/vertex /Volumes/e1-6Proc/gsim/e_fid   $ANA_PATH/fiducial/electron/e_fiducial  $ANA_PATH/fiducial/electron/fiducial_par.txt  "
-	echo "./go_SEL /Volumes/e1-6Proc/gsim/e_fid  /Volumes/e1-6Proc/gsim/p_fid   $ANA_PATH/fiducial/proton/p_fiducial    $ANA_PATH/fiducial/proton/fiducial_par.txt  "
-	echo "./go_SEL /Volumes/e1-6Proc/gsim/p_fid  /Volumes/e1-6Proc/gsim/pi0s    $ANA_PATH/pi0_selection/pi0_selection   $ANA_PATH/pi0_selection/pi0_selection_pars.txt  "
+	echo "./go_SEL /Volumes/e1-6Proc/gsim/e_pid  /Volumes/e1-6Proc/gsim/p_pid   $ANA_PATH/pid/proton/proton_pid         $ANA_PATH/pid/proton/proton_id_par_gsim.txt       "
+	echo "./go_SEL /Volumes/e1-6Proc/gsim/p_pid  /Volumes/e1-6Proc/gsim/vertex  $ANA_PATH/vertex/vertex_corr_sel        $ANA_PATH/vertex/vertex_par.txt                   "
+	echo "./go_SEL /Volumes/e1-6Proc/gsim/vertex /Volumes/e1-6Proc/gsim/e_fid   $ANA_PATH/fiducial/electron/e_fiducial  $ANA_PATH/fiducial/electron/fiducial_par.txt      "
+	echo "./go_SEL /Volumes/e1-6Proc/gsim/e_fid  /Volumes/e1-6Proc/gsim/p_fid   $ANA_PATH/fiducial/proton/p_fiducial    $ANA_PATH/fiducial/proton/fiducial_par.txt        "
+	echo "./go_SEL /Volumes/e1-6Proc/gsim/p_fid  /Volumes/e1-6Proc/gsim/pi0s    $ANA_PATH/pi0_selection/pi0_selection   $ANA_PATH/pi0_selection/pi0_selection_pars.txt    "
 
 	echo " "
 	echo " GSIM elastic"

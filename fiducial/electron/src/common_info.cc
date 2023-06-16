@@ -391,10 +391,10 @@ cpars::cpars(string filename)
 	for(unsigned int ss=0; ss<addInfos.size(); ss++) { cout << addInfos[ss] << endl; }
 }
 
-void cpars::write_vars(string filename)
+void cpars::write_vars()
 {
-	ofstream parfile(filename.c_str());
-	cout << endl << " Opening output parameter file " << filename << endl;
+    ofstream parfile(parameter_file.c_str());
+	cout << endl << " Opening output parameter file " << parameter_file << endl;
 	
 	parfile << "C1: " ;
 	for(int s=0; s<6; s++) {parfile.width(8) ; parfile << c1[s] << " ";}

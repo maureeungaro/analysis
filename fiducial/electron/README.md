@@ -12,7 +12,7 @@ Single file example:
 ./e_fiducial \
 /Volumes/e16/vertex/30540.mu \
 -BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
--PARS_FILE=/opt/projects/analysis/fiducial/electron/fiducial_par.txt
+-PARS_FILE=/opt/projects/analysis/fiducial/electron/1
 ```
 
 
@@ -20,7 +20,9 @@ Single file example:
 
 ### Interactive:
 
-`root e_pid.C`
+This requires a `data_efid.root` file to be present in the same directory.
+
+`root e_fid.C`
 
 ### Batch and print all plots:
 

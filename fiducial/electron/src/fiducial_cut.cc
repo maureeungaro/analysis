@@ -24,7 +24,7 @@ map<string, int> fiducial_cut::selection(particle e) {
 
     selection["PASSED"] = 0;
 
-    // phi vs theta fiducal cut
+    // phi vs theta fiducial cut
     if (fabs(loc_phi(e.p) / degree) < dphi(sector(e.p), e.p.mod() / GeV, e.p.theta() / degree))
         selection["FID_PT"] = 1;
 
@@ -57,13 +57,10 @@ map<string, int> fiducial_cut::selection(particle e) {
         xyholes(sector(e.p), 5, scpos.x / cm, scpos.y / cm) == 1)
         selection["FID_HOLES"] = 1;
 
-    if (selection["FID_PT"] * selection["FID_HOLES"])
-//		if(selection["FID_XY"]*selection["FID_HOLES"])
+    //if (selection["FID_PT"] * selection["FID_HOLES"])
+    if (selection["FID_XY"] * selection["FID_HOLES"])
         selection["PASSED"] = 1;
 
 
     return selection;
 }
-
-
-

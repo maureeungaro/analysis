@@ -95,7 +95,7 @@ public:
     vector<double> sc_axial_limits;
     vector<double> sc_stereo_limits;
 
-    void write_vars(string);
+    void write_vars();
 
     double theta_cut(int sect, double p);
 

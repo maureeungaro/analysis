@@ -22,20 +22,20 @@ double tent(double *X, double *par) {
     double p2 = par[2];
     double p3 = par[3];
     double p4 = par[4];
-    double a = par[5];
+    double a  = par[5];
 
-    // parabole parameters
+    // parabola parameters
     // y = ax2 + bx + c
     // a = par[5]
     // with two constrains given by the two points at x,y = (p1, p4), (p2, p4):
     double b = -a * (p1 * p1 - p2 * p2) / (p1 - p2);
     double c = p4 - a * p1 * p1 - b * p1;
 
-    if (x < p1 - p0) return 0;                      // no signal
-    if (x >= p1 - p0 && x < p1) return (p4 / p0) * (x - p1 + p0);  // steep rise
-    if (x >= p1 && x < p2) return a * x * x + b * x + c;         // parabole
+    if (x < p1 - p0) return 0;                                      // no signal
+    if (x >= p1 - p0 && x < p1) return (p4 / p0) * (x - p1 + p0);   // steep rise
+    if (x >= p1 && x < p2) return a * x * x + b * x + c;            // parabola
     if (x >= p2 && x < p2 + p3) return (p4 / p3) * (-x + p2 + p3);  // steep descend
-    if (x >= p2 + p3) return 0;                      // no signal
+    if (x >= p2 + p3) return 0;                                     // no signal
 
     return 0;
 }
@@ -153,8 +153,11 @@ void FiducialCut::slice_plane(int sector, int plane) {
     a_left = Pars->XMIN[pl] - b_left * Pars->YMIN[pl][s] - c_left * Pars->YMIN[pl][s] * Pars->YMIN[pl][s];
     a_rite = Pars->XMIN[pl] - b_rite * Pars->YMIN[pl][s] - c_rite * Pars->YMIN[pl][s] * Pars->YMIN[pl][s];
 
-    my_fit1->FixParameter(0, a_left);
-    my_fit2->FixParameter(0, a_rite);
+//    my_fit1->FixParameter(0, a_left);
+//    my_fit2->FixParameter(0, a_rite);
+    my_fit1->SetParLimits(0, 0.8*a_left, a_left);
+    my_fit2->SetParLimits(0, 0.8*a_rite, a_rite);
+
     my_fit1->SetParLimits(1, -3, 0);
     my_fit2->SetParLimits(1, 0, 3);
 
@@ -211,9 +214,3 @@ void FiducialCut::slice_all_planes() {
         slice_plane(s+1, 5);
     }
 }
-
-
-
-
-
-
