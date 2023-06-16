@@ -17,6 +17,9 @@ export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 scons -c
 gia
 scons
+if [[ ! -f data_vertex.root ]]; then
+  cp "/Users/ungaro/Library/Mobile Documents/com~apple~CloudDocs/data/data_vertex.root"  .
+fi
 root -b -q vertex.C\(1\)
 scons -c
 

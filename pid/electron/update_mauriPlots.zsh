@@ -17,6 +17,9 @@ export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 scons -c
 gia
 scons
+if [[ ! -f data_epid.root ]]; then
+  cp "/Users/ungaro/Library/Mobile Documents/com~apple~CloudDocs/data/data_epid.root"  .
+fi
 root -b -q e_pid.C\(1\)
 scons -c
 

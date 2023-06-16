@@ -161,27 +161,29 @@ cpars::cpars(string filename)
 	string addinfo;
 	
 	// these values are found empirically by looking at the XY plot
-	XMIN[0] = 22.5;
-	XMIN[1] = 58.5;
+	XMIN[0] = 21.5;
+	XMIN[1] = 57;
 	XMIN[2] = 74.5;
 	XMIN[3] = 90.0;
 	XMIN[4] = 89.0;
-	
-	YMIN[0][0] = -0.5;
-	YMIN[0][1] = -0.3;
-	YMIN[0][2] = 0.1;
-	YMIN[0][3] = -0.2;
-	YMIN[0][4] = -0.3;
-	YMIN[0][5] = -0.7;
 
-	YMIN[1][0] = -1.0;
+
+    // first index: plane. second index: sector
+	YMIN[0][0] = 0.1;
+	YMIN[0][1] = 0.0;
+	YMIN[0][2] = 0.3;
+	YMIN[0][3] = 0.2;
+	YMIN[0][4] = 0.3;
+	YMIN[0][5] = -0.3;
+
+	YMIN[1][0] = 0.3;
 	YMIN[1][1] = -0.8;
-	YMIN[1][2] = -0.1;
-	YMIN[1][3] = -0.8;
-	YMIN[1][4] = -0.8;
-	YMIN[1][5] = -1.1;
+	YMIN[1][2] = 0.1;
+	YMIN[1][3] = -0.3;
+	YMIN[1][4] = -0.1;
+	YMIN[1][5] = -0.5;
 
-	YMIN[2][0] = -0.8;
+	YMIN[2][0] =  0.1;
 	YMIN[2][1] = -0.5;
 	YMIN[2][2] = -0.7;
 	YMIN[2][3] = -1.2;
@@ -713,11 +715,3 @@ double cpars::xyholes(int sector, int plane, double x, double y)
 
 	return 1;
 }
-
-
-
-
-
-
-
-
