@@ -20,12 +20,14 @@ chistos::chistos(string filename, int READ)
 		mom[m]  = minp + (m + 0.5)*dp;
 		mom2[m] = minp + (m + 1.0)*dp;
 	}
-	
+
+    // this is the vertex in each plane's bottom corner
 	double x_min[5]  = {-40,  -100,  -150, -200,  -200};
 	double x_max[5]  = { 40,   100,   150,  200,   200};
 	double y_min[5]  = { 30,    70,    70,   50,    50};
 	double y_max[5]  = { 55,   165,   250,  440,   370};
-	double limxf[5]  = { 3.5, 10.0,  15.0, 19.0,  19.0};
+
+    double limxf[5]  = { 3.5, 10.0,  15.0, 19.0,  19.0};
 	double limyf1[5] = { 1.0,  2.2,   0.5, -1.5,  -1.5};
 	double limyf2[5] = { 3.0, 10.0,  16.0, 28.0,  28.0};
 	
@@ -169,33 +171,33 @@ cpars::cpars(string filename)
 
 
     // first index: plane. second index: sector
-	YMIN[0][0] = 0.1;
+	YMIN[0][0] = 0.0;
 	YMIN[0][1] = 0.0;
-	YMIN[0][2] = 0.3;
-	YMIN[0][3] = 0.2;
+	YMIN[0][2] = 0.5;
+	YMIN[0][3] = 0.4;
 	YMIN[0][4] = 0.3;
-	YMIN[0][5] = -0.3;
+	YMIN[0][5] = -0.1;
 
 	YMIN[1][0] = 0.3;
-	YMIN[1][1] = -0.8;
-	YMIN[1][2] = 0.1;
-	YMIN[1][3] = -0.3;
-	YMIN[1][4] = -0.1;
-	YMIN[1][5] = -0.5;
+	YMIN[1][1] = -0.2;
+	YMIN[1][2] = 0.3;
+	YMIN[1][3] = 0.0;
+	YMIN[1][4] = 0.2;
+	YMIN[1][5] = -0.3;
 
 	YMIN[2][0] =  0.1;
-	YMIN[2][1] = -0.5;
-	YMIN[2][2] = -0.7;
-	YMIN[2][3] = -1.2;
-	YMIN[2][4] = -1.2;
-	YMIN[2][5] = -1.7;
+	YMIN[2][1] = -0.3;
+	YMIN[2][2] = -0.2;
+	YMIN[2][3] = -0.2;
+	YMIN[2][4] = -0.2;
+	YMIN[2][5] = -0.2;
 
-	YMIN[4][0] = -1.5;
-	YMIN[4][1] = -0.9;
-	YMIN[4][2] = -1.9;
-	YMIN[4][3] = -2.0;
-	YMIN[4][4] = -1.8;
-	YMIN[4][5] = -1.5;
+	YMIN[4][0] =  0.0;
+	YMIN[4][1] = -0.2;
+	YMIN[4][2] = -0.2;
+	YMIN[4][3] = -0.2;
+	YMIN[4][4] = -0.2;
+	YMIN[4][5] = -0.2;
 	
 	
 	while(getline( parfile, line)) {

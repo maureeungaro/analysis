@@ -162,8 +162,8 @@ void FiducialCut::slice_plane(int sector, int plane) {
     my_fit2->SetParLimits(1, 0, 3);
 
     // max curvature depends on the plane. Slope does not.
-    //double max_slope = -2.4;
-    double max_curvature[5] = {-0.05, -0.009, -0.004, -0.003, -0.003};
+    double max_slope = -2.4;
+    double max_curvature[5] = {-0.02, -0.009, -0.004, -0.003, -0.003};
 /*	my_fit1->SetParLimits(1, max_slope, 0);
 	my_fit2->SetParLimits(1, max_slope, 0);*/
     my_fit1->SetParLimits(2, max_curvature[pl], 0);
