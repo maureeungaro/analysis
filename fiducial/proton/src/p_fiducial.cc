@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 	ofstream ofile;
 	
 	int n_scaler_events  = 0;
-	int n_physics_events = 0;
+	// int n_physics_events = 0;
 	int is_gsim          = 0;
 	
 	// if an output name is given, write out the mu filtered file
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
 			// Physics Event
 			if(Ev.start_time > 0 || is_gsim)
 			{
-				n_physics_events++;
+				// n_physics_events++;
 				
 				if( get_particles(Ev, "proton").size() > 0)
 				{
@@ -132,17 +132,3 @@ int main(int argc, char **argv)
    cout << endl;
 	return 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

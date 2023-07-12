@@ -14,7 +14,6 @@
 using namespace std;
 
 // Common Classes with ROOT analysis macro
-
 class chistos {
 public:
     chistos(string filename, int READ = 0);
@@ -109,8 +108,3 @@ public:
 };
 
 #endif
-
-
-
-
-

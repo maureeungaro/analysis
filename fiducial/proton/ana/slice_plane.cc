@@ -1,3 +1,17 @@
+#include "fiducial.h"
+
+// root
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TLatex.h"
+#include "TCanvas.h"
+#include "TPaletteAxis.h"
+
+// Ugly: these functions have to be global to be used by TF1
+// but compiling them here means we cannot use them in other files
+// thus we have to call them with a different name otherwise the compiler will detect
+// duplicate definitions
+
 double tent(double *X, double *par)
 {
 	double x = X[0];
@@ -25,14 +39,17 @@ double tent(double *X, double *par)
 	return 0;
 }
 
+double thirdOrder_s(double *x, double *par)   { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] + par[3]*x[0]*x[0]*x[0] ; }
 
-void slice_plane(int arg=0)
-{
-	int s  = SECTOR - 1;
-	int pl = PLANE - 1;
+
+void FiducialCut::slice_plane(int sector, int plane) {
+
+    int s  = sector - 1;
+    int pl = plane - 1;
 	
 	int skip_start_bin = 2;
 	int skip_final_bin = 6;
+
 	if(pl == 4) skip_start_bin = 1;
 	if(pl == 4) skip_final_bin = 7;
 	
@@ -41,22 +58,20 @@ void slice_plane(int arg=0)
 	gStyle->SetPadTopMargin(0.12);
 	gStyle->SetPadBottomMargin(0.14);
 
-	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", 700, 700);
+	TCanvas *Cecp  = new TCanvas("Cecp", "Cecp", csize, csize);
 
-	int NBINS = H.x_y_tot[0][s][pl]->GetNbinsY();
+	int NBINS = H->x_y_tot[0][s][pl]->GetNbinsY();
 	int db = NBINS/NDIV_XY;
 	
 	double yb[NDIV_XY], ybe[NDIV_XY];	
-	double dy = ( H.x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
+	double dy = ( H->x_y_tot[0][s][pl]->GetYaxis()->GetXmax() - H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() ) / NDIV_XY;
 	
-	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin; b++)
-	{
-		yb[b]  = H.x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + (b+0.5)*dy;
+	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin; b++) {
+		yb[b]  = H->x_y_tot[0][s][pl]->GetYaxis()->GetXmin() + (b+0.5)*dy;
 		ybe[b] = 0.001;
 	}
 
-	for(int b=0; b<skip_start_bin; b++)
-	{
+	for(int b=0; b<skip_start_bin; b++) {
 		yb[b]  = -999;
 		ybe[b] = 0.001;
 		ymin[s][pl][b]  = -999;
@@ -64,8 +79,7 @@ void slice_plane(int arg=0)
 		ymine[s][pl][b] = -999;
 		ymaxe[s][pl][b] = -999;
 	}
-	for(int b=NDIV_XY - skip_final_bin; b<NDIV_XY; b++)
-	{
+	for(int b=NDIV_XY - skip_final_bin; b<NDIV_XY; b++) {
 		yb[b]  = -999;
 		ybe[b] = 0.001;
 		ymin[s][pl][b]  = -999;
@@ -93,11 +107,12 @@ void slice_plane(int arg=0)
 	
 	
 	// Slicing + fitting
-	cout << " Fitting Sector " << SECTOR << ", Plane " << PLANE << endl;
-	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin && arg !=1 ; b++)
+	cout << " Fitting Sector " << sector << ", Plane " << plane << endl;
+	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin ; b++)
+//        for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin && arg !=1 ; b++)
 	{
 		cout << " Fitting slice " << b+1 << endl;
-		H.x_y_tot[0][s][pl]->ProjectionX(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1), b*db, (b+1)*db);
+		H->x_y_tot[0][s][pl]->ProjectionX(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1), b*db, (b+1)*db);
 		y_slice[s][pl][b] = (TH1F*)gROOT->Get(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1));
 		
 		Tent.SetParameter(4, y_slice[s][pl][b]->GetMaximum()/1.4);
@@ -128,16 +143,16 @@ void slice_plane(int arg=0)
 	y_left[s][pl]->SetMarkerSize(0.8);
 	y_right[s][pl]->SetMarkerSize(0.8);
 
-	TF1 *my_fit1 = new TF1("my_fit1",  thirdOrder, -y_lims[pl],          0, 4);
-	TF1 *my_fit2 = new TF1("my_fit2",  thirdOrder,           0, y_lims[pl], 4);
+	TF1 *my_fit1 = new TF1("my_fit1",  thirdOrder_s, -y_lims[pl],          0, 4);
+	TF1 *my_fit2 = new TF1("my_fit2",  thirdOrder_s,           0, y_lims[pl], 4);
 	my_fit1->SetLineWidth(2);
 	my_fit2->SetLineWidth(2);
 	
 
 
 	double allowed_smear = 0.1;
-	my_fit1->SetParLimits(0, Pars.XMIN[pl] - allowed_smear, Pars.XMIN[pl] + allowed_smear);
-	my_fit2->SetParLimits(0, Pars.XMIN[pl] - allowed_smear, Pars.XMIN[pl] + allowed_smear);
+	my_fit1->SetParLimits(0, Pars->XMIN[pl] - allowed_smear, Pars->XMIN[pl] + allowed_smear);
+	my_fit2->SetParLimits(0, Pars->XMIN[pl] - allowed_smear, Pars->XMIN[pl] + allowed_smear);
 
 	// max curvature depends on the plane. Slope does not.
  	double max_slope[5] = {3.0, 2.4, 2.0, 2.0, 2.0};
@@ -191,8 +206,8 @@ void slice_plane(int arg=0)
 	double d_left = my_fit1->GetParameter(3);
 	double d_rite = my_fit2->GetParameter(3);
 	
-	a_left = Pars.XMIN[pl] - b_left*Pars.YMIN[pl][s] - c_left*Pars.YMIN[pl][s]*Pars.YMIN[pl][s] - d_left*Pars.YMIN[pl][s]*Pars.YMIN[pl][s]*Pars.YMIN[pl][s];
-	a_rite = Pars.XMIN[pl] - b_rite*Pars.YMIN[pl][s] - c_rite*Pars.YMIN[pl][s]*Pars.YMIN[pl][s] - d_rite*Pars.YMIN[pl][s]*Pars.YMIN[pl][s]*Pars.YMIN[pl][s];
+	a_left = Pars->XMIN[pl] - b_left*Pars->YMIN[pl][s] - c_left*Pars->YMIN[pl][s]*Pars->YMIN[pl][s] - d_left*Pars->YMIN[pl][s]*Pars->YMIN[pl][s]*Pars->YMIN[pl][s];
+	a_rite = Pars->XMIN[pl] - b_rite*Pars->YMIN[pl][s] - c_rite*Pars->YMIN[pl][s]*Pars->YMIN[pl][s] - d_rite*Pars->YMIN[pl][s]*Pars->YMIN[pl][s]*Pars->YMIN[pl][s];
 	
 	my_fit1->SetParLimits(0, a_left - allowed_smear, a_left + allowed_smear);
 	my_fit2->SetParLimits(0, a_rite - allowed_smear, a_rite + allowed_smear);
@@ -224,78 +239,49 @@ void slice_plane(int arg=0)
 	y_left[s][pl] ->Fit("my_fit1", "REM", "", -y_lims[pl],          0);
 	y_right[s][pl]->Fit("my_fit2", "REM", "",           0, y_lims[pl]);
 		
-	if(PLANE==1)
+	if(plane==1)
 	{
-		Pars.r1_a_left[s] = my_fit1->GetParameter(0);
-		Pars.r1_a_rite[s] = my_fit2->GetParameter(0);
-		Pars.r1_b_left[s] = my_fit1->GetParameter(1);
-		Pars.r1_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.r1_c_left[s] = my_fit1->GetParameter(2);
-		Pars.r1_c_rite[s] = my_fit2->GetParameter(2);
-	}
-	if(PLANE==2)
-	{
-		Pars.r2_a_left[s] = my_fit1->GetParameter(0);
-		Pars.r2_a_rite[s] = my_fit2->GetParameter(0);
-		Pars.r2_b_left[s] = my_fit1->GetParameter(1);
-		Pars.r2_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.r2_c_left[s] = my_fit1->GetParameter(2);
-		Pars.r2_c_rite[s] = my_fit2->GetParameter(2);
-		Pars.r2_d_left[s] = my_fit1->GetParameter(3);
-		Pars.r2_d_rite[s] = my_fit2->GetParameter(3);
-	}
-	if(PLANE==3)
-	{
-		Pars.r3_a_left[s] = my_fit1->GetParameter(0);
-		Pars.r3_a_rite[s] = my_fit2->GetParameter(0);
-		Pars.r3_b_left[s] = my_fit1->GetParameter(1);
-		Pars.r3_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.r3_c_left[s] = my_fit1->GetParameter(2);
-		Pars.r3_c_rite[s] = my_fit2->GetParameter(2);		
-		Pars.r3_d_left[s] = my_fit1->GetParameter(3);
-		Pars.r3_d_rite[s] = my_fit2->GetParameter(3);
-	}
-	if(PLANE==5)
-	{
-		Pars.sc_a_left[s] = my_fit1->GetParameter(0);
-		Pars.sc_a_rite[s] = my_fit2->GetParameter(0);
-		Pars.sc_b_left[s] = my_fit1->GetParameter(1);
-		Pars.sc_b_rite[s] = my_fit2->GetParameter(1);
-		Pars.sc_c_left[s] = my_fit1->GetParameter(2);
-		Pars.sc_c_rite[s] = my_fit2->GetParameter(2);
+		Pars->r1_a_left[s] = my_fit1->GetParameter(0);
+		Pars->r1_a_rite[s] = my_fit2->GetParameter(0);
+		Pars->r1_b_left[s] = my_fit1->GetParameter(1);
+		Pars->r1_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->r1_c_left[s] = my_fit1->GetParameter(2);
+		Pars->r1_c_rite[s] = my_fit2->GetParameter(2);
+	} else if(plane==2) {
+		Pars->r2_a_left[s] = my_fit1->GetParameter(0);
+		Pars->r2_a_rite[s] = my_fit2->GetParameter(0);
+		Pars->r2_b_left[s] = my_fit1->GetParameter(1);
+		Pars->r2_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->r2_c_left[s] = my_fit1->GetParameter(2);
+		Pars->r2_c_rite[s] = my_fit2->GetParameter(2);
+		Pars->r2_d_left[s] = my_fit1->GetParameter(3);
+		Pars->r2_d_rite[s] = my_fit2->GetParameter(3);
+	} else if(plane==3) {
+		Pars->r3_a_left[s] = my_fit1->GetParameter(0);
+		Pars->r3_a_rite[s] = my_fit2->GetParameter(0);
+		Pars->r3_b_left[s] = my_fit1->GetParameter(1);
+		Pars->r3_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->r3_c_left[s] = my_fit1->GetParameter(2);
+		Pars->r3_c_rite[s] = my_fit2->GetParameter(2);		
+		Pars->r3_d_left[s] = my_fit1->GetParameter(3);
+		Pars->r3_d_rite[s] = my_fit2->GetParameter(3);
+	} else if(plane==5){
+		Pars->sc_a_left[s] = my_fit1->GetParameter(0);
+		Pars->sc_a_rite[s] = my_fit2->GetParameter(0);
+		Pars->sc_b_left[s] = my_fit1->GetParameter(1);
+		Pars->sc_b_rite[s] = my_fit2->GetParameter(1);
+		Pars->sc_c_left[s] = my_fit1->GetParameter(2);
+		Pars->sc_c_rite[s] = my_fit2->GetParameter(2);
 	}
 	Cecp->Close();
 }
 
-void slice_all_planes()
-{
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s + 1;
-	
-		// not slicing EC plane
-		PLANE = 1;
-		slice_plane();
-		PLANE = 2;
-		slice_plane();
-		PLANE = 3;
-		slice_plane();
-		PLANE = 5;
-		slice_plane();
-	}
+void FiducialCut::slice_all_planes() {
+    for (int s = 0; s < 6; s++) {
+        // not slicing EC plane
+        slice_plane(s+1, 1);
+        slice_plane(s+1, 2);
+        slice_plane(s+1, 3);
+        slice_plane(s+1, 5);
+    }
 }
-
-void slice_all_sectors()
-{
-	for(int s=0; s<6; s++)
-	{
-		SECTOR = s + 1;
-		slice_plane();
-	}
-}
-
-
-
-
-
-

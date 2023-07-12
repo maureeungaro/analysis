@@ -1,6 +1,7 @@
 from init_env import init_environment
 
 env = init_environment("clhep mu root")
+env.Append(CXXFLAGS=['-std=c++17']) # need c++17 for std::filesystem
 
 
 # Include Path
@@ -12,4 +13,18 @@ p_fid_sources = Split("""src/p_fiducial.cc
                           src/histos.cc
                           src/fiducial_cut.cc""")
 
-p_fid = env.Program(source = p_fid_sources, target = 'p_fiducial')
+p_fid = env.Program(source = p_fid_sources, target = 'pfid')
+
+p_fid_lib = env.SharedLibrary(source = p_fid_sources, target = 'pfid')
+
+ana_p_fid_sources = Split("""
+ 					         src/common_info.cc
+                             ana/fiducial.cc
+                             ana/show_phi_theta.cc
+                             ana/show_phis.cc
+                             ana/show_plane.cc
+                             ana/slice_plane.cc
+                          """)
+
+
+p_fid_ana_lib = env.SharedLibrary(source = ana_p_fid_sources, target = 'ana_pfid')

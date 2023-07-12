@@ -1,93 +1,68 @@
-{
-	string pars_file = "fiducial_par.txt";
-	string root_file = "gsim.root";
-	int GSIM         = 1;
+#include "TControlBar.h"
+#include "TApplication.h"
 
-//	string pars_file = "fiducial_par.txt";
-//	string root_file = "pass4.root";
-//	int GSIM         = 0;
+// common parameters, analysis classes
+#include"ana/parameters.h"
 
-	gInterpreter->AddIncludePath("/opt/projects/muEvent/src");
-	#include "utilities.h"
+void e_fid(bool printa = false) {
 
-	gROOT->LoadMacro("src/common_info.cc");
-	gROOT->LoadMacro("ana/utils.C");
-	gROOT->LoadMacro("ana/show_phi_theta.C");
-	gROOT->LoadMacro("ana/show_phis.C");
-	gROOT->LoadMacro("ana/show_plane.C");
-	gROOT->LoadMacro("ana/slice_plane.C");
+    string type = "data";
 
-	string PRINT     = "";
-	int SECTOR       = 1;
-	int MOM          = 1;
-	int PLANE        = 1;
-	int LOGZ         = 0;
-	Color_t colors[4] = {   kBlack   ,        kBlue       ,        kRed         ,     kGreen+3};
-	
-	chistos H(root_file, 1);
-	cpars   Pars(pars_file);
-	
+    string pars_file = data_pars_file;
+    string root_file = data_root_file;
 
-	// slices in momentum, theta
-	TH2F *phi_theta[4][7][H.NDIV_P];
-	TH2F *y_x[4][7][3][H.NDIV_P];
-	
-	// histos for 1D XY divisions.
-	const int NDIV_XY = 15;
-	TH1F *y_slice[7][5][NDIV_XY];
-	double ymin[7][5][NDIV_XY];
-	double ymax[7][5][NDIV_XY];
-	double ymine[7][5][NDIV_XY];
-	double ymaxe[7][5][NDIV_XY];
-	TGraphErrors *y_left[7][5];  // current fits
-	TGraphErrors *y_right[7][5];
-	TF1 *left_para[7][5];  // new fits
-	TF1 *rite_para[7][5];
-	// histos for 1D XY divisions.
-	const int NDIV_T = 24;
-	TH1F *phis_befor[7][5][H.NDIV_P][NDIV_T];
-	TH1F *phis_after[7][5][H.NDIV_P][NDIV_T];
+    // if the first argument is the string 'gsim' then:
+    if (type == "gsim") {
+        root_file = gsim_root_file;
+        data_label = "gsim";
+        is_simulation = true;
+    }
 
-	// sect - plane - n. of holes - lower/upper
-	TF1 *wire_axial[6][4][10][2];
-	TF1 *wire_stereo[6][4][10][2];
-	
-	init();
-	
+    // load common histos and parameters
+    // second parameters instructs to read the root file
+    H = new chistos(root_file, 1);
+    Pars = new cpars(pars_file);
+
+    // Fiducial Cut Class
+    Fiducial = new FiducialCut(H, Pars, PRINT, colors, LOGZ);
+
+    // load utils.C
+    gROOT->ProcessLine(".L ana/utils.C");
+
+
 	bar = new TControlBar("vertical", "  Maurizio Ungaro");
 	bar->AddButton("Fiducial Cuts",  "");
 	bar->AddButton("","");
-	bar->AddButton("Show phi vs theta",                      "show_phi_theta()");
-	bar->AddButton("Show phi vs theta in p bins - before",   "show_phi_thetas(0)");
-	bar->AddButton("Show phi vs theta in p bins - after",    "show_phi_thetas(3)");
-	bar->AddButton("Show phis"            ,                  "show_phis()");
+	bar->AddButton("Show phi vs theta",                      "show_phi_theta(SECTOR, MOM)");
+	bar->AddButton("Show phi vs theta in p bins - before",   "show_phi_thetas(SECTOR, 0)");
+	bar->AddButton("Show phi vs theta in p bins - after",    "show_phi_thetas(SECTOR, 3)");
+	bar->AddButton("Show phis"            ,                  "show_phis(SECTOR, MOM, PLANE)");
 	bar->AddButton("","");
-	bar->AddButton("Show y vs x in current plane",  "show_plane()");
-	bar->AddButton("Show y vs x in current planes", "show_planes()");
-	bar->AddButton("Show y vs x for all momenta",   "show_integrated_plane()");
+	bar->AddButton("Show y vs x in current plane",           "show_plane(SECTOR, MOM, PLANE)");
+	bar->AddButton("Show y vs x in all planes",              "show_planes(SECTOR, MOM, PLANE)");
+	bar->AddButton("Show y vs x for all momenta",            "show_integrated_plane(SECTOR, PLANE)");
 	bar->AddButton("","");
-	bar->AddButton("Slice this plane",              "slice_plane()");
-	bar->AddButton("Re-fit this plane",             "slice_plane(1)");
-	bar->AddButton("Slice all Planes",              "slice_all_planes()");
-	bar->AddButton("Slice all Sectors",             "slice_all_sectors()");
-	bar->AddButton("","");
-	bar->AddButton("Switch Logz in the 2D plots",   "switch_logz()");
-	bar->AddButton("Print all fiducial plots",      "print_all()");
-	bar->AddButton("","");
-	bar->AddButton("Change Sector",                 "change_sector()");
-	bar->AddButton("Change Momentum",               "change_mom()");
-	bar->AddButton("Change Plane",                  "change_plane()");
-	bar->AddButton("","");
-	bar->AddButton("Write Parameters",              "Pars.write_vars(pars_file)");
-	bar->AddButton("","");
-	bar->Show();
+	bar->AddButton("Slice this plane",                       "slice_plane(SECTOR, PLANE, 0)");
+	bar->AddButton("Re-fit this plane",                      "slice_plane(SECTOR, PLANE, 1)");
+	bar->AddButton("Slice all Planes this sector",           "slice_all_planes()");
+
+
+    bar->AddButton("", "");
+    bar->AddButton("", "");
+    bar->AddButton("Switch PRINT",                       "switch_print();");
+    bar->AddButton("Change Sector",                      "change_sector();");
+    bar->AddButton("Change Momentum",                    "change_mom()");
+    bar->AddButton("Change Plane",                       "change_plane()");
+    bar->AddButton("Switch Logz in the 2D plots",        "switch_logz()");
+    bar->AddButton("", "");
+    bar->AddButton("Print all proton fiducial plots",    "print_all_message();");
+    bar->AddButton("Write Parameters",                   "Pars->write_vars();");
+    bar->AddButton("", "");
+    bar->Show();
+    gROOT->SaveContext();
+
+    if (printa) {
+        gROOT->ProcessLine("print_all();");
+    }
+
 }
-
-
-
-
-
-
-
-
-

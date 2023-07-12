@@ -1,5 +1,5 @@
 {
-    cout << endl << " Root loogon by Maurizio Ungaro" << endl;
+    cout << endl << " Root logon by Maurizio Ungaro" << endl;
 
     TStyle *mystyle  = new TStyle("mystyle","Plain Style");
     mystyle->SetPalette(1);
@@ -36,5 +36,3 @@
 //    gROOT->ProcessLine(".L libana_epid.dylib");
 
 }
-
-

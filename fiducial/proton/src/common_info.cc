@@ -152,11 +152,11 @@ void chistos::write_and_close()
 	}
 }
 
-// %%%%%%%%%%%%%%%%%%%%%%%%
 // Reads Parameters and functions
-// %%%%%%%%%%%%%%%%%%%%%%%%
 cpars::cpars(string filename)
 {
+    parameter_file = filename;
+
 	// DC are at 6 degrees, but projected slope is somehow less than tan(6) = 0.1051
 	stereo_angle_slope = 0.064;
 	
@@ -496,10 +496,10 @@ cpars::cpars(string filename)
 		cout << addInfos[s] << endl;
 }
 
-void cpars::write_vars(string filename)
+void cpars::write_vars()
 {
-	ofstream parfile(filename.c_str());
-	cout << endl << " Opening output parameter file " << filename << endl;
+	ofstream parfile(parameter_file.c_str());
+	cout << endl << " Opening output parameter file " << parameter_file << endl;
 	
 	parfile << "R1_A_LEFT: " ;
 	for(int s=0; s<6; s++) {parfile.width(12) ; parfile << r1_a_left[s] << " ";}
@@ -850,11 +850,3 @@ double cpars::xyholes(int sector, int plane, double x, double y)
 
 	return 1;
 }
-
-
-
-
-
-
-
-

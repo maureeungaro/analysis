@@ -46,6 +46,9 @@ public:
     void slice_plane(int sector, int plane);
     void slice_all_planes();
 
+    void draw_fiducial(int sector, int plane);
+
+
 private:
 
     chistos *H;
@@ -59,14 +62,14 @@ private:
     TH2F *phi_theta[4][7][chistos::NDIV_P];
     TH2F *y_x[4][7][3][chistos::NDIV_P];
 
-
+    // histos for 1D XY divisions.
     TH1F *y_slice[7][5][FiducialCut::NDIV_XY];
     double ymin[7][5][FiducialCut::NDIV_XY];
     double ymax[7][5][FiducialCut::NDIV_XY];
     double ymine[7][5][FiducialCut::NDIV_XY];
     double ymaxe[7][5][FiducialCut::NDIV_XY];
 
-    TGraphErrors *y_left[7][5]; // current fits
+    TGraphErrors *y_left[7][5];  // current fits
     TGraphErrors *y_right[7][5];
 
     TF1 *left_para[7][5]; // new fits
@@ -79,10 +82,9 @@ private:
     TH1F *phis_befor[7][5][chistos::NDIV_P][FiducialCut::NDIV_T];
     TH1F *phis_after[7][5][chistos::NDIV_P][FiducialCut::NDIV_T];
 
-
     void draw_limits(int sector, int plane);
 
-    TGraph *fidcut(int s, double p, int which);
+//    TGraph *fidcut(int s, double p, int which);
 };
 
 
