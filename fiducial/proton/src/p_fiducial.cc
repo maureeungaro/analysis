@@ -34,38 +34,31 @@ int main(int argc, char **argv)
 	int is_gsim          = 0;
 	
 	// if an output name is given, write out the mu filtered file
-	if(Opts.args["OUTPUT"].args != "none")
-	{
+	if(Opts.args["OUTPUT"].args != "none") {
 		cout << hd_msg << " Opening Output File: " << Opts.args["OUTPUT"].args << endl;
 		ofile.open(Opts.args["OUTPUT"].args.c_str(), ios::out | ios::binary);
 	}
 	
-	for (unsigned int f=0; f<Opts.ifiles.size(); f++)
-	{
+	for (unsigned int f=0; f<Opts.ifiles.size(); f++) {
 		cout << hd_msg << " Opening Input File: " << Opts.ifiles[f] << endl;
 		ifstream file(Opts.ifiles[f].c_str(), ios::in | ios::binary);
-		if(!file)
-		{
+		if(!file) {
 			cout << hd_msg << " " << Opts.ifiles[f] << " can't be opened" << endl;
 			return 0;
 		}
 
-		while(!file.eof() && (Nevents <= max_n || max_n==0))
-		{
+		while(!file.eof() && (Nevents <= max_n || max_n==0)) {
 			CLAS_Event Ev(&Opts);
 			file >> Ev;
 			if(file.eof()) break;
 
 			// Scaler event
-			if(Ev.Scaler.size())
-			{
+			if(Ev.Scaler.size()) {
 				n_scaler_events++;
 				// Printing just the first scaler infos
-				for(unsigned int i=0; i<Ev.Scaler[0].dataInfos.size() && n_scaler_events == 1; i++)
-				{
+				for(unsigned int i=0; i<Ev.Scaler[0].dataInfos.size() && n_scaler_events == 1; i++) {
 					cout << Ev.Scaler[0].dataInfos[i] << endl;	
-					if(Ev.Scaler[0].dataInfos[i].find("GSIM") != string::npos)
-					{
+					if(Ev.Scaler[0].dataInfos[i].find("GSIM") != string::npos) {
 						is_gsim = 1;
 						cout << hd_msg << " This is a GSIM simulation." << endl;
 					}
@@ -94,8 +87,7 @@ int main(int argc, char **argv)
 			{
 				// n_physics_events++;
 				
-				if( get_particles(Ev, "proton").size() > 0)
-				{
+				if( get_particles(Ev, "proton").size() > 0) {
 				
 					particle pro = get_particles(Ev, "proton").front();
 					
@@ -107,14 +99,10 @@ int main(int argc, char **argv)
 					
 					if(passed["PASSED"] && Opts.args["OUTPUT"].args != "none")
 						ofile << Ev;
-				}
-				else
-				{
-					if(is_gsim && Opts.args["OUTPUT"].args != "none" && Ev.start_time > -1)
-					{
+				} else {
+					if(is_gsim && Opts.args["OUTPUT"].args != "none" && Ev.start_time > -1) {
 						int npart = Ev.particles.size();
-						for(unsigned int i=npart; i>0; i--)
-						{
+						for(unsigned int i=npart; i>0; i--) {
 							// cout << i-1 << " " << Ev.particles[i-1].type << " " <<  Ev.particles[i-1].pid << " " <<  Ev.particles.size() << endl;
 							if(Ev.particles[i-1].type == 1) Ev.particles.pop_back();
 						}
