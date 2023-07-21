@@ -19,9 +19,9 @@ int PLANE = 1;
 int LOGZ = 1;
 const Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
 
-const std::string data_pars_file = "electron_fiducial_par.txt";
-const std::string data_root_file = "data_efid.root";
-const std::string gsim_root_file = "gsim_efid.root";
+const std::string data_pars_file = "proton_fiducial_par.txt";
+const std::string data_root_file = "data_pfid.root";
+const std::string gsim_root_file = "gsim_pfid.root";
 std::string data_label     = "data";
 
 // common histogram
@@ -35,4 +35,3 @@ const int csize = 1200; // common canvas size
 
 
 #endif
-

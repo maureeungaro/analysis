@@ -9,7 +9,7 @@
 
 void FiducialCut::show_phi_theta(int sector, int mom)
 {
-	int s = sector - 1;
+	int s = sector - 1;`
 	int m = mom - 1;
     int PLANE;
 
@@ -174,9 +174,3 @@ void FiducialCut::show_phi_thetas(int sector, int which)
         else            { Cphi_thetaS->Print(Form("img/phiTheta-after_sector-%d%s",  s + 1, PRINT.c_str())); }
 	}
 }
-
-
-
-
-
-

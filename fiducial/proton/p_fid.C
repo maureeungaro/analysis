@@ -4,7 +4,7 @@
 // common parameters, analysis classes
 #include"ana/parameters.h"
 
-void e_fid(bool printa = false) {
+void p_fid(bool printa = false) {
 
     string type = "data";
 
@@ -30,21 +30,20 @@ void e_fid(bool printa = false) {
     gROOT->ProcessLine(".L ana/utils.C");
 
 
-	bar = new TControlBar("vertical", "  Maurizio Ungaro");
+    TControlBar *bar = new TControlBar("vertical", "  Maurizio Ungaro", 2600, 150);
 	bar->AddButton("Fiducial Cuts",  "");
 	bar->AddButton("","");
-	bar->AddButton("Show phi vs theta",                      "show_phi_theta(SECTOR, MOM)");
-	bar->AddButton("Show phi vs theta in p bins - before",   "show_phi_thetas(SECTOR, 0)");
-	bar->AddButton("Show phi vs theta in p bins - after",    "show_phi_thetas(SECTOR, 3)");
-	bar->AddButton("Show phis"            ,                  "show_phis(SECTOR, MOM, PLANE)");
+	bar->AddButton("Show phi vs theta",                      "Fiducial->show_phi_theta(SECTOR, MOM)");
+	bar->AddButton("Show phi vs theta in p bins - before",   "Fiducial->show_phi_thetas(SECTOR, 0)");
+	bar->AddButton("Show phi vs theta in p bins - after",    "Fiducial->show_phi_thetas(SECTOR, 3)");
+	bar->AddButton("Show phis"            ,                  "Fiducial->show_phis(SECTOR, MOM, PLANE)");
 	bar->AddButton("","");
-	bar->AddButton("Show y vs x in current plane",           "show_plane(SECTOR, MOM, PLANE)");
-	bar->AddButton("Show y vs x in all planes",              "show_planes(SECTOR, MOM, PLANE)");
-	bar->AddButton("Show y vs x for all momenta",            "show_integrated_plane(SECTOR, PLANE)");
+	bar->AddButton("Show y vs x in current plane",           "Fiducial->show_plane(SECTOR, MOM, PLANE)");
+	bar->AddButton("Show y vs x in all planes",              "Fiducial->show_planes(SECTOR, PLANE)");
+	bar->AddButton("Show y vs x for all momenta",            "Fiducial->show_integrated_plane(SECTOR, PLANE)");
 	bar->AddButton("","");
-	bar->AddButton("Slice this plane",                       "slice_plane(SECTOR, PLANE, 0)");
-	bar->AddButton("Re-fit this plane",                      "slice_plane(SECTOR, PLANE, 1)");
-	bar->AddButton("Slice all Planes this sector",           "slice_all_planes()");
+	bar->AddButton("Slice this plane",                       "Fiducial->slice_plane(SECTOR, PLANE)");
+	bar->AddButton("Slice all Planes this sector",           "Fiducial->slice_all_planes()");
 
 
     bar->AddButton("", "");

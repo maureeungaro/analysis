@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 {
 	CLAS_Event_opts Opts;
 	Opts.Set(argc, argv);
-	string hd_msg        = Opts.args["LOG_MSG"].args + " e fiducial cut >> " ;
+	string hd_msg        = Opts.args["LOG_MSG"].args + " p fiducial cut >> " ;
 	string hd_msg_scaler = Opts.args["LOG_MSG"].args + " Scaler Event" ;
 	int max_n            = (int) Opts.args["N"].arg;
 	int print            = (int) Opts.args["PRINT"].arg;
@@ -86,7 +86,6 @@ int main(int argc, char **argv)
 			if(Ev.start_time > 0 || is_gsim)
 			{
 				// n_physics_events++;
-				
 				if( get_particles(Ev, "proton").size() > 0) {
 				
 					particle pro = get_particles(Ev, "proton").front();
@@ -99,6 +98,7 @@ int main(int argc, char **argv)
 					
 					if(passed["PASSED"] && Opts.args["OUTPUT"].args != "none")
 						ofile << Ev;
+
 				} else {
 					if(is_gsim && Opts.args["OUTPUT"].args != "none" && Ev.start_time > -1) {
 						int npart = Ev.particles.size();

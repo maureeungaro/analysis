@@ -80,7 +80,7 @@ void FiducialCut::show_plane(int sector, int mom, int plane) {
     }
 
     string planes[5] = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
-    string planes2[5] = {"DC1_Plane", "DC2_Plane", "DC3_Plane", "EC_Plane", "SC_Plane"};
+    string planes2[5] = {"DC1", "DC2", "DC3", "EC", "SC"};
 
     string mom_str[10] = {"0.4", "0.9", "1.4", "1.9", "2.4", "2.8", "3.3", "3.8", "4.3", "4.8"};
 
@@ -133,23 +133,25 @@ void FiducialCut::show_planes(int sector, int plane) {
         }
         lab.DrawLatex(0.28, 0.94, Form("momentum: %3.2f #leq p #leq %3.2f GeV", H->mom[m] - H->dp / 2, H->mom[m] + H->dp / 2));
 
-        if (plane != 4) {
-            left_para[s][pl]->Draw("same");
-            rite_para[s][pl]->Draw("same");
-        }
+//        if (plane != 4) {
+//            left_para[s][pl]->Draw("same");
+//            rite_para[s][pl]->Draw("same");
+//        }
+
         draw_limits(sector, plane);
+        draw_fiducial(sector, plane);
     }
 
     string planes[5] = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
-    string planes2[5] = {"DC1_Plane", "DC2_Plane", "DC3_Plane", "EC_Plane", "SC_Plane"};
+    string planes2[5] = {"DC1", "DC2", "DC3", "EC", "SC"};
     Cx_ysS->cd(0);
     lab.SetTextFont(102);
     lab.SetTextColor(kBlack);
     lab.SetTextSize(0.035);
     lab.DrawLatex(0.1, 0.95, Form("X vs Y Sector %d, Coordinates in %s ", sector, planes[pl].c_str()));
 
-    if (PRINT != "") {
-        Cx_ysS->Print(Form("X_vs_Y_sect%d_plane%s.%s", s + 1, planes2[pl].c_str(), PRINT.c_str()));
+    if (PRINT != "none") {
+        Cx_ysS->Print(Form("img/plane-%s_sector-%d%s", planes2[pl].c_str(), s + 1, PRINT.c_str()));
     }
 }
 
@@ -203,7 +205,7 @@ void FiducialCut::show_integrated_plane(int sector, int plane) {
     lab.DrawLatex(0.1, 0.95, Form("X vs Y Sector %d, Coordinates in %s ", sector, planes[pl].c_str()));
 
     if (PRINT != "none") {
-        Cx_yIS->Print(Form("img/plane-%s_sector-%d%s", planes2[pl].c_str(), s + 1, PRINT.c_str()));
+        Cx_yIS->Print(Form("img/plane-%s_intsector-%d%s", planes2[pl].c_str(), s + 1, PRINT.c_str()));
     }
 
 
@@ -272,7 +274,6 @@ void FiducialCut::DrawFit(int s, int pl, int hid) {
     c2->cd();
 
     string planes[5] = {"DC1 Plane", "DC2 Plane", "DC3 Plane", "EC Plane", "SC Plane"};
-    string planes2[5] = {"DC1_Plane", "DC2_Plane", "DC3_Plane", "EC_Plane", "SC_Plane"};
 
     double factor;
     if (pl == 0) factor = 1.5;
@@ -280,11 +281,11 @@ void FiducialCut::DrawFit(int s, int pl, int hid) {
     if (pl == 2) factor = 6;
     if (pl == 4) factor = 5;
 
-    double min_range = y_slice[s][pl][hid]->GetXaxis()->GetXmin() + factor * (18 - hid);
-    double max_range = y_slice[s][pl][hid]->GetXaxis()->GetXmax() - factor * (18 - hid);
-    y_slice[s][pl][hid]->GetXaxis()->SetRangeUser(min_range, max_range);
 
     if (y_slice[s][pl][hid]) {
+        double min_range = y_slice[s][pl][hid]->GetXaxis()->GetXmin() + factor * (18 - hid);
+        double max_range = y_slice[s][pl][hid]->GetXaxis()->GetXmax() - factor * (18 - hid);
+        y_slice[s][pl][hid]->GetXaxis()->SetRangeUser(min_range, max_range);
 
         y_slice[s][pl][hid]->Draw();
 
@@ -315,15 +316,12 @@ void FiducialCut::DrawFit(int s, int pl, int hid) {
 
         x_min_l.Draw();
         x_max_l.Draw();
-
     }
 
     c2->Update();
     padsav->cd();
 
-    if (PRINT != "") {
-        c2->Print(Form("slice%d_%s_sect%d.%s", hid + 1, planes2[pl].c_str(), s + 1, PRINT.c_str()));
-    }
+    string planes2[5] = {"DC1", "DC2", "DC3", "EC", "SC"};
 
     if (PRINT != "none") {
         if (hid < 9) {

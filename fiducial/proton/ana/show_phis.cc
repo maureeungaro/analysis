@@ -34,8 +34,7 @@ void FiducialCut::show_phis(int sector, int mom, int plane)
 	
 //	double theta_min =  H->phi_theta[0][s][m]->GetXaxis()->GetXmin();
 //	double theta_max =  H->phi_theta[0][s][m]->GetXaxis()->GetXmax();
-	
-	
+
 	for(int t=0; t<NDIV_T; t++) {
 		H->phi_theta[0][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_befor", t+1, s+1, m+1), t*DB, (t+1)*DB);
 		H->phi_theta[3][s][m]->ProjectionY(Form("theta_slice_theta%d_s%d_m%d_after", t+1, s+1, m+1), t*DB, (t+1)*DB);

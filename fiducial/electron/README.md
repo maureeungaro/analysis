@@ -12,7 +12,7 @@ Single file example:
 ./e_fiducial \
 /Volumes/e16/vertex/30540.mu \
 -BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
--PARS_FILE=/opt/projects/analysis/fiducial/electron/1
+-PARS_FILE=/opt/projects/analysis/fiducial/electron/electron_fiducial_par.txt
 ```
 
 
@@ -65,7 +65,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
 mv page.html xvsy_mom.html
 ```
 
-#### X vs Y of Track Intersection with Planes - all momenta
+#### X vs Y of Track Intersection with Planes - every momenta
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \

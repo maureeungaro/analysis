@@ -23,7 +23,7 @@ if [[ $1 == "-h" || $# -eq 0 || $# -lt 3 ]]; then
 	echo "./go_SEL $DATA_PATH/e_pid    $DATA_PATH/p_pid    $ANA_PATH/pid/proton/proton_pid          $ANA_PATH/pid/proton/proton_id_par.txt                "
 	echo "./go_SEL $DATA_PATH/p_pid    $DATA_PATH/vertex   $ANA_PATH/vertex/vertex_corr_sel         $ANA_PATH/vertex/vertex_par.txt                       "
 	echo "./go_SEL $DATA_PATH/vertex   $DATA_PATH//e_fidxy $ANA_PATH/fiducial/electron/e_fiducial   $ANA_PATH/fiducial/electron/electron_fiducial_par.txt "
-	echo "./go_SEL $DATA_PATH/e_fidxy  $DATA_PATH/p_fidxy  $ANA_PATH/fiducial/proton/p_fiducial     $ANA_PATH/fiducial/proton/fiducial_par.txt            "
+	echo "./go_SEL $DATA_PATH/e_fidxy  $DATA_PATH/p_fidxy  $ANA_PATH/fiducial/proton/p_fiducial     $ANA_PATH/fiducial/proton/proton_fiducial_par.txt            "
 	echo "./go_SEL $DATA_PATH/p_fidxy  $DATA_PATH/e_corr   $ANA_PATH/e_kin_cor/momentum/e_mom_corr  $ANA_PATH/e_kin_cor/momentum/emom_corr_pars.txt       "
 	echo "./go_SEL $DATA_PATH/e_corr   $DATA_PATH/pi0s     $ANA_PATH/pi0_selection/pi0_selection    $ANA_PATH/pi0_selection/pi0_selection_pars.txt        "
 

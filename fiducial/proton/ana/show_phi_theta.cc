@@ -11,6 +11,7 @@ void FiducialCut::show_phi_theta(int sector, int mom)
 {
     int s = sector - 1;
     int m = mom - 1;
+    int PLANE;
 
 	gStyle->SetPadLeftMargin(0.14);
 	gStyle->SetPadRightMargin(0.14);
@@ -28,16 +29,18 @@ void FiducialCut::show_phi_theta(int sector, int mom)
 		H->phi_theta[c][s][m]->GetXaxis()->SetLabelSize(0.042);
 		H->phi_theta[c][s][m]->GetYaxis()->SetLabelSize(0.042);
 		H->phi_theta[c][s][m]->GetZaxis()->SetNdivisions(8);
+
+        H->x_y[3][s][c][m]->GetXaxis()->SetTitleSize(0.052);
+        H->x_y[3][s][c][m]->GetXaxis()->SetTitleOffset(1.14);
+        H->x_y[3][s][c][m]->GetYaxis()->SetTitleSize(0.054);
+        H->x_y[3][s][c][m]->GetYaxis()->SetTitleOffset(1.32);
+        H->x_y[3][s][c][m]->GetXaxis()->SetLabelSize(0.042);
+        H->x_y[3][s][c][m]->GetYaxis()->SetLabelSize(0.042);
+        H->x_y[3][s][c][m]->GetZaxis()->SetNdivisions(8);
+        H->x_y[3][s][c][m]->GetZaxis()->SetLabelSize(0.042);
+
 	}
 
-	H->x_y[3][s][3][m]->GetXaxis()->SetTitleSize(0.052);
-	H->x_y[3][s][3][m]->GetXaxis()->SetTitleOffset(1.14);
-	H->x_y[3][s][3][m]->GetYaxis()->SetTitleSize(0.054);
-	H->x_y[3][s][3][m]->GetYaxis()->SetTitleOffset(1.32);
-	H->x_y[3][s][3][m]->GetXaxis()->SetLabelSize(0.042);
-	H->x_y[3][s][3][m]->GetYaxis()->SetLabelSize(0.042);
-	H->x_y[3][s][3][m]->GetZaxis()->SetNdivisions(8);
-	H->x_y[3][s][3][m]->GetZaxis()->SetLabelSize(0.042);
 
 
 	TCanvas *Cphi_thetaS;
@@ -52,35 +55,46 @@ void FiducialCut::show_phi_theta(int sector, int mom)
 	for(int c=0; c<4; c++) {
 		Pphi_thetaS->cd(c+1);
 
-		if(c<3) H->phi_theta[c][s][m]->Draw("colz");
-		else H->x_y[3][s][3][m]->Draw("colz");
+        if(c==0)      H->phi_theta[0][s][m]->Draw("colz");
+        else if(c==1) H->phi_theta[3][s][m]->Draw("colz");
+        else if(c==2) H->x_y[3][s][0][m]->Draw("colz");
+        else if(c==3) H->x_y[3][s][2][m]->Draw("colz");
 
 		Cphi_thetaS->Update();
-		if(H->phi_theta[c][s][m]->GetMaximum() > 1) {
-			if(c<3) palette = (TPaletteAxis*)H->phi_theta[c][s][m]->FindObject("palette");
-			else palette = (TPaletteAxis*)H->x_y[3][s][3][m]->FindObject("palette");
 
-			palette->SetLabelSize(0.035);
-			palette->SetLabelOffset(0.01);
-			palette->SetX1NDC(0.88);
-			palette->SetX2NDC(0.92);
-			palette->SetY2NDC(0.96);
+		if(H->phi_theta[c][s][m]->GetMaximum() > 1) {
+            if(c==0) palette = (TPaletteAxis*)H->phi_theta[0][s][m]->FindObject("palette");
+            if(c==1) palette = (TPaletteAxis*)H->phi_theta[3][s][m]->FindObject("palette");
+            if(c==2) palette = (TPaletteAxis*)H->x_y[3][s][0][m]->FindObject("palette");
+            if(c==3) palette = (TPaletteAxis*)H->x_y[3][s][2][m]->FindObject("palette");
+//            palette->SetLabelSize(0.035);
+//            palette->SetLabelOffset(0.01);
+            palette->SetX1NDC(0.88);
+            palette->SetX2NDC(0.92);
+            palette->SetY2NDC(0.96);
 		}
+
 		lab.SetTextColor(colors[c]);
 		lab.SetTextFont(42);
 		lab.SetTextSize(0.050);
-		if(c==0){
-			lab.DrawLatex(0.16, 0.91,  "a. no cuts applied");
-		} else if(c==1) {
-			lab.DrawLatex(0.16, 0.91,  "b. planes cuts applied");
-			lab.DrawLatex(0.16, 0.18,  Form("entries b. / a. : %3.1f%%", 100.0*H->phi_theta[c][s][m]->GetEntries()/H->phi_theta[0][s][m]->GetEntries()));
-		} else	if(c==2) {
-			lab.DrawLatex(0.16, 0.91,  "c. planes negative cuts applied");
-			lab.DrawLatex(0.16, 0.18,  Form("entries c. / a. : %3.1f%%", 100.0*H->phi_theta[c][s][m]->GetEntries()/H->phi_theta[0][s][m]->GetEntries()));
-		} else if(c==3) {
-			lab.DrawLatex(0.16, 0.91,  "d. all cuts applied");
-			lab.DrawLatex(0.16, 0.18,  Form("entries d. / c. : %3.1f%%", 100.0*H->phi_theta[c][s][m]->GetEntries()/H->phi_theta[1][s][m]->GetEntries()));
-		}
+        if(c==0) {
+            lab.DrawLatex(0.16, 0.96,  "a. no cuts applied");
+        } else if(c==1) {
+            lab.DrawLatex(0.16, 0.96,  "b. after fiducial cuts");
+            lab.DrawLatex(0.16, 0.18,  Form("entries b. / a. : %3.1f%%", 100.0*H->phi_theta[c][s][m]->GetEntries()/H->phi_theta[0][s][m]->GetEntries()));
+        } else if(c==2) {
+            lab.SetTextColor(kRed+2);
+            PLANE = 1;
+            draw_limits(sector, PLANE);
+            draw_fiducial(sector, PLANE);
+            lab.DrawLatex(0.16, 0.18,  "c. DC1 plane, after fiducial cuts");
+        } else if(c==3) {
+            lab.SetTextColor(kRed+2);
+            PLANE = 3;
+            draw_limits(sector, PLANE);
+            draw_fiducial(sector, PLANE);
+            lab.DrawLatex(0.16, 0.18,  "d. DC3 plane, after fiducial cuts");
+        }
 	}
 	
 	Cphi_thetaS->cd(0);

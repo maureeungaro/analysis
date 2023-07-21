@@ -1,4 +1,4 @@
-# Electron Fiducial Cut
+# Proton Fiducial Cut
 
 
 Notice the cuts can be on Phi vs Theta or on X vs Y of the track intersection with the planes.
@@ -9,10 +9,10 @@ The choice is made on line 60 of fiducial_cut.cc
 Single file example:
 
 ```
-./e_fiducial \
-/Volumes/e16/vertex/30540.mu \
+./p_fiducial \
+/Volumes/e16/e_fidxy/30540.mu \
 -BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
--PARS_FILE=/opt/projects/analysis/fiducial/electron/1
+-PARS_FILE=/opt/projects/analysis/fiducial/proton/proton_fiducial_par.txt
 ```
 
 
@@ -26,7 +26,7 @@ This requires a `data_efid.root` file to be present in the same directory.
 
 ### Batch and print all plots:
 
-`root -b -q e_fid.C\(1\)`
+`root -b -q p_fid.C\(1\)`
 
 ## Create web pages based on the output of the analysis
 
@@ -65,7 +65,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
 mv page.html xvsy_mom.html
 ```
 
-#### X vs Y of Track Intersection with Planes - all momenta
+#### X vs Y of Track Intersection with Planes - every momenta
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
@@ -76,7 +76,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
 mv page.html xvsy_allmom.html
 ```
 
-#### X vs Y of Track Intersection with Planes - instegrated momenta
+#### X vs Y of Track Intersection with Planes - integrated momenta
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \

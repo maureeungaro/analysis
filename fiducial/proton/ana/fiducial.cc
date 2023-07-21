@@ -6,16 +6,8 @@
 // duplicate definitions
 //
 // 2 gaussians + parabole
-Double_t fid_parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] ; }
-//Double_t fid_gaussian(   Double_t *x, Double_t *par)  { return par[0]*exp(-0.5*pow((x[0]-par[1])/par[2],2)); }
-//Double_t fid_gauss2_para(Double_t *x, Double_t *par)  { return cct_parabole(x, par) + cct_gaussian(x, &par[3]) + cct_gaussian(x, &par[6]); }
-
-// Ugly: these functions have to be global to be used by TF1
-// but compiling them here means we cannot use them in other files
-// thus we have to call them with a different name otherwise the compiler will detect
-// duplicate definitions
-
-double thirdOrder(double *x, double *par)   { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] + par[3]*x[0]*x[0]*x[0] ; }
+Double_t fid_parabole(   Double_t *x, Double_t *par)  { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] + par[3]*x[0]*x[0]*x[0] ; }
+double thirdOrder(double *x, double *par)             { return par[0] + par[1]*x[0] + par[2]*x[0]*x[0] + par[3]*x[0]*x[0]*x[0] ; }
 
 
 // constructor using chisto and cpars
@@ -42,8 +34,8 @@ FiducialCut::FiducialCut(chistos *common_histo, cpars *common_pars, string P, co
             // don't consider EC
             if (pl == 3) continue;
 
-            left_para[s][pl] = new TF1(Form("left_para_s%d_pl%d", s + 1, pl + 1), fid_parabole, -x_lims[pl],       Pars->YMIN[pl][s], 3);
-            rite_para[s][pl] = new TF1(Form("rite_para_s%d_pl%d", s + 1, pl + 1), fid_parabole, Pars->YMIN[pl][s], x_lims[pl], 3);
+            left_para[s][pl] = new TF1(Form("left_para_s%d_pl%d", s + 1, pl + 1), fid_parabole, -x_lims[pl],       Pars->YMIN[pl][s], 4);
+            rite_para[s][pl] = new TF1(Form("rite_para_s%d_pl%d", s + 1, pl + 1), fid_parabole, Pars->YMIN[pl][s], x_lims[pl], 4);
 
             left_para[s][pl]->SetLineColor(kRed + 3);
             rite_para[s][pl]->SetLineColor(kRed + 3);

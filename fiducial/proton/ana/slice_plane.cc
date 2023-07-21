@@ -108,9 +108,7 @@ void FiducialCut::slice_plane(int sector, int plane) {
 	
 	// Slicing + fitting
 	cout << " Fitting Sector " << sector << ", Plane " << plane << endl;
-	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin ; b++)
-//        for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin && arg !=1 ; b++)
-	{
+	for(int b=skip_start_bin; b<NDIV_XY - skip_final_bin ; b++) {
 		cout << " Fitting slice " << b+1 << endl;
 		H->x_y_tot[0][s][pl]->ProjectionX(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1), b*db, (b+1)*db);
 		y_slice[s][pl][b] = (TH1F*)gROOT->Get(Form("y_slice_s%d_b%d_pl%d", s+1, b+1, pl+1));
@@ -143,11 +141,12 @@ void FiducialCut::slice_plane(int sector, int plane) {
 	y_left[s][pl]->SetMarkerSize(0.8);
 	y_right[s][pl]->SetMarkerSize(0.8);
 
-	TF1 *my_fit1 = new TF1("my_fit1",  thirdOrder_s, -y_lims[pl],          0, 4);
-	TF1 *my_fit2 = new TF1("my_fit2",  thirdOrder_s,           0, y_lims[pl], 4);
-	my_fit1->SetLineWidth(2);
-	my_fit2->SetLineWidth(2);
-	
+	TF1 *my_fit1 = new TF1("my_fit1",  thirdOrder_s,  -y_lims[pl],          0, 4);
+	TF1 *my_fit2 = new TF1("my_fit2",  thirdOrder_s,            0, y_lims[pl], 4);
+	my_fit1->SetLineWidth(4);
+	my_fit2->SetLineWidth(4);
+    my_fit1->SetLineColor(kRed+3);
+    my_fit2->SetLineColor(kRed+3);
 
 
 	double allowed_smear = 0.1;
@@ -162,25 +161,18 @@ void FiducialCut::slice_plane(int sector, int plane) {
 	
 	double max_curvature[5] = {0.1, -0.1, -0.2,  0.0005,  0.2};
 	double min_factor[5]    = { 10,  200,  100,     100,  100};
-	if(max_curvature[pl] < 0)
-	{
+	if(max_curvature[pl] < 0) {
 		my_fit1->SetParLimits(2,   max_curvature[pl], max_curvature[pl]/min_factor[pl]);
 		my_fit2->SetParLimits(2,   max_curvature[pl], max_curvature[pl]/min_factor[pl]);
-	}
-	if(max_curvature[pl] > 0)
-	{
+	} else if(max_curvature[pl] > 0) {
 		my_fit1->SetParLimits(2,  max_curvature[pl]/min_factor[pl], max_curvature[pl]);
 		my_fit2->SetParLimits(2,  max_curvature[pl]/min_factor[pl], max_curvature[pl]);
 	}
 
-	if(pl == 1 || pl == 2)
-	{
+	if(pl == 1 || pl == 2) {
 		my_fit1->SetParLimits(3,     -0.1, -0.00004);
 		my_fit2->SetParLimits(3,  0.00004, 0.1);
-	}
-	
-	if(pl == 0 || pl == 4)
-	{
+	} else if(pl == 0 || pl == 4) {
 		my_fit1->FixParameter(3, 0);
 		my_fit2->FixParameter(3, 0);
 	}
@@ -188,8 +180,6 @@ void FiducialCut::slice_plane(int sector, int plane) {
 	y_left[s][pl] ->Fit("my_fit1", "REM", "", -y_lims[pl],          0);
 	y_right[s][pl]->Fit("my_fit2", "REM", "",           0, y_lims[pl]);
 
-	
-	
 	// Now limiting the left/right position
 	// left:  x = a + b_left*y + c_left*y2
 	// left:  x = a + b_left*y + c_left*y2
@@ -211,23 +201,21 @@ void FiducialCut::slice_plane(int sector, int plane) {
 	
 	my_fit1->SetParLimits(0, a_left - allowed_smear, a_left + allowed_smear);
 	my_fit2->SetParLimits(0, a_rite - allowed_smear, a_rite + allowed_smear);
-	if(s == 4 && pl == 1)
-	{
+
+    // particular sectors/plane combination
+    if(s == 4 && pl == 1) {
 		my_fit1->FixParameter(2, 0.001);
 		my_fit2->FixParameter(2, 0.001);
 		my_fit1->FixParameter(3, 0);
 		my_fit2->FixParameter(3, 0);
 		my_fit1->FixParameter(1, -1.52);
 		my_fit2->FixParameter(1, 1.62);
-	}
-	if(s == 0 && pl == 2)
-	{
+	} else if(s == 0 && pl == 2) {
 		my_fit1->FixParameter(1, -2.00);
 		my_fit1->FixParameter(2,  -0.018937);
 		my_fit1->FixParameter(3, -0.000147);
 	}
-	if(s == 4 && pl == 2)
-	{
+	if(s == 4 && pl == 2) {
 		my_fit1->FixParameter(2, 0.004);
 		my_fit2->FixParameter(2, 0.004);
 		my_fit1->FixParameter(3, 0);
@@ -239,8 +227,7 @@ void FiducialCut::slice_plane(int sector, int plane) {
 	y_left[s][pl] ->Fit("my_fit1", "REM", "", -y_lims[pl],          0);
 	y_right[s][pl]->Fit("my_fit2", "REM", "",           0, y_lims[pl]);
 		
-	if(plane==1)
-	{
+	if(plane==1) {
 		Pars->r1_a_left[s] = my_fit1->GetParameter(0);
 		Pars->r1_a_rite[s] = my_fit2->GetParameter(0);
 		Pars->r1_b_left[s] = my_fit1->GetParameter(1);

@@ -47,10 +47,10 @@ map<string, int> fiducial_cut::selection(particle p)
 			selection["FID_XY"] = 1;
 	
 	// x vs y holes
-	if(xyholes(sector(p.p), 1, dcpos[0].x/cm, dcpos[0].y/cm)*
+	if(  xyholes(sector(p.p), 1, dcpos[0].x/cm, dcpos[0].y/cm)*
 		 xyholes(sector(p.p), 2, dcpos[1].x/cm, dcpos[1].y/cm)*
 		 xyholes(sector(p.p), 3, dcpos[2].x/cm, dcpos[2].y/cm)*
-		 xyholes(sector(p.p), 5,    scpos.x/cm,    scpos.y/cm) == 1 )
+		 xyholes(sector(p.p), 5, scpos.x/cm,    scpos.y/cm) == 1 )
 		 selection["FID_HOLES"] = 1;
 		
 	if(selection["FID_XY"]*selection["FID_HOLES"])
@@ -59,6 +59,3 @@ map<string, int> fiducial_cut::selection(particle p)
 	
 	return selection;
 }
-
-
-
