@@ -154,18 +154,20 @@ cpars::cpars(string filename) {
     string addinfo;
 
     // these values are found empirically by looking at the XY plot
-    XMIN[0] = 13.0;
-    XMIN[1] = 44.0;
-    XMIN[2] = 82.0;
+    // same for all sectors, index is plane
+    XMIN[0] = 11.0;
+    XMIN[1] = 43.0;
+    XMIN[2] = 75.0;
     XMIN[3] = 90.0;
-    XMIN[4] = 135.0;
+    XMIN[4] = 130.0;
 
-    YMIN[0][0] = -0.0;
-    YMIN[0][1] = 0.2;
+    // first index: plane. second index: sector
+    YMIN[0][0] = -0.2;
+    YMIN[0][1] = 0.0;
     YMIN[0][2] = 0.2;
-    YMIN[0][3] = 0.6;
+    YMIN[0][3] = 0.3;
     YMIN[0][4] = 1.1;
-    YMIN[0][5] = 0.1;
+    YMIN[0][5] = -0.2;
 
     YMIN[1][0] = 0.1;
     YMIN[1][1] = 0.4;

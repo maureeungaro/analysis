@@ -1,28 +1,33 @@
-R1_A_LEFT:      12.2981      13.4072       13.335      13.7964      14.6457      13.0498    # XY parameters cuts for R1 A LEFT
-R1_A_RITE:      13.4977      12.7888      12.5996      12.1964      11.2379      12.7498    # XY parameters cuts for R1 A RITE
-R2_A_LEFT:      44.2662      44.7266      44.1909      44.5783      47.9717      44.6533    # XY parameters cuts for R2 A LEFT
-R2_A_RITE:      43.8605      43.1708      43.4293      43.5005      41.4086      43.1609    # XY parameters cuts for R2 A RITE
-R3_A_LEFT:         81.9      82.7879         81.9      84.1616      87.0412      84.9714    # XY parameters cuts for R3 A LEFT
-R3_A_RITE:         82.1      81.0806         81.9      79.5893      77.6577      78.9337    # XY parameters cuts for R3 A RITE
-SC_A_LEFT:      135.449      135.449        134.9      135.794      139.756        134.9    # XY parameters cuts for SC A LEFT
-SC_A_RITE:      134.349      134.349        134.9      133.986       129.99        134.9    # XY parameters cuts for SC A RITE
-R1_B_LEFT:         -1.5     -1.50589         -1.5         -1.5         -1.5         -1.5    # XY parameters cuts for R1 B LEFT
-R1_B_RITE:          1.5      1.58722          1.5      1.54332          1.5          1.5    # XY parameters cuts for R1 B RITE
-R2_B_LEFT:     -1.63837     -1.50412     -1.43448     -1.52735        -1.52     -1.44048    # XY parameters cuts for R2 B LEFT
-R2_B_RITE:          2.4      1.88595      1.89303      2.04742         1.62      1.52173    # XY parameters cuts for R2 B RITE
-R3_B_LEFT:           -2         -1.5     -1.77659         -1.5         -1.1     -1.52037    # XY parameters cuts for R3 B LEFT
-R3_B_RITE:            2      1.63723      1.96645      1.69603          1.1            2    # XY parameters cuts for R3 B RITE
-SC_B_LEFT:         -1.1         -1.1         -1.1     -1.10906     -1.15295         -1.1    # XY parameters cuts for SC B LEFT
-SC_B_RITE:          1.1          1.1          1.1      1.15234      1.29897          1.1    # XY parameters cuts for SC B RITE
-R1_C_LEFT:    0.0165082         0.01    0.0102231         0.01         0.01    0.0160583    # XY parameters cuts for R1 C LEFT
-R1_C_RITE:         0.01         0.01         0.01         0.01     0.015281    0.0216853    # XY parameters cuts for R1 C RITE
-R2_C_LEFT:  -0.00790114   -0.0020039      -0.0005  -0.00792528        0.001      -0.0005    # XY parameters cuts for R2 C LEFT
-R2_C_RITE:   -0.0485481  -0.00907488   -0.0118034   -0.0371089        0.001      -0.0005    # XY parameters cuts for R2 C RITE
-R3_C_LEFT:    -0.018937    -0.005178    -0.014703  -0.00796395        0.004  -0.00673516    # XY parameters cuts for R3 C LEFT
-R3_C_RITE:   -0.0153452  -0.00547121   -0.0182506  -0.00635447        0.004   -0.0160512    # XY parameters cuts for R3 C RITE
-SC_C_LEFT:   0.00258556   0.00266656   0.00232705        0.002        0.002   0.00255245    # XY parameters cuts for SC C LEFT
-SC_C_RITE:   0.00237941   0.00417328     0.002278        0.002        0.002   0.00276461    # XY parameters cuts for SC C RITE
-R2_D_LEFT: -0.000113662       -4e-05 -4.73593e-05 -0.000143604            0       -4e-05    # XY parameters cuts for R2 D LEFT
-R2_D_RITE:  0.000653894        4e-05   7.0656e-05  0.000595302            0        4e-05    # XY parameters cuts for R2 D RITE
-R3_D_LEFT:    -0.000147 -4.90206e-05 -0.000129402  -7.6932e-05            0 -5.81027e-05    # XY parameters cuts for R3 D LEFT
-R3_D_RITE:  9.20974e-05        4e-05  0.000146929        4e-05            0  0.000117408    # XY parameters cuts for R3 D RITE
+R1_A_LEFT:      10.5359         11.1      11.4803      11.6677      13.1943      10.7201    # XY parameters cuts for R1 A LEFT
+R1_A_RITE:      11.4397         11.1        10.76      10.5896      9.33068      11.4397    # XY parameters cuts for R1 A RITE
+R2_A_LEFT:       43.065      43.5601        43.23       43.395      45.7816      43.7251    # XY parameters cuts for R2 A LEFT
+R2_A_RITE:        42.95      42.4999         42.8        42.65      40.4964      42.3499    # XY parameters cuts for R2 A RITE
+R3_A_LEFT:         75.1       75.875         75.1       77.225      79.1363       77.535    # XY parameters cuts for R3 A LEFT
+R3_A_RITE:         75.1      74.3747         75.1      72.9227       71.472      72.6321    # XY parameters cuts for R3 A RITE
+SC_A_LEFT:      130.512      130.489        129.9      131.037      135.046        129.9    # XY parameters cuts for SC A LEFT
+SC_A_RITE:      129.302      129.231        129.9       129.14      124.635        129.9    # XY parameters cuts for SC A RITE
+R1_B_LEFT:         -1.9         -1.9     -1.88527     -1.83557     -1.78532         -1.9    # XY parameters cuts for R1 B LEFT
+R1_B_RITE:          1.7          1.7          1.7          1.7          1.7          1.7    # XY parameters cuts for R1 B RITE
+R2_B_LEFT:        -1.65        -1.65        -1.65        -1.65         -1.6        -1.65    # XY parameters cuts for R2 B LEFT
+R2_B_RITE:          1.5          1.5          1.5          1.5          1.5          1.5    # XY parameters cuts for R2 B RITE
+R3_B_LEFT:     -1.55215        -1.55        -1.55        -1.55        -1.55        -1.55    # XY parameters cuts for R3 B LEFT
+R3_B_RITE:         1.45         1.45         1.45         1.45         1.45         1.45    # XY parameters cuts for R3 B RITE
+SC_B_LEFT:     -1.19916     -1.15402      -1.1924     -1.16178     -1.21994     -1.18661    # XY parameters cuts for SC B LEFT
+SC_B_RITE:      1.21831      1.38001      1.19017      1.21051       1.4474      1.21484    # XY parameters cuts for SC B RITE
+R1_C_LEFT:  -0.00382748  -0.00590923       -0.008       -0.008       -0.008 -3.49807e-13    # XY parameters cuts for R1 C LEFT
+R1_C_RITE:        0.008        0.008   0.00339372        0.008        0.008        0.008    # XY parameters cuts for R1 C RITE
+R2_C_LEFT:      -0.0005      -0.0005      -0.0005      -0.0005      -0.0005      -0.0005    # XY parameters cuts for R2 C LEFT
+R2_C_RITE:       0.0005       0.0005       0.0005       0.0005       0.0005       0.0005    # XY parameters cuts for R2 C RITE
+R3_C_LEFT:  1.94289e-18  1.07436e-14  7.21645e-19  6.27276e-18  2.18492e-16  5.99004e-15    # XY parameters cuts for R3 C LEFT
+R3_C_RITE:        0.001        0.001        0.001        0.001        0.001        0.001    # XY parameters cuts for R3 C RITE
+SC_C_LEFT:   0.00210338   0.00266497        0.002        0.002        0.002   0.00219806    # XY parameters cuts for SC C LEFT
+SC_C_RITE:   0.00171382   0.00138144        0.002        0.002        0.001        0.002    # XY parameters cuts for SC C RITE
+R2_D_LEFT: -1.59872e-19 -3.37252e-17 -3.77476e-19 -4.80727e-19 -1.32117e-19 -3.44169e-20    # XY parameters cuts for R2 D LEFT
+R2_D_RITE:        1e-05        1e-05        1e-05        1e-05        1e-05        1e-05    # XY parameters cuts for R2 D RITE
+R3_D_LEFT: -3.33067e-21 -1.83137e-16 -5.55112e-21 -1.35447e-19 -2.13651e-17  -1.7029e-16    # XY parameters cuts for R3 D LEFT
+R3_D_RITE:  8.26665e-06        1e-05  7.44992e-06        1e-05  1.67271e-06        1e-05    # XY parameters cuts for R3 D RITE
+R1_AXIAL_LIMITS:    2  33.4  35.5    # Sector, Min and Max X of R1 Axial Limits
+R1_AXIAL_LIMITS:    2  42.2  44.2    # Sector, Min and Max X of R1 Axial Limits
+R2_AXIAL_LIMITS:    5  67.2  71.2    # Sector, Min and Max X of R2 Axial Limits
+R1_STEREO_LIMITS:   5  27.8  29.3    # Sector, Min and Max X of R1 Stereo Limits
+R1_STEREO_LIMITS:   5  33.3    34    # Sector, Min and Max X of R1 Stereo Limits

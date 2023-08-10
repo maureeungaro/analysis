@@ -169,8 +169,8 @@ void FiducialCut::slice_plane(int sector, int plane) {
     my_fit1->SetParLimits(2, max_curvature[pl], 0);
     my_fit2->SetParLimits(2, max_curvature[pl], 0);
 
-    y_left[s][pl]->Fit("my_fit1", "REM", "", -y_lims[pl], 0);
-    y_right[s][pl]->Fit("my_fit2", "REM", "", 0, y_lims[pl]);
+    y_left[s][pl]->Fit( "my_fit1", "REM", "", -y_lims[pl], 0);
+    y_right[s][pl]->Fit("my_fit2", "REM", "",           0, y_lims[pl]);
 
     if (plane == 1) {
         Pars->r1_b_left[s] = my_fit1->GetParameter(1);
