@@ -50,7 +50,7 @@ mv page.html slices.html
 
 
 
-## Create new plots
+## Create new mauriPlots
 
 The script `update_mauriPlots.zsh` will compile the code, run it in batch
 to produce the plots, create the web pages and move the images and html files

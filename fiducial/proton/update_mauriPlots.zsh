@@ -1,37 +1,33 @@
-# Proton Fiducial Cut
+#!/bin/zsh -i
 
 
-Notice the cuts can be on Phi vs Theta or on X vs Y of the track intersection with the planes.
-The choice is made on line 60 of fiducial_cut.cc
+# if -h given print the reset option
+if [[ $1 == "-h" ]]; then
+  echo
+  echo "Usage: update_mauriPlots.zsh [reset]"
+  echo
+  echo "If the option 'reset' is given, the history of the mauriPlot repository is reset."
+  echo
+  exit
+fi
 
-## Re-run e_fid to apply cuts and create histograms:
+mdir=/opt/projects/mauriplots/pfid
 
-Single file example:
+export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
-```
-./p_fiducial \
-/Volumes/e16/e_fidxy/30540.mu \
--BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
--PARS_FILE=/opt/projects/analysis/fiducial/proton/proton_fiducial_par.txt
-```
+scons -c
+gia
+scons
+if [[ ! -f data_pfid.root ]]; then
+  cp "/Users/ungaro/Library/Mobile Documents/com~apple~CloudDocs/data/data_pfid.root"  .
+fi
+root -b -q p_fid.C\(1\)
+scons -c
 
 
-## Run analysis:
+# making the pages
+rm -f *.html
 
-### Interactive:
-
-This requires a `data_efid.root` file to be present in the same directory.
-
-`root e_fid.C`
-
-### Batch and print all plots:
-
-`root -b -q p_fid.C\(1\)`
-
-## Create web pages based on the output of the analysis
-
-#### Phi and Phi vs Theta - variable momentum
-``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
                                         -addRowTableVariable=PnPvsTmom  \
@@ -40,10 +36,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
                                         -defaultPlot=img/PnPvsTmom-2.4_sector-2_plot-phiVsTheta.png \
                                         -imagesSize="1200 1200"
 mv page.html phi_theta.html
-```
 
-#### Phi vs Theta for all momenta, before and after
-``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
                                         -addRowTableVariable=phiTheta  \
@@ -51,10 +44,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
                                         -defaultPlot=img/phiTheta-before_sector-1.png \
                                         -imagesSize="1200 1200"
 mv page.html phi_theta_ba.html
-```
 
-#### X vs Y of Track Intersection with Planes - variable momentum
-``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
                                         -addRowTableVariable=XvsYmom  \
@@ -63,10 +53,8 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
                                         -defaultPlot=img/XvsYmom-3.3_sector-1_plane-DC1.png \
                                         -imagesSize="1200 1200"
 mv page.html xvsy_mom.html
-```
 
-#### X vs Y of Track Intersection with Planes - every momenta
-``` 
+
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
                                         -addRowTableVariable=plane  \
@@ -74,10 +62,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
                                         -defaultPlot=img/plane-DC1_sector-1.png \
                                         -imagesSize="1200 1200"
 mv page.html xvsy_allmom.html
-```
 
-#### X vs Y of Track Intersection with Planes - integrated momenta
-``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
                                         -addRowTableVariable=plane  \
@@ -85,11 +70,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
                                         -defaultPlot=img/plane-DC1_intsector-1.png \
                                         -imagesSize="1200 1200"
 mv page.html xvsy_intmom.html
-```
 
-#### For the slices:
-
-```
 rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator -addRowTableVariable=slice \
                                         -addColumnTableVariable=sector \
@@ -97,18 +78,26 @@ rm -rf imageslist.txt ; ls img_slices > imageslist.txt
 -defaultPlot=img_slices/slice-03_sector-1_plane-DC1.png \
 -imagesSize="1200 1200" -d=img_slices
 mv page.html slices.html
-```
 
 
-## Create new mauriPlots
 
-The script `update_mauriPlots.zsh` will compile the code, run it in batch
-to produce the plots, create the web pages and move the images and html files
-onto mauriPlots repo. It will also reset the git repo to the last commit if the reset
-option is used:
 
-`./update_mauriPlots.zsh reset`
+# updating mauriPlots repository
+rm -rf $mdir/*
+mkdir -p $mdir/img $mdir/img_slices
 
-Notice that the script will also copy the data from the cloud.
+mv img/*.png $mdir/img/
+mv img_slices/*.png $mdir/img_slices/
+mv *.html $mdir/
 
-<br/><br/>
+# if the option 'reset' is given to this script, run gitRemoveHistory
+if [[ $1 == "reset" ]]; then
+  cd $mdir
+	git checkout --orphan new-main
+	git add -A
+	git commit -m 'new files'
+	git branch -D main
+	git branch -m main
+	git push -f origin main
+	git branch --set-upstream-to=origin/main main
+fi

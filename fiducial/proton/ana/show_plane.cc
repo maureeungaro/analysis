@@ -87,7 +87,7 @@ void FiducialCut::show_plane(int sector, int mom, int plane) {
     Cx_yS->cd(0);
     lab.SetTextFont(102);
     lab.SetTextColor(kBlack);
-    lab.SetTextSize(0.035);
+    lab.SetTextSize(0.032);
     lab.DrawLatex(0.04, 0.95, Form("Fiducial Cut - Sector %d - %s -  p:%3.1f#pm%3.2f GeV", sector, planes[pl].c_str(), H->mom[m], H->dp / 2));
 
     if (PRINT != "none") {

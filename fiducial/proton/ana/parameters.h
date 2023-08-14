@@ -15,7 +15,7 @@ std::string PRINT  = "none";
 bool is_simulation = false;
 int SECTOR = 1;
 int MOM = 1;
-int PLANE = 5;
+int PLANE = 1;
 int LOGZ = 1;
 const Color_t colors[4] = { kBlack, kBlue, kRed, kGreen+3 };
 
