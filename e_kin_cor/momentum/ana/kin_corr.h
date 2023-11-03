@@ -1,5 +1,5 @@
-#ifndef VERTEX_PARAMETERS_LOADED
-#define VERTEX_PARAMETERS_LOADED
+#ifndef EKINCORR_PARAMETERS_LOADED
+#define EKINCORR_PARAMETERS_LOADED
 
 // histos and parameters
 #include "../src/common_info.h"
@@ -7,20 +7,19 @@
 // root
 #include "TGraphErrors.h"
 
-class Vertex_CS {
+class EKinnCorr_CS {
 
 public:
 
-    Vertex_CS();
-    ~Vertex_CS();
+    EKinnCorr_CS();
+    ~EKinnCorr_CS();
 
     // constructor using chisto and cpars
-    Vertex_CS(chistos *common_histo, cpars *common_pars, string P, bool is_sim) {
+    EKinnCorr_CS(chistos *common_histo, cpars *common_pars, string P) {
 
         H = common_histo;
         Pars = common_pars;
         PRINT = P;
-        is_simulation = is_sim;
 
     }
 
@@ -31,12 +30,12 @@ public:
     void show_vertex();
     void show_2D_vertex();
 
+
 private:
 
     chistos *H;
     cpars *Pars;
     string PRINT;
-    bool is_simulation = false;
     const int csize = 1200; // common canvas size
 
 };

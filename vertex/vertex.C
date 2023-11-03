@@ -48,15 +48,5 @@ void vertex(bool printa = false) {
 
     if (printa) {
         gROOT->ProcessLine("print_all();");
-    }}
-
-
-
-
-
-
-
-
-
-
-
+    }
+}

@@ -1,11 +1,10 @@
-// MU includes
+// Vertex includes
 #include "histos.h"
 
 // C++ includes
 #include <string>
 #include <iostream>
 using namespace std;
-
 
 void histos::fill(map<string, int> passed, particle e, particle p, V3 e_v_corr, V3 p_v_corr)
 {
@@ -78,8 +77,3 @@ void histos::set_vars(map<string, int> passed)
 	if(passed["VCUT"] == 0)
 		othneg["VCUT"] = 1;
 }
-
-
-
-
-

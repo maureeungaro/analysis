@@ -110,8 +110,7 @@ cpars::cpars(string filename)
 
     ifstream parfile(parameter_file.c_str(), ios::in);
 	cout << endl << " Opening parameter file " << parameter_file << endl;
-	if(!parfile)
-	{
+	if(!parfile) {
 		cout << " File " <<  parameter_file << " could not be opened. " << endl;
 		cout << " Specify parameters file with -PARS_FILE=filename. Exiting. " << endl;
 		exit(0);
@@ -169,13 +168,3 @@ void cpars::write_vars()
 	parfile << delta_z;
 	parfile << "          # Electron - Proton Z-Vertexes Cut" << endl << endl;
 }
-
-
-
-
-
-
-
-
-
-

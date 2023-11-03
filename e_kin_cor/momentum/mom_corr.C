@@ -1,34 +1,42 @@
-{
-	
-	gROOT->LoadMacro("src/common_info.cc");
-	gROOT->LoadMacro("ana/utils.C");
-	gROOT->LoadMacro("ana/show_vertex.C");
-	gROOT->LoadMacro("ana/show_2D_vertex.C");
-	
-	string PRINT   = "";
-	int SECTOR     = 1;
-		
-	chistos H("a.root", 1);
-	cpars   Pars("vertex_par.txt");
-	
-	bar = new TControlBar("vertical", "  Maurizio Ungaro");
-	bar->AddButton("Vertex Correction, Selection", "");
-	bar->AddButton("","");
-	bar->AddButton("Show z vertex",            "show_vertex()");
-	bar->AddButton("Show 2D vertex",           "show_2D_vertex()");
-	bar->AddButton("","");
-	bar->AddButton("Print all vertex plots",   "print_all()");
-	bar->AddButton("","");
-	bar->Show();
+#include "TControlBar.h"
+#include "TApplication.h"
+
+// common parameters, analysis classes
+#include"ana/parameters.h"
+
+
+void mom_corr(bool printa = false) {
+
+    string pars_file = data_pars_file;
+    string root_file = data_root_file;
+
+    // load common histos and parameters
+    // second parameters instructs to read the root file
+    H = new chistos(root_file, 1);
+    Pars = new cpars(pars_file);
+
+    // Vertex Corrections and Selection
+    EKinnCorrCS = new EKinnCorr_CS(H, Pars, PRINT);
+
+    // load utils.C
+    gROOT->ProcessLine(".L ana/utils.C");
+
+    TControlBar *bar = new TControlBar("vertical", data_label.c_str(), 1800, 30);
+    bar->AddButton("Vertex Correction, Selection", "");
+    bar->AddButton("","");
+    bar->AddButton("Show z vertex",            "VertexCS->show_vertex()");
+    bar->AddButton("Show 2D vertex",           "VertexCS->show_2D_vertex()");
+    bar->AddButton("","");
+    bar->AddButton("Switch PRINT",             "switch_print();");
+    bar->AddButton("","");
+    bar->AddButton("Print all vertex plots",   "print_all_message()");
+    bar->AddButton("Write Parameters",         "Pars->write_vars();");
+    bar->AddButton("","");
+    bar->Show();
+    gROOT->SaveContext();
+
+
+    if (printa) {
+        gROOT->ProcessLine("print_all();");
+    }
 }
-
-
-
-
-
-
-
-
-
-
-

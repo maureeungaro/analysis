@@ -6,6 +6,8 @@
 #include "CLAS_Event.h"
 #include "usage.h"
 #include "utilities.h"
+
+// mom_corr includes
 #include "common_info.h"
 #include "mom_corr.h"
 
@@ -23,7 +25,3 @@ class histos : public chistos
 };
 
 #endif
-
-
-
-

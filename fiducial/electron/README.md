@@ -65,7 +65,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
 mv page.html xvsy_mom.html
 ```
 
-#### X vs Y of Track Intersection with Planes - every momenta
+#### X vs Y of Track Intersection with Planes - all momenta
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \
@@ -76,7 +76,7 @@ rm -rf imageslist.txt ; ls img > imageslist.txt
 mv page.html xvsy_allmom.html
 ```
 
-#### X vs Y of Track Intersection with Planes - instegrated momenta
+#### X vs Y of Track Intersection with Planes - integrated momenta
 ``` 
 rm -rf imageslist.txt ; ls img > imageslist.txt
 ../../../htmlBrowserCreator/pageCreator \

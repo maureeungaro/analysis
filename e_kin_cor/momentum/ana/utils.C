@@ -1,20 +1,32 @@
-void change_sector()
+#include"parameters.h"
+
+void activate_PRINT()
 {
-	SECTOR ++;
-	if(SECTOR == 7) SECTOR = 1;
-	
-	cout << " Sector set to: " << SECTOR << endl;
+    EKinnCorrCS->set_print(DATA_PRINT);
+}
+
+
+void switch_print() {
+    if ( PRINT == "none") {
+        activate_PRINT();
+    } else {
+        PRINT = "none";
+    }
+
+    cout << " > PRINT set to  " << PRINT << endl;
 }
 
 
 
 void print_all()
 {
-	PRINT = "jpg";
-	
-	show_vertex();
-	show_2D_vertex();
-	
-	PRINT = "";
+    activate_PRINT();
+
+    EKinnCorrCS->show_vertex();
+
+    PRINT = "none";
 }
 
+void print_all_message() {
+    cout << " > To print all histos see README " << endl;
+}
