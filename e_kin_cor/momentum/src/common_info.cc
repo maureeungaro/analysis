@@ -24,8 +24,8 @@ chistos::chistos(string filename, int READ) {
         hlims[0][1] = 1.2;
         hlims[1][0] = -0.02;  // mm eP
         hlims[1][1] = 0.05;
-        hlims[2][0] = 0.8;    // mm epip
-        hlims[2][1] = 1.2;
+        hlims[2][0] = 0.75;    // mm epip
+        hlims[2][1] = 1.05;
         hlims[3][0] = 0.2;    // mm eP - eta
         hlims[3][1] = 0.5;
 

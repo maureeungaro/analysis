@@ -8,7 +8,7 @@ Single file example:
 
 ```
 ./e_mom_corr \
-/Volumes/e16vertex/30540.mu \
+/Volumes/e16/p_fidxy/30540.mu \
 -BEAM_E=5.7542 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
 -PARS_FILE=/opt/projects/analysis/e_kin_cor/momentum/emom_corr_pars.txt
 ```

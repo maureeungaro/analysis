@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
     ofstream ofile;
 
     int n_scaler_events = 0;
-    int n_physics_events = 0;
+    //int n_physics_events = 0;
 
     // if an output name is given, write out the mu filtered file
     if (Opts.args["OUTPUT"].args != "none") {
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
 
             // Physics Event
             if (Ev.start_time > 0) {
-                n_physics_events++;
+               // n_physics_events++;
 
                 if (get_particles(Ev, "electron").size() < 1)
                     continue;
