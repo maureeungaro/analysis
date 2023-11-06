@@ -24,10 +24,14 @@ void mom_corr(bool printa = false) {
     TControlBar *bar = new TControlBar("vertical", data_label.c_str(), 1800, 30);
     bar->AddButton("Momentum Correction, Selection", "");
     bar->AddButton("","");
-    bar->AddButton("Show W before / after",            "EKinnCorrCS->show_1D_each_sector(SECTOR, 0)");
-    bar->AddButton("Show mmePpi0 before / after",      "EKinnCorrCS->show_1D_each_sector(SECTOR, 1)");
-    bar->AddButton("Show mmepip before / after",       "EKinnCorrCS->show_1D_each_sector(SECTOR, 2)");
-    bar->AddButton("Show mmePeta before / after",      "EKinnCorrCS->show_1D_each_sector(SECTOR, 3)");
+    bar->AddButton("Show W before / after",                          "EKinnCorrCS->show_1D_each_sector(SECTOR, 0)");
+    bar->AddButton("Show W before / after (all sectors)",            "EKinnCorrCS->show_1D_each_sector(7, 0)");
+    bar->AddButton("Show mmePpi0 before / after",                    "EKinnCorrCS->show_1D_each_sector(SECTOR, 1)");
+    bar->AddButton("Show mmePpi0 before / after  (all sectors)",     "EKinnCorrCS->show_1D_each_sector(7, 1)");
+    bar->AddButton("Show mmepip before / after",                     "EKinnCorrCS->show_1D_each_sector(SECTOR, 2)");
+    bar->AddButton("Show mmepip before / after (all sectors)",       "EKinnCorrCS->show_1D_each_sector(7, 2)");
+    bar->AddButton("Show mmePeta before / after",                    "EKinnCorrCS->show_1D_each_sector(SECTOR, 3)");
+    bar->AddButton("Show mmePeta before / after (all sectors)",      "EKinnCorrCS->show_1D_each_sector(7, 3)");
     bar->AddButton("","");
     bar->AddButton("Switch PRINT",                     "switch_print();");
     bar->AddButton("Change Sector",                    "change_sector();");

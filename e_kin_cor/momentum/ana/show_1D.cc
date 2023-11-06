@@ -44,7 +44,7 @@ void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
     double width = mm_width[what];
 
     double shift = 0;
-    if (what == 0) shift = w_shifts[s];
+    if (what == 0 ) shift = w_shifts[s];
 
     TF1 *f1 = new TF1("f1", "gaus", mean - width, mean + width);
     TF1 *f2 = new TF1("f2", "gaus", mean + shift - width, mean + shift + width);
@@ -61,13 +61,17 @@ void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
 
     P_Corr->cd();
     lab.SetTextSize(0.035);
-    lab.DrawLatex(0.64, 0.9,  Form("Sector %d", s+1) );
+    if(s<6) {
+        lab.DrawLatex(0.64, 0.92, Form("Sector %d", s + 1));
+    } else {
+        lab.DrawLatex(0.64, 0.92, "All sectors");
+    }
     lab.SetTextColor(kRed);
-    lab.DrawLatex(0.54, 0.70, Form("Before: #mu=%4.3f",    f2->GetParameter(1) ));
-    lab.DrawLatex(0.54, 0.65, Form("        #sigma=%4.3f", f2->GetParameter(2) ));
+    lab.DrawLatex(0.6, 0.85, Form("Before: #mu=%4.3f",    f2->GetParameter(1) ));
+    lab.DrawLatex(0.6, 0.80, Form("        #sigma=%4.3f", f2->GetParameter(2) ));
     lab.SetTextColor(kBlue);
-    lab.DrawLatex(0.54, 0.55, Form("After: #mu=%4.3f",    f1->GetParameter(1) ));
-    lab.DrawLatex(0.54, 0.50, Form("       #sigma=%4.3f", f1->GetParameter(2) ));
+    lab.DrawLatex(0.6, 0.70, Form("After: #mu=%4.3f",    f1->GetParameter(1) ));
+    lab.DrawLatex(0.6, 0.65, Form("       #sigma=%4.3f", f1->GetParameter(2) ));
 
 
     if (PRINT != "none") {

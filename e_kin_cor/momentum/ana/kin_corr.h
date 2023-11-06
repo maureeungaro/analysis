@@ -40,7 +40,7 @@ private:
     const double mm_line[4]  = { 0.938, 0.018219, 0.88, 0.299 };
     const double mm_width[4] = { 0.04, 0.008,     0.05, 0.025 };
 
-    const double w_shifts[7]   = { 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    const double w_shifts[7]   = { 0.03, 0.0, 0.0, 0.03, 0.03, 0.02, 0.03 };
     const double pi0_shifts[7] = { 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     const double n_shifts[7]   = { 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     const double eta_shifts[7] = { 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
