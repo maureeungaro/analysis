@@ -1,20 +1,16 @@
-# Vertex Correction and Selection
+# Momentum Correction 
 
 
-## Cuts
 
-- delta time vs momentum
-
-
-## Re-run vertex_corr_sel to apply cuts and create histograms:
+## Re-run e_mom_corr to apply cut and create histograms:
 
 Single file example:
 
 ```
-./vertex_corr_sel \
-/Volumes/e16/e_pid/30540.mu \
--BEAM_E=5.754 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
--PARS_FILE=/opt/projects/analysis/vertex/vertex_par.txt
+./e_mom_corr \
+/Volumes/e16vertex/30540.mu \
+-BEAM_E=5.7542 -TARGET=proton  -OUTPUT=30540.mu -ROOT_OUTPUT=30540.root \
+-PARS_FILE=/opt/projects/analysis/e_kin_cor/momentum/emom_corr_pars.txt
 ```
 
 
@@ -22,11 +18,11 @@ Single file example:
 
 ### Interactive:
 
-`root vertex.C`
+`root mom_corr.C`
 
 ### Batch and print all plots:
 
-`root -b -q vertex.C\(1\)`
+`root -b -q mom_corr.C\(1\)`
 
 
 

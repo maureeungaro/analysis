@@ -22,15 +22,13 @@ void mom_corr(bool printa = false) {
     gROOT->ProcessLine(".L ana/utils.C");
 
     TControlBar *bar = new TControlBar("vertical", data_label.c_str(), 1800, 30);
-    bar->AddButton("Vertex Correction, Selection", "");
+    bar->AddButton("Momentum Correction, Selection", "");
     bar->AddButton("","");
     bar->AddButton("Show z vertex",            "VertexCS->show_vertex()");
-    bar->AddButton("Show 2D vertex",           "VertexCS->show_2D_vertex()");
     bar->AddButton("","");
-    bar->AddButton("Switch PRINT",             "switch_print();");
+    bar->AddButton("Switch PRINT",                     "switch_print();");
     bar->AddButton("","");
-    bar->AddButton("Print all vertex plots",   "print_all_message()");
-    bar->AddButton("Write Parameters",         "Pars->write_vars();");
+    bar->AddButton("Print all mom correction plots",   "print_all_message()");
     bar->AddButton("","");
     bar->Show();
     gROOT->SaveContext();

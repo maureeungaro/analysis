@@ -13,6 +13,8 @@ using namespace std;
 #include "fiducial_cut.h"
 
 
+// Usage
+// ./e_mom_corr -PARS_FILE=emom_corr_pars.txt -ROOT_OUTPUT=corr.root /enkil/e1-6/p_pid/3116*.mu -BEAM_E=5.7542 -TARGET=proton -VERBOSITY=0
 int main(int argc, char **argv) {
     CLAS_Event_opts Opts;
     Opts.Set(argc, argv);

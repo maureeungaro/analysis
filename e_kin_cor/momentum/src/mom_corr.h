@@ -9,15 +9,16 @@
 
 // C++ includes
 #include <string>
+
 using namespace std;
 
-class mom_corr : public cpars
-{
-	public:
-		mom_corr(string filename) : cpars(filename){}
-		~mom_corr(){;}
+class mom_corr : public cpars {
+public:
+    mom_corr(string filename) : cpars(filename) {}
 
-		V4 m_corr(V4 x);
+    ~mom_corr() { ; }
+
+    V4 m_corr(V4 x);
 
 };
 
