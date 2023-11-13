@@ -94,7 +94,13 @@ void EKinnCorr_CS::show_2D_each_sector(int sector, int what, int phi_theta) {
 
 
     if (PRINT != "none") {
-        C_Corr->Print(Form("img/dist-%s%s_sector-%d%s", mm_names[what].c_str(), d2_names.c_str(),  s + 1, PRINT.c_str()));
+        if (s == 6) {
+            C_Corr->Print(Form("img/dist-%s%s_sector-all%s", mm_names[what].c_str(), d2_names.c_str(), PRINT.c_str()));
+        }
+        else {
+            C_Corr->Print(Form("img/dist-%s%s_sector-%d%s", mm_names[what].c_str(), d2_names.c_str(),  s + 1, PRINT.c_str()));
+        }
+
     }
 
 }
