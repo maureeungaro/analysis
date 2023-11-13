@@ -21,7 +21,7 @@ void show_1d_each_sector(int what)
 {
     activate_PRINT();
 
-    for (int s = 0; s < 6; s++) {
+    for (int s = 0; s < 7; s++) {
         SECTOR = s + 1;
         EKinnCorrCS->show_1D_each_sector(SECTOR, what);
     }
@@ -34,9 +34,10 @@ void print_all()
 {
     activate_PRINT();
 
-    for (int w=0; w<4; w++) {
-        show_1d_each_sector(w);
-    }
+    show_1d_each_sector(0);
+    show_1d_each_sector(1);
+    show_1d_each_sector(3);
+
 
     PRINT = "none";
 }

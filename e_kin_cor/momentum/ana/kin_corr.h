@@ -40,12 +40,14 @@ private:
     const double mm_line[4]  = { 0.938, 0.018219, 0.88, 0.299 };
     const double mm_width[4] = { 0.04, 0.008,     0.05, 0.025 };
 
-    const double w_shifts[7]   = { 0.03, 0.0, 0.0, 0.03, 0.03, 0.02, 0.03 };
-    const double pi0_shifts[7] = { 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    const double w_shifts[7]   = { 0.03, 0.0, 0.0, 0.03, 0.03, 0.02, 0.02 };
+    const double pi0_shifts[7] = { 0.006, 0.0, 0.0, 0.008, 0.007, 0.004, 0.004 };
     const double n_shifts[7]   = { 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-    const double eta_shifts[7] = { 0.03, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    const double eta_shifts[7] = { 0.015, 0.0, 0.0, 0.015, 0.016, 0.009, 0.009 };
 
-    const string mm_name[4] = { "W (elastic)", "pi0 in #Delta", "pi+ mm", "eta mmx" };
+    const string mm_name[4] = { "W (elastic)", "pi0 in #Delta", "pi+ mm", "eta" };
+    const string mm_names[4] = { "W", "pi0", "pipmm", "eta" };
+    const string mm_label[4] = { "    W       [GeV]", "eP mm       [GeV^{2}]", "pipmm", "eP mm       [GeV^{2}]" };
 
 };
 

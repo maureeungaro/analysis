@@ -12,10 +12,10 @@
 void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
     int s = sector - 1;
 
-    gStyle->SetPadLeftMargin(0.1);
+    gStyle->SetPadLeftMargin(0.14);
     gStyle->SetPadRightMargin(0.08);
     gStyle->SetPadTopMargin(0.02);
-    gStyle->SetPadBottomMargin(0.12);
+    gStyle->SetPadBottomMargin(0.1);
 
     TLatex lab;
     lab.SetTextFont(32);
@@ -34,6 +34,9 @@ void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
     H->hH[s][0][what]->SetLineColor(kRed + 4);
     H->hH[s][1][what]->SetLineColor(kBlue);
 
+    H->hH[s][1][what]->GetXaxis()->SetTitle(mm_label[what].c_str());
+    H->hH[s][1][what]->GetXaxis()->SetTitleOffset(1.14);
+
     H->hH[s][1][what]->Draw();
     H->hH[s][0][what]->Draw("same");
     mm_value->Draw("same");
@@ -45,6 +48,9 @@ void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
 
     double shift = 0;
     if (what == 0 ) shift = w_shifts[s];
+    if (what == 1 ) shift = pi0_shifts[s];
+    if (what == 2 ) shift = n_shifts[s];
+    if (what == 3 ) shift = eta_shifts[s];
 
     TF1 *f1 = new TF1("f1", "gaus", mean - width, mean + width);
     TF1 *f2 = new TF1("f2", "gaus", mean + shift - width, mean + shift + width);
@@ -57,10 +63,12 @@ void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
     lab.SetTextFont(102);
     lab.SetTextSize(0.043);
     lab.SetTextColor(kBlack);
-    lab.DrawLatex(0.14, 0.94, Form("Momentum Correction %s", mm_name[what].c_str()));
+    lab.DrawLatex(0.14, 0.94, Form("Momentum Correction: %s", mm_name[what].c_str()));
+
 
     P_Corr->cd();
-    lab.SetTextSize(0.035);
+    lab.SetTextSize(0.04);
+
     if(s<6) {
         lab.DrawLatex(0.64, 0.92, Form("Sector %d", s + 1));
     } else {
@@ -75,7 +83,7 @@ void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
 
 
     if (PRINT != "none") {
-        C_Corr->Print(Form("img/dist-%s_sector-%d%s", mm_name[what].c_str(), s + 1, PRINT.c_str()));
+        C_Corr->Print(Form("img/dist-%s_sector-%d%s", mm_names[what].c_str(), s + 1, PRINT.c_str()));
     }
 
 }

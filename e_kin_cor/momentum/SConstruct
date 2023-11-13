@@ -18,6 +18,7 @@ e_corr = env.Program(source = mom_corr_sources, target = 'e_mom_corr')
 e_corr_lib = env.SharedLibrary(source = mom_corr_sources, target = 'e_mom_corr')
 
 ana_e_corr_sources=Split("""src/common_info.cc
-                            ana/show_1d.cc""")
+                            ana/show_1d.cc
+                            ana/show_2d.cc""")
 
 ana_e_corr_lib = env.SharedLibrary(source = ana_e_corr_sources, target = 'ana_e_mom_corr')
