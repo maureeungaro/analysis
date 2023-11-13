@@ -83,7 +83,12 @@ void EKinnCorr_CS::show_1D_each_sector(int sector, int what) {
 
 
     if (PRINT != "none") {
-        C_Corr->Print(Form("img/dist-%s_sector-%d%s", mm_names[what].c_str(), s + 1, PRINT.c_str()));
+        if (s == 6) {
+            C_Corr->Print(Form("img/dist-%s_sector-all%s", mm_names[what].c_str(), PRINT.c_str()));
+        }
+        else {
+            C_Corr->Print(Form("img/dist-%s_sector-%d%s", mm_names[what].c_str(), s + 1, PRINT.c_str()));
+        }
     }
 
 }
