@@ -9,7 +9,7 @@
 
 void FiducialCut::show_phi_theta(int sector, int mom)
 {
-	int s = sector - 1;`
+	int s = sector - 1;
 	int m = mom - 1;
     int PLANE;
 

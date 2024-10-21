@@ -12,6 +12,7 @@
     mystyle->SetOptStat(0);
     mystyle->SetOptFit(0);
     mystyle->SetCanvasColor(kWhite);
+    mystyle->SetCanvasLineColor(kWhite);
     mystyle->SetFillStyle(0);
     mystyle->SetNumberContours(80);
     mystyle->SetErrorX(0);
@@ -36,5 +37,3 @@
 //    gROOT->ProcessLine(".L libana_epid.dylib");
 
 }
-
-

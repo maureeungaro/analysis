@@ -12,7 +12,7 @@ void init_dc_histos(string filename, int cindex)
 
 		
 		double TWINDOWR[3] = {250.0e-9, 250.0e-9, 500.0e-9};
-		
+
 		twindscale = new TH2F("twindscale", "twindscale", 112, 0.5, 112.5, 36, 0.5, 36.5);
 		for(int l=0; l<36; l++)
 			for(int w=0; w<112; w++)
@@ -23,7 +23,7 @@ void init_dc_histos(string filename, int cindex)
 				// twindscale->SetBinContent(w+1, l+1, 1);
 			}
 		twindscale->SetDirectory(0);
-		
+
 		cout << " Initializing DC histos for configuration " << sconf[cindex] << " with " << NHITS << " entries in " << TOT_TIME << " total time...";
 		for(int e=0; e<NENERGY; e++)
 		{
@@ -33,12 +33,12 @@ void init_dc_histos(string filename, int cindex)
 				dc_pro[s][e][cindex] = new TH2F(Form("dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str()),
 														  Form("dc_pro_s%d_E%s_%s", s+1, SEDEP[e].c_str(), sconf[cindex].c_str()),
 														  112, 0.5, 112.5, 36, 0.5, 36.5);
-				
+
 				dc_occ[s][e][cindex] = (TH2F*) dc_pro[s][e][cindex]->Clone();
-				
-				
+
+
 			}
-			
+
 			for(int r=0; r<NREG; r++)
 			{
 				// 2D vertex histos
@@ -65,22 +65,22 @@ void init_dc_histos(string filename, int cindex)
 					     							   			Form("dc_zver_E%s_%s_r%d_%s", SEDEP[e].c_str(), sconf[cindex].c_str(), r+1, SPART[p].c_str()),
 															   	 200, -200, hzend);
 			}
-			
+
 			// 1D summary occupancy histo for the 3 regions
 			for(int r=0; r<NREG; r++)
 				dc_occ_summary[r][e][cindex] = new TH1F(Form("dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str()),
                                                     Form("dc_occ_summary_r%d_E%s_%s", r+1, SEDEP[e].c_str(), sconf[cindex].c_str()),
 														          6, 0.5, 6.5);
-			
-			
+
+
 			// process ID histos
 			dc_procID[cindex] = new TH1F(Form("dc_procID_%s", sconf[cindex].c_str()),
                                       Form("dc_procID_%s", sconf[cindex].c_str()), 20, 0.5, 20.5);
-			
+
 			// process ID vs Layer
 			dc_procIDvsLayer[cindex] = new TH2F(Form("dc_procIDvsLayer_%s", sconf[cindex].c_str()),
                                              Form("dc_procIDvsLayer_%s", sconf[cindex].c_str()), 6, 0.5, 6.5, 20, 0.5, 20.5);
-			
+
 			// process ID vs Z
 			for(int r=0; r<NREG; r++)
 				dc_procIDvsZ[r][cindex] = new TH2F(Form("dc_procIDvsZ_r%d_%s", r+1, sconf[cindex].c_str()),
@@ -89,11 +89,11 @@ void init_dc_histos(string filename, int cindex)
 			// process ID vs pid
 			dc_procIDvspid[cindex] = new TH2F(Form("dc_procIDvspid_%s", sconf[cindex].c_str()),
                                            Form("dc_procIDvspid_%s", sconf[cindex].c_str()), 100, -250, 250, 20, 0.5, 20.5);
-			
+
 			// process ID vs Edep
 			dc_procIDvsEdep[cindex] = new TH2F(Form("dc_procIDvsEdep_%s", sconf[cindex].c_str()),
                                             Form("dc_procIDvsEdep_%s", sconf[cindex].c_str()), 100, 0, 0.01, 20, 0.5, 20.5);
-			
+
 			// process ID vs track energy
 			// different track energy ranges
 			dc_procIDvsTrackE[0][cindex] = new TH2F(Form("dc_procIDvsTrackE1_%s", sconf[cindex].c_str()),
@@ -103,11 +103,11 @@ void init_dc_histos(string filename, int cindex)
 			dc_procIDvsTrackE[2][cindex] = new TH2F(Form("dc_procIDvsTrackE3_%s", sconf[cindex].c_str()),
                                                  Form("dc_procIDvsTrackE3_%s", sconf[cindex].c_str()), 100, 0, 1,    20, 0.5, 20.5);
 
-			
+
 		}
 		cout << " done. " << endl;
-		
-		
+
+
 		for(int e=0; e<NENERGY; e++)
 		{
 			cout << " Now making the histos for the energy: " << SEDEP[e] << endl;
@@ -367,12 +367,3 @@ void init_dc_histos(string filename, int cindex)
 
 
 }
-
-
-
-
-
-
-
-
-

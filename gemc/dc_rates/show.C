@@ -153,94 +153,6 @@ void show_dc_int_occ()
 }
 
 
-void show_zvertex()
-{
-	
-	gStyle->SetPadLeftMargin(0.12);
-	gStyle->SetPadRightMargin(0.14);
-	gStyle->SetPadTopMargin(0.16);
-	gStyle->SetPadBottomMargin(0.12);
-	
-	TLatex lab;
-	lab.SetTextColor(kBlue+3);
-	lab.SetTextFont(32);
-	lab.SetNDC(1);
-	
-	TCanvas *rates1  = new TCanvas("rates1", "Z vertex", 1000, 1000);
-//	gPad->SetLogy();
-
-	
-	dc_zver[ENERGY][CONF][REG][0]->SetLineColor(kBlack);
-	dc_zver[ENERGY][CONF][REG][1]->SetLineColor(kRed);
-	dc_zver[ENERGY][CONF][REG][2]->SetLineColor(kBlue);
-	dc_zver[ENERGY][CONF][REG][3]->SetLineColor(kGreen+2);
-	dc_zver[ENERGY][CONF][REG][4]->SetLineColor(kOrange);
-	dc_zver[ENERGY][CONF][REG][5]->SetLineColor(kYellow-3);
-
-	dc_zver[ENERGY][CONF][REG][0]->SetMaximum(1);
-	dc_zver[ENERGY][CONF][REG][0]->SetMinimum(0.005);
-
-
-	dc_zver[ENERGY][CONF][REG][0]->Draw("");
-	dc_zver[ENERGY][CONF][REG][1]->Draw("same");
-	dc_zver[ENERGY][CONF][REG][2]->Draw("same");
-	dc_zver[ENERGY][CONF][REG][3]->Draw("same");
-	dc_zver[ENERGY][CONF][REG][4]->Draw("same");
-	dc_zver[ENERGY][CONF][REG][5]->Draw("same");
-	
-	
-	lab.SetNDC(1);
-	lab.SetTextColor(kBlack);
-	lab.DrawLatex(0.7, 0.80,   "all" );
-	lab.SetTextColor(kRed);
-	lab.DrawLatex(0.7, 0.73,   "electrons" );
-	lab.SetTextColor(kBlue);
-	lab.DrawLatex(0.7, 0.66,   "gammas" );
-	lab.SetTextColor(kGreen+2);
-	lab.DrawLatex(0.7, 0.59,   "pions" );
-	lab.SetTextColor(kOrange);
-	lab.DrawLatex(0.7, 0.52,   "protons" );
-	lab.SetTextColor(kYellow-3);
-	lab.DrawLatex(0.7, 0.45,   "other" );
-
-	
-	lab.SetTextSize(0.045);
-	lab.SetTextColor(kBlue+3);
-	lab.SetTextFont(42);
-	lab.DrawLatex(0.11, 0.915, Form("Z vertex of tracks in Region %d for %s", REG+1, sconf[CONF].c_str() ) );
-	
-	lab.DrawLatex(0.8, 0.03,   "Z [mm]" );
-
-	// labeling positions
-	lab.SetTextSize(0.024);
-	lab.SetTextColor(kRed+3);
-
-	
-	lab.SetNDC(0);
-	lab.DrawLatex(0.00, 0.0,   "Target" );
-	lab.DrawLatex(2270, 0.0,   "Mount" );
-	lab.DrawLatex(2750, 0.0,   "Torus" );
-	lab.DrawLatex(5140, 0.0,   "Torus End" );
-
-	
-	// hacking arrows
-	Double_t x[5]  = {  0, 2270, 2750, 4912.2, 5356};
-	Double_t y[5]  = {  0,    0,    0,    0,    0};
-	Double_t ex[5] = {0.5,  0.5,  0.5,  0.5,  0.5};
-	TGraphErrors * ulGraph = new TGraphErrors(5, x, y, ex, 0);
-	ulGraph->SetMarkerStyle(22);
-	ulGraph->SetMarkerColor(kRed+3);
-	ulGraph->SetMarkerSize(2);
-	ulGraph->Draw("Psame");
-	
-	if(PRINT != "")
-	for(int z=0; z<NZONES; z++){
-		rates1->Print(Form("img/conf-%s_zone-%s_plot-zvertex_region-%d.%s", sconf[CONF].c_str(), SZONE[z].c_str(),  REG+1, PRINT.c_str() ) );
-	}
-
-
-
-}
 
 
 void show_vertex()
@@ -657,9 +569,3 @@ void show_procvsZ()
       rates1->Print(Form("img/procIDvsZ_r%d_%s.%s", REG+1, sconf[CONF].c_str(), PRINT.c_str() ) );
    
 }
-
-
-
-
-
-
