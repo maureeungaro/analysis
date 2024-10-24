@@ -12,7 +12,7 @@ fi
 
 mdir=/opt/projects/mauriplots/vertex
 
-export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
+module load gemc/dev
 
 scons -c
 gia

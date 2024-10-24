@@ -111,8 +111,8 @@ void print_planes() {
 void print_all() {
     cout << " > Printing all histograms " << endl;
 
-//    print_phi_theta();
-//    print_phis();
+    print_phi_theta();
+    print_phis();
     print_planes();
 
     PRINT = "none";

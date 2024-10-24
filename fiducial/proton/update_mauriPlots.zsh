@@ -13,7 +13,7 @@ fi
 
 mdir=/opt/projects/mauriplots/pfid
 
-export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
+module load gemc/dev
 
 scons -c
 gia

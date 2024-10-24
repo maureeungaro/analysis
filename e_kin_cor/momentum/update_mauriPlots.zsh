@@ -20,7 +20,7 @@ if [[ ! -d $mdir/.git ]]; then
   exit 2
 fi
 
-export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
+module load gemc/dev
 
 scons -c
 gia
